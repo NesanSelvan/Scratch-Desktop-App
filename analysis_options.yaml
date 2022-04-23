@@ -1,0 +1,12 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  exclude:
+    # workaround for https://github.com/dart-lang/sdk/issues/42910
+    - 'example/**'
+
+linter:
+  rules:
+    constant_identifier_names: false
+    sized_box_for_whitespace: false
+    unnecessary_null_comparison: false

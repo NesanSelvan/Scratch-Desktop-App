@@ -1,0 +1,12 @@
+native_pdf_renderer/windows/DownloadProject.cmake:179 (message):
+  Build step for pdfium failed: 1
+Call Stack (most recent call first):
+  flutter/ephemeral/.plugin_symlinks/native_pdf_renderer/windows/CMakeLists.txt:16 (download_project)
+  This issue is fixed by
+  
+change the download path from
+: https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-windows-${ARCH}.zip
+to https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F4475/pdfium-windows-x64.zip
+inside the file [windows\flutter\ephemeral.plugin_symlinks\printing\windows\CMakeLists.txt] line 27
+
+then run > flutter clean > flutter run
