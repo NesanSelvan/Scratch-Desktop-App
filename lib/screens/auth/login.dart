@@ -2,7 +2,6 @@ import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

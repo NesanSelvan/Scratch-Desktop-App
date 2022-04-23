@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:custom/ftn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -56,6 +57,13 @@ class SalesHistoryNotifier extends GetxController {
     }
     setSelectedBillModel = _billsList![index];
     debugPrint("Selected Bill NO: ${selectedBillModel!.billNo}");
+  }
+
+  Future<void> fixBillNo() async {
+    await salesDB.fixBillNo();
+    CustomUtilies.customSuccessSnackBar("Update Success", "");
+    performInit();
+    update();
   }
 
   void updateUpSelectedBillModel() {

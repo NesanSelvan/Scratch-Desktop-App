@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:annai_store/core/db/db.dart';
+
 import '../file/file.dart';
 import '../folder/folder.dart';
 
@@ -18,7 +20,7 @@ class SalesEnd {
       final oldDBJson = jsonDecode(oldDBString) as Map<String, dynamic>;
       if (oldDBJson.containsKey("is_modified")) {
         if (oldDBJson["is_modified"] == false) {
-          _createNewDBFile(todaysDate);
+          createNewDBFile(todaysDate);
         } else {
           if (todaysDate.day == 2) {
             final g = File("$_dbFolderPath/$_dbName");
@@ -30,7 +32,7 @@ class SalesEnd {
           }
         }
       } else {
-        _createNewDBFile(todaysDate);
+        createNewDBFile(todaysDate);
       }
     }
   }
@@ -41,14 +43,15 @@ class SalesEnd {
 
   static File _backupOldDBFile(DateTime dateTime) {
     final newFolderPath =
-        "$_dbFolderPath/db-${dateTime.year - 1}-${dateTime.year}/";
+        "$_dbFolderPath/db-${dateTime.year - 1}-${dateTime.year}-${dateTime.hour}_${dateTime.minute}/";
     FolderUtility.createDirIfNotExists(newFolderPath);
     File("$_dbFolderPath/$_dbName").copySync("$newFolderPath/$_dbName");
     log("New Copy Created at $newFolderPath/$_dbName");
     return File("$newFolderPath/$_dbName");
   }
 
-  static Future<void> _createNewDBFile(DateTime time) async {
+  static Future<void> createNewDBFile(DateTime time) async {
+    Database().dispose();
     final newFile = _backupOldDBFile(time);
     await _deleteOldDB();
     final dbString = await newFile.readAsString();

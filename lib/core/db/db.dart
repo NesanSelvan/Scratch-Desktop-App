@@ -38,6 +38,10 @@ class Database {
     storage = _storage;
   }
 
+  void dispose() {
+    storage.dispose();
+  }
+
   CategoryDB get categoryDB => CategoryDB();
 
   CustomerDB get customerDB => CustomerDB();

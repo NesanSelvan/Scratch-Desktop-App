@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/utils/backup/backup.dart';
 import 'package:custom/ftn.dart';
 import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
@@ -54,9 +55,16 @@ class GenerateExcelSheetData {
     cell.cellStyle = CellStyle(bold: true);
   }
 
-  static Future<String> getExcelFilePath() async {
+  static Future<String> getExcelFilePath(String fileName) async {
     final path = await getApplicationDocumentsDirectory();
-    return "${path.path}/excel.xlsx";
+    Directory("${path.path}\\${Application.appName}").createDirIfNotExists();
+    final folderPath =
+        Directory("${path.path}\\${Application.appName}\\$fileName\\");
+
+    await folderPath.createDirIfNotExists();
+
+    final date = getTodaysDate();
+    return "${folderPath.path}/${fileName}_${date.day}-${date.month}_${date.hour}-${date.minute}.xlsx";
   }
 
   Future<void> generateStockStatement() async {
@@ -184,7 +192,7 @@ class GenerateExcelSheetData {
 
     final datas = excel.encode();
     if (datas != null) {
-      final path = await getExcelFilePath();
+      final path = await getExcelFilePath("stock");
       await saveToExcelFile(path, datas);
     }
   }
@@ -316,7 +324,7 @@ class GenerateExcelSheetData {
 
     final datas = excel.encode();
     if (datas != null) {
-      final path = await getExcelFilePath();
+      final path = await getExcelFilePath("receipt");
       await saveToExcelFile(path, datas);
       // File(path)
       //   ..createSync(recursive: true)
@@ -454,7 +462,7 @@ class GenerateExcelSheetData {
 
     final datas = excel.encode();
     if (datas != null) {
-      final path = await getExcelFilePath();
+      final path = await getExcelFilePath("payment");
       await saveToExcelFile(path, datas);
       // File(path)
       //   ..createSync(recursive: true)
@@ -618,7 +626,7 @@ class GenerateExcelSheetData {
 
     final datas = excel.encode();
     if (datas != null) {
-      final path = await getExcelFilePath();
+      final path = await getExcelFilePath("sales");
       await saveToExcelFile(path, datas);
     }
   }
@@ -773,7 +781,7 @@ class GenerateExcelSheetData {
 
     final datas = excel.encode();
     if (datas != null) {
-      final path = await getExcelFilePath();
+      final path = await getExcelFilePath("purchase");
       await saveToExcelFile(path, datas);
       // File(path)
       //   ..createSync(recursive: true)
@@ -937,7 +945,7 @@ class GenerateExcelSheetData {
 
     final datas = excel.encode();
     if (datas != null) {
-      final path = await getExcelFilePath();
+      final path = await getExcelFilePath("sales");
       await saveToExcelFile(path, datas);
       // File(path)
       //   ..createSync(recursive: true)

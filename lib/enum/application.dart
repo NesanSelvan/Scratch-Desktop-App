@@ -6,14 +6,14 @@ enum ApplicationEnum { AnnaiStore, AnnaiTraders, Scratch }
 
 // ignore: avoid_classes_with_only_static_members
 class Application {
-  static ApplicationEnum currentApplication = ApplicationEnum.AnnaiStore;
+  static ApplicationEnum currentApplication = ApplicationEnum.AnnaiTraders;
 
   static double version() {
     if (currentApplication == ApplicationEnum.AnnaiStore) {
-      return 16.6;
+      return 16.7;
     }
     if (currentApplication == ApplicationEnum.AnnaiTraders) {
-      return 6.6;
+      return 6.7;
     }
     return 1;
   }

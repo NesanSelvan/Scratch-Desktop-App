@@ -1,3 +1,4 @@
+import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:flutter/material.dart';
 import 'package:validators/validators.dart';
@@ -135,5 +136,15 @@ class SalesDB {
       }
     }
     return bills;
+  }
+
+  Future<void> fixBillNo() async {
+    final allBill = getAllBill();
+    final List<BillModel> _updatedBill = [];
+    for (final bill in allBill) {
+      final billNo = bill.billNo.split("/").first.trim();
+      _updatedBill.add(bill.copyWith(billNo: "$billNo / ${getYear()}"));
+    }
+    await updateBillToDB(_updatedBill);
   }
 }

@@ -67,7 +67,7 @@ String getYear() {
   );
   final todaysDate = DateTime.now();
   log("Year and Month Day From Bill: ${todaysDate.month} ${todaysDate.day}");
-  if (todaysDate.month >= 4 && todaysDate.day == 1) {
+  if (todaysDate.month >= 4) {
     return "${getTodaysDate().subtract(const Duration(days: 365)).year + 1} - ${getTodaysDate().year + 1}";
   }
   return "${getTodaysDate().subtract(const Duration(days: 365)).year} - ${getTodaysDate().year}";

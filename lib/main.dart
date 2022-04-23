@@ -8,14 +8,12 @@ import 'package:flutter/material.dart';
 
 import 'main_common.dart';
 import 'utils/file/file.dart';
-import 'utils/sales_end/sales_end.dart';
 
 Future<void> main() async {
   createServer();
   // print('Server started: ${server.address} port ${server.port}');
   // handleRequests(server);
 
-  await SalesEnd.init();
   mainCommon();
 }
 

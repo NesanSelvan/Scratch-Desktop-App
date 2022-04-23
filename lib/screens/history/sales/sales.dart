@@ -186,6 +186,12 @@ class _SalesHistoryState extends State<SalesHistory> {
                             ),
                           ),
                         ),
+                        CustomTextButton(
+                          "Fix Bill No",
+                          onPressed: () {
+                            controller.fixBillNo();
+                          },
+                        ),
                       ],
                     ),
                     Row(

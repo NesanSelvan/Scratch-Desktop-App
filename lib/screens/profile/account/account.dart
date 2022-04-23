@@ -1,11 +1,12 @@
+import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/utils/sales_end/sales_end.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../../controller/auth/login.dart';
 import '../../../controller/personal_company/personal_company.dart';
 import '../../../enum/application.dart';
 import '../../../utils/utility.dart';
@@ -39,12 +40,31 @@ class _AccountScreenState extends State<AccountScreen> {
                           CustomText(
                             "Current Version : ${Application.version()}",
                           ),
-                          CustomTextButton(
-                            "Check for Updates",
-                            onPressed: () async {
-                              await Utility()
-                                  .showUpdateDialog(context, controller);
-                            },
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              CustomTextButton(
+                                "Check for Updates",
+                                onPressed: () async {
+                                  await Utility()
+                                      .showUpdateDialog(context, controller);
+                                },
+                              ),
+                              CustomTextButton(
+                                "Create New Data",
+                                onPressed: () async {
+                                  SalesEnd.createNewDBFile(DateTime.now());
+                                },
+                                backgoundColor: Colors.red,
+                                textColor: Colors.white,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           const MyPersonalCompanyDetails()
                         ],
@@ -70,7 +90,7 @@ class MyPersonalCompanyDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: CustomScreenUtility(context).width / 2,
+      width: CustomScreenUtility(context).width * 0.4,
       child: GetBuilder<PersonalCompany>(
         init: PersonalCompany(),
         builder: (controller) {
