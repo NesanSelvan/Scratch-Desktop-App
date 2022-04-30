@@ -16,3 +16,5 @@ String statementEnumToStr(StatementEnum statementEnum) {
       return "";
   }
 }
+
+enum StatementType { PDF, Excel }

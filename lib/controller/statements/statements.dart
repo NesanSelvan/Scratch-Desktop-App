@@ -14,6 +14,7 @@ class StatementController extends GetxController {
   DateTime _endDate = DateTimeUtility.getBillEndDate();
   bool isAllCustomer = true;
   bool isAllCompany = true;
+  StatementType statementType = StatementType.Excel;
 
   DateTime get startDate => _startDate;
   DateTime get endDate => _endDate;

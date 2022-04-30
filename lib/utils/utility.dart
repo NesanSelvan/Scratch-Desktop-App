@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
@@ -164,6 +165,30 @@ class Utility {
                                 )
                             ],
                           ),
+                          if (!controller.isAllCustomer)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text("Select Statement Type"),
+                                DropdownButton<StatementType>(
+                                  value: controller.statementType,
+                                  items: StatementType.values
+                                      .map(
+                                        (e) => DropdownMenuItem<StatementType>(
+                                          value: e,
+                                          child: Text(e.name),
+                                        ),
+                                      )
+                                      .toList(),
+                                  onChanged: (val) {
+                                    if (val != null) {
+                                      controller.statementType = val;
+                                    }
+                                    controller.update();
+                                  },
+                                ),
+                              ],
+                            )
                         ],
                       )
                     else if (StatementEnum.Purchase == statementEnum)
@@ -280,9 +305,19 @@ class Utility {
                     ),
                     CustomTextButton(
                       "Submit",
-                      onPressed: () {
+                      onPressed: () async {
                         Navigator.pop(context);
-                        generateStatement();
+                        if (controller.statementType == StatementType.Excel) {
+                          generateStatement();
+                        } else {
+                          if (controller.selectedCustomer != null) {
+                            final data =
+                                await PDFGenerator.generateStatementByCustomer(
+                                    controller.selectedCustomer!);
+                            debugPrint(data);
+                            PDFGenerator.openPdf(data);
+                          }
+                        }
                       },
                       backgoundColor: kPrimaryColor,
                       textColor: Colors.white,

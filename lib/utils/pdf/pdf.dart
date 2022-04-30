@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:annai_store/enum/operation.dart';
+import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/models/tax_cal/tax_cal.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
@@ -2648,7 +2649,9 @@ class PDFGenerator {
   }
 
   static Future<String> generateBill(
-      BillModel billModel, String? upiString) async {
+    BillModel billModel,
+    String? upiString,
+  ) async {
     final customerData =
         customerDB.getCustomerModelById(billModel.customerModel.id);
     final taxCalModel = SalesCalculation.getTaxCalModel(billModel);
@@ -3794,7 +3797,8 @@ class PDFGenerator {
   }
 
   static Future<String> generateThermalBillForEstimate(
-      EstimateModel billModel) async {
+    EstimateModel billModel,
+  ) async {
     final pdf = pw.Document();
     final dataCont = pw.Container(
       child: pw.Center(
@@ -4490,7 +4494,8 @@ class PDFGenerator {
   }
 
   static Future<String> generateThermalReceipt(
-      ReceiptModel receiptModel) async {
+    ReceiptModel receiptModel,
+  ) async {
     final pdf = pw.Document();
     final dataCont = pw.Container(
       // padding: const pw.EdgeInsets.all(5),
@@ -4633,6 +4638,134 @@ class PDFGenerator {
       });
     } catch (e) {
       CustomUtilies.customFailureSnackBar("Error", "Error in opening the pdf");
+    }
+  }
+
+  static Future<String> generateStatementByCustomer(
+    CustomerModel customerModel,
+  ) async {
+    final pdf = pw.Document();
+    final dataCont = pw.Container(
+      // padding: const pw.EdgeInsets.all(5),
+      child: pw.Stack(
+        children: [
+          // pw.Center(
+          //     child: pw.Container(
+          //         child: pw.Text("Paid",
+          //             style: pw.TextStyle(
+          //                 fontSize: 20, fontWeight: pw.FontWeight.bold)))),
+          pw.Center(
+            child: pw.Column(
+              children: [
+                bigText(Application.appName),
+                normalText(Application.address),
+                normalText("Cell: 9488327699"),
+                normalText("GSTIN:${Application.gstinNo}"),
+                pw.SizedBox(height: 5),
+                boldText("Receipt"),
+                pw.SizedBox(height: 5),
+                pw.Container(
+                  padding: const pw.EdgeInsets.symmetric(horizontal: 10),
+                  child: pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                    children: [
+                      boldText("Receipt No"),
+                      boldText("Date"),
+                    ],
+                  ),
+                ),
+                pw.SizedBox(height: 5),
+                pw.Divider(borderStyle: pw.BorderStyle.dashed),
+                pw.Container(
+                  width: 71 * PdfPageFormat.mm,
+                  child: pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                    children: [
+                      pw.Container(
+                        padding: const pw.EdgeInsets.symmetric(horizontal: 5),
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            smallText("Received From "),
+                            smallText("Received By "),
+                            smallText("Paid Through "),
+                            smallText("Payment ID"),
+                          ],
+                        ),
+                      ),
+                      pw.Container(
+                        padding: const pw.EdgeInsets.symmetric(horizontal: 5),
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            boldSmallText("customerModel.name"),
+                            boldSmallText(Application.appName),
+                            boldSmallText("receiptModel.paymentMethod"),
+                            if (getPaymentMethodFromStr(
+                                  "receiptModel.paymentMethod",
+                                ) !=
+                                PaymentMethodEnum.CASH)
+                              boldSmallText("receiptModel.paymentId")
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // if (getPaymentMethodFromStr(receiptModel.paymentMethod) !=
+                //       PaymentMethodEnum.CASH)
+                //       pw.Container(
+                //     padding: const pw.EdgeInsets.symmetric(horizontal: 10),
+                //     child: pw.Row(
+                //         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                //         children: [
+                //             boldText(receiptModel.paymentId)
+
+                //         ])),
+
+                pw.Divider(borderStyle: pw.BorderStyle.dashed),
+                pw.Container(
+                  padding: const pw.EdgeInsets.symmetric(horizontal: 2),
+                  child: pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children: [
+                      boldText("Cash "),
+                      boldText("Rs. "),
+                    ],
+                  ),
+                ),
+
+                // pw.SizedBox(height: 10),
+                // pw.Container(
+                //     padding: const pw.EdgeInsets.symmetric(horizontal: 2),
+                //     child: boldText(NumberToWord()
+                //             .convert('en-in', receiptModel.givenAmount.round())
+                //             .capitalize ??
+                //         "")),
+                // pw.Divider(borderStyle: pw.BorderStyle.dashed),
+                boldText("Thank you! Visit Again!"),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+
+    pdf.addPage(
+      pw.Page(
+        pageFormat: getA4Size,
+        build: (pw.Context context) {
+          return dataCont; // Center
+        },
+      ),
+    );
+    final path = await getPDFFilePath();
+    final file = File(path);
+    try {
+      file.writeAsBytesSync(await pdf.save());
+      return file.path;
+    } catch (e) {
+      rethrow;
     }
   }
 }

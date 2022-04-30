@@ -3,6 +3,7 @@
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/controller/billing/sales/sales_one.dart';
 import 'package:annai_store/controller/home/home.dart';
+import 'package:annai_store/controller/payments/receipt/receipt.dart';
 import 'package:annai_store/controller/product/product.dart';
 import 'package:annai_store/core/constants/calculations/basic_cal.dart';
 import 'package:annai_store/core/constants/calculations/calculations.dart';
@@ -11,6 +12,7 @@ import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/billing/sales.dart';
 import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/enum/printer/printer.dart';
+import 'package:annai_store/models/bill/bill.dart';
 import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/models/price/price.dart';
 import 'package:annai_store/models/product/product.dart';
@@ -22,13 +24,17 @@ import 'package:annai_store/screens/billing/sales/components/sales_button.dart';
 import 'package:annai_store/screens/billing/sales/sales.dart';
 import 'package:annai_store/utils/null/null.dart';
 import 'package:annai_store/utils/upi.dart';
+import 'package:annai_store/utils/utility.dart';
 import 'package:annai_store/widgets/add_inkwell.dart';
+import 'package:annai_store/widgets/custom_button.dart';
 import 'package:annai_store/widgets/custom_table.dart';
 import 'package:annai_store/widgets/custom_typeahead.dart';
 import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
@@ -48,16 +54,20 @@ class _SalesScreen1State extends State<SalesScreen1> {
       Get.put(SalesBillingController());
 
   HomeController homeController = Get.put(HomeController());
+  ReceiptController receiptController = Get.put(ReceiptController());
 
   final FocusNode _focusNode = FocusNode();
 
   final unitNode = FocusNode();
   final unitKeyboardNode = FocusNode();
+  final FocusNode _focusNodeBillNo = FocusNode();
+  final FocusNode _focusNodeCustomer = FocusNode();
 
   final taxNode = FocusNode();
   final taxKeyboardNode = FocusNode();
 
   final rateNode = FocusNode();
+  final FocusNode _focusNodeCustomer1 = FocusNode();
 
   void addBillToSalesList() {
     if (salesBillingOneController.selectedProductModel == null) {
@@ -101,8 +111,11 @@ class _SalesScreen1State extends State<SalesScreen1> {
     salesBillingOneController.productNode.requestFocus();
   }
 
-  Widget buildInkWell(SalesProductModel e, SalesBillingOneController controller,
-      BuildContext context) {
+  Widget buildInkWell(
+    SalesProductModel e,
+    SalesBillingOneController controller,
+    BuildContext context,
+  ) {
     return InkWell(
       onTap: () {
         controller.onSalesModelTap(e);
@@ -186,8 +199,64 @@ class _SalesScreen1State extends State<SalesScreen1> {
     );
   }
 
+  void onBillNoControllerEditingComplete() {
+    // if (receiptController.selectedBillModel != null) {
+    //   debugPrint(
+    //       'Selected selectedBillModel :P ${receiptController.selectedBillModel}');
+    //   receiptController.salesBillNoController.text =
+    //       receiptController.selectedBillModel!.billNo!;
+    // }
+    if (receiptController.selectedBillModel != null) {
+      receiptController.salesBillNoController.text =
+          receiptController.selectedBillModel!.billNo;
+      receiptController.pendingAmountController.text =
+          "${receiptController.selectedBillModel!.price - receiptController.selectedBillModel!.givenAmount!}";
+      final customerData = receiptController.customersList
+          ?.where(
+            (element) =>
+                element.id ==
+                receiptController.selectedBillModel?.customerModel.id,
+          )
+          .toList();
+
+      if (customerData!.isEmpty) {
+        CustomUtilies.customFailureSnackBar(
+          "Error",
+          "There is no customer for this bill",
+        );
+        return;
+      }
+      receiptController.selectedCustomerModel = customerData[0];
+      receiptController.customerController.text =
+          receiptController.selectedCustomerModel!.name;
+      receiptController.update();
+    }
+  }
+
+  void onCustomerControllerComplete() {
+    if (receiptController.selectedCustomerModel != null) {
+      debugPrint(
+        'Selected Customer :P ${receiptController.selectedCustomerModel}',
+      );
+      receiptController.customerController.text =
+          receiptController.selectedCustomerModel!.name;
+      receiptController.pendingAmountController.text =
+          "${receiptController.selectedCustomerModel!.pendingAmount}";
+    } else {
+      CustomUtilies.customFailureSnackBar(
+        "Please Enter the Customer First",
+        "Error",
+      );
+      _focusNodeCustomer1.requestFocus();
+    }
+    receiptController.salesBillNoController.clear();
+    receiptController.setSelectedBillModel = null;
+    receiptController.update();
+  }
+
   @override
   Widget build(BuildContext context) {
+    receiptController.performInit();
     final node = FocusScope.of(context);
     salesBillingOneController.onInit();
     salesBillingOneController.getAllProducts();
@@ -232,6 +301,22 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                 const Spacer(),
                                 const CustomText("01")
                               ],
+                            ),
+                            const SizedBox(height: 20),
+                            Container(
+                              width: CustomScreenUtility(context).width * 0.3,
+                              child: CustomTFWithKeyboard(
+                                keyboardNode: controller
+                                    .sewingServiceInvoiceNoKeyboardNode,
+                                focusNode:
+                                    controller.sewingServiceInvoiceNoNode,
+                                controller:
+                                    controller.sewingServiceInvoiceNoController,
+                                autofocus: true,
+                                label: "Invoice No",
+                                isEnabled: false,
+                                onEditingComplete: () {},
+                              ),
                             ),
                             const SizedBox(height: 20),
                             Row(
@@ -660,6 +745,55 @@ class _SalesScreen1State extends State<SalesScreen1> {
                           )
                         ],
                       ),
+                      const SizedBox(height: 20),
+                      CustomTextField(
+                        controller: controller.supplierRefController,
+                        label: "Supplier Ref",
+                        onEditingComplete: () => node.nextFocus(),
+                      ),
+                      const SizedBox(height: 20),
+                      CustomTextField(
+                        controller: controller.orderDateController,
+                        label: "Order No",
+                        onEditingComplete: () => node.nextFocus(),
+                      ),
+                      const SizedBox(height: 20),
+                      CustomTextField(
+                        controller: controller.orderDateController,
+                        label: "Order Date",
+                        onEditingComplete: () => node.nextFocus(),
+                      ),
+                      const SizedBox(height: 20),
+                      CustomTextField(
+                        controller: controller.despatchDocNoController,
+                        label: "Despatch Document No",
+                        onEditingComplete: () => node.nextFocus(),
+                      ),
+                      const SizedBox(height: 20),
+                      CustomTextField(
+                        controller: controller.despatchThroughController,
+                        label: "Despatch Through",
+                        onEditingComplete: () => node.nextFocus(),
+                      ),
+                      const SizedBox(height: 20),
+                      CustomTextField(
+                        controller: controller.destinationController,
+                        label: "Destination",
+                        onEditingComplete: () => node.nextFocus(),
+                      ),
+                      const SizedBox(height: 20),
+                      const CustomText("Online Payment QR Code"),
+                      Container(
+                        child: Screenshot(
+                          controller:
+                              salesBillingController.screenshotController,
+                          child: SfBarcodeGenerator(
+                            value:
+                                "upi://pay?pa=${UPIDetails.upiID}&pn=${UPIDetails.payeeName}&am=${getGrandTotal(controller.salesProductModelList, controller.selectedCustomerModel).round()}&cu=INR&mode=01&purpose=10&orgid=-&sign=-&tn=Bill Payment",
+                            symbology: QRCode(),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -827,21 +961,11 @@ class _SalesScreen1State extends State<SalesScreen1> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      Container(
-                        width: CustomScreenUtility(context).width * 0.3,
-                        child: CustomTFWithKeyboard(
-                          keyboardNode:
-                              controller.sewingServiceInvoiceNoKeyboardNode,
-                          focusNode: controller.sewingServiceInvoiceNoNode,
-                          controller:
-                              controller.sewingServiceInvoiceNoController,
-                          autofocus: true,
-                          label: "Invoice No",
-                          isEnabled: false,
-                          onEditingComplete: () {},
-                        ),
+                      CustomTextField(
+                        controller: controller.invoiceNumberController,
+                        label: "Invoice Number",
+                        onEditingComplete: () => node.nextFocus(),
                       ),
-                      const SizedBox(height: 10),
                       CustomTextButton(
                         "Thermal",
                         textColor: Colors.white,
@@ -850,60 +974,346 @@ class _SalesScreen1State extends State<SalesScreen1> {
                           controller.addSewingServiceToDB();
                         },
                       ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: controller.invoiceNumberController,
-                        label: "Invoice Number",
-                        onEditingComplete: () => node.nextFocus(),
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: controller.supplierRefController,
-                        label: "Supplier Ref",
-                        onEditingComplete: () => node.nextFocus(),
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: controller.orderDateController,
-                        label: "Order No",
-                        onEditingComplete: () => node.nextFocus(),
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: controller.orderDateController,
-                        label: "Order Date",
-                        onEditingComplete: () => node.nextFocus(),
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: controller.despatchDocNoController,
-                        label: "Despatch Document No",
-                        onEditingComplete: () => node.nextFocus(),
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: controller.despatchThroughController,
-                        label: "Despatch Through",
-                        onEditingComplete: () => node.nextFocus(),
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: controller.destinationController,
-                        label: "Destination",
-                        onEditingComplete: () => node.nextFocus(),
-                      ),
-                      const SizedBox(height: 20),
-                      const CustomText("Online Payment QR Code"),
-                      Container(
-                        child: Screenshot(
-                          controller:
-                              salesBillingController.screenshotController,
-                          child: SfBarcodeGenerator(
-                            value:
-                                "upi://pay?pa=${UPIDetails.upiID}&pn=${UPIDetails.payeeName}&am=${getGrandTotal(controller.salesProductModelList, controller.selectedCustomerModel).round()}&cu=INR&mode=01&purpose=10&orgid=-&sign=-&tn=Bill Payment",
-                            symbology: QRCode(),
-                          ),
-                        ),
+                      GetBuilder<ReceiptController>(
+                        init: ReceiptController(),
+                        builder: (rc) {
+                          return Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        value: rc.isA5,
+                                        onChanged: (bool? val) {
+                                          rc.setIsA5 = val;
+                                        },
+                                      ),
+                                      const CustomText("A5")
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        value: rc.isPrint,
+                                        onChanged: (bool? val) {
+                                          rc.setIsPrint = val;
+                                        },
+                                      ),
+                                      const CustomText("Print")
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              DateTimeInkWell(
+                                onTap: () async {
+                                  final dateTime = await showDatePickerDialog(
+                                    context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now().subtract(
+                                      const Duration(days: 365 * 5),
+                                    ),
+                                  );
+                                  rc.setPickedDateTime(dateTime);
+                                },
+                                dateTime: rc.pickedDateTime,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                width: CustomScreenUtility(context).width * 0.2,
+                                child: RawKeyboardListener(
+                                  focusNode: _focusNodeBillNo,
+                                  onKey: (RawKeyEvent rawKeyEvent) {
+                                    final isKeyDown =
+                                        Utility().isKeyDown(rawKeyEvent);
+                                    switch (rawKeyEvent.data.runtimeType) {
+                                      case RawKeyEventDataWindows:
+                                        final data = rawKeyEvent.data
+                                            as RawKeyEventDataWindows;
+                                        debugPrint('${data.logicalKey}');
+
+                                        if (!isKeyDown) {
+                                          if (data.logicalKey ==
+                                              LogicalKeyboardKey.arrowDown) {
+                                            rc.keyboardSelectBillModel();
+                                          } else if (data.logicalKey ==
+                                              LogicalKeyboardKey.enter) {
+                                            onBillNoControllerEditingComplete();
+                                          }
+                                        }
+                                        break;
+                                      default:
+                                        throw Exception(
+                                          'Unsupported platform ${rawKeyEvent.data.runtimeType}',
+                                        );
+                                    }
+                                  },
+                                  child: TypeAheadField<BillModel>(
+                                    textFieldConfiguration:
+                                        TextFieldConfiguration(
+                                      autofocus: true,
+                                      onEditingComplete: () {
+                                        onBillNoControllerEditingComplete();
+                                        rc.givenAmountNode.requestFocus();
+                                      },
+                                      controller: rc.salesBillNoController,
+                                      decoration: getInputDecoration(
+                                        null,
+                                        rc.selectedBillModel == null ||
+                                                !_focusNodeBillNo.hasFocus
+                                            ? "Enter Bill No"
+                                            : rc.selectedBillModel!.billNo,
+                                        rc.selectedBillModel == null
+                                            ? ""
+                                            : rc.selectedBillModel!.billNo,
+                                      ),
+                                    ),
+                                    suggestionsCallback: (pattern) async {
+                                      return rc.billModelList
+                                          .where((suggestion) {
+                                        return suggestion.billNo
+                                            .toString()
+                                            .contains(
+                                              pattern.toLowerCase(),
+                                            );
+                                      });
+                                    },
+                                    itemBuilder: (BuildContext context,
+                                        BillModel suggestion) {
+                                      debugPrint(
+                                        'Suggestion Selected ${suggestion.billNo}',
+                                      );
+                                      return ListTile(
+                                        title: Text(suggestion.billNo),
+                                      );
+                                    },
+                                    onSuggestionSelected: (suggestion) {
+                                      rc.setSelectedBillModel = suggestion;
+                                      rc.salesBillNoController.text =
+                                          suggestion.billNo;
+
+                                      // node.nextFocus();
+                                    },
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                child: RawKeyboardListener(
+                                  focusNode: _focusNodeCustomer,
+                                  onKey: (RawKeyEvent rawKeyEvent) {
+                                    final isKeyDown =
+                                        Utility().isKeyDown(rawKeyEvent);
+                                    switch (rawKeyEvent.data.runtimeType) {
+                                      case RawKeyEventDataWindows:
+                                        final data = rawKeyEvent.data
+                                            as RawKeyEventDataWindows;
+                                        debugPrint('${data.logicalKey}');
+                                        if (data.logicalKey ==
+                                            LogicalKeyboardKey.enter) {
+                                          onCustomerControllerComplete();
+                                        }
+                                        if (!isKeyDown) {
+                                          if (data.logicalKey ==
+                                              LogicalKeyboardKey.arrowDown) {
+                                            rc.keyboardSelectCustomerModel();
+                                          }
+                                        }
+                                        break;
+                                      default:
+                                        throw Exception(
+                                          'Unsupported platform ${rawKeyEvent.data.runtimeType}',
+                                        );
+                                    }
+                                  },
+                                  child: TypeAheadField<CustomerModel>(
+                                    textFieldConfiguration:
+                                        TextFieldConfiguration(
+                                      focusNode: _focusNodeCustomer1,
+                                      onEditingComplete: () {
+                                        onCustomerControllerComplete();
+
+                                        rc.paymentForNode.requestFocus();
+                                      },
+                                      controller: rc.customerController,
+                                      decoration: getInputDecoration(
+                                        null,
+                                        rc.selectedCustomerModel == null ||
+                                                !_focusNodeCustomer.hasFocus
+                                            ? "Enter Customer / Phone No"
+                                            : rc.selectedCustomerModel!.name,
+                                        rc.selectedCustomerModel == null
+                                            ? ""
+                                            : rc.selectedCustomerModel!.name,
+                                      ),
+                                    ),
+                                    suggestionsCallback: (pattern) async {
+                                      return rc.customersList!
+                                          .where((suggestion) {
+                                        try {
+                                          int.parse(pattern);
+                                          return suggestion.mobileNo
+                                              .toString()
+                                              .contains(
+                                                pattern.toLowerCase(),
+                                              );
+                                        } catch (e) {
+                                          return suggestion.name
+                                              .toLowerCase()
+                                              .contains(
+                                                pattern.toLowerCase(),
+                                              );
+                                        }
+                                      });
+                                    },
+                                    itemBuilder: (BuildContext context,
+                                        CustomerModel suggestion) {
+                                      debugPrint(
+                                        'Suggestion Selected ${suggestion.name}',
+                                      );
+                                      return ListTile(
+                                        tileColor: rc.selectedCustomerModel ==
+                                                suggestion
+                                            ? Colors.grey[300]
+                                            : Colors.white,
+                                        title: Text(suggestion.name),
+                                      );
+                                    },
+                                    onSuggestionSelected: (suggestion) {
+                                      rc.selectedCustomerModel = suggestion;
+                                      rc.customerController.text =
+                                          suggestion.name;
+                                      rc.pendingAmountController.text =
+                                          "${suggestion.pendingAmount}";
+                                      debugPrint('Selected $suggestion');
+                                      // node.nextFocus();
+                                    },
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              CustomTextField(
+                                label: "Receipt No",
+                                controller: rc.receiptNoController,
+                                onEditingComplete: () {},
+                                isEnabled: false,
+                              ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // CustomTextField(
+                              //   label: "Bill No",
+                              //   rc: rc.billNoController,
+                              // ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              CustomTextField(
+                                label: "Pending Amount",
+                                isEnabled: false,
+                                controller: rc.pendingAmountController,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              CustomTextField(
+                                focusNode: rc.paymentForNode,
+                                label: "Payment For",
+                                controller: rc.paymentForController,
+                                onEditingComplete: () {
+                                  rc.receivedFromNode.requestFocus();
+                                },
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              CustomTextField(
+                                focusNode: rc.givenAmountNode,
+                                label: "Given Amount",
+                                controller: rc.givenAmountController,
+                                onEditingComplete: () {
+                                  rc.receivedFromNode.requestFocus();
+                                },
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              CustomTextField(
+                                focusNode: rc.receivedFromNode,
+                                label: "Received From",
+                                controller: rc.receivedFromController,
+                                onEditingComplete: () {
+                                  rc.paymentMethodNode.requestFocus();
+                                },
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              DropdownButton<String>(
+                                focusNode: rc.paymentMethodNode,
+                                onChanged: (data) async {
+                                  rc.performInit();
+                                  print(
+                                    "All Customer = ${rc.customersList}",
+                                  );
+                                  if (data != null) {
+                                    rc.setSelectedPaymentMethod(data);
+                                  }
+
+                                  rc.paymentIDNode.requestFocus();
+                                },
+                                value: rc.selectedPaymentMethod,
+                                items: paymentMethod
+                                    .map(
+                                      (e) => DropdownMenuItem(
+                                        onTap: () {},
+                                        value: e,
+                                        child: CustomText(e),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              CustomTextField(
+                                focusNode: rc.paymentIDNode,
+                                label: "Payment ID",
+                                controller: rc.paymentIDController,
+                                onEditingComplete: () async {
+                                  await rc.addReceiptData();
+                                  rc.resetInputField();
+                                  _focusNodeCustomer1.requestFocus();
+                                },
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+
+                              CustomButton(
+                                buttonColor: kPrimaryColor,
+                                icon: Icons.add,
+                                text: "Add",
+                                onTap: () async {
+                                  await rc.addReceiptData();
+                                  rc.resetInputField();
+                                  _focusNodeCustomer1.requestFocus();
+                                },
+                              ),
+                            ],
+                          );
+                        },
                       )
                     ],
                   ),

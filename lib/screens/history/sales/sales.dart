@@ -192,14 +192,14 @@ class _SalesHistoryState extends State<SalesHistory> {
                             controller.fixBillNo();
                           },
                         ),
-                        CustomTextButton(
-                          "Clear Given Amount",
-                          backgoundColor: Colors.red,
-                          textColor: Colors.white,
-                          onPressed: () {
-                            controller.clearGivenAmount();
-                          },
-                        ),
+                        // CustomTextButton(
+                        //   "Clear Given Amount",
+                        //   backgoundColor: Colors.red,
+                        //   textColor: Colors.white,
+                        //   onPressed: () {
+                        //     controller.clearGivenAmount();
+                        //   },
+                        // ),
                       ],
                     ),
                     Row(
