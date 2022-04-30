@@ -147,4 +147,13 @@ class SalesDB {
     }
     await updateBillToDB(_updatedBill);
   }
+
+  Future<void> clearGivenAmount() async {
+    final allBill = getAllBill();
+    final List<BillModel> _updatedBill = [];
+    for (final bill in allBill) {
+      _updatedBill.add(bill.copyWith(givenAmount: 0));
+    }
+    await updateBillToDB(_updatedBill);
+  }
 }

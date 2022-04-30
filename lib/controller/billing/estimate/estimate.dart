@@ -115,7 +115,6 @@ class EstimateController extends GetxController {
 
   void getAllProducts() {
     productsList = productDB.getAllProduct();
-    log("ProductLength: ${productsList?.where((element) => element.productName == '180m Thread').toList().first.differentPriceList?.length}");
     update();
   }
 

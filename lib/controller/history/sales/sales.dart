@@ -66,6 +66,13 @@ class SalesHistoryNotifier extends GetxController {
     update();
   }
 
+  Future<void> clearGivenAmount() async {
+    await salesDB.clearGivenAmount();
+    CustomUtilies.customSuccessSnackBar("Update Success", "");
+    performInit();
+    update();
+  }
+
   void updateUpSelectedBillModel() {
     int index = _billsList!.indexOf(selectedBillModel!);
     if (index == 0) {

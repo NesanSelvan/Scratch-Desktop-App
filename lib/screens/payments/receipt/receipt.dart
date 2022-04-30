@@ -1,4 +1,16 @@
+import 'package:annai_store/controller/home/home.dart';
+import 'package:annai_store/controller/payments/receipt/receipt.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/payments/receipt.dart';
+import 'package:annai_store/models/bill/bill.dart';
+import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/screens/billing/sales/sales.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/custom_button.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/full_container.dart';
+import 'package:annai_store/widgets/header_text.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
@@ -6,20 +18,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart';
-
-import '../../../controller/billing/sales/sales.dart';
-import '../../../controller/home/home.dart';
-import '../../../controller/payments/receipt/receipt.dart';
-import '../../../enum/payments/receipt.dart';
-import '../../../models/bill/bill.dart';
-import '../../../models/customer/customer.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_table.dart';
-import '../../../widgets/full_container.dart';
-import '../../../widgets/header_text.dart';
-import '../../../widgets/text_field.dart';
-import '../../billing/sales/sales.dart';
 
 // ignore: must_be_immutable
 class ReceiptScreen extends StatelessWidget {
@@ -201,15 +199,15 @@ class ReceiptScreen extends StatelessWidget {
                         const SizedBox(
                           width: 50,
                         ),
-                        CustomButton(
-                          buttonColor: Colors.blue[300],
-                          icon: Icons.add,
-                          text: "Reset",
-                          onTap: () {
-                            receiptDB.resetReceipts();
-                            controller.performInit();
-                          },
-                        ),
+                        // CustomButton(
+                        //   buttonColor: Colors.blue[300],
+                        //   icon: Icons.add,
+                        //   text: "Reset",
+                        //   onTap: () {
+                        //     receiptDB.resetReceipts();
+                        //     controller.performInit();
+                        //   },
+                        // ),
                       ],
                     ),
                     Row(

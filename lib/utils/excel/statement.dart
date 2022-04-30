@@ -546,6 +546,7 @@ class GenerateExcelSheetData {
     debugPrint("Bills Length: ${bills.length}");
 
     double totalInvoiceAmount = 0;
+    String previousBillNo = "";
     double totalTaxableValue = 0;
 
     for (var i = 0; i < bills.length; i++) {
@@ -580,7 +581,10 @@ class GenerateExcelSheetData {
           indexByString: "E$currentPoint",
           value: bills[i].price,
         );
-        totalInvoiceAmount += bills[i].price;
+        if (previousBillNo != bills[i].billNo) {
+          totalInvoiceAmount += bills[i].price;
+        }
+        previousBillNo = bills[i].billNo;
         excelData(
           sheetObject: sheetObject,
           indexByString: "F$currentPoint",
@@ -702,6 +706,7 @@ class GenerateExcelSheetData {
 
     double totalInvoiceAmount = 0;
     double totalTaxableValue = 0;
+    String previousBillNo = "";
 
     for (var i = 0; i < bills.length; i++) {
       final taxCalModel = PurchaseCalculation.getTaxCalModel(bills[i]);
@@ -735,7 +740,10 @@ class GenerateExcelSheetData {
           indexByString: "E$currentPoint",
           value: bills[i].grandTotal,
         );
-        totalInvoiceAmount += bills[i].grandTotal;
+        if (previousBillNo != bills[i].billNo) {
+          totalInvoiceAmount += bills[i].grandTotal;
+        }
+        previousBillNo = bills[i].billNo;
         excelData(
           sheetObject: sheetObject,
           indexByString: "F$currentPoint",
@@ -866,6 +874,7 @@ class GenerateExcelSheetData {
 
     double totalInvoiceAmount = 0;
     double totalTaxableValue = 0;
+    String previousBillNo = "";
 
     for (var i = 0; i < bills.length; i++) {
       final taxCalModel = SalesCalculation.getTaxCalModel(bills[i]);
@@ -899,7 +908,10 @@ class GenerateExcelSheetData {
           indexByString: "E$currentPoint",
           value: bills[i].price,
         );
-        totalInvoiceAmount += bills[i].price;
+        if (previousBillNo != bills[i].billNo) {
+          totalInvoiceAmount += bills[i].price;
+        }
+        previousBillNo = bills[i].billNo;
         excelData(
           sheetObject: sheetObject,
           indexByString: "F$currentPoint",

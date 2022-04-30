@@ -192,6 +192,14 @@ class _SalesHistoryState extends State<SalesHistory> {
                             controller.fixBillNo();
                           },
                         ),
+                        CustomTextButton(
+                          "Clear Given Amount",
+                          backgoundColor: Colors.red,
+                          textColor: Colors.white,
+                          onPressed: () {
+                            controller.clearGivenAmount();
+                          },
+                        ),
                       ],
                     ),
                     Row(
@@ -299,15 +307,15 @@ class _SalesHistoryState extends State<SalesHistory> {
                     SalesHistoryEnum.values.length,
                 text: billModel.price.toString(),
               ),
-              // CustomTableElement(
-              //   width: CustomScreenUtility(context).width /
-              //       SalesHistoryEnum.values.length,
-              //   text: "${billModel.price - billModel.givenAmount!}",
-              // ),
+              CustomTableElement(
+                width: CustomScreenUtility(context).width /
+                    (SalesHistoryEnum.values.length + 2),
+                text: "${billModel.price - billModel.givenAmount!}",
+              ),
               Container(
                 width: CustomScreenUtility(context).width /
                         SalesHistoryEnum.values.length -
-                    20,
+                    30,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: SingleChildScrollView(

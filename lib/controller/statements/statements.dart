@@ -51,11 +51,13 @@ class StatementController extends GetxController {
 
   set setAllCustomers(List<CustomerModel> data) {
     _allCustomers = data;
+    _allCustomers.sort((a, b) => a.name.compareTo(b.name));
     update();
   }
 
   set setAllCompanies(List<CompanyModel> data) {
     _allCompanies = data;
+    _allCompanies.sort((a, b) => a.name.compareTo(b.name));
     update();
   }
 
