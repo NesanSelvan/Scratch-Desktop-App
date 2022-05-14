@@ -480,7 +480,7 @@ class ProductController extends GetxController {
       retailController.text = productModel.retail.toString();
       wholesaleController.text = productModel.wholesale.toString();
       unitController.text =
-          Database().getUnitModelById(productModel.unitId).symbol.toString();
+          Database().getUnitModelById(productModel.unitId)?.symbol ?? "";
       setSelectedCategory(
         categoryDB.getCategoryModelById(productModel.categoryId),
       );

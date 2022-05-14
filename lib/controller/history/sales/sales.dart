@@ -11,6 +11,25 @@ import '../../home/home.dart';
 
 class SalesHistoryNotifier extends GetxController {
   // final salesDB = Database().salesDB;
+  TextEditingController searchController = TextEditingController();
+
+  void search() {
+    final search = searchController.text;
+    final allBills = salesDB
+        .getAllBill()
+        .where(
+          (element) =>
+              element.customerModel.name
+                  .toString()
+                  .toLowerCase()
+                  .contains(search.toLowerCase()) ||
+              element.billNo.contains(search),
+        )
+        .toList();
+    log("Value: ${salesDB.getAllBill().length}");
+    setBillsModelList = allBills;
+    update();
+  }
 
   void performInit() {
     final allBills = salesDB.getAllBill();

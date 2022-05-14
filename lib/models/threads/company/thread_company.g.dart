@@ -13,8 +13,7 @@ _$_ThreadCompanyModel _$$_ThreadCompanyModelFromJson(
       companyModel:
           CompanyModel.fromJson(json['companyModel'] as Map<String, dynamic>),
       threadProduct: ThreadProductModel.fromJson(
-        json['threadProduct'] as Map<String, dynamic>,
-      ),
+          json['threadProduct'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 

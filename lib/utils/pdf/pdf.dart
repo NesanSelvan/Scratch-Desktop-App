@@ -411,7 +411,7 @@ class PDFGenerator {
                         child: pw.Column(
                           children: [
                             normalText("Mobile No.: 9488327699"),
-                            normalText("Email: charlinf@gmail.com")
+                            normalText("Email: annai.charlinf@gmail.com")
                           ],
                         ),
                       )
@@ -1086,7 +1086,7 @@ class PDFGenerator {
                         child: pw.Column(
                           children: [
                             normalText("Mobile No.: 9488327699"),
-                            normalText("Email: charlinf@gmail.com")
+                            normalText("Email: annai.charlinf@gmail.com")
                           ],
                         ),
                       )
@@ -1755,7 +1755,7 @@ class PDFGenerator {
                         child: pw.Column(
                           children: [
                             normalText("Mobile No.: 9488327699"),
-                            normalText("Email: charlinf@gmail.com")
+                            normalText("Email: annai.charlinf@gmail.com")
                           ],
                         ),
                       )
@@ -2721,7 +2721,7 @@ class PDFGenerator {
                           normalText(Application.address),
                           normalText("GSTIN No.: ${Application.gstinNo}"),
                           normalText("Mobile No.: 9488327699"),
-                          normalText("Email: charlinf@gmail.com"),
+                          normalText("Email: annai.charlinf@gmail.com"),
                         ],
                       ),
                     ),
@@ -4643,7 +4643,16 @@ class PDFGenerator {
 
   static Future<String> generateStatementByCustomer(
     CustomerModel customerModel,
+    DateTime startDate,
+    DateTime endDate,
   ) async {
+    final bills =
+        salesDB.getBillByDateAndCustomer(startDate, endDate, customerModel);
+    final receipts = receiptDB.getReceiptByDateAndCustomerId(
+      startDate,
+      endDate,
+      customerModel.id,
+    );
     final pdf = pw.Document();
     final dataCont = pw.Container(
       // padding: const pw.EdgeInsets.all(5),
@@ -4659,10 +4668,19 @@ class PDFGenerator {
               children: [
                 bigText(Application.appName),
                 normalText(Application.address),
-                normalText("Cell: 9488327699"),
+                normalText("Cell: ${Application.mobileNo}"),
                 normalText("GSTIN:${Application.gstinNo}"),
+                pw.Container(
+                  width: 400,
+                  child: pw.Divider(color: PdfColor.fromHex("#E0E0E0")),
+                ),
                 pw.SizedBox(height: 5),
-                boldText("Receipt"),
+                boldText(customerModel.name),
+                normalText(customerModel.address),
+                normalText("${customerModel.state} - ${customerModel.pincode}"),
+                normalText("Cell: ${customerModel.mobileNo}"),
+                if (customerModel.gstin != null && customerModel.gstin != "")
+                  normalText("GSTIN: ${customerModel.gstin}"),
                 pw.SizedBox(height: 5),
                 pw.Container(
                   padding: const pw.EdgeInsets.symmetric(horizontal: 10),

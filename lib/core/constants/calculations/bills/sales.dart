@@ -47,12 +47,13 @@ class SalesCalculation {
     for (final item in billModel.productList!) {
       final amount = getAmount(item, billModel.customerModel);
       final sameHSNCodeTaxCal = taxCalList
-          .where((element) => element.hsnCode == item.categoryModel!.hsnCode)
+          .where((element) => element.tax == item.categoryModel?.tax)
           .toList();
       if (sameHSNCodeTaxCal.isEmpty) {
         final taxCalModel = TaxCalModel(
           hsnCode: item.categoryModel!.hsnCode,
           taxableVal: amount,
+          tax: item.categoryModel?.tax ?? 0,
           amount: double.parse(
             calculateTaxWithSalesProductModel(amount, item).toStringAsFixed(2),
           ),
@@ -97,7 +98,9 @@ class SalesCalculation {
                     salesProductModel,
                   ) +
                   getDiscountAmount(
-                      salesProductModel, billModel.customerModel) +
+                    salesProductModel,
+                    billModel.customerModel,
+                  ) +
                   amount) /
               salesProductModel.qty!)
           .toStringAsFixed(2),

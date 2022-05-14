@@ -25,12 +25,14 @@ class _$TaxCalModelTearOff {
   _TaxCalModel call(
       {required int hsnCode,
       required double taxableVal,
+      required double tax,
       required double amount,
       required double rate,
       required double totalTaxAmount}) {
     return _TaxCalModel(
       hsnCode: hsnCode,
       taxableVal: taxableVal,
+      tax: tax,
       amount: amount,
       rate: rate,
       totalTaxAmount: totalTaxAmount,
@@ -49,6 +51,7 @@ const $TaxCalModel = _$TaxCalModelTearOff();
 mixin _$TaxCalModel {
   int get hsnCode => throw _privateConstructorUsedError;
   double get taxableVal => throw _privateConstructorUsedError;
+  double get tax => throw _privateConstructorUsedError;
   double get amount => throw _privateConstructorUsedError;
   double get rate => throw _privateConstructorUsedError;
   double get totalTaxAmount => throw _privateConstructorUsedError;
@@ -67,6 +70,7 @@ abstract class $TaxCalModelCopyWith<$Res> {
   $Res call(
       {int hsnCode,
       double taxableVal,
+      double tax,
       double amount,
       double rate,
       double totalTaxAmount});
@@ -84,6 +88,7 @@ class _$TaxCalModelCopyWithImpl<$Res> implements $TaxCalModelCopyWith<$Res> {
   $Res call({
     Object? hsnCode = freezed,
     Object? taxableVal = freezed,
+    Object? tax = freezed,
     Object? amount = freezed,
     Object? rate = freezed,
     Object? totalTaxAmount = freezed,
@@ -96,6 +101,10 @@ class _$TaxCalModelCopyWithImpl<$Res> implements $TaxCalModelCopyWith<$Res> {
       taxableVal: taxableVal == freezed
           ? _value.taxableVal
           : taxableVal // ignore: cast_nullable_to_non_nullable
+              as double,
+      tax: tax == freezed
+          ? _value.tax
+          : tax // ignore: cast_nullable_to_non_nullable
               as double,
       amount: amount == freezed
           ? _value.amount
@@ -123,6 +132,7 @@ abstract class _$TaxCalModelCopyWith<$Res>
   $Res call(
       {int hsnCode,
       double taxableVal,
+      double tax,
       double amount,
       double rate,
       double totalTaxAmount});
@@ -142,6 +152,7 @@ class __$TaxCalModelCopyWithImpl<$Res> extends _$TaxCalModelCopyWithImpl<$Res>
   $Res call({
     Object? hsnCode = freezed,
     Object? taxableVal = freezed,
+    Object? tax = freezed,
     Object? amount = freezed,
     Object? rate = freezed,
     Object? totalTaxAmount = freezed,
@@ -154,6 +165,10 @@ class __$TaxCalModelCopyWithImpl<$Res> extends _$TaxCalModelCopyWithImpl<$Res>
       taxableVal: taxableVal == freezed
           ? _value.taxableVal
           : taxableVal // ignore: cast_nullable_to_non_nullable
+              as double,
+      tax: tax == freezed
+          ? _value.tax
+          : tax // ignore: cast_nullable_to_non_nullable
               as double,
       amount: amount == freezed
           ? _value.amount
@@ -177,6 +192,7 @@ class _$_TaxCalModel implements _TaxCalModel {
   _$_TaxCalModel(
       {required this.hsnCode,
       required this.taxableVal,
+      required this.tax,
       required this.amount,
       required this.rate,
       required this.totalTaxAmount});
@@ -189,6 +205,8 @@ class _$_TaxCalModel implements _TaxCalModel {
   @override
   final double taxableVal;
   @override
+  final double tax;
+  @override
   final double amount;
   @override
   final double rate;
@@ -197,7 +215,7 @@ class _$_TaxCalModel implements _TaxCalModel {
 
   @override
   String toString() {
-    return 'TaxCalModel(hsnCode: $hsnCode, taxableVal: $taxableVal, amount: $amount, rate: $rate, totalTaxAmount: $totalTaxAmount)';
+    return 'TaxCalModel(hsnCode: $hsnCode, taxableVal: $taxableVal, tax: $tax, amount: $amount, rate: $rate, totalTaxAmount: $totalTaxAmount)';
   }
 
   @override
@@ -208,6 +226,7 @@ class _$_TaxCalModel implements _TaxCalModel {
             const DeepCollectionEquality().equals(other.hsnCode, hsnCode) &&
             const DeepCollectionEquality()
                 .equals(other.taxableVal, taxableVal) &&
+            const DeepCollectionEquality().equals(other.tax, tax) &&
             const DeepCollectionEquality().equals(other.amount, amount) &&
             const DeepCollectionEquality().equals(other.rate, rate) &&
             const DeepCollectionEquality()
@@ -219,6 +238,7 @@ class _$_TaxCalModel implements _TaxCalModel {
       runtimeType,
       const DeepCollectionEquality().hash(hsnCode),
       const DeepCollectionEquality().hash(taxableVal),
+      const DeepCollectionEquality().hash(tax),
       const DeepCollectionEquality().hash(amount),
       const DeepCollectionEquality().hash(rate),
       const DeepCollectionEquality().hash(totalTaxAmount));
@@ -238,6 +258,7 @@ abstract class _TaxCalModel implements TaxCalModel {
   factory _TaxCalModel(
       {required int hsnCode,
       required double taxableVal,
+      required double tax,
       required double amount,
       required double rate,
       required double totalTaxAmount}) = _$_TaxCalModel;
@@ -249,6 +270,8 @@ abstract class _TaxCalModel implements TaxCalModel {
   int get hsnCode;
   @override
   double get taxableVal;
+  @override
+  double get tax;
   @override
   double get amount;
   @override

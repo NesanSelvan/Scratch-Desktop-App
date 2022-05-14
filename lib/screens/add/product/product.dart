@@ -1210,7 +1210,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 width: CustomScreenUtility(context).width *
                     0.70 /
                     ProductEnum.values.length,
-                text: Database().getUnitModelById(e.unitId).symbol!,
+                text: Database().getUnitModelById(e.unitId)?.symbol ?? "",
               ),
               CustomTableElement(
                 width: CustomScreenUtility(context).width *

@@ -128,7 +128,13 @@ class Database {
     updateUnitToDB(unitList);
   }
 
-  UnitModel getUnitModelById(String id) {
+  UnitModel? getUnitModelById(String id) {
+    final allUnits =
+        getAllUnits().where((element) => element.id == id).toList();
+    if (allUnits.isEmpty) {
+      return null;
+    }
+
     return getAllUnits().where((element) => element.id == id).toList()[0];
   }
 

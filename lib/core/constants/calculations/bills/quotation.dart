@@ -14,6 +14,7 @@ class QuoatationCalculations {
 
       final taxCalModel = TaxCalModel(
         hsnCode: item.categoryModel!.hsnCode,
+        tax: item.categoryModel?.tax ?? 0,
         taxableVal: amount,
         amount: double.parse(
           calculateTaxWithSalesProductModel(amount, item).toStringAsFixed(2),

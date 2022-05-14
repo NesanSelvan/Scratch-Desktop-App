@@ -13,8 +13,7 @@ _$_SewingService _$$_SewingServiceFromJson(Map<String, dynamic> json) =>
       customerModel: json['customerModel'] == null
           ? null
           : CustomerModel.fromJson(
-              json['customerModel'] as Map<String, dynamic>,
-            ),
+              json['customerModel'] as Map<String, dynamic>),
       dateTime: DateTime.parse(json['dateTime'] as String),
     );
 

@@ -6,14 +6,14 @@ enum ApplicationEnum { AnnaiStore, AnnaiTraders, Scratch }
 
 // ignore: avoid_classes_with_only_static_members
 class Application {
-  static ApplicationEnum currentApplication = ApplicationEnum.AnnaiStore;
+  static ApplicationEnum currentApplication = ApplicationEnum.AnnaiTraders;
 
   static double version() {
     if (currentApplication == ApplicationEnum.AnnaiStore) {
-      return 16.8;
+      return 17.13;
     }
     if (currentApplication == ApplicationEnum.AnnaiTraders) {
-      return 6.8;
+      return 7.13;
     }
     return 1;
   }
@@ -36,6 +36,12 @@ class Application {
       : currentApplication == ApplicationEnum.AnnaiTraders
           ? "151/10, Anantha Bhavana Veethi,\n Therkukallikulam,\nTirunelveli, Tamil Nadu, 627113"
           : "";
+
+  static String get mobileNo => currentApplication == ApplicationEnum.AnnaiStore
+      ? "9488327699"
+      : currentApplication == ApplicationEnum.AnnaiTraders
+          ? "9488327699"
+          : "9167877725";
 
   static BankModel get bankDetails =>
       currentApplication == ApplicationEnum.AnnaiStore

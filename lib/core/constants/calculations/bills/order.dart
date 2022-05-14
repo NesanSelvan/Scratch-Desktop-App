@@ -13,6 +13,7 @@ class OrderCalculations {
       final taxCalModel = TaxCalModel(
         hsnCode: item.categoryModel!.hsnCode,
         taxableVal: amount,
+        tax: item.categoryModel?.tax ?? 0,
         amount: double.parse(
           calculateTaxWithSalesProductModel(amount, item).toStringAsFixed(2),
         ),

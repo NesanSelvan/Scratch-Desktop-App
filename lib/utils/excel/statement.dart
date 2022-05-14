@@ -218,7 +218,8 @@ class GenerateExcelSheetData {
 
   Future<void> generateReceiptStatement(
       DateTime startDate, DateTime endDate) async {
-    final receipts = receiptDB.getReceiptByDate(startDate, endDate);
+    final receipts =
+        receiptDB.getReceiptByDate(startDate, endDate).reversed.toList();
     final excel = Excel.createExcel();
     final sheetObject = excel['Sheet1'];
     double totalGivenAmount = 0;
@@ -344,7 +345,8 @@ class GenerateExcelSheetData {
 
   Future<void> generatePaymentStatement(
       DateTime startDate, DateTime endDate) async {
-    final payments = paymentDB.getPaymentByDate(startDate, endDate);
+    final payments =
+        paymentDB.getPaymentByDate(startDate, endDate).reversed.toList();
     final excel = Excel.createExcel();
     final sheetObject = excel['Sheet1'];
     double totalGivenAmount = 0;
@@ -481,8 +483,10 @@ class GenerateExcelSheetData {
   }
 
   Future<void> generateSalesStatement(
-      DateTime startDate, DateTime endDate) async {
-    final bills = salesDB.getBillByDate(startDate, endDate);
+    DateTime startDate,
+    DateTime endDate,
+  ) async {
+    final bills = salesDB.getBillByDate(startDate, endDate).reversed.toList();
     log("Sales Statement Count ${bills.length}");
     final excel = Excel.createExcel();
     final sheetObject = excel['Sheet1'];
@@ -637,11 +641,14 @@ class GenerateExcelSheetData {
 
   Future<void> generatePurchaseStatement(
       DateTime startDate, DateTime endDate, CompanyModel? companyModel) async {
-    List<PurchaseModel> bills = purchaseDB.getBillByDate(startDate, endDate);
+    List<PurchaseModel> bills =
+        purchaseDB.getBillByDate(startDate, endDate).reversed.toList();
     if (companyModel != null) {
       bills.clear();
-      bills =
-          purchaseDB.getBillByDateAndCompany(startDate, endDate, companyModel);
+      bills = purchaseDB
+          .getBillByDateAndCompany(startDate, endDate, companyModel)
+          .reversed
+          .toList();
     }
     final excel = Excel.createExcel();
     final sheetObject = excel['Sheet1'];
@@ -809,8 +816,10 @@ class GenerateExcelSheetData {
 
   Future<void> generateSalesStatementByCustomer(
       DateTime startDate, DateTime endDate, CustomerModel customerModel) async {
-    final bills =
-        salesDB.getBillByDateAndCustomer(startDate, endDate, customerModel);
+    final bills = salesDB
+        .getBillByDateAndCustomer(startDate, endDate, customerModel)
+        .reversed
+        .toList();
     final excel = Excel.createExcel();
     final sheetObject = excel['Sheet1'];
 

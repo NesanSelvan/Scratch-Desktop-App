@@ -313,7 +313,10 @@ class Utility {
                           if (controller.selectedCustomer != null) {
                             final data =
                                 await PDFGenerator.generateStatementByCustomer(
-                                    controller.selectedCustomer!);
+                              controller.selectedCustomer!,
+                              controller.startDate,
+                              controller.endDate,
+                            );
                             debugPrint(data);
                             PDFGenerator.openPdf(data);
                           }

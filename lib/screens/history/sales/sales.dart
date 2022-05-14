@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
@@ -140,6 +141,13 @@ class _SalesHistoryState extends State<SalesHistory> {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          width: 140,
+                          child: CustomTextField(
+                            controller: controller.searchController,
+                            label: "Search By Customer and Bill",
+                          ),
+                        ),
                         const SizedBox(
                           width: 50,
                         ),
@@ -147,7 +155,9 @@ class _SalesHistoryState extends State<SalesHistory> {
                           buttonColor: Colors.green[400],
                           icon: Icons.search,
                           text: "Search",
-                          onTap: () {},
+                          onTap: () {
+                            controller.search();
+                          },
                         ),
                         const SizedBox(
                           width: 50,
@@ -156,7 +166,9 @@ class _SalesHistoryState extends State<SalesHistory> {
                           buttonColor: Colors.yellow[600],
                           icon: Icons.search,
                           text: "Show all",
-                          onTap: () {},
+                          onTap: () {
+                            controller.performInit();
+                          },
                         ),
                         const SizedBox(
                           width: 50,

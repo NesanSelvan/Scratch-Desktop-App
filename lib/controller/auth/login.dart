@@ -94,7 +94,7 @@ class LoginController extends GetxController {
       currentEmployee = EmployeeModel(
         id: "id",
         name: Application.appName,
-        email: "annai.store@gmail.com",
+        email: "annai.charlinf@gmail.com",
         address: "address",
         pincode: 627117,
         state: "state",
@@ -116,7 +116,7 @@ class LoginController extends GetxController {
       currentEmployee = EmployeeModel(
         id: "id",
         name: Application.appName,
-        email: "annai.store@gmail.com",
+        email: "annai.charlinf@gmail.com",
         address: "address",
         pincode: 627117,
         state: "state",

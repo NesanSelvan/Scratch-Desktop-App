@@ -21,6 +21,7 @@ class PurchaseCalculation {
     for (final item in billModel.productList) {
       final amount = item.qty * item.amount;
       final taxCalModel = TaxCalModel(
+        tax: item.categoryModel.tax,
         hsnCode: item.categoryModel.hsnCode,
         taxableVal: item.amount,
         amount: double.parse(calculateTax(amount, item.tax).toStringAsFixed(2)),

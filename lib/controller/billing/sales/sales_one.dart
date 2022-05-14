@@ -269,18 +269,21 @@ class SalesBillingOneController extends GetxController {
           .tax
           .toString();
       final List<PriceModel> list = productModel.differentPriceList ?? [];
-      list.add(
-        PriceModel(
-          id: const Uuid().v1(),
-          code: productModel.code,
-          unitModel: Database().getUnitModelById(productModel.unitId),
-          mrp: productModel.sellingPrice,
-          unitQty: double.parse("${productModel.unitQty}"),
-          retail: productModel.retail,
-          wholesale: productModel.wholesale,
-          createdAt: DateTime.now(),
-        ),
-      );
+      final unit = Database().getUnitModelById(productModel.unitId);
+      if (unit != null) {
+        list.add(
+          PriceModel(
+            id: const Uuid().v1(),
+            code: productModel.code,
+            unitModel: unit,
+            mrp: productModel.sellingPrice,
+            unitQty: double.parse("${productModel.unitQty}"),
+            retail: productModel.retail,
+            wholesale: productModel.wholesale,
+            createdAt: DateTime.now(),
+          ),
+        );
+      }
       _selectedProductModel = productModel.copyWith(differentPriceList: list);
       if (productModel.differentPriceList!.isNotEmpty) {
         for (final item in productModel.differentPriceList ?? <PriceModel>[]) {

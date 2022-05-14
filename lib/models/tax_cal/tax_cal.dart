@@ -8,6 +8,7 @@ class TaxCalModel with _$TaxCalModel {
   factory TaxCalModel({
     required int hsnCode,
     required double taxableVal,
+    required double tax,
     required double amount,
     required double rate,
     required double totalTaxAmount,
