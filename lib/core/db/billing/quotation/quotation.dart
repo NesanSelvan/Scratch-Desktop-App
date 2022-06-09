@@ -22,6 +22,12 @@ class QuotationDB {
         datas.add(QuotationModel.fromJson(item as Map<String, dynamic>));
       }
     }
+    try {
+      datas.sort((b, a) {
+        return int.parse(a.quotationNo.split("/").first)
+            .compareTo(int.parse(b.quotationNo.split("/").first));
+      });
+    } catch (e) {}
     return datas;
   }
 

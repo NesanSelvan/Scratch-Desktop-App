@@ -15,7 +15,7 @@ class FolderUtility {
 
   static String getDBFolderLocation() {
     final folderPath = getAppsFolderName();
-    return "D:\\$folderPath";
+    return "${Application.dbLocationPath}\\$folderPath";
   }
 
   static void createDirIfNotExists(String newFolderPath) {

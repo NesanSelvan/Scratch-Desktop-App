@@ -41,6 +41,12 @@ class PurchaseDB {
         }
       }
     }
+    try {
+      datas.sort((b, a) {
+        return int.parse(a.billNo.split("/").first)
+            .compareTo(int.parse(b.billNo.split("/").first));
+      });
+    } catch (e) {}
     return datas;
   }
 

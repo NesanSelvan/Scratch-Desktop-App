@@ -7,18 +7,24 @@ enum ApplicationEnum { AnnaiStore, AnnaiTraders, Scratch }
 // ignore: avoid_classes_with_only_static_members
 class Application {
   static ApplicationEnum currentApplication = ApplicationEnum.AnnaiTraders;
+  static Environments environment = Environments.production;
 
   static double version() {
     if (currentApplication == ApplicationEnum.AnnaiStore) {
-      return 17.13;
+      return 17.14;
     }
     if (currentApplication == ApplicationEnum.AnnaiTraders) {
-      return 7.13;
+      return 7.14;
     }
     return 1;
   }
 
-  static Environments environment = Environments.dev;
+  static String get dbLocationPath {
+    if (environment == Environments.dev) {
+      return "C:";
+    }
+    return "D:";
+  }
 
   static String get appName => currentApplication == ApplicationEnum.AnnaiStore
       ? "Annai Store"

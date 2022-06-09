@@ -223,9 +223,11 @@ packages:
   environments:
     dependency: "direct main"
     description:
-      path: "packages/environments"
-      relative: true
-    source: path
+      path: environments
+      ref: HEAD
+      resolved-ref: c99d03f05727822c9fd65fef90e70d61a8daf679
+      url: "https://github.com/AgnelSelvan/custom_packages_flutter.git"
+    source: git
     version: "1.0.0+1"
   equatable:
     dependency: transitive
@@ -842,9 +844,11 @@ packages:
   validators:
     dependency: "direct main"
     description:
-      path: "packages/validators"
-      relative: true
-    source: path
+      path: validators
+      ref: HEAD
+      resolved-ref: c99d03f05727822c9fd65fef90e70d61a8daf679
+      url: "https://github.com/AgnelSelvan/custom_packages_flutter.git"
+    source: git
     version: "1.0.0+1"
   vector_math:
     dependency: transitive

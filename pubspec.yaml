@@ -32,7 +32,9 @@ dependencies:
   desktop_window_utils: ^0.0.3
   dio: ^4.0.0
   environments:
-    path: ./packages/environments
+    git:
+      url: https://github.com/AgnelSelvan/custom_packages_flutter.git
+      path: environments
   excel:
     git:
       url: https://github.com/justkawal/excel.git
@@ -60,7 +62,10 @@ dependencies:
   syncfusion_flutter_barcodes: ^19.4.42
   uuid: ^3.0.4
   validators:
-    path: ./packages/validators
+    git:
+      url: https://github.com/AgnelSelvan/custom_packages_flutter.git
+      path: validators
+    
   window_size:
     git:
       url: https://github.com/google/flutter-desktop-embedding.git

@@ -22,6 +22,12 @@ class VoucherDB {
         datas.add(VoucherModel.fromJson(item as Map<String, dynamic>));
       }
     }
+    try {
+      datas.sort((b, a) {
+        return int.parse(a.voucherNo.split("/").first)
+            .compareTo(int.parse(b.voucherNo.split("/").first));
+      });
+    } catch (e) {}
     return datas;
   }
 

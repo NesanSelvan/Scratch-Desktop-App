@@ -22,6 +22,12 @@ class ReceiptDB {
         datas.add(ReceiptModel.fromJson(item as Map<String, dynamic>));
       }
     }
+    try {
+      datas.sort((b, a) {
+        return int.parse(b.receiptNo.split("/").first)
+            .compareTo(int.parse(a.receiptNo.split("/").first));
+      });
+    } catch (e) {}
     return datas.reversed.toList();
   }
 
