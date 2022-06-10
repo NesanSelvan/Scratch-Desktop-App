@@ -317,12 +317,13 @@ class _SalesHistoryState extends State<SalesHistory> {
               CustomTableElement(
                 width: CustomScreenUtility(context).width /
                     SalesHistoryEnum.values.length,
-                text: billModel.price.toString(),
+                text: billModel.price.toStringAsFixed(2),
               ),
               CustomTableElement(
                 width: CustomScreenUtility(context).width /
                     (SalesHistoryEnum.values.length + 2),
-                text: "${billModel.price - billModel.givenAmount!}",
+                text: (billModel.price - billModel.givenAmount!)
+                    .toStringAsFixed(2),
               ),
               Container(
                 width: CustomScreenUtility(context).width /

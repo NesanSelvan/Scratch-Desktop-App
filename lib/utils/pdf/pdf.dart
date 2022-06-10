@@ -2783,11 +2783,15 @@ class PDFGenerator {
                     pw.Row(
                       children: [
                         tableTopRightContainer(
-                          "${billModel.buyerOrderNo}",
+                          SalesCalculation.getOrderNoIfRequired(
+                            billModel,
+                          ),
                           "Buyer Order No",
                         ),
                         tableTopRightContainer(
-                          getDDMMMMYYYY(billModel.buyerOrderDate!),
+                          SalesCalculation.getOrderDateIfRequired(
+                            billModel,
+                          ),
                           "Buyer Order Date",
                         ),
                       ],

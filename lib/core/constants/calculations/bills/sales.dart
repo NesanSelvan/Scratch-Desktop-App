@@ -1,10 +1,12 @@
 import 'package:annai_store/core/constants/calculations/calculations.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/extensions/date_time.dart';
 import 'package:annai_store/models/bill/bill.dart';
 import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/models/sales/product/sales_product.dart';
 import 'package:annai_store/models/tax_cal/tax_cal.dart';
 import 'package:flutter/material.dart';
+import 'package:validators/validators.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class SalesCalculation {
@@ -123,5 +125,27 @@ class SalesCalculation {
       totalDis += getDiscountAmount(salesProductModel, billModel.customerModel);
     }
     return totalDis;
+  }
+
+  static String getOrderDateIfRequired(BillModel billModel) {
+    if (billModel.buyerOrderNo == null || billModel.buyerOrderNo == "") {
+      return "";
+    }
+    if (billModel.dateTime.isOnlyDateEqual(billModel.buyerOrderDate)) {
+      return getDDMMMMYYYY(billModel.buyerOrderDate!);
+    }
+    if (billModel.dateTime.compareTo(billModel.buyerOrderDate!) <= 0) {
+      return "";
+    }
+    return getDDMMMMYYYY(billModel.buyerOrderDate!);
+  }
+
+  static String getOrderNoIfRequired(BillModel billModel) {
+    if (billModel.dateTime.isOnlyDateEqual(billModel.buyerOrderDate)) {
+      return billModel.buyerOrderNo ?? "";
+    } else if (billModel.dateTime.compareTo(billModel.buyerOrderDate!) <= 0) {
+      return "";
+    }
+    return billModel.buyerOrderNo ?? "";
   }
 }

@@ -146,7 +146,46 @@ class OrdersController extends GetxController {
   CustomerModel? selectedCustomerModel;
 
   void addSelectedProductModel(ProductModel? productModel) {
+    debugPrint("Add Product IS Been Called");
     selectedProductModel = productModel;
+    setSelectedPriceModel = null;
+    if (productModel != null) {
+      taxController.text = categoryDB
+          .getCategoryModelById(productModel.categoryId)
+          .tax
+          .toString();
+      final List<PriceModel> list = productModel.differentPriceList ?? [];
+      final unit = Database().getUnitModelById(productModel.unitId);
+      if (unit != null) {
+        list.add(
+          PriceModel(
+            id: const Uuid().v1(),
+            code: productModel.code,
+            unitModel: unit,
+            mrp: productModel.sellingPrice,
+            unitQty: double.parse("${productModel.unitQty}"),
+            retail: productModel.retail,
+            wholesale: productModel.wholesale,
+            createdAt: DateTime.now(),
+          ),
+        );
+      }
+      selectedProductModel = productModel.copyWith(differentPriceList: list);
+      if (productModel.differentPriceList!.isNotEmpty) {
+        for (final item in productModel.differentPriceList ?? <PriceModel>[]) {
+          debugPrint("Price Item : $item");
+          if (item.code != null) {
+            if (item.code!.contains(productController.text)) {
+              setSelectedPriceModel = item;
+              return;
+            }
+          }
+        }
+        setSelectedPriceModel = productModel.differentPriceList!.first;
+      }
+    }
+
+    update();
     update();
   }
 
