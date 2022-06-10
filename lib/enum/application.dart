@@ -6,7 +6,7 @@ enum ApplicationEnum { AnnaiStore, AnnaiTraders, Scratch }
 
 // ignore: avoid_classes_with_only_static_members
 class Application {
-  static ApplicationEnum currentApplication = ApplicationEnum.AnnaiTraders;
+  static ApplicationEnum currentApplication = ApplicationEnum.AnnaiStore;
   static Environments environment = Environments.production;
 
   static double version() {

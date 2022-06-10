@@ -115,3 +115,15 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+msix_config:
+  display_name: Annai Store
+  publisher_display_name: Agnel Selvan
+  identity_name: com.software.annai_store
+  msix_version: 1.0.0.0
+  logo_path: C:\Users\Agnel.Selvan\OneDrive - Aurum\Documents\some\assets\images\annai_store.png
+  capabilities:
+  debug: false
+  output_path: C:\Users\Agnel.Selvan\OneDrive - Aurum\Desktop\
+  output_name: testing
+  build_windows: true
