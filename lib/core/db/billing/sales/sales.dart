@@ -1,11 +1,12 @@
+import 'dart:developer';
+
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/models/bill/bill.dart';
+import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/models/failure/failure.dart';
 import 'package:flutter/material.dart';
 import 'package:validators/validators.dart';
-
-import '../../../../models/bill/bill.dart';
-import '../../../../models/customer/customer.dart';
-import '../../../../models/failure/failure.dart';
 
 class SalesDB {
   final storage = Database().storage;
@@ -89,12 +90,29 @@ class SalesDB {
 
   List<BillModel> getBillByDate(DateTime startDate, DateTime endDate) {
     final List<BillModel> bills = [];
-    debugPrint("${endDate.difference(startDate).inDays}");
-    final startEndDiff = endDate.difference(startDate).inDays;
+    final DateTime finalEndDate =
+        DateTime(endDate.year, endDate.month, endDate.day);
+    final DateTime finalStartDate =
+        DateTime(startDate.year, startDate.month, startDate.day);
+    log("Start Date $finalStartDate in Days ${finalEndDate.difference(finalStartDate).inDays}");
+    final startEndDiff = finalEndDate.difference(finalStartDate).inDays;
     for (final item in getAllBill()) {
-      debugPrint("${endDate.difference(item.dateTime).inDays}");
-      final dateDiff = endDate.difference(item.dateTime).inDays;
+      final dateDiff = finalEndDate
+          .difference(
+            DateTime(
+              item.dateTime.year,
+              item.dateTime.month,
+              item.dateTime.day,
+            ),
+          )
+          .inDays;
       if (dateDiff <= startEndDiff && dateDiff >= 0) {
+        log(
+          "End Date $dateDiff $startEndDiff",
+        );
+        log(
+          "End Date ${item.billNo} ${item.dateTime} in Days ${finalEndDate.difference(item.dateTime).inDays}",
+        );
         bills.add(item);
       }
     }
@@ -122,7 +140,10 @@ class SalesDB {
   }
 
   List<BillModel> getBillByDateAndCustomer(
-      DateTime startDate, DateTime endDate, CustomerModel customerModel) {
+    DateTime startDate,
+    DateTime endDate,
+    CustomerModel customerModel,
+  ) {
     final List<BillModel> bills = [];
     debugPrint("${endDate.difference(startDate).inDays}");
     final startEndDiff = endDate.difference(startDate).inDays;

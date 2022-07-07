@@ -1,8 +1,40 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:annai_store/controller/auth/login.dart';
+import 'package:annai_store/controller/home/home.dart';
+import 'package:annai_store/controller/statements/statements.dart';
+import 'package:annai_store/controller/threads/threads.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/add.dart';
+import 'package:annai_store/enum/application.dart';
+import 'package:annai_store/enum/billing.dart';
+import 'package:annai_store/enum/keyboard.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/enum/statement.dart';
+import 'package:annai_store/models/company/company.dart';
+import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/screens/add/product/sub/sub_product.dart';
+import 'package:annai_store/screens/auth/login.dart';
+import 'package:annai_store/screens/backup/backup.dart';
+import 'package:annai_store/screens/billing/sales/sales.dart';
+import 'package:annai_store/screens/connect/database/database.dart';
+import 'package:annai_store/screens/paths/paths.dart';
+import 'package:annai_store/screens/payments/payments/payments.dart';
+import 'package:annai_store/screens/payments/receipt/receipt.dart';
+import 'package:annai_store/screens/payments/voucher/voucher.dart';
+import 'package:annai_store/screens/profile/account/account.dart';
+import 'package:annai_store/screens/server/server.dart';
+import 'package:annai_store/screens/threads/threads.dart';
+import 'package:annai_store/screens/todays/sales.dart';
+import 'package:annai_store/utils/datetime/datetime.dart';
+import 'package:annai_store/utils/file/file.dart';
+import 'package:annai_store/utils/folder/folder.dart';
+import 'package:annai_store/utils/null/null.dart';
 import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/user_response/user_response.dart';
+import 'package:annai_store/widgets/custom_typeahead.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
@@ -10,42 +42,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:http/http.dart' as http;
-import 'package:menubar/menubar.dart';
-// import 'package:qr_flutter/qr_flutter.dart';
+import 'package:menubar/menubar.dart' as menubar;
 import 'package:validators/validators.dart';
-
-import '../controller/auth/login.dart';
-import '../controller/home/home.dart';
-import '../controller/statements/statements.dart';
-import '../controller/threads/threads.dart';
-import '../enum/add.dart';
-import '../enum/application.dart';
-import '../enum/billing.dart';
-import '../enum/keyboard.dart';
-import '../enum/person/person.dart';
-import '../enum/statement.dart';
-import '../models/company/company.dart';
-import '../models/customer/customer.dart';
-import '../screens/add/product/sub/sub_product.dart';
-import '../screens/auth/login.dart';
-import '../screens/backup/backup.dart';
-import '../screens/billing/sales/sales.dart';
-import '../screens/connect/database/database.dart';
-import '../screens/paths/paths.dart';
-import '../screens/payments/payments/payments.dart';
-import '../screens/payments/receipt/receipt.dart';
-import '../screens/payments/voucher/voucher.dart';
-import '../screens/profile/account/account.dart';
-import '../screens/server/server.dart';
-import '../screens/threads/threads.dart';
-import '../screens/todays/sales.dart';
-import '../widgets/custom_typeahead.dart';
-import '../widgets/text_field.dart';
-import 'datetime/datetime.dart';
-import 'file/file.dart';
-import 'folder/folder.dart';
-import 'null/null.dart';
-import 'user_response/user_response.dart';
 
 class Utility {
   Future<void> performActivityWhenAppOpens() async {
@@ -74,22 +72,28 @@ class Utility {
   }
 
   void billingMenuClicked(
-      BillingEnum billingEnum, HomeController homeController) {
+    BillingEnum billingEnum,
+    HomeController homeController,
+  ) {
     homeController.setCurrentSelectedWidget(getWidgetOfBilling(billingEnum));
     // homeController.addEnum = addEnum;
     homeController.update();
   }
 
   void historyMenuClicked(
-      BillingEnum billingEnum, HomeController homeController) {
+    BillingEnum billingEnum,
+    HomeController homeController,
+  ) {
     homeController.setCurrentSelectedWidget(getWidgetOfHistory(billingEnum));
 
     homeController.update();
   }
 
   Future<void> statementDialog(
-      BuildContext context, StatementEnum statementEnum,
-      {required Callback generateStatement}) {
+    BuildContext context,
+    StatementEnum statementEnum, {
+    required Callback generateStatement,
+  }) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -429,14 +433,17 @@ class Utility {
   }
 
   //Menus
-  void updateMenubar(BuildContext context, HomeController homeController,
-      StatementController statementController) {
+  void updateMenubar(
+    BuildContext context,
+    HomeController homeController,
+    StatementController statementController,
+  ) {
     final loginController = Get.put(LoginController());
     if (loginController.currentEmployee == null) {
       Focus(
         focusNode: homeController.menuFocus,
         child: FutureBuilder(
-          future: setApplicationMenu([]),
+          future: menubar.setApplicationMenu([]),
           builder: (BuildContext context, snapshot) {
             return Container();
           },
@@ -450,49 +457,49 @@ class Utility {
     Focus(
       focusNode: homeController.menuFocus,
       child: FutureBuilder(
-        future: setApplicationMenu([
+        future: menubar.setApplicationMenu([
           if (empType == PersonEnum.SuperAdmin ||
               empType == PersonEnum.Admin ||
               empType == PersonEnum.SoftwareOwner)
-            Submenu(
+            menubar.NativeSubmenu(
               label: 'Add',
-              children: AddEnum.values
-                  .map(
-                    (e) => MenuItem(
-                      label: getStrofAddEnum(e),
-                      onClicked: () {
-                        addMenuClicked(e, homeController);
-                      },
-                    ),
-                  )
-                  .toList(),
+              children: [
+                ...AddEnum.values.map(
+                  (e) => menubar.NativeMenuItem(
+                    label: getStrofAddEnum(e),
+                    onSelected: () {
+                      addMenuClicked(e, homeController);
+                    },
+                  ),
+                )
+              ],
             ),
-          Submenu(
+          menubar.NativeSubmenu(
             label: 'Billing',
             children: BillingEnum.values
                 .map(
-                  (e) => MenuItem(
+                  (e) => menubar.NativeMenuItem(
                     label: getStrofAddBilling(e),
-                    onClicked: () {
+                    onSelected: () {
                       billingMenuClicked(e, homeController);
                     },
                   ),
                 )
                 .toList(),
           ),
-          Submenu(
+          menubar.NativeSubmenu(
             label: 'Receipt',
             children: [
-              MenuItem(
+              menubar.NativeMenuItem(
                 label: "Receipt",
-                onClicked: () {
+                onSelected: () {
                   homeController.setCurrentSelectedWidget(ReceiptScreen());
                   homeController.update();
                 },
               ),
-              MenuItem(
+              menubar.NativeMenuItem(
                 label: "Voucher",
-                onClicked: () {
+                onSelected: () {
                   // voucherDB.clearAll();
                   debugPrint("Voucher Screen");
                   homeController
@@ -500,9 +507,9 @@ class Utility {
                   homeController.update();
                 },
               ),
-              MenuItem(
+              menubar.NativeMenuItem(
                 label: "Payment",
-                onClicked: () {
+                onSelected: () {
                   debugPrint("Payment Screen");
                   homeController.setCurrentSelectedWidget(PaymentScreen());
                   homeController.update();
@@ -513,42 +520,42 @@ class Utility {
           if (empType == PersonEnum.SuperAdmin ||
               empType == PersonEnum.Admin ||
               empType == PersonEnum.SoftwareOwner)
-            Submenu(
+            menubar.NativeSubmenu(
               label: 'Todays',
               children: [
-                MenuItem(
+                menubar.NativeMenuItem(
                   label: 'Sales',
                   shortcut: LogicalKeySet(
                     LogicalKeyboardKey.meta,
                     LogicalKeyboardKey.digit0,
                   ),
-                  onClicked: () {
+                  onSelected: () {
                     homeController.setCurrentSelectedWidget(TodaysSaleScreen());
                     homeController.update();
                   },
                 ),
               ],
             ),
-          Submenu(
+          menubar.NativeSubmenu(
             label: 'History',
             children: BillingEnum.values
                 .map(
-                  (e) => MenuItem(
+                  (e) => menubar.NativeMenuItem(
                     label: getStrofAddBilling(e),
-                    onClicked: () {
+                    onSelected: () {
                       historyMenuClicked(e, homeController);
                     },
                   ),
                 )
                 .toList(),
           ),
-          Submenu(
+          menubar.NativeSubmenu(
             label: 'Statements',
             children: StatementEnum.values
                 .map(
-                  (e) => MenuItem(
+                  (e) => menubar.NativeMenuItem(
                     label: statementEnumToStr(e),
-                    onClicked: () async {
+                    onSelected: () async {
                       if (e == StatementEnum.Stock) {
                         await statementController.handleStatementGeneration(
                           e,
@@ -578,39 +585,39 @@ class Utility {
                 .toList(),
           ),
           if (empType == PersonEnum.SoftwareOwner)
-            Submenu(
+            menubar.NativeSubmenu(
               label: 'Connect',
               children: [
-                MenuItem(
+                menubar.NativeMenuItem(
                   label: 'Mobile',
                   shortcut: LogicalKeySet(
                     LogicalKeyboardKey.meta,
                     LogicalKeyboardKey.digit0,
                   ),
-                  onClicked: () {
+                  onSelected: () {
                     homeController.setCurrentSelectedWidget(ServerPage());
                     homeController.update();
                   },
                 ),
-                MenuItem(
+                menubar.NativeMenuItem(
                   label: 'Paths',
                   shortcut: LogicalKeySet(
                     LogicalKeyboardKey.meta,
                     LogicalKeyboardKey.digit0,
                   ),
-                  onClicked: () {
+                  onSelected: () {
                     homeController
                         .setCurrentSelectedWidget(const PathsScreen());
                     homeController.update();
                   },
                 ),
-                MenuItem(
+                menubar.NativeMenuItem(
                   label: 'Database',
                   shortcut: LogicalKeySet(
                     LogicalKeyboardKey.meta,
                     LogicalKeyboardKey.digit0,
                   ),
-                  onClicked: () {
+                  onSelected: () {
                     homeController
                         .setCurrentSelectedWidget(const DatabaseScreen());
                     homeController.update();
@@ -618,41 +625,41 @@ class Utility {
                 ),
               ],
             ),
-          Submenu(
+          menubar.NativeSubmenu(
             label: 'Threads',
             children: [
-              MenuItem(
+              menubar.NativeMenuItem(
                 label: "Companies",
-                onClicked: () {
+                onSelected: () {
                   homeController
                       .setCurrentSelectedWidget(const ThreadsCompanyScreen());
                 },
               ),
-              MenuItem(
+              menubar.NativeMenuItem(
                 label: "Sub Products",
-                onClicked: () {
+                onSelected: () {
                   homeController
                       .setCurrentSelectedWidget(const SubProductScreen());
                 },
               ),
-              MenuItem(
+              menubar.NativeMenuItem(
                 label: 'Add',
                 shortcut: LogicalKeySet(
                   LogicalKeyboardKey.meta,
                   LogicalKeyboardKey.digit0,
                 ),
-                onClicked: () async {
+                onSelected: () async {
                   await showAddThreadDialog(context);
                 },
               ),
             ],
           ),
-          Submenu(
+          menubar.NativeSubmenu(
             label: 'Backup',
             children: [
-              MenuItem(
+              menubar.NativeMenuItem(
                 label: "Backup",
-                onClicked: () {
+                onSelected: () {
                   homeController.setCurrentSelectedWidget(const BackupScreen());
                 },
               )
@@ -661,47 +668,46 @@ class Utility {
           if (empType == PersonEnum.SuperAdmin ||
               empType == PersonEnum.Admin ||
               empType == PersonEnum.SoftwareOwner)
-            Submenu(
+            menubar.NativeSubmenu(
               label: 'Testing',
               children: [
-                MenuItem(
+                menubar.NativeMenuItem(
                   label: 'Reset',
-                  enabled: false,
                   shortcut: LogicalKeySet(
                     LogicalKeyboardKey.meta,
                     LogicalKeyboardKey.digit0,
                   ),
-                  onClicked: () {},
+                  onSelected: () {},
                 ),
-                const MenuDivider(),
-                MenuItem(
+                const menubar.NativeMenuDivider(),
+                menubar.NativeMenuItem(
                   label: 'Testing',
                   shortcut: LogicalKeySet(LogicalKeyboardKey.f2),
-                  onClicked: () {
+                  onSelected: () {
                     // homeController.setCurrentSelectedWidget(TestingScreen());
                     homeController.update();
                   },
                 ),
-                MenuItem(
+                menubar.NativeMenuItem(
                   label: 'Decrement',
                   shortcut: LogicalKeySet(LogicalKeyboardKey.f1),
-                  onClicked: () {},
+                  onSelected: () {},
                 ),
               ],
             ),
-          Submenu(
+          menubar.NativeSubmenu(
             label: 'Profile',
             children: [
-              MenuItem(
+              menubar.NativeMenuItem(
                 label: "Account",
-                onClicked: () {
+                onSelected: () {
                   homeController
                       .setCurrentSelectedWidget(const AccountScreen());
                 },
               ),
-              MenuItem(
+              menubar.NativeMenuItem(
                 label: "Log out",
-                onClicked: () {
+                onSelected: () {
                   homeController.listSelectedWidget.clear();
                   // homeController
                   //     .setCurrentSelectedWidget(const LoginScreen());
@@ -725,7 +731,9 @@ class Utility {
   }
 
   Future showUpdateDialog(
-      BuildContext context, LoginController loginController) async {
+    BuildContext context,
+    LoginController loginController,
+  ) async {
     final strData = await Utility().checkCurrentVersion();
     debugPrint(strData);
     final jsonData = jsonDecode(strData) as Map<String, dynamic>;

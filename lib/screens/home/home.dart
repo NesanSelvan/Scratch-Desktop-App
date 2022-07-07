@@ -1,12 +1,11 @@
+import 'package:annai_store/controller/home/home.dart';
+import 'package:annai_store/controller/server/server.dart';
+import 'package:annai_store/controller/statements/statements.dart';
+import 'package:annai_store/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-import '../../controller/home/home.dart';
-import '../../controller/server/server.dart';
-import '../../controller/statements/statements.dart';
-import '../../utils/utility.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -31,10 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     Utility().updateMenubar(context, homeController, statementController);
     ScreenUtil.init(
-      BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width,
-        maxHeight: MediaQuery.of(context).size.height,
-      ),
+      context,
+      // BoxConstraints(
+      //   maxWidth: MediaQuery.of(context).size.width,
+      //   maxHeight: MediaQuery.of(context).size.height,
+      // ),
     );
     return RawKeyboardListener(
       focusNode: _focusNode,

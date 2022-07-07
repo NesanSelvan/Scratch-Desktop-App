@@ -2,8 +2,8 @@ name: annai_store
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -18,9 +18,9 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-dependency_overrides:
-  platform: ^3.1.0
+  sdk: ">=2.17.5 <3.0.0"
+
+# Dependencies specif
 dependencies:
   barcode: ^2.1.0
   cupertino_icons: ^1.0.2
@@ -28,6 +28,7 @@ dependencies:
     git:
       url: https://github.com/AgnelSelvan/custom_packages_flutter.git
       path: custom
+      ref: 2bdd680eea4c74a2067f82d48d720d7efd9fdfe3
   dartz: ^0.10.1
   desktop_window_utils: ^0.0.3
   dio: ^4.0.0
@@ -54,6 +55,7 @@ dependencies:
     git:
       url: https://github.com/google/flutter-desktop-embedding.git
       path: plugins/menubar
+      ref: 12decbe0f592e14e03223f6f2c0c7e0e2dbd70a1
   number_to_words: ^1.0.0
   path_provider: ^2.0.2
   pdf: ^3.4.2

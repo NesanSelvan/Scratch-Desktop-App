@@ -20,10 +20,11 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
-      BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width,
-        maxHeight: MediaQuery.of(context).size.height,
-      ),
+      context,
+      // BoxConstraints(
+      //   maxWidth: MediaQuery.of(context).size.width,
+      //   maxHeight: MediaQuery.of(context).size.height,
+      // ),
     );
     return TextButton.icon(
       style: ButtonStyle(
