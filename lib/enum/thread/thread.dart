@@ -1,0 +1,1 @@
+enum ThreadEnum { Vardhaman, Ameto }
