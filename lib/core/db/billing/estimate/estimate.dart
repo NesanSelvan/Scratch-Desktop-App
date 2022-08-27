@@ -1,5 +1,10 @@
+import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../models/estimate/estimate.dart';
 import '../../../../models/failure/failure.dart';
@@ -8,7 +13,16 @@ class EstimateDB {
   final storage = Database().storage;
 
   Future<void> clearAll() async {
-    await Database().storage.setItem("estimates", []);
+    final loginController = Get.put(LoginController());
+    final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
+    await Utility.showDeleteionDialog(
+        "All your estimate record will get cleared", onYesTap: () async {
+      if (empType == PersonEnum.SoftwareOwner)
+        await Database().storage.setItem("estimates", []);
+      else
+        CustomUtilies.customFailureSnackBar(
+            "You cannot delete", "Please contact the administrator");
+    });
   }
 
   List<EstimateModel> getAllEstimate() {
@@ -84,6 +98,7 @@ class EstimateDB {
   }
 
   Future<void> resetEstimate() async {
-    await storage.setItem("estimates", []);
+    clearAll();
+    // await storage.setItem("estimates", []);
   }
 }

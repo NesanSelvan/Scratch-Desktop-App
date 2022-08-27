@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:annai_store/controller/auth/login.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/utils/utility.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -47,7 +50,16 @@ class SalesHistoryNotifier extends GetxController {
   }
 
   Future<void> clearAllBills() async {
-    return salesDB.clearAll();
+    final loginController = Get.put(LoginController());
+    final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
+    await Utility.showDeleteionDialog("Sales Bill will get cleared",
+        onYesTap: () async {
+      if (empType == PersonEnum.SoftwareOwner)
+        await salesDB.clearAll();
+      else
+        CustomUtilies.customFailureSnackBar(
+            "You cannot delete", "Please contact the administrator");
+    });
   }
 
   BillModel? _selectedBillModel;

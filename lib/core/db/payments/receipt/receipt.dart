@@ -1,5 +1,10 @@
+import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../models/failure/failure.dart';
 import '../../../../models/receipts/receipt.dart';
@@ -8,7 +13,16 @@ class ReceiptDB {
   final storage = Database().storage;
 
   Future<void> clearAll() async {
-    await Database().storage.setItem("receipts", []);
+    final loginController = Get.put(LoginController());
+    final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
+    await Utility.showDeleteionDialog(
+        "All your receipts record will get cleared", onYesTap: () async {
+      if (empType == PersonEnum.SoftwareOwner)
+        await Database().storage.setItem("receipts", []);
+      else
+        CustomUtilies.customFailureSnackBar(
+            "You cannot delete", "Please contact the administrator");
+    });
   }
 
   List<ReceiptModel> getAllReceipt() {
@@ -82,7 +96,8 @@ class ReceiptDB {
   }
 
   Future<void> resetReceipts() async {
-    await storage.setItem("receipts", []);
+    clearAll();
+    // await storage.setItem("receipts", []);
   }
 
   Future<void> update() async {

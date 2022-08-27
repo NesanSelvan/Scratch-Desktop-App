@@ -30,6 +30,7 @@ import 'package:annai_store/screens/todays/sales.dart';
 import 'package:annai_store/utils/datetime/datetime.dart';
 import 'package:annai_store/utils/file/file.dart';
 import 'package:annai_store/utils/folder/folder.dart';
+import 'package:annai_store/utils/navigation_service.dart';
 import 'package:annai_store/utils/null/null.dart';
 import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:annai_store/utils/user_response/user_response.dart';
@@ -853,5 +854,47 @@ class Utility {
       default:
         throw Exception('Unexpected runtimeType of RawKeyEvent');
     }
+  }
+
+  static Future<void> showDeleteionDialog(String message,
+      {VoidCallback? onYesTap, VoidCallback? onNoTap}) async {
+    if (NavigationService.navigatorKey.currentContext != null)
+      return showDialog(
+          context: NavigationService.navigatorKey.currentContext!,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("Are you sure want to delete?"),
+              content: Text(message),
+              actions: [
+                TextButton(
+                  onPressed: onNoTap ??
+                      () {
+                        Navigator.pop(context);
+                      },
+                  child: Text("No"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (onYesTap != null) {
+                      onYesTap();
+
+                      CustomUtilies.customSuccessSnackBar(
+                          "Delete successful", "All Data deleted Successfully");
+                    }
+                  },
+                  child: Text(
+                    "Yes",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red[400]),
+                  ),
+                ),
+              ],
+            );
+          });
   }
 }

@@ -1,5 +1,10 @@
+import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../models/failure/failure.dart';
 import '../../../models/persons/employee/employee.dart';
@@ -26,7 +31,16 @@ class EmployeeDB {
   }
 
   Future<void> clearAll() async {
-    await Database().storage.setItem("employees", []);
+    final loginController = Get.put(LoginController());
+    final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
+    await Utility.showDeleteionDialog(
+        "All your employees record will get cleared", onYesTap: () async {
+      if (empType == PersonEnum.SoftwareOwner)
+        await Database().storage.setItem("employees", []);
+      else
+        CustomUtilies.customFailureSnackBar(
+            "You cannot delete", "Please contact the administrator");
+    });
   }
 
   Future<void> addEmployeeToDb(EmployeeModel employeeModel) async {
@@ -75,7 +89,8 @@ class EmployeeDB {
   }
 
   Future<void> resetEmployee() async {
-    await storage.setItem("employees", []);
+    clearAll();
+    // await storage.setItem("employees", []);
   }
 
   EmployeeModel? getEmployeeByName(String name) {
