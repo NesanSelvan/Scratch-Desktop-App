@@ -1,5 +1,10 @@
+import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../models/failure/failure.dart';
 import '../../../../models/payment/payment.dart';
@@ -8,7 +13,16 @@ class PaymentDB {
   final storage = Database().storage;
 
   Future<void> clearAll() async {
-    await Database().storage.setItem("payments", []);
+    final loginController = Get.put(LoginController());
+    final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
+    await Utility.showDeleteionDialog(
+        "All your payments record will get cleared", onYesTap: () async {
+      if (empType == PersonEnum.SoftwareOwner)
+        await Database().storage.setItem("payments", []);
+      else
+        CustomUtilies.customFailureSnackBar(
+            "You cannot delete", "Please contact the administrator");
+    });
   }
 
   List<PaymentModel> getAllPayment() {
@@ -86,7 +100,8 @@ class PaymentDB {
   }
 
   Future<void> resetPayments() async {
-    await storage.setItem("payments", []);
+    clearAll();
+    // await storage.setItem("payments", []);
   }
 
   Future<void> update() async {

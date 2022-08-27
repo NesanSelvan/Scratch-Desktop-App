@@ -1,6 +1,10 @@
+import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/utils/utility.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../controller/billing/sales/sales.dart';
 import '../../../models/customer/customer.dart';
@@ -38,7 +42,16 @@ class CustomerDB {
   }
 
   Future<void> clearAll() async {
-    await Database().storage.setItem("customers", []);
+    final loginController = Get.put(LoginController());
+    final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
+    await Utility.showDeleteionDialog(
+        "All your customers record will get cleared", onYesTap: () async {
+      if (empType == PersonEnum.SoftwareOwner)
+        await Database().storage.setItem("customers", []);
+      else
+        CustomUtilies.customFailureSnackBar(
+            "You cannot delete", "Please contact the administrator");
+    });
   }
 
   Future<void> addCustomerToDb(CustomerModel customerModel) async {
@@ -93,7 +106,7 @@ class CustomerDB {
     return cust.first;
   }
 
-  Future<void> resetCustomer() async {
-    await storage.setItem("customers", []);
-  }
+  // Future<void> resetCustomer() async {
+  //   await storage.setItem("customers", []);
+  // }
 }

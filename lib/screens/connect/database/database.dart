@@ -1,10 +1,12 @@
+import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/copy.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/utils/utility.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:filepicker_windows/filepicker_windows.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../../../controller/billing/sales/sales.dart';
 import '../../../controller/paths/paths.dart';
@@ -72,7 +74,17 @@ class _DatabaseScreenState extends State<DatabaseScreen> {
                 CustomTextButton(
                   "Clear All Sales",
                   onPressed: () async {
-                    await salesDB.clearAll();
+                    final loginController = Get.put(LoginController());
+                    final empType = getPersonEnumFromStr(
+                        loginController.currentEmployee!.type);
+                    await Utility.showDeleteionDialog(
+                        "Sales Bill will get cleared", onYesTap: () async {
+                      if (empType == PersonEnum.SoftwareOwner)
+                        await salesDB.clearAll();
+                      else
+                        CustomUtilies.customFailureSnackBar("You cannot delete",
+                            "Please contact the administrator");
+                    });
                   },
                 ),
                 CustomTextButton(

@@ -1,5 +1,10 @@
+import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:validators/validators.dart';
 
 import '../../../../models/customer/customer.dart';
@@ -10,7 +15,16 @@ class SewingServicesDB {
   final storage = Database().storage;
 
   Future<void> clearAll() async {
-    await Database().storage.setItem("sewing_service", []);
+    final loginController = Get.put(LoginController());
+    final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
+    await Utility.showDeleteionDialog(
+        "All your Sewing Service will get cleared", onYesTap: () async {
+      if (empType == PersonEnum.SoftwareOwner)
+        await Database().storage.setItem("sewing_service", []);
+      else
+        CustomUtilies.customFailureSnackBar(
+            "You cannot delete", "Please contact the administrator");
+    });
   }
 
   List<SewingService> getAllSewingService() {
@@ -86,7 +100,8 @@ class SewingServicesDB {
   }
 
   Future<void> resetSales() async {
-    await storage.setItem("sewing_service", []);
+    clearAll();
+    // await storage.setItem("sewing_service", []);
   }
 
   List<SewingService> getSewingServiceByDate(

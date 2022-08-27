@@ -139,7 +139,7 @@ class Database {
   }
 
   Future<void> deleteCustomerRelatedData() async {
-    await customerDB.resetCustomer();
+    await customerDB.clearAll();
     await ordersDB.resetOrder();
     await salesDB.resetSales();
     await quotationDB.resetQuotation();

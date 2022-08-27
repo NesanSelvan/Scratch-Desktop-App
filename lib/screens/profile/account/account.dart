@@ -1,5 +1,6 @@
 import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/person/person.dart';
 import 'package:annai_store/utils/sales_end/sales_end.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
@@ -56,7 +57,20 @@ class _AccountScreenState extends State<AccountScreen> {
                               CustomTextButton(
                                 "Create New Data",
                                 onPressed: () async {
-                                  SalesEnd.createNewDBFile(DateTime.now());
+                                  final loginController =
+                                      Get.put(LoginController());
+                                  final empType = getPersonEnumFromStr(
+                                      loginController.currentEmployee!.type);
+                                  await Utility.showDeleteionDialog(
+                                      "Your data will be deleted and will create new data.",
+                                      onYesTap: () async {
+                                    if (empType == PersonEnum.SoftwareOwner)
+                                      SalesEnd.createNewDBFile(DateTime.now());
+                                    else
+                                      CustomUtilies.customFailureSnackBar(
+                                          "You cannot delete",
+                                          "Please contact the administrator");
+                                  });
                                 },
                                 backgoundColor: Colors.red,
                                 textColor: Colors.white,

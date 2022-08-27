@@ -4,6 +4,7 @@ import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/application.dart';
 import 'package:annai_store/screens/auth/login.dart';
+import 'package:annai_store/utils/navigation_service.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,12 +29,12 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     performInit();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -53,6 +54,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
     Database().initialize();
     pathController.addIfNotExists();
     return GetMaterialApp(
+      navigatorKey: NavigationService.navigatorKey,
       title: Application.appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

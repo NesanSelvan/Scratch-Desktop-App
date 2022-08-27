@@ -1,5 +1,10 @@
+import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../models/failure/failure.dart';
 import '../../../../models/voucher/voucher.dart';
@@ -8,7 +13,16 @@ class VoucherDB {
   final storage = Database().storage;
 
   Future<void> clearAll() async {
-    await Database().storage.setItem("vouchers", []);
+    final loginController = Get.put(LoginController());
+    final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
+    await Utility.showDeleteionDialog(
+        "All your vouchers record will get cleared", onYesTap: () async {
+      if (empType == PersonEnum.SoftwareOwner)
+        await Database().storage.setItem("vouchers", []);
+      else
+        CustomUtilies.customFailureSnackBar(
+            "You cannot delete", "Please contact the administrator");
+    });
   }
 
   List<VoucherModel> getAllVoucher() {
@@ -82,7 +96,8 @@ class VoucherDB {
   }
 
   Future<void> resetVouchers() async {
-    await storage.setItem("vouchers", []);
+    clearAll();
+    // await storage.setItem("vouchers", []);
   }
 
   Future<void> update() async {

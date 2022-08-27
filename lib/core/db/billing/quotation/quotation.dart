@@ -1,5 +1,10 @@
+import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../models/failure/failure.dart';
 import '../../../../models/quotations/quotations.dart';
@@ -8,7 +13,16 @@ class QuotationDB {
   final storage = Database().storage;
 
   Future<void> clearAll() async {
-    await Database().storage.setItem("quotations", []);
+    final loginController = Get.put(LoginController());
+    final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
+    await Utility.showDeleteionDialog(
+        "All your quotations record will get cleared", onYesTap: () async {
+      if (empType == PersonEnum.SoftwareOwner)
+        await Database().storage.setItem("quotations", []);
+      else
+        CustomUtilies.customFailureSnackBar(
+            "You cannot delete", "Please contact the administrator");
+    });
   }
 
   List<QuotationModel> getAllQuotation() {
@@ -82,6 +96,7 @@ class QuotationDB {
   }
 
   Future<void> resetQuotation() async {
-    await storage.setItem("quotations", []);
+    clearAll();
+    // await storage.setItem("quotations", []);
   }
 }

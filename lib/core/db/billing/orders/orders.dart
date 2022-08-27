@@ -1,13 +1,27 @@
+import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/person/person.dart';
 import 'package:annai_store/models/failure/failure.dart';
 import 'package:annai_store/models/orders/order.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class OrdersDB {
   final storage = Database().storage;
 
   Future<void> clearAll() async {
-    await Database().storage.setItem("orders", []);
+    final loginController = Get.put(LoginController());
+    final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
+    await Utility.showDeleteionDialog("All your orders record will get cleared",
+        onYesTap: () async {
+      if (empType == PersonEnum.SoftwareOwner)
+        await Database().storage.setItem("orders", []);
+      else
+        CustomUtilies.customFailureSnackBar(
+            "You cannot delete", "Please contact the administrator");
+    });
   }
 
   List<OrderModel> getAllOrder() {
@@ -75,6 +89,7 @@ class OrdersDB {
   }
 
   Future<void> resetOrder() async {
-    await storage.setItem("orders", []);
+    // await storage.setItem("orders", []);
+    clearAll();
   }
 }
