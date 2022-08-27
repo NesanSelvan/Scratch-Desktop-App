@@ -1,6 +1,5 @@
+import 'package:annai_store/models/bank/bank.dart';
 import 'package:environments/environments.dart';
-
-import '../models/bank/bank.dart';
 
 enum ApplicationEnum { AnnaiStore, AnnaiTraders, Scratch }
 
@@ -11,10 +10,10 @@ class Application {
 
   static double version() {
     if (currentApplication == ApplicationEnum.AnnaiStore) {
-      return 17.16;
+      return 19;
     }
     if (currentApplication == ApplicationEnum.AnnaiTraders) {
-      return 7.16;
+      return 8;
     }
     return 1;
   }

@@ -99,6 +99,22 @@ String getBillNo(List<String> list) {
   return "${int.parse(list.last.split("/")[0].trim()) + 1} / ${getYear()}";
 }
 
+String getSalesBillNo(List<String> list) {
+  if (list.isEmpty) {
+    return "1166 / ${getYear()}";
+  }
+  debugPrint('Bill No : ${list.length + 1} / ${getYear()}');
+  final billNo = list.last;
+  list.sort((a, b) {
+    final aBill = int.parse(a.split("/")[0].trim());
+    final bBill = int.parse(b.split("/")[0].trim());
+
+    return aBill.compareTo(bBill);
+  });
+  // final number = int.parse(billNo.split("/")[0].trim());
+  return "${int.parse(list.last.split("/")[0].trim()) + 1} / ${getYear()}";
+}
+
 int getNoFromBillNo(String billNo) {
   return int.parse(billNo.split("/").first.trim());
 }

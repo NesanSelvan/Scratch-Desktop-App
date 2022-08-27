@@ -31,10 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
     Utility().updateMenubar(context, homeController, statementController);
     ScreenUtil.init(
       context,
-      // BoxConstraints(
-      //   maxWidth: MediaQuery.of(context).size.width,
-      //   maxHeight: MediaQuery.of(context).size.height,
-      // ),
     );
     return RawKeyboardListener(
       focusNode: _focusNode,

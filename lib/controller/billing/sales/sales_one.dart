@@ -1,28 +1,27 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/core/constants/calculations/calculations.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/keyboard.dart';
+import 'package:annai_store/enum/printer/printer.dart';
+import 'package:annai_store/models/bill/bill.dart';
+import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/models/price/price.dart';
+import 'package:annai_store/models/product/product.dart';
 import 'package:annai_store/models/sales/product/sales_product.dart';
+import 'package:annai_store/models/sewing_service/sewing_service.dart';
+import 'package:annai_store/models/unit/unit.dart';
+import 'package:annai_store/utils/keyboard/keyboard.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/printer/printer.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart';
-
-import '../../../enum/keyboard.dart';
-import '../../../enum/printer/printer.dart';
-import '../../../models/bill/bill.dart';
-import '../../../models/customer/customer.dart';
-import '../../../models/price/price.dart';
-import '../../../models/product/product.dart';
-import '../../../models/sewing_service/sewing_service.dart';
-import '../../../models/unit/unit.dart';
-import '../../../utils/keyboard/keyboard.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../../utils/printer/printer.dart';
-import 'sales.dart';
 
 class SalesBillingOneController extends GetxController {
   DateTime pickedDateTime = getTodaysDate();
@@ -36,7 +35,7 @@ class SalesBillingOneController extends GetxController {
   final discountController = TextEditingController();
   final noteController = TextEditingController();
   TextEditingController invoiceNumberController =
-      TextEditingController(text: "1 / 2020-2021");
+      TextEditingController(text: "1166 / 2020-2021");
   final supplierRefController = TextEditingController();
   final orderDateController = TextEditingController();
   final despatchDocNoController = TextEditingController();
@@ -159,7 +158,7 @@ class SalesBillingOneController extends GetxController {
       // debugPrint(
       //     "BillNO List: ${getBillNo(list.map((e) => e.billNo).toList())}");
       invoiceNumberController.text =
-          getBillNo(list.map((e) => e.billNo).toList());
+          getSalesBillNo(list.map((e) => e.billNo).toList());
     } else {
       setAllFieldForSelectedBill();
     }
@@ -548,8 +547,10 @@ class SalesBillingOneController extends GetxController {
     update();
   }
 
-  Future<void> addBillToDB(SalesBillingController salesBillingController,
-      PrinterEnum printerEnum) async {
+  Future<void> addBillToDB(
+    SalesBillingController salesBillingController,
+    PrinterEnum printerEnum,
+  ) async {
     debugPrint("destinationController.text: ${destinationController.text}");
     log("Updating Bill Customer: ${selectedCustomerModel?.name}");
 

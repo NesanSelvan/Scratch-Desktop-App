@@ -305,16 +305,9 @@ class _SalesScreen1State extends State<SalesScreen1> {
                             const SizedBox(height: 20),
                             Container(
                               width: CustomScreenUtility(context).width * 0.3,
-                              child: CustomTFWithKeyboard(
-                                keyboardNode: controller
-                                    .sewingServiceInvoiceNoKeyboardNode,
-                                focusNode:
-                                    controller.sewingServiceInvoiceNoNode,
-                                controller:
-                                    controller.sewingServiceInvoiceNoController,
-                                autofocus: true,
+                              child: CustomTextField(
+                                controller: controller.invoiceNumberController,
                                 label: "Invoice No",
-                                isEnabled: false,
                                 onEditingComplete: () {},
                               ),
                             ),
@@ -961,8 +954,11 @@ class _SalesScreen1State extends State<SalesScreen1> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: controller.invoiceNumberController,
+                      CustomTFWithKeyboard(
+                        controller: controller.sewingServiceInvoiceNoController,
+                        keyboardNode:
+                            controller.sewingServiceInvoiceNoKeyboardNode,
+                        focusNode: controller.sewingServiceInvoiceNoNode,
                         label: "Invoice Number",
                         onEditingComplete: () => node.nextFocus(),
                       ),
@@ -1085,8 +1081,10 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                             );
                                       });
                                     },
-                                    itemBuilder: (BuildContext context,
-                                        BillModel suggestion) {
+                                    itemBuilder: (
+                                      BuildContext context,
+                                      BillModel suggestion,
+                                    ) {
                                       debugPrint(
                                         'Suggestion Selected ${suggestion.billNo}',
                                       );
@@ -1175,8 +1173,10 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                         }
                                       });
                                     },
-                                    itemBuilder: (BuildContext context,
-                                        CustomerModel suggestion) {
+                                    itemBuilder: (
+                                      BuildContext context,
+                                      CustomerModel suggestion,
+                                    ) {
                                       debugPrint(
                                         'Suggestion Selected ${suggestion.name}',
                                       );
