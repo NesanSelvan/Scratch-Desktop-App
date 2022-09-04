@@ -1,42 +1,48 @@
+import 'package:annai_store/controller/billing/estimate/estimate.dart';
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/home/home.dart';
+import 'package:annai_store/controller/payments/estimate_receipt/estimate_receipt.dart';
+import 'package:annai_store/controller/product/product.dart';
 import 'package:annai_store/core/constants/calculations/basic_cal.dart';
 import 'package:annai_store/core/constants/calculations/calculations.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/billing/sales.dart';
+import 'package:annai_store/enum/keyboard.dart';
+import 'package:annai_store/enum/printer/printer.dart';
+import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/models/estimate/estimate.dart';
+import 'package:annai_store/models/price/price.dart';
+import 'package:annai_store/models/product/product.dart';
 import 'package:annai_store/models/sales/product/sales_product.dart';
+import 'package:annai_store/models/unit/unit.dart';
+import 'package:annai_store/screens/add/customer/customer.dart';
+import 'package:annai_store/screens/add/product/product.dart';
+import 'package:annai_store/screens/billing/sales/components/sales_button.dart';
+import 'package:annai_store/screens/billing/sales/sales.dart';
+import 'package:annai_store/utils/null/null.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/add_inkwell.dart';
+import 'package:annai_store/widgets/custom_button.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/custom_typeahead.dart';
+import 'package:annai_store/widgets/full_container.dart';
+import 'package:annai_store/widgets/header_text.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart';
 
-import '../../../controller/billing/estimate/estimate.dart';
-import '../../../controller/billing/sales/sales.dart';
-import '../../../controller/home/home.dart';
-import '../../../controller/product/product.dart';
-import '../../../enum/billing/sales.dart';
-import '../../../enum/keyboard.dart';
-import '../../../enum/printer/printer.dart';
-import '../../../models/customer/customer.dart';
-import '../../../models/price/price.dart';
-import '../../../models/product/product.dart';
-import '../../../models/unit/unit.dart';
-import '../../../utils/null/null.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/add_inkwell.dart';
-import '../../../widgets/custom_table.dart';
-import '../../../widgets/custom_typeahead.dart';
-import '../../../widgets/full_container.dart';
-import '../../../widgets/header_text.dart';
-import '../../../widgets/text_field.dart';
-import '../../add/customer/customer.dart';
-import '../../add/product/product.dart';
-import '../sales/components/sales_button.dart';
-import '../sales/sales.dart';
-
+// ignore: must_be_immutable
 class EstimateScreen extends StatelessWidget {
   EstimateScreen({Key? key}) : super(key: key);
 
+  EstimateReceiptController receiptController =
+      Get.put(EstimateReceiptController());
   EstimateController estimateController = Get.put(EstimateController());
   HomeController homeController = Get.put(HomeController());
   final FocusNode _focusNode = FocusNode();
@@ -50,6 +56,9 @@ class EstimateScreen extends StatelessWidget {
   final unitNode = FocusNode();
   final unitKeyboardNode = FocusNode();
   final discountNode = FocusNode();
+  final FocusNode _focusNodeBillNo = FocusNode();
+  final FocusNode _focusNodeCustomer = FocusNode();
+  final FocusNode _focusNodeCustomer1 = FocusNode();
 
   void normalPrint() {
     estimateController.addEstimateToDB(PrinterEnum.Normal);
@@ -645,7 +654,7 @@ class EstimateScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            width: CustomScreenUtility(context).width * 0.8,
+                            width: CustomScreenUtility(context).width * 0.6,
                             child: Column(
                               children: [
                                 const SizedBox(height: 10),
@@ -810,6 +819,423 @@ class EstimateScreen extends StatelessWidget {
                               ],
                             ),
                           ),
+                          Container(
+                            width: CustomScreenUtility(context).width * 0.2,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            color: Colors.grey[100],
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  GetBuilder<EstimateReceiptController>(
+                                    init: EstimateReceiptController(),
+                                    builder: (rc) {
+                                      return Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Checkbox(
+                                                    value: rc.isA5,
+                                                    onChanged: (bool? val) {
+                                                      rc.setIsA5 = val;
+                                                    },
+                                                  ),
+                                                  const CustomText("A5")
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Checkbox(
+                                                    value: rc.isPrint,
+                                                    onChanged: (bool? val) {
+                                                      rc.setIsPrint = val;
+                                                    },
+                                                  ),
+                                                  const CustomText("Print")
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          DateTimeInkWell(
+                                            onTap: () async {
+                                              final dateTime =
+                                                  await showDatePickerDialog(
+                                                context,
+                                                initialDate: DateTime.now(),
+                                                firstDate:
+                                                    DateTime.now().subtract(
+                                                  const Duration(days: 365 * 5),
+                                                ),
+                                              );
+                                              rc.setPickedDateTime(dateTime);
+                                            },
+                                            dateTime: rc.pickedDateTime,
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Container(
+                                            width: CustomScreenUtility(context)
+                                                    .width *
+                                                0.2,
+                                            child: RawKeyboardListener(
+                                              focusNode: _focusNodeBillNo,
+                                              onKey: (RawKeyEvent rawKeyEvent) {
+                                                final isKeyDown = Utility()
+                                                    .isKeyDown(rawKeyEvent);
+                                                switch (rawKeyEvent
+                                                    .data.runtimeType) {
+                                                  case RawKeyEventDataWindows:
+                                                    final data = rawKeyEvent
+                                                            .data
+                                                        as RawKeyEventDataWindows;
+                                                    debugPrint(
+                                                      '${data.logicalKey}',
+                                                    );
+
+                                                    if (!isKeyDown) {
+                                                      if (data.logicalKey ==
+                                                          LogicalKeyboardKey
+                                                              .arrowDown) {
+                                                        rc.keyboardSelectBillModel();
+                                                      } else if (data
+                                                              .logicalKey ==
+                                                          LogicalKeyboardKey
+                                                              .enter) {
+                                                        onBillNoControllerEditingComplete();
+                                                      }
+                                                    }
+                                                    break;
+                                                  default:
+                                                    throw Exception(
+                                                      'Unsupported platform ${rawKeyEvent.data.runtimeType}',
+                                                    );
+                                                }
+                                              },
+                                              child:
+                                                  TypeAheadField<EstimateModel>(
+                                                textFieldConfiguration:
+                                                    TextFieldConfiguration(
+                                                  autofocus: true,
+                                                  onEditingComplete: () {
+                                                    onBillNoControllerEditingComplete();
+                                                    rc.givenAmountNode
+                                                        .requestFocus();
+                                                  },
+                                                  controller:
+                                                      rc.salesBillNoController,
+                                                  decoration:
+                                                      getInputDecoration(
+                                                    null,
+                                                    rc.selectedBillModel ==
+                                                                null ||
+                                                            !_focusNodeBillNo
+                                                                .hasFocus
+                                                        ? "Enter Bill No"
+                                                        : rc.selectedBillModel!
+                                                            .estimateNo,
+                                                    rc.selectedBillModel == null
+                                                        ? ""
+                                                        : rc.selectedBillModel!
+                                                            .estimateNo,
+                                                  ),
+                                                ),
+                                                suggestionsCallback:
+                                                    (pattern) async {
+                                                  return rc.billModelList
+                                                      .where((suggestion) {
+                                                    return suggestion.estimateNo
+                                                        .toString()
+                                                        .contains(
+                                                          pattern.toLowerCase(),
+                                                        );
+                                                  });
+                                                },
+                                                itemBuilder: (
+                                                  BuildContext context,
+                                                  EstimateModel suggestion,
+                                                ) {
+                                                  debugPrint(
+                                                    'Suggestion Selected ${suggestion.estimateNo}',
+                                                  );
+                                                  return ListTile(
+                                                    title: Text(
+                                                      suggestion.estimateNo,
+                                                    ),
+                                                  );
+                                                },
+                                                onSuggestionSelected:
+                                                    (suggestion) {
+                                                  rc.setSelectedBillModel =
+                                                      suggestion;
+                                                  rc.salesBillNoController
+                                                          .text =
+                                                      suggestion.estimateNo;
+
+                                                  // node.nextFocus();
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Container(
+                                            child: RawKeyboardListener(
+                                              focusNode: _focusNodeCustomer,
+                                              onKey: (RawKeyEvent rawKeyEvent) {
+                                                final isKeyDown = Utility()
+                                                    .isKeyDown(rawKeyEvent);
+                                                switch (rawKeyEvent
+                                                    .data.runtimeType) {
+                                                  case RawKeyEventDataWindows:
+                                                    final data = rawKeyEvent
+                                                            .data
+                                                        as RawKeyEventDataWindows;
+                                                    debugPrint(
+                                                      '${data.logicalKey}',
+                                                    );
+                                                    if (data.logicalKey ==
+                                                        LogicalKeyboardKey
+                                                            .enter) {
+                                                      onCustomerControllerComplete();
+                                                    }
+                                                    if (!isKeyDown) {
+                                                      if (data.logicalKey ==
+                                                          LogicalKeyboardKey
+                                                              .arrowDown) {
+                                                        rc.keyboardSelectCustomerModel();
+                                                      }
+                                                    }
+                                                    break;
+                                                  default:
+                                                    throw Exception(
+                                                      'Unsupported platform ${rawKeyEvent.data.runtimeType}',
+                                                    );
+                                                }
+                                              },
+                                              child:
+                                                  TypeAheadField<CustomerModel>(
+                                                textFieldConfiguration:
+                                                    TextFieldConfiguration(
+                                                  focusNode:
+                                                      _focusNodeCustomer1,
+                                                  onEditingComplete: () {
+                                                    onCustomerControllerComplete();
+
+                                                    rc.paymentForNode
+                                                        .requestFocus();
+                                                  },
+                                                  controller:
+                                                      rc.customerController,
+                                                  decoration:
+                                                      getInputDecoration(
+                                                    null,
+                                                    rc.selectedCustomerModel ==
+                                                                null ||
+                                                            !_focusNodeCustomer
+                                                                .hasFocus
+                                                        ? "Enter Customer / Phone No"
+                                                        : rc.selectedCustomerModel!
+                                                            .name,
+                                                    rc.selectedCustomerModel ==
+                                                            null
+                                                        ? ""
+                                                        : rc.selectedCustomerModel!
+                                                            .name,
+                                                  ),
+                                                ),
+                                                suggestionsCallback:
+                                                    (pattern) async {
+                                                  return rc.customersList!
+                                                      .where((suggestion) {
+                                                    try {
+                                                      int.parse(pattern);
+                                                      return suggestion.mobileNo
+                                                          .toString()
+                                                          .contains(
+                                                            pattern
+                                                                .toLowerCase(),
+                                                          );
+                                                    } catch (e) {
+                                                      return suggestion.name
+                                                          .toLowerCase()
+                                                          .contains(
+                                                            pattern
+                                                                .toLowerCase(),
+                                                          );
+                                                    }
+                                                  });
+                                                },
+                                                itemBuilder: (
+                                                  BuildContext context,
+                                                  CustomerModel suggestion,
+                                                ) {
+                                                  debugPrint(
+                                                    'Suggestion Selected ${suggestion.name}',
+                                                  );
+                                                  return ListTile(
+                                                    tileColor:
+                                                        rc.selectedCustomerModel ==
+                                                                suggestion
+                                                            ? Colors.grey[300]
+                                                            : Colors.white,
+                                                    title:
+                                                        Text(suggestion.name),
+                                                  );
+                                                },
+                                                onSuggestionSelected:
+                                                    (suggestion) {
+                                                  rc.selectedCustomerModel =
+                                                      suggestion;
+                                                  rc.customerController.text =
+                                                      suggestion.name;
+                                                  rc.pendingAmountController
+                                                          .text =
+                                                      "${suggestion.pendingAmount}";
+                                                  debugPrint(
+                                                    'Selected $suggestion',
+                                                  );
+                                                  // node.nextFocus();
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          CustomTextField(
+                                            label: "Receipt No",
+                                            controller: rc.receiptNoController,
+                                            onEditingComplete: () {},
+                                            isEnabled: false,
+                                          ),
+                                          // const SizedBox(
+                                          //   height: 20,
+                                          // ),
+                                          // CustomTextField(
+                                          //   label: "Bill No",
+                                          //   rc: rc.billNoController,
+                                          // ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          CustomTextField(
+                                            label: "Pending Amount",
+                                            isEnabled: false,
+                                            controller:
+                                                rc.pendingAmountController,
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          CustomTextField(
+                                            focusNode: rc.paymentForNode,
+                                            label: "Payment For",
+                                            controller: rc.paymentForController,
+                                            onEditingComplete: () {
+                                              rc.receivedFromNode
+                                                  .requestFocus();
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          CustomTextField(
+                                            focusNode: rc.givenAmountNode,
+                                            label: "Given Amount",
+                                            controller:
+                                                rc.givenAmountController,
+                                            onEditingComplete: () {
+                                              rc.receivedFromNode
+                                                  .requestFocus();
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          CustomTextField(
+                                            focusNode: rc.receivedFromNode,
+                                            label: "Received From",
+                                            controller:
+                                                rc.receivedFromController,
+                                            onEditingComplete: () {
+                                              rc.paymentMethodNode
+                                                  .requestFocus();
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          DropdownButton<String>(
+                                            focusNode: rc.paymentMethodNode,
+                                            onChanged: (data) async {
+                                              rc.performInit();
+                                              print(
+                                                "All Customer = ${rc.customersList}",
+                                              );
+                                              if (data != null) {
+                                                rc.setSelectedPaymentMethod(
+                                                  data,
+                                                );
+                                              }
+
+                                              rc.paymentIDNode.requestFocus();
+                                            },
+                                            value: rc.selectedPaymentMethod,
+                                            items: paymentMethod
+                                                .map(
+                                                  (e) => DropdownMenuItem(
+                                                    onTap: () {},
+                                                    value: e,
+                                                    child: CustomText(e),
+                                                  ),
+                                                )
+                                                .toList(),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          CustomTextField(
+                                            focusNode: rc.paymentIDNode,
+                                            label: "Payment ID",
+                                            controller: rc.paymentIDController,
+                                            onEditingComplete: () async {
+                                              await rc.addReceiptData();
+                                              rc.resetInputField();
+                                              _focusNodeCustomer1
+                                                  .requestFocus();
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+
+                                          CustomButton(
+                                            buttonColor: kPrimaryColor,
+                                            icon: Icons.add,
+                                            text: "Add",
+                                            onTap: () async {
+                                              await rc.addReceiptData();
+                                              rc.resetInputField();
+                                              _focusNodeCustomer1
+                                                  .requestFocus();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -823,8 +1249,32 @@ class EstimateScreen extends StatelessWidget {
     );
   }
 
-  Widget buildInkWell(SalesProductModel e, EstimateController controller,
-      BuildContext context) {
+  void onCustomerControllerComplete() {
+    if (receiptController.selectedCustomerModel != null) {
+      debugPrint(
+        'Selected Customer :P ${receiptController.selectedCustomerModel}',
+      );
+      receiptController.customerController.text =
+          receiptController.selectedCustomerModel!.name;
+      receiptController.pendingAmountController.text =
+          "${receiptController.selectedCustomerModel!.pendingAmount}";
+    } else {
+      CustomUtilies.customFailureSnackBar(
+        "Please Enter the Customer First",
+        "Error",
+      );
+      _focusNodeCustomer1.requestFocus();
+    }
+    receiptController.salesBillNoController.clear();
+    receiptController.setSelectedBillModel = null;
+    receiptController.update();
+  }
+
+  Widget buildInkWell(
+    SalesProductModel e,
+    EstimateController controller,
+    BuildContext context,
+  ) {
     return InkWell(
       onTap: () {
         controller.onSalesModelTap(e);
@@ -907,6 +1357,40 @@ class EstimateScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void onBillNoControllerEditingComplete() {
+    // if (receiptController.selectedBillModel != null) {
+    //   debugPrint(
+    //       'Selected selectedBillModel :P ${receiptController.selectedBillModel}');
+    //   receiptController.salesBillNoController.text =
+    //       receiptController.selectedBillModel!.billNo!;
+    // }
+    if (receiptController.selectedBillModel != null) {
+      receiptController.salesBillNoController.text =
+          receiptController.selectedBillModel!.estimateNo;
+      receiptController.pendingAmountController.text =
+          "${receiptController.selectedBillModel!.price - receiptController.selectedBillModel!.givenAmount!}";
+      final customerData = receiptController.customersList
+          ?.where(
+            (element) =>
+                element.id ==
+                receiptController.selectedBillModel?.customerModel.id,
+          )
+          .toList();
+
+      if (customerData!.isEmpty) {
+        CustomUtilies.customFailureSnackBar(
+          "Error",
+          "There is no customer for this bill",
+        );
+        return;
+      }
+      receiptController.selectedCustomerModel = customerData[0];
+      receiptController.customerController.text =
+          receiptController.selectedCustomerModel!.name;
+      receiptController.update();
+    }
   }
 }
 

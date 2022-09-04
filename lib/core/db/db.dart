@@ -10,6 +10,7 @@ import 'package:annai_store/core/db/company/company.dart';
 import 'package:annai_store/core/db/customer/customer.dart';
 import 'package:annai_store/core/db/employee/employee.dart';
 import 'package:annai_store/core/db/paths/paths.dart';
+import 'package:annai_store/core/db/payments/estimate_receipt/estimate_receipt.dart';
 import 'package:annai_store/core/db/payments/payment/payment.dart';
 import 'package:annai_store/core/db/payments/receipt/receipt.dart';
 import 'package:annai_store/core/db/payments/voucher/voucher.dart';
@@ -78,6 +79,8 @@ class Database {
   PathsDB get pathsDB => PathsDB();
 
   BankDB get bankDB => BankDB();
+
+  EstimateReceiptDB get estimateReceiptDB => EstimateReceiptDB();
 
   List<UnitModel> getAllUnits() {
     try {

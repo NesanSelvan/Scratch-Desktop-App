@@ -31,6 +31,7 @@ class _$EstimateModelTearOff {
       required List<SalesProductModel> productList,
       required CustomerModel customerModel,
       required DateTime dateTime,
+      double? givenAmount = 0,
       String? note,
       required DateTime createdAt}) {
     return _EstimateModel(
@@ -42,6 +43,7 @@ class _$EstimateModelTearOff {
       productList: productList,
       customerModel: customerModel,
       dateTime: dateTime,
+      givenAmount: givenAmount,
       note: note,
       createdAt: createdAt,
     );
@@ -66,6 +68,7 @@ mixin _$EstimateModel {
   List<SalesProductModel> get productList => throw _privateConstructorUsedError;
   CustomerModel get customerModel => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
+  double? get givenAmount => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
@@ -89,6 +92,7 @@ abstract class $EstimateModelCopyWith<$Res> {
       List<SalesProductModel> productList,
       CustomerModel customerModel,
       DateTime dateTime,
+      double? givenAmount,
       String? note,
       DateTime createdAt});
 
@@ -114,6 +118,7 @@ class _$EstimateModelCopyWithImpl<$Res>
     Object? productList = freezed,
     Object? customerModel = freezed,
     Object? dateTime = freezed,
+    Object? givenAmount = freezed,
     Object? note = freezed,
     Object? createdAt = freezed,
   }) {
@@ -150,6 +155,10 @@ class _$EstimateModelCopyWithImpl<$Res>
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      givenAmount: givenAmount == freezed
+          ? _value.givenAmount
+          : givenAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
       note: note == freezed
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -185,6 +194,7 @@ abstract class _$EstimateModelCopyWith<$Res>
       List<SalesProductModel> productList,
       CustomerModel customerModel,
       DateTime dateTime,
+      double? givenAmount,
       String? note,
       DateTime createdAt});
 
@@ -213,6 +223,7 @@ class __$EstimateModelCopyWithImpl<$Res>
     Object? productList = freezed,
     Object? customerModel = freezed,
     Object? dateTime = freezed,
+    Object? givenAmount = freezed,
     Object? note = freezed,
     Object? createdAt = freezed,
   }) {
@@ -249,6 +260,10 @@ class __$EstimateModelCopyWithImpl<$Res>
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      givenAmount: givenAmount == freezed
+          ? _value.givenAmount
+          : givenAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
       note: note == freezed
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -274,6 +289,7 @@ class _$_EstimateModel implements _EstimateModel {
       required this.productList,
       required this.customerModel,
       required this.dateTime,
+      this.givenAmount = 0,
       this.note,
       required this.createdAt});
 
@@ -299,6 +315,9 @@ class _$_EstimateModel implements _EstimateModel {
   final CustomerModel customerModel;
   @override
   final DateTime dateTime;
+  @JsonKey()
+  @override
+  final double? givenAmount;
   @override
   final String? note;
   @override
@@ -306,7 +325,7 @@ class _$_EstimateModel implements _EstimateModel {
 
   @override
   String toString() {
-    return 'EstimateModel(id: $id, estimateNo: $estimateNo, billId: $billId, isTax: $isTax, price: $price, productList: $productList, customerModel: $customerModel, dateTime: $dateTime, note: $note, createdAt: $createdAt)';
+    return 'EstimateModel(id: $id, estimateNo: $estimateNo, billId: $billId, isTax: $isTax, price: $price, productList: $productList, customerModel: $customerModel, dateTime: $dateTime, givenAmount: $givenAmount, note: $note, createdAt: $createdAt)';
   }
 
   @override
@@ -325,6 +344,8 @@ class _$_EstimateModel implements _EstimateModel {
             const DeepCollectionEquality()
                 .equals(other.customerModel, customerModel) &&
             const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
+            const DeepCollectionEquality()
+                .equals(other.givenAmount, givenAmount) &&
             const DeepCollectionEquality().equals(other.note, note) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt));
   }
@@ -340,6 +361,7 @@ class _$_EstimateModel implements _EstimateModel {
       const DeepCollectionEquality().hash(productList),
       const DeepCollectionEquality().hash(customerModel),
       const DeepCollectionEquality().hash(dateTime),
+      const DeepCollectionEquality().hash(givenAmount),
       const DeepCollectionEquality().hash(note),
       const DeepCollectionEquality().hash(createdAt));
 
@@ -364,6 +386,7 @@ abstract class _EstimateModel implements EstimateModel {
       required List<SalesProductModel> productList,
       required CustomerModel customerModel,
       required DateTime dateTime,
+      double? givenAmount,
       String? note,
       required DateTime createdAt}) = _$_EstimateModel;
 
@@ -387,6 +410,8 @@ abstract class _EstimateModel implements EstimateModel {
   CustomerModel get customerModel;
   @override
   DateTime get dateTime;
+  @override
+  double? get givenAmount;
   @override
   String? get note;
   @override

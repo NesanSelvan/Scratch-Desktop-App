@@ -19,6 +19,7 @@ _$_EstimateModel _$$_EstimateModelFromJson(Map<String, dynamic> json) =>
       customerModel:
           CustomerModel.fromJson(json['customerModel'] as Map<String, dynamic>),
       dateTime: DateTime.parse(json['dateTime'] as String),
+      givenAmount: (json['givenAmount'] as num?)?.toDouble() ?? 0,
       note: json['note'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
@@ -33,6 +34,7 @@ Map<String, dynamic> _$$_EstimateModelToJson(_$_EstimateModel instance) =>
       'productList': instance.productList.map((e) => e.toJson()).toList(),
       'customerModel': instance.customerModel.toJson(),
       'dateTime': instance.dateTime.toIso8601String(),
+      'givenAmount': instance.givenAmount,
       'note': instance.note,
       'createdAt': instance.createdAt.toIso8601String(),
     };

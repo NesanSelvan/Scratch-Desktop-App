@@ -1,13 +1,12 @@
 import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/models/estimate/estimate.dart';
+import 'package:annai_store/models/failure/failure.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../models/estimate/estimate.dart';
-import '../../../../models/failure/failure.dart';
 
 class EstimateDB {
   final storage = Database().storage;
@@ -16,13 +15,18 @@ class EstimateDB {
     final loginController = Get.put(LoginController());
     final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
     await Utility.showDeleteionDialog(
-        "All your estimate record will get cleared", onYesTap: () async {
-      if (empType == PersonEnum.SoftwareOwner)
-        await Database().storage.setItem("estimates", []);
-      else
-        CustomUtilies.customFailureSnackBar(
-            "You cannot delete", "Please contact the administrator");
-    });
+      "All your estimate record will get cleared",
+      onYesTap: () async {
+        if (empType == PersonEnum.SoftwareOwner) {
+          await Database().storage.setItem("estimates", []);
+        } else {
+          CustomUtilies.customFailureSnackBar(
+            "You cannot delete",
+            "Please contact the administrator",
+          );
+        }
+      },
+    );
   }
 
   List<EstimateModel> getAllEstimate() {

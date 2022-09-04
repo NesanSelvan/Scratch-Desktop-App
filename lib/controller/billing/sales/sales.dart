@@ -40,6 +40,7 @@ final estimateDB = Database().estimateDB;
 final pathsDB = Database().pathsDB;
 final threadCompanyDB = Database().threadCompanyDB;
 final subProductsDB = Database().subProductsDB;
+final estimateReceiptDB = Database().estimateReceiptDB;
 
 class SalesBillingController extends GetxController {
   int salesCurrentScreen = 01;
@@ -81,7 +82,9 @@ class SalesBillingController extends GetxController {
   }
 
   Future<void> updateStockAndPendingAmount(
-      CustomerModel customerModel, List<SalesProductModel> productList) async {
+    CustomerModel customerModel,
+    List<SalesProductModel> productList,
+  ) async {
     //Updating Customer Pending Amount
     await customerDB.updateCustomer(
       customerModel.copyWith(
@@ -152,20 +155,21 @@ class SalesBillingController extends GetxController {
   }
 
   Future<void> addBillToDB(
-      String invoiceNo,
-      CustomerModel? customerModel,
-      List<SalesProductModel> salesProductModelList,
-      String note,
-      String supplierRef,
-      String orderDate,
-      String dispatchDocNo,
-      String destination,
-      Function performInit,
-      Function clearAll,
-      DateTime dateTime,
-      PrinterEnum printerEnum,
-      {String? billID,
-      bool? isUpdatedBill}) async {
+    String invoiceNo,
+    CustomerModel? customerModel,
+    List<SalesProductModel> salesProductModelList,
+    String note,
+    String supplierRef,
+    String orderDate,
+    String dispatchDocNo,
+    String destination,
+    Function performInit,
+    Function clearAll,
+    DateTime dateTime,
+    PrinterEnum printerEnum, {
+    String? billID,
+    bool? isUpdatedBill,
+  }) async {
     if (salesProductModelList.isEmpty) {
       CustomUtilies.customFailureSnackBar("Error", "Please add products");
       return;

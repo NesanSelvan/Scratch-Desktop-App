@@ -1,20 +1,22 @@
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/extensions/list.dart';
+import 'package:annai_store/extensions/type.dart';
 import 'package:annai_store/models/category/category.dart';
+import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/models/persons/employee/employee.dart';
+import 'package:annai_store/models/price/price.dart';
 import 'package:annai_store/models/product/product.dart';
+import 'package:annai_store/models/unit/unit.dart';
 import 'package:flutter/material.dart';
-
-import '../../controller/billing/sales/sales.dart';
-import '../../extensions/list.dart';
-import '../../extensions/type.dart';
-import '../../models/company/company.dart';
-import '../../models/persons/employee/employee.dart';
-import '../../models/price/price.dart';
-import '../../models/unit/unit.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class SearchUtility {
-  static List<T> customSearch<T>(String pattern, List<T> datas,
-      {bool? isSpecialSearch}) {
+  static List<T> customSearch<T>(
+    String pattern,
+    List<T> datas, {
+    bool? isSpecialSearch,
+  }) {
     debugPrint('Your List type is ${datas.genericType}!');
     List<T> returningData = [];
     if (datas.genericType == CustomerModel) {
@@ -41,7 +43,7 @@ class SearchUtility {
           for (final price in item.differentPriceList ?? <PriceModel>[]) {
             if (price.code != null) {
               if (price.code!.toLowerCase().contains(pattern.toLowerCase()) ||
-                  item.productNumber!
+                  (item.productNumber ?? "")
                       .toLowerCase()
                       .contains(pattern.toLowerCase())) {
                 matchedP.add(item);
@@ -70,7 +72,7 @@ class SearchUtility {
                   .toString()
                   .toLowerCase()
                   .contains(pattern.toLowerCase()) ||
-              element.productNumber!
+              (element.productNumber ?? "")
                   .toLowerCase()
                   .contains(pattern.toLowerCase());
         }).toList();
@@ -125,7 +127,7 @@ class SearchUtility {
                       .name
                       .toLowerCase()
                       .contains(pattern.toLowerCase()) ||
-                  element.productNumber!
+                  (element.productNumber ?? "")
                       .toLowerCase()
                       .contains(pattern.toLowerCase());
         }).toList();

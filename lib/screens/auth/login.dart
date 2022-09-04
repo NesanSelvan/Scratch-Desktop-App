@@ -1,18 +1,17 @@
+import 'package:annai_store/controller/auth/login.dart';
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/application.dart';
+import 'package:annai_store/utils/sales_end/sales_end.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
-import '../../controller/auth/login.dart';
-import '../../controller/billing/sales/sales.dart';
-import '../../controller/home/home.dart';
-import '../../enum/application.dart';
-import '../../utils/sales_end/sales_end.dart';
-import '../../utils/utility.dart';
-import '../../widgets/text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -123,9 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     }
                                     break;
                                   default:
-                                    throw Exception(
-                                      'Unsupported platform ${rawKeyEvent.data.runtimeType}',
-                                    );
+                                    break;
                                 }
                               },
                               child: CustomTextField(
@@ -133,6 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 controller: controller.usernameController,
                                 label: "Username",
                                 onEditingComplete: () {},
+                                autofocus: true,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -161,9 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     }
                                     break;
                                   default:
-                                    throw Exception(
-                                      'Unsupported platform ${rawKeyEvent.data.runtimeType}',
-                                    );
+                                    break;
                                 }
                               },
                               child: CustomTextField(

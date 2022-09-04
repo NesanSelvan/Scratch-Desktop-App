@@ -61,6 +61,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
         primaryColor: kPrimaryColor,
         primarySwatch: kMidPrimaryColor,
       ),
+      // home: const Scaffold(body: Text("Hello")),
       home: RawKeyboardListener(
         focusNode: _focusNode,
         onKey: (RawKeyEvent rawKeyEvent) {

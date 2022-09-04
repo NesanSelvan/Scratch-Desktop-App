@@ -1,20 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/home/home.dart';
+import 'package:annai_store/enum/application.dart';
+import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/models/persons/employee/employee.dart';
+import 'package:annai_store/screens/home/home.dart';
+import 'package:annai_store/utils/file/file.dart';
+import 'package:annai_store/utils/utility.dart';
 import 'package:custom/ftn.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-
-import '../../enum/application.dart';
-import '../../enum/person/person.dart';
-import '../../models/persons/employee/employee.dart';
-import '../../screens/home/home.dart';
-import '../../utils/file/file.dart';
-import '../../utils/utility.dart';
-import '../billing/sales/sales.dart';
-import '../home/home.dart';
 
 class LoginController extends GetxController {
   TextEditingController usernameController = TextEditingController();
@@ -59,12 +58,6 @@ class LoginController extends GetxController {
     await openExeFile(fileDownloadPath);
     isDownloading = false;
     update();
-  }
-
-  @override
-  void onInit() {
-    usernameNode.requestFocus();
-    super.onInit();
   }
 
   void handleLogin(HomeController homeController, BuildContext context) {

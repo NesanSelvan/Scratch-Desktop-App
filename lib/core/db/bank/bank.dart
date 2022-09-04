@@ -1,13 +1,12 @@
 import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/models/bank/bank.dart';
+import 'package:annai_store/models/failure/failure.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../models/bank/bank.dart';
-import '../../../models/failure/failure.dart';
 
 class BankDB {
   final storage = Database().storage;
@@ -33,14 +32,19 @@ class BankDB {
   Future<void> clearAll() async {
     final loginController = Get.put(LoginController());
     final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
-    await Utility.showDeleteionDialog("All your banck record will get cleared",
-        onYesTap: () async {
-      if (empType == PersonEnum.SoftwareOwner)
-        await Database().storage.setItem("banks", []);
-      else
-        CustomUtilies.customFailureSnackBar(
-            "You cannot delete", "Please contact the administrator");
-    });
+    await Utility.showDeleteionDialog(
+      "All your banck record will get cleared",
+      onYesTap: () async {
+        if (empType == PersonEnum.SoftwareOwner) {
+          await Database().storage.setItem("banks", []);
+        } else {
+          CustomUtilies.customFailureSnackBar(
+            "You cannot delete",
+            "Please contact the administrator",
+          );
+        }
+      },
+    );
   }
 
   Future<String> checkAndAddBank(BankModel bankModel) async {

@@ -8,7 +8,7 @@ import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ReceiptDB {
+class EstimateReceiptDB {
   final storage = Database().storage;
 
   Future<void> clearAll() async {
@@ -18,7 +18,7 @@ class ReceiptDB {
       "All your receipts record will get cleared",
       onYesTap: () async {
         if (empType == PersonEnum.SoftwareOwner) {
-          await Database().storage.setItem("receipts", []);
+          await Database().storage.setItem("estimate_receipts", []);
         } else {
           CustomUtilies.customFailureSnackBar(
             "You cannot delete",
@@ -77,7 +77,7 @@ class ReceiptDB {
   Future<void> updateReceiptToDB(List<ReceiptModel> receiptModelList) async {
     final receiptModelListMap = getReceiptListJson(receiptModelList);
     debugPrint("receiptModelListMap: $receiptModelListMap");
-    await storage.setItem("receipts", receiptModelListMap);
+    await storage.setItem("estimate_receipts", receiptModelListMap);
   }
 
   Future<void> deleteReceipt(ReceiptModel receiptModel) async {
@@ -101,7 +101,7 @@ class ReceiptDB {
 
   Future<void> resetReceipts() async {
     clearAll();
-    // await storage.setItem("receipts", []);
+    // await storage.setItem("estimate_receipts", []);
   }
 
   Future<void> update() async {
