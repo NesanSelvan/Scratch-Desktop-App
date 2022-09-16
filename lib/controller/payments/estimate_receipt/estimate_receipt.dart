@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:annai_store/controller/billing/sales/sales.dart';
@@ -86,6 +87,7 @@ class EstimateReceiptController extends GetxController {
 
   set setSelectedBillModel(EstimateModel? billModel) {
     _selectedBillModel = billModel;
+
     update();
   }
 
@@ -95,6 +97,8 @@ class EstimateReceiptController extends GetxController {
 
   void performInit() {
     final allReceipts = estimateReceiptDB.getAllReceipt();
+    log("Receipt----- ");
+    log("${allReceipts.length}");
     setReceiptsModelList = allReceipts;
     if (allReceipts.isNotEmpty) {
       setSelectedReceiptModel = allReceipts[0];
@@ -162,6 +166,10 @@ class EstimateReceiptController extends GetxController {
       } else {
         _selectedBillModel = billList[0];
       }
+    }
+    log("Customer ${_selectedBillModel?.customerModel}");
+    if (_selectedBillModel?.customerModel.id != null) {
+      selectedCustomerModel = _selectedBillModel?.customerModel;
     }
     update();
     debugPrint('selectedCustomerModel: $selectedCustomerModel');
@@ -261,7 +269,9 @@ class EstimateReceiptController extends GetxController {
   }
 
   Future<void> addReceiptData() async {
-    debugPrint("billNoController.text : ${salesBillNoController.text}");
+    log(
+      "billNoController.text : ${salesBillNoController.text} ${pendingAmountController.text}",
+    );
     try {
       final pendingAmount = double.parse(pendingAmountController.text);
       final givenAmount = double.parse(givenAmountController.text);
@@ -302,14 +312,15 @@ class EstimateReceiptController extends GetxController {
           estimateDB.updateEstimate(billModel!);
         }
       }
-      if (isPrint) {
-        await printReceipt(rm);
-      } else {
-        await viewReceipt(rm);
-      }
+      // if (isPrint) {
+      //   await printReceipt(rm);
+      // } else {
+      //   await viewReceipt(rm);
+      // }
       performInit();
       setPickedDateTime(getTodaysDate());
-    } catch (e) {
+    } catch (e, s) {
+      print(s);
       CustomUtilies.customFailureSnackBar("Error", "$e");
     }
   }

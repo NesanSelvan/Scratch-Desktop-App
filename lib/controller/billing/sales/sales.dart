@@ -150,8 +150,9 @@ class SalesBillingController extends GetxController {
     for (final item in productList) {
       debugPrint("Item: ${item.toJson()}");
     }
-
-    await updateStockAndPendingAmount(cust, productList);
+    if (cust != null) {
+      await updateStockAndPendingAmount(cust, productList);
+    }
   }
 
   Future<void> addBillToDB(

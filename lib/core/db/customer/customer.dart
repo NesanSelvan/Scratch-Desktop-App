@@ -1,14 +1,13 @@
 import 'package:annai_store/controller/auth/login.dart';
+import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/models/failure/failure.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../controller/billing/sales/sales.dart';
-import '../../../models/customer/customer.dart';
-import '../../../models/failure/failure.dart';
 
 class CustomerDB {
   final storage = Database().storage;
@@ -45,13 +44,18 @@ class CustomerDB {
     final loginController = Get.put(LoginController());
     final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
     await Utility.showDeleteionDialog(
-        "All your customers record will get cleared", onYesTap: () async {
-      if (empType == PersonEnum.SoftwareOwner)
-        await Database().storage.setItem("customers", []);
-      else
-        CustomUtilies.customFailureSnackBar(
-            "You cannot delete", "Please contact the administrator");
-    });
+      "All your customers record will get cleared",
+      onYesTap: () async {
+        if (empType == PersonEnum.SoftwareOwner) {
+          await Database().storage.setItem("customers", []);
+        } else {
+          CustomUtilies.customFailureSnackBar(
+            "You cannot delete",
+            "Please contact the administrator",
+          );
+        }
+      },
+    );
   }
 
   Future<void> addCustomerToDb(CustomerModel customerModel) async {
@@ -95,15 +99,17 @@ class CustomerDB {
     }
   }
 
-  CustomerModel getCustomerModelById(String id) {
+  CustomerModel? getCustomerModelById(String id) {
     final cust = getAllCustomer().where((element) => element.id == id).toList();
     if (cust.isEmpty) {
       CustomUtilies.customFailureSnackBar(
         "Error",
         "Customer not exists, So you cannot update bill",
       );
+    } else {
+      return cust.first;
     }
-    return cust.first;
+    return null;
   }
 
   // Future<void> resetCustomer() async {

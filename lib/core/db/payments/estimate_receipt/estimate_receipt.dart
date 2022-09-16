@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/person/person.dart';
@@ -18,6 +20,7 @@ class EstimateReceiptDB {
       "All your receipts record will get cleared",
       onYesTap: () async {
         if (empType == PersonEnum.SoftwareOwner) {
+          log("Cleared");
           await Database().storage.setItem("estimate_receipts", []);
         } else {
           CustomUtilies.customFailureSnackBar(
@@ -30,7 +33,7 @@ class EstimateReceiptDB {
   }
 
   List<ReceiptModel> getAllReceipt() {
-    final data = Database().storage.getItem('receipts');
+    final data = Database().storage.getItem('estimate_receipts');
     // debugPrint('Receipt Item: $data');
 
     final List<ReceiptModel> datas = [];

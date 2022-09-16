@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/controller/home/home.dart';
+import 'package:annai_store/controller/report/report.dart';
 import 'package:annai_store/controller/statements/statements.dart';
 import 'package:annai_store/controller/threads/threads.dart';
 import 'package:annai_store/core/constants/constants.dart';
@@ -20,6 +21,7 @@ import 'package:annai_store/screens/backup/backup.dart';
 import 'package:annai_store/screens/billing/sales/sales.dart';
 import 'package:annai_store/screens/connect/database/database.dart';
 import 'package:annai_store/screens/paths/paths.dart';
+import 'package:annai_store/screens/payments/estimate_receipt/estimate_receipt.dart';
 import 'package:annai_store/screens/payments/payments/payments.dart';
 import 'package:annai_store/screens/payments/receipt/receipt.dart';
 import 'package:annai_store/screens/payments/voucher/voucher.dart';
@@ -340,6 +342,140 @@ class Utility {
     );
   }
 
+  Future<void> reportDialog(
+    BuildContext context, {
+    required Callback generateStatement,
+  }) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: CustomText(
+            "Select Date",
+            color: Colors.grey[800],
+            fontWeight: FontWeight.bold,
+            size: 20,
+          ),
+          contentPadding: const EdgeInsets.all(10),
+          children: [
+            GetBuilder<ReportController>(
+              init: ReportController(),
+              builder: (controller) {
+                return Column(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const CustomText(
+                          "Select Customer",
+                          fontWeight: FontWeight.bold,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            DropdownButton<CustomerModel>(
+                              value: controller.selectedCustomer,
+                              onChanged: (CustomerModel? data) {
+                                if (data != null) {
+                                  controller.setSelectedCustomerModel = data;
+                                }
+                              },
+                              hint: const CustomText(
+                                "Select a Customer",
+                              ),
+                              items: controller.allCustomers
+                                  .map(
+                                    (e) => DropdownMenuItem<CustomerModel>(
+                                      value: e,
+                                      onTap: () {},
+                                      child: CustomText(e.name),
+                                    ),
+                                  )
+                                  .toList(),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              "Start Date",
+                              color: Colors.grey[800],
+                              size: 14,
+                            ),
+                            DateTimeInkWell(
+                              onTap: () async {
+                                final dateTime = await showDatePickerDialog(
+                                  context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1999),
+                                  lastDate: DateTimeUtility.getBillEndDate(),
+                                );
+                                controller.setStartDate =
+                                    dateTime ?? controller.startDate;
+                              },
+                              dateTime: controller.startDate,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 50),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              "End Date",
+                              color: Colors.grey[800],
+                              size: 14,
+                            ),
+                            DateTimeInkWell(
+                              onTap: () async {
+                                final dateTime = await showDatePickerDialog(
+                                  context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1999),
+                                  lastDate: DateTimeUtility.getBillEndDate(),
+                                );
+                                controller.setEndDate =
+                                    dateTime ?? controller.endDate;
+                              },
+                              dateTime: controller.endDate,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: const TextField(
+                        decoration: InputDecoration(
+                          hintText: "Previous Month Debit",
+                        ),
+                      ),
+                    ),
+                    CustomTextButton(
+                      "Submit",
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        controller
+                            .handleCustomerReportStatementGeneration(context);
+                      },
+                      backgoundColor: kPrimaryColor,
+                      textColor: Colors.white,
+                    )
+                  ],
+                );
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> showAddThreadDialog(BuildContext context) async {
     showDialog(
       context: context,
@@ -498,6 +634,15 @@ class Utility {
                   homeController.update();
                 },
               ),
+              if (empType == PersonEnum.SoftwareOwner)
+                menubar.NativeMenuItem(
+                  label: "Estimate Receipt",
+                  onSelected: () {
+                    homeController
+                        .setCurrentSelectedWidget(EstimateReceiptScreen());
+                    homeController.update();
+                  },
+                ),
               menubar.NativeMenuItem(
                 label: "Voucher",
                 onSelected: () {
@@ -549,6 +694,21 @@ class Utility {
                   ),
                 )
                 .toList(),
+          ),
+          menubar.NativeSubmenu(
+            label: 'Report',
+            children: [
+              menubar.NativeMenuItem(
+                label: "Customer",
+                onSelected: () async {
+                  await reportDialog(
+                    context,
+                    generateStatement: () async {},
+                  );
+                  homeController.update();
+                },
+              ),
+            ],
           ),
           menubar.NativeSubmenu(
             label: 'Statements',
@@ -856,45 +1016,52 @@ class Utility {
     }
   }
 
-  static Future<void> showDeleteionDialog(String message,
-      {VoidCallback? onYesTap, VoidCallback? onNoTap}) async {
-    if (NavigationService.navigatorKey.currentContext != null)
+  static Future<void> showDeleteionDialog(
+    String message, {
+    VoidCallback? onYesTap,
+    VoidCallback? onNoTap,
+  }) async {
+    if (NavigationService.navigatorKey.currentContext != null) {
       return showDialog(
-          context: NavigationService.navigatorKey.currentContext!,
-          builder: (context) {
-            return AlertDialog(
-              title: Text("Are you sure want to delete?"),
-              content: Text(message),
-              actions: [
-                TextButton(
-                  onPressed: onNoTap ??
-                      () {
-                        Navigator.pop(context);
-                      },
-                  child: Text("No"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    if (onYesTap != null) {
-                      onYesTap();
+        context: NavigationService.navigatorKey.currentContext!,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Are you sure want to delete?"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: onNoTap ??
+                    () {
+                      Navigator.pop(context);
+                    },
+                child: const Text("No"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  if (onYesTap != null) {
+                    onYesTap();
 
-                      CustomUtilies.customSuccessSnackBar(
-                          "Delete successful", "All Data deleted Successfully");
-                    }
-                  },
-                  child: Text(
-                    "Yes",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red[400]),
+                    CustomUtilies.customSuccessSnackBar(
+                      "Delete successful",
+                      "All Data deleted Successfully",
+                    );
+                  }
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red[400]),
+                ),
+                child: const Text(
+                  "Yes",
+                  style: TextStyle(
+                    color: Colors.white,
                   ),
                 ),
-              ],
-            );
-          });
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

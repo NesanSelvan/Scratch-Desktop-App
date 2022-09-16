@@ -133,6 +133,22 @@ class ReceiptDB {
     return receipts;
   }
 
+  List<ReceiptModel> getBillByPreviousDateAndCustomer(
+    DateTime startDate,
+    String customerId,
+  ) {
+    final List<ReceiptModel> receipts = [];
+    for (final item in getAllReceipt()
+        .where((element) => element.customerModel.id == customerId)
+        .toList()) {
+      final diff = item.createdAt.difference(startDate);
+      if (diff.inHours < 0) {
+        receipts.add(item);
+      }
+    }
+    return receipts;
+  }
+
   List<ReceiptModel> getReceiptByDateAndCustomerId(
     DateTime startDate,
     DateTime endDate,

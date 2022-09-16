@@ -1,4 +1,6 @@
 import 'package:annai_store/controller/auth/login.dart';
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/paths/paths.dart';
 import 'package:annai_store/core/db/copy.dart';
 import 'package:annai_store/enum/person/person.dart';
 import 'package:annai_store/utils/utility.dart';
@@ -7,9 +9,6 @@ import 'package:custom/ftn.dart';
 import 'package:filepicker_windows/filepicker_windows.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../controller/billing/sales/sales.dart';
-import '../../../controller/paths/paths.dart';
 
 class DatabaseScreen extends StatefulWidget {
   const DatabaseScreen({Key? key}) : super(key: key);
@@ -76,15 +75,21 @@ class _DatabaseScreenState extends State<DatabaseScreen> {
                   onPressed: () async {
                     final loginController = Get.put(LoginController());
                     final empType = getPersonEnumFromStr(
-                        loginController.currentEmployee!.type);
+                      loginController.currentEmployee!.type,
+                    );
                     await Utility.showDeleteionDialog(
-                        "Sales Bill will get cleared", onYesTap: () async {
-                      if (empType == PersonEnum.SoftwareOwner)
-                        await salesDB.clearAll();
-                      else
-                        CustomUtilies.customFailureSnackBar("You cannot delete",
-                            "Please contact the administrator");
-                    });
+                      "Sales Bill will get cleared",
+                      onYesTap: () async {
+                        if (empType == PersonEnum.SoftwareOwner) {
+                          await salesDB.clearAll();
+                        } else {
+                          CustomUtilies.customFailureSnackBar(
+                            "You cannot delete",
+                            "Please contact the administrator",
+                          );
+                        }
+                      },
+                    );
                   },
                 ),
                 CustomTextButton(
@@ -151,6 +156,12 @@ class _DatabaseScreenState extends State<DatabaseScreen> {
                   "Clear All Company",
                   onPressed: () async {
                     await companyDB.clearAll();
+                  },
+                ),
+                CustomTextButton(
+                  "Clear All Estimate Receipt",
+                  onPressed: () async {
+                    await estimateReceiptDB.clearAll();
                   },
                 ),
                 CustomTextButton(

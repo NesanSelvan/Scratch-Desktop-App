@@ -2,9 +2,27 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/core/constants/calculations/bills/estimate.dart';
+import 'package:annai_store/core/constants/calculations/bills/order.dart';
+import 'package:annai_store/core/constants/calculations/bills/quotation.dart';
+import 'package:annai_store/core/constants/calculations/bills/sales.dart';
+import 'package:annai_store/core/constants/calculations/calculations.dart';
+import 'package:annai_store/core/constants/calculations/report.dart';
+import 'package:annai_store/enum/application.dart';
 import 'package:annai_store/enum/operation.dart';
+import 'package:annai_store/enum/payments/payment.dart';
+import 'package:annai_store/extensions/type.dart';
+import 'package:annai_store/models/bill/bill.dart';
 import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/models/estimate/estimate.dart';
+import 'package:annai_store/models/orders/order.dart';
+import 'package:annai_store/models/payment/payment.dart';
+import 'package:annai_store/models/quotations/quotations.dart';
+import 'package:annai_store/models/receipts/receipt.dart';
+import 'package:annai_store/models/sewing_service/sewing_service.dart';
 import 'package:annai_store/models/tax_cal/tax_cal.dart';
+import 'package:annai_store/models/voucher/voucher.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,24 +32,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:validators/validators.dart';
-
-import '../../controller/billing/sales/sales.dart';
-import '../../core/constants/calculations/bills/estimate.dart';
-import '../../core/constants/calculations/bills/order.dart';
-import '../../core/constants/calculations/bills/quotation.dart';
-import '../../core/constants/calculations/bills/sales.dart';
-import '../../core/constants/calculations/calculations.dart';
-import '../../enum/application.dart';
-import '../../enum/payments/payment.dart';
-import '../../extensions/type.dart';
-import '../../models/bill/bill.dart';
-import '../../models/estimate/estimate.dart';
-import '../../models/orders/order.dart';
-import '../../models/payment/payment.dart';
-import '../../models/quotations/quotations.dart';
-import '../../models/receipts/receipt.dart';
-import '../../models/sewing_service/sewing_service.dart';
-import '../../models/voucher/voucher.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class PDFGenerator {
@@ -115,7 +115,10 @@ class PDFGenerator {
   }
 
   static pw.Container tableCellWithContText(
-      String text, double width, bool isRateAmount) {
+    String text,
+    double width,
+    bool isRateAmount,
+  ) {
     return pw.Container(
       width: width,
       height: 40,
@@ -255,8 +258,11 @@ class PDFGenerator {
     return "${path.path}/example.pdf";
   }
 
-  static pw.Container taxCalBodyData(
-      {bool isHalf = false, required pw.Widget child, required double width}) {
+  static pw.Container taxCalBodyData({
+    bool isHalf = false,
+    required pw.Widget child,
+    required double width,
+  }) {
     return pw.Container(
       width: isHalf ? width / 2 : width,
       height: 70,
@@ -267,11 +273,12 @@ class PDFGenerator {
     );
   }
 
-  static pw.Container taxCalFooterData(
-      {bool isHalf = false,
-      bool isRight = false,
-      required pw.Widget child,
-      required double width}) {
+  static pw.Container taxCalFooterData({
+    bool isHalf = false,
+    bool isRight = false,
+    required pw.Widget child,
+    required double width,
+  }) {
     return pw.Container(
       width: isHalf ? width / 2 : width,
       height: 15,
@@ -314,7 +321,9 @@ class PDFGenerator {
   }
 
   static Future<String> generateBarcode(
-      Uint8List imageBytes, double price) async {
+    Uint8List imageBytes,
+    double price,
+  ) async {
     final pdf = pw.Document(deflate: zlib.encode);
 
     final memImg = pw.MemoryImage(
@@ -2403,7 +2412,9 @@ class PDFGenerator {
   }
 
   static pw.Column _getFotterTaxColumn(
-      BillModel billModel, List<TaxCalModel> taxCalModel) {
+    BillModel billModel,
+    List<TaxCalModel> taxCalModel,
+  ) {
     return pw.Column(
       mainAxisAlignment: pw.MainAxisAlignment.end,
       crossAxisAlignment: pw.CrossAxisAlignment.end,
@@ -2734,12 +2745,12 @@ class PDFGenerator {
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           normalText("Buyer Details"),
-                          boldText(customerData.name),
+                          boldText(customerData?.name ?? "-"),
                           normalText(
-                            "${customerData.address}, ${customerData.state} - ${customerData.pincode}",
+                            "${customerData?.address}, ${customerData?.state} - ${customerData?.pincode}",
                           ),
-                          normalText("GSTIN: ${customerData.gstin}"),
-                          normalText("Mobile No.: ${customerData.mobileNo}"),
+                          normalText("GSTIN: ${customerData?.gstin}"),
+                          normalText("Mobile No.: ${customerData?.mobileNo}"),
                         ],
                       ),
                     ),
@@ -3156,7 +3167,9 @@ class PDFGenerator {
   }
 
   static Future<String> generateThermalBillForSales(
-      BillModel billModel, String? upiString) async {
+    BillModel billModel,
+    String? upiString,
+  ) async {
     final pdf = pw.Document();
     final dataCont = pw.Container(
       child: pw.Center(
@@ -3259,8 +3272,10 @@ class PDFGenerator {
     }
   }
 
-  static pw.BarcodeWidget? getUPIBarcodeImage(String? upiString,
-      {double? width}) {
+  static pw.BarcodeWidget? getUPIBarcodeImage(
+    String? upiString, {
+    double? width,
+  }) {
     if (upiString == null) {
       return null;
     }
@@ -3288,7 +3303,8 @@ class PDFGenerator {
   }
 
   static Future<String> generateThermalBillForSewingService(
-      SewingService sewingService) async {
+    SewingService sewingService,
+  ) async {
     final pdf = pw.Document();
     final dataCont = pw.Container(
       child: pw.Center(
@@ -3420,7 +3436,8 @@ class PDFGenerator {
   }
 
   static Future<String> generateThermalBillForSewingServiceForCustomer(
-      SewingService sewingService) async {
+    SewingService sewingService,
+  ) async {
     final pdf = pw.Document();
     final dataCont = pw.Container(
       child: pw.Center(
@@ -3489,7 +3506,8 @@ class PDFGenerator {
   }
 
   static Future<String> generateThermalBillForQuotation(
-      QuotationModel billModel) async {
+    QuotationModel billModel,
+  ) async {
     final pdf = pw.Document();
     final dataCont = pw.Container(
       child: pw.Center(
@@ -3589,7 +3607,8 @@ class PDFGenerator {
   }
 
   static Future<String> generateThermalBillForOrders(
-      OrderModel billModel) async {
+    OrderModel billModel,
+  ) async {
     final pdf = pw.Document();
     final dataCont = pw.Container(
       child: pw.Center(
@@ -4097,7 +4116,8 @@ class PDFGenerator {
   }
 
   static Future<String> generateA5PaymentModel(
-      PaymentModel paymentModel) async {
+    PaymentModel paymentModel,
+  ) async {
     final pdf = pw.Document();
 
     final todayDateStr =
@@ -4651,7 +4671,7 @@ class PDFGenerator {
     DateTime endDate,
   ) async {
     final bills =
-        salesDB.getBillByDateAndCustomer(startDate, endDate, customerModel);
+        salesDB.getBillByDateAndCustomer(startDate, endDate, customerModel.id);
     final receipts = receiptDB.getReceiptByDateAndCustomerId(
       startDate,
       endDate,
@@ -4709,6 +4729,150 @@ class PDFGenerator {
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             smallText("Received From "),
+                            smallText("Received By "),
+                            smallText("Paid Through "),
+                            smallText("Payment ID"),
+                          ],
+                        ),
+                      ),
+                      pw.Container(
+                        padding: const pw.EdgeInsets.symmetric(horizontal: 5),
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            boldSmallText("customerModel.name"),
+                            boldSmallText(Application.appName),
+                            boldSmallText("receiptModel.paymentMethod"),
+                            if (getPaymentMethodFromStr(
+                                  "receiptModel.paymentMethod",
+                                ) !=
+                                PaymentMethodEnum.CASH)
+                              boldSmallText("receiptModel.paymentId")
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // if (getPaymentMethodFromStr(receiptModel.paymentMethod) !=
+                //       PaymentMethodEnum.CASH)
+                //       pw.Container(
+                //     padding: const pw.EdgeInsets.symmetric(horizontal: 10),
+                //     child: pw.Row(
+                //         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                //         children: [
+                //             boldText(receiptModel.paymentId)
+
+                //         ])),
+
+                pw.Divider(borderStyle: pw.BorderStyle.dashed),
+                pw.Container(
+                  padding: const pw.EdgeInsets.symmetric(horizontal: 2),
+                  child: pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children: [
+                      boldText("Cash "),
+                      boldText("Rs. "),
+                    ],
+                  ),
+                ),
+
+                // pw.SizedBox(height: 10),
+                // pw.Container(
+                //     padding: const pw.EdgeInsets.symmetric(horizontal: 2),
+                //     child: boldText(NumberToWord()
+                //             .convert('en-in', receiptModel.givenAmount.round())
+                //             .capitalize ??
+                //         "")),
+                // pw.Divider(borderStyle: pw.BorderStyle.dashed),
+                boldText("Thank you! Visit Again!"),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+
+    pdf.addPage(
+      pw.Page(
+        pageFormat: getA4Size,
+        build: (pw.Context context) {
+          return dataCont; // Center
+        },
+      ),
+    );
+    final path = await getPDFFilePath();
+    final file = File(path);
+    try {
+      file.writeAsBytesSync(await pdf.save());
+      return file.path;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> generateCustomerReport(
+    DateTime startDate,
+    DateTime endDate,
+    CustomerModel customerModel,
+  ) async {
+    final previousAmount = ReportCalculations.getPreviousBalance(
+      startDate,
+      customerModel.id,
+    );
+
+    final pdf = pw.Document();
+    final dataCont = pw.Container(
+      // padding: const pw.EdgeInsets.all(5),
+      child: pw.Stack(
+        children: [
+          // pw.Center(
+          //     child: pw.Container(
+          //         child: pw.Text("Paid",
+          //             style: pw.TextStyle(
+          //                 fontSize: 20, fontWeight: pw.FontWeight.bold)))),
+          pw.Center(
+            child: pw.Column(
+              children: [
+                bigText(Application.appName),
+                normalText(Application.address),
+                normalText("Cell: ${Application.mobileNo}"),
+                normalText("GSTIN:${Application.gstinNo}"),
+                pw.Container(
+                  width: 400,
+                  child: pw.Divider(color: PdfColor.fromHex("#E0E0E0")),
+                ),
+                pw.SizedBox(height: 5),
+                boldText(customerModel.name),
+                normalText(customerModel.address),
+                normalText("${customerModel.state} - ${customerModel.pincode}"),
+                normalText("Cell: ${customerModel.mobileNo}"),
+                if (customerModel.gstin != null && customerModel.gstin != "")
+                  normalText("GSTIN: ${customerModel.gstin}"),
+                pw.SizedBox(height: 5),
+                pw.Container(
+                  padding: const pw.EdgeInsets.symmetric(horizontal: 10),
+                  child: pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                    children: [
+                      boldText("Receipt No"),
+                      boldText("Date"),
+                    ],
+                  ),
+                ),
+                pw.SizedBox(height: 5),
+                pw.Divider(borderStyle: pw.BorderStyle.dashed),
+                pw.Container(
+                  width: 71 * PdfPageFormat.mm,
+                  child: pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                    children: [
+                      pw.Container(
+                        padding: const pw.EdgeInsets.symmetric(horizontal: 5),
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            smallText("Received From $previousAmount"),
                             smallText("Received By "),
                             smallText("Paid Through "),
                             smallText("Payment ID"),

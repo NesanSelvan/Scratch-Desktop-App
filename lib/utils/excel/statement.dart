@@ -1,7 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/core/constants/calculations/basic_cal.dart';
+import 'package:annai_store/core/constants/calculations/bills/purchase.dart';
+import 'package:annai_store/core/constants/calculations/bills/sales.dart';
+import 'package:annai_store/enum/application.dart';
+import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/models/purchase/purchase.dart';
 import 'package:annai_store/utils/backup/backup.dart';
 import 'package:custom/ftn.dart';
 import 'package:excel/excel.dart';
@@ -9,22 +16,15 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:validators/validators.dart';
 
-import '../../controller/billing/sales/sales.dart';
-import '../../core/constants/calculations/basic_cal.dart';
-import '../../core/constants/calculations/bills/purchase.dart';
-import '../../core/constants/calculations/bills/sales.dart';
-import '../../enum/application.dart';
-import '../../models/company/company.dart';
-import '../../models/purchase/purchase.dart';
-
 class GenerateExcelSheetData {
-  void customExcelData(
-      {required Sheet sheetObject,
-      required String indexByString,
-      required dynamic value,
-      bool? isBold,
-      Underline? underline,
-      int? fontSize}) {
+  void customExcelData({
+    required Sheet sheetObject,
+    required String indexByString,
+    required dynamic value,
+    bool? isBold,
+    Underline? underline,
+    int? fontSize,
+  }) {
     final cell = sheetObject.cell(CellIndex.indexByString(indexByString));
     cell.value = value;
     cell.cellStyle = CellStyle(
@@ -34,19 +34,21 @@ class GenerateExcelSheetData {
     );
   }
 
-  Data excelData(
-      {required Sheet sheetObject,
-      required String indexByString,
-      required dynamic value}) {
+  Data excelData({
+    required Sheet sheetObject,
+    required String indexByString,
+    required dynamic value,
+  }) {
     final cell = sheetObject.cell(CellIndex.indexByString(indexByString));
     cell.value = value;
     return cell;
   }
 
-  void header(
-      {required Sheet sheetObject,
-      required String indexByString,
-      required dynamic value}) {
+  void header({
+    required Sheet sheetObject,
+    required String indexByString,
+    required dynamic value,
+  }) {
     final cell = excelData(
       sheetObject: sheetObject,
       indexByString: indexByString,
@@ -217,7 +219,9 @@ class GenerateExcelSheetData {
   }
 
   Future<void> generateReceiptStatement(
-      DateTime startDate, DateTime endDate) async {
+    DateTime startDate,
+    DateTime endDate,
+  ) async {
     final receipts =
         receiptDB.getReceiptByDate(startDate, endDate).reversed.toList();
     final excel = Excel.createExcel();
@@ -344,7 +348,9 @@ class GenerateExcelSheetData {
   }
 
   Future<void> generatePaymentStatement(
-      DateTime startDate, DateTime endDate) async {
+    DateTime startDate,
+    DateTime endDate,
+  ) async {
     final payments =
         paymentDB.getPaymentByDate(startDate, endDate).reversed.toList();
     final excel = Excel.createExcel();
@@ -640,7 +646,10 @@ class GenerateExcelSheetData {
   }
 
   Future<void> generatePurchaseStatement(
-      DateTime startDate, DateTime endDate, CompanyModel? companyModel) async {
+    DateTime startDate,
+    DateTime endDate,
+    CompanyModel? companyModel,
+  ) async {
     List<PurchaseModel> bills =
         purchaseDB.getBillByDate(startDate, endDate).reversed.toList();
     if (companyModel != null) {
@@ -815,9 +824,12 @@ class GenerateExcelSheetData {
   }
 
   Future<void> generateSalesStatementByCustomer(
-      DateTime startDate, DateTime endDate, CustomerModel customerModel) async {
+    DateTime startDate,
+    DateTime endDate,
+    CustomerModel customerModel,
+  ) async {
     final bills = salesDB
-        .getBillByDateAndCustomer(startDate, endDate, customerModel)
+        .getBillByDateAndCustomer(startDate, endDate, customerModel.id)
         .reversed
         .toList();
     final excel = Excel.createExcel();

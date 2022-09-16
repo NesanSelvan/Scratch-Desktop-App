@@ -1,11 +1,11 @@
+import 'dart:developer';
+
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/models/bill/bill.dart';
+import 'package:annai_store/models/failure/failure.dart';
 import 'package:flutter/material.dart';
 import 'package:validators/validators.dart';
-
-import '../../../../models/bill/bill.dart';
-import '../../../../models/customer/customer.dart';
-import '../../../../models/failure/failure.dart';
 
 class SalesDB {
   final storage = Database().storage;
@@ -80,7 +80,11 @@ class SalesDB {
   }
 
   BillModel getBillModelById(String id) {
-    return getAllBill().where((element) => element.id == id).toList()[0];
+    try {
+      return getAllBill().where((element) => element.id == id).toList()[0];
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<void> resetSales() async {
@@ -122,16 +126,39 @@ class SalesDB {
     return bills;
   }
 
-  List<BillModel> getBillByDateAndCustomer(
-      DateTime startDate, DateTime endDate, CustomerModel customerModel) {
+  List<BillModel> getBillByPreviousDateAndCustomer(
+    DateTime startDate,
+    String customerId,
+  ) {
+    print("Hello ${getAllBill().length}");
     final List<BillModel> bills = [];
-    debugPrint("${endDate.difference(startDate).inDays}");
+    for (final item in getAllBill()
+        .where((element) => element.customerModel.id == customerId)
+        .toList()) {
+      // print(item.dateTime);
+      final diff = item.dateTime.difference(startDate);
+      if (diff.inHours < 0) {
+        bills.add(item);
+      }
+      // log("diff: $diff");
+    }
+    return bills;
+  }
+
+  List<BillModel> getBillByDateAndCustomer(
+    DateTime startDate,
+    DateTime endDate,
+    String customerId,
+  ) {
+    final List<BillModel> bills = [];
+    log("${endDate.difference(startDate).inDays}");
     final startEndDiff = endDate.difference(startDate).inDays;
-    for (final item in getAllBill()) {
-      debugPrint("${endDate.difference(item.dateTime).inDays}");
+    for (final item in getAllBill()
+        .where((element) => element.customerModel.id == customerId)) {
+      log("${endDate.difference(item.dateTime).inDays}");
       final dateDiff = endDate.difference(item.dateTime).inDays;
       if (dateDiff <= startEndDiff && dateDiff >= 0) {
-        if (item.customerModel.id == customerModel.id) {
+        if (item.customerModel.id == customerId) {
           bills.add(item);
         }
       }
