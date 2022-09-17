@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -20,6 +21,7 @@ import 'package:annai_store/models/orders/order.dart';
 import 'package:annai_store/models/payment/payment.dart';
 import 'package:annai_store/models/quotations/quotations.dart';
 import 'package:annai_store/models/receipts/receipt.dart';
+import 'package:annai_store/models/report/customer.dart';
 import 'package:annai_store/models/sewing_service/sewing_service.dart';
 import 'package:annai_store/models/tax_cal/tax_cal.dart';
 import 'package:annai_store/models/voucher/voucher.dart';
@@ -27,6 +29,7 @@ import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/string_extensions.dart';
+import 'package:intl/intl.dart';
 import 'package:number_to_words/number_to_words.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -4811,137 +4814,173 @@ class PDFGenerator {
     }
   }
 
+  pw.Widget boldTextWithPadding(String text) {
+    return pw.Padding(
+      padding: const pw.EdgeInsets.symmetric(vertical: 8),
+      child: pw.Text(
+        text,
+        style: pw.TextStyle(
+          fontWeight: pw.FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  pw.Widget textWithPadding(String text) {
+    return pw.Padding(
+      padding: const pw.EdgeInsets.symmetric(vertical: 8),
+      child: pw.Text(text),
+    );
+  }
+
   Future<String> generateCustomerReport(
     DateTime startDate,
     DateTime endDate,
-    CustomerModel customerModel,
-  ) async {
-    final previousAmount = ReportCalculations.getPreviousBalance(
+    CustomerModel customerModel, {
+    double? previousAmountManually,
+  }) async {
+    final previousAmount = previousAmountManually ??
+        ReportCalculations.getPreviousBalance(
+          startDate,
+          customerModel.id,
+        );
+    final bills =
+        salesDB.getBillByDateAndCustomer(startDate, endDate, customerModel.id);
+    final receipts = receiptDB.getReceiptByDateAndCustomerId(
       startDate,
+      endDate,
       customerModel.id,
     );
+    double totalDebit = 0;
+    double totalCredit = 0;
+    final List<CustomerReport> customersReport = [];
+    for (final bill in bills) {
+      final customerReport = CustomerReport(
+        bill.dateTime,
+        "GST Sales",
+        VchType.gst,
+        bill.billNo,
+        bill.price,
+        0,
+      );
+      totalDebit += bill.price;
+      customersReport.add(customerReport);
+    }
+
+    for (final receipt in receipts) {
+      final customerReport = CustomerReport(
+        receipt.createdAt,
+        "Receipt",
+        VchType.receipt,
+        receipt.receiptNo,
+        0,
+        receipt.givenAmount,
+      );
+      totalCredit += receipt.givenAmount;
+      customersReport.add(customerReport);
+    }
+
+    customersReport.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+
+    log("customersReport: ${customersReport.length} ${customerModel.name} ${receipts.length}");
 
     final pdf = pw.Document();
-    final dataCont = pw.Container(
-      // padding: const pw.EdgeInsets.all(5),
-      child: pw.Stack(
-        children: [
-          // pw.Center(
-          //     child: pw.Container(
-          //         child: pw.Text("Paid",
-          //             style: pw.TextStyle(
-          //                 fontSize: 20, fontWeight: pw.FontWeight.bold)))),
-          pw.Center(
-            child: pw.Column(
-              children: [
-                bigText(Application.appName),
-                normalText(Application.address),
-                normalText("Cell: ${Application.mobileNo}"),
-                normalText("GSTIN:${Application.gstinNo}"),
-                pw.Container(
-                  width: 400,
-                  child: pw.Divider(color: PdfColor.fromHex("#E0E0E0")),
-                ),
-                pw.SizedBox(height: 5),
-                boldText(customerModel.name),
-                normalText(customerModel.address),
-                normalText("${customerModel.state} - ${customerModel.pincode}"),
-                normalText("Cell: ${customerModel.mobileNo}"),
-                if (customerModel.gstin != null && customerModel.gstin != "")
-                  normalText("GSTIN: ${customerModel.gstin}"),
-                pw.SizedBox(height: 5),
-                pw.Container(
-                  padding: const pw.EdgeInsets.symmetric(horizontal: 10),
-                  child: pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                    children: [
-                      boldText("Receipt No"),
-                      boldText("Date"),
-                    ],
-                  ),
-                ),
-                pw.SizedBox(height: 5),
-                pw.Divider(borderStyle: pw.BorderStyle.dashed),
-                pw.Container(
-                  width: 71 * PdfPageFormat.mm,
-                  child: pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                    children: [
-                      pw.Container(
-                        padding: const pw.EdgeInsets.symmetric(horizontal: 5),
-                        child: pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            smallText("Received From $previousAmount"),
-                            smallText("Received By "),
-                            smallText("Paid Through "),
-                            smallText("Payment ID"),
-                          ],
-                        ),
-                      ),
-                      pw.Container(
-                        padding: const pw.EdgeInsets.symmetric(horizontal: 5),
-                        child: pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            boldSmallText("customerModel.name"),
-                            boldSmallText(Application.appName),
-                            boldSmallText("receiptModel.paymentMethod"),
-                            if (getPaymentMethodFromStr(
-                                  "receiptModel.paymentMethod",
-                                ) !=
-                                PaymentMethodEnum.CASH)
-                              boldSmallText("receiptModel.paymentId")
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // if (getPaymentMethodFromStr(receiptModel.paymentMethod) !=
-                //       PaymentMethodEnum.CASH)
-                //       pw.Container(
-                //     padding: const pw.EdgeInsets.symmetric(horizontal: 10),
-                //     child: pw.Row(
-                //         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                //         children: [
-                //             boldText(receiptModel.paymentId)
-
-                //         ])),
-
-                pw.Divider(borderStyle: pw.BorderStyle.dashed),
-                pw.Container(
-                  padding: const pw.EdgeInsets.symmetric(horizontal: 2),
-                  child: pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.center,
-                    children: [
-                      boldText("Cash "),
-                      boldText("Rs. "),
-                    ],
-                  ),
-                ),
-
-                // pw.SizedBox(height: 10),
-                // pw.Container(
-                //     padding: const pw.EdgeInsets.symmetric(horizontal: 2),
-                //     child: boldText(NumberToWord()
-                //             .convert('en-in', receiptModel.givenAmount.round())
-                //             .capitalize ??
-                //         "")),
-                // pw.Divider(borderStyle: pw.BorderStyle.dashed),
-                boldText("Thank you! Visit Again!"),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
 
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
+        maxPages: 100,
         pageFormat: getA4Size,
         build: (pw.Context context) {
-          return dataCont; // Center
+          return [
+            pw.Center(
+              child: pw.Column(
+                children: [
+                  bigText(Application.appName),
+                  normalText(Application.address),
+                  normalText("Cell: ${Application.mobileNo}"),
+                  normalText("GSTIN:${Application.gstinNo}"),
+                  pw.Container(
+                    width: 400,
+                    child: pw.Divider(color: PdfColor.fromHex("#E0E0E0")),
+                  ),
+                  pw.SizedBox(height: 5),
+                  boldText(customerModel.name),
+                  normalText(customerModel.address),
+                  normalText(
+                    "${customerModel.state} - ${customerModel.pincode}",
+                  ),
+                  normalText("Cell: ${customerModel.mobileNo}"),
+                  if (customerModel.gstin != null && customerModel.gstin != "")
+                    normalText("GSTIN: ${customerModel.gstin}"),
+                  pw.SizedBox(height: 15),
+                  normalText(
+                    "${DateFormat('dd-MM-yyyy').format(startDate)} to ${DateFormat('dd-MM-yyyy').format(endDate)}",
+                  ),
+                  pw.SizedBox(height: 15),
+                ],
+              ),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(10),
+              child: pw.Table(
+                children: [
+                  pw.TableRow(
+                    children: [
+                      textWithPadding("Date"),
+                      textWithPadding("Particulars"),
+                      textWithPadding("Vch Type"),
+                      textWithPadding("Vch No."),
+                      textWithPadding("Debit"),
+                      textWithPadding("Credit"),
+                    ],
+                  ),
+                  pw.TableRow(
+                    children: [
+                      boldTextWithPadding(
+                        DateFormat('dd-MM-yyyy').format(startDate),
+                      ),
+                      boldTextWithPadding("Opening balance"),
+                      textWithPadding(""),
+                      textWithPadding(""),
+                      boldTextWithPadding(previousAmount.toStringAsFixed(2)),
+                      textWithPadding(""),
+                    ],
+                  ),
+                  ...customersReport
+                      .take(50)
+                      .map(
+                        (e) => pw.TableRow(
+                          children: [
+                            textWithPadding(
+                              DateFormat('dd-MM-yyyy').format(e.createdAt),
+                            ),
+                            textWithPadding(e.particulars),
+                            textWithPadding(e.vchType.type),
+                            textWithPadding(e.vchNo),
+                            textWithPadding("${e.debit == 0 ? '' : e.debit}"),
+                            textWithPadding("${e.credit == 0 ? '' : e.credit}"),
+                          ],
+                        ),
+                      )
+                      .toList(),
+                  pw.TableRow(
+                    children: [
+                      textWithPadding(""),
+                      boldTextWithPadding("Closing balance"),
+                      textWithPadding(""),
+                      textWithPadding(""),
+                      boldTextWithPadding(
+                        totalDebit == 0 ? '' : totalDebit.toStringAsFixed(2),
+                      ),
+                      boldTextWithPadding(
+                        totalCredit == 0 ? '' : totalCredit.toStringAsFixed(2),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ]; // Center
         },
       ),
     );

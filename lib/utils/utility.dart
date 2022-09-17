@@ -346,6 +346,7 @@ class Utility {
     BuildContext context, {
     required Callback generateStatement,
   }) {
+    final _customerKeyboardNode = FocusNode();
     return showDialog(
       context: context,
       builder: (context) {
@@ -373,26 +374,77 @@ class Utility {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            DropdownButton<CustomerModel>(
-                              value: controller.selectedCustomer,
-                              onChanged: (CustomerModel? data) {
-                                if (data != null) {
-                                  controller.setSelectedCustomerModel = data;
-                                }
-                              },
-                              hint: const CustomText(
-                                "Select a Customer",
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              child: CustomTypeAhead<CustomerModel>(
+                                keyboardFocusNode: _customerKeyboardNode,
+                                onArrowDown: () {
+                                  controller.keyboardSelectCustomerModel(
+                                    KeyboardEventEnum.ArrowDown,
+                                  );
+                                  // setState(() {});
+                                },
+                                onArrowUp: () {
+                                  controller.keyboardSelectCustomerModel(
+                                    KeyboardEventEnum.ArrowUp,
+                                  );
+                                },
+                                onEnter: () {
+                                  if (controller.selectedCustomer != null) {
+                                    debugPrint(
+                                      'Selected Customer :P ${controller.selectedCustomer}',
+                                    );
+                                    controller.customerController.text =
+                                        controller.selectedCustomer!.name;
+                                  } else {
+                                    CustomUtilies.customFailureSnackBar(
+                                      "Please Enter the Customer First",
+                                      "Error",
+                                    );
+                                    controller.customerFocusNode.requestFocus();
+                                  }
+                                },
+                                focusNode: controller.customerFocusNode,
+                                autofocus: true,
+                                onEditingComplete: () {
+                                  if (controller.selectedCompany != null) {
+                                    controller.customerController.text =
+                                        controller.selectedCustomer!.name;
+                                  }
+                                },
+                                selectedModel: controller.selectedCustomer,
+                                controller: controller.customerController,
+                                modelList: controller.allCustomers ?? [],
+                                model: NullCheckUtilities.getDummyCustomer(),
+                                onSuggestionSelected: (suggestion) {
+                                  controller.setSelectedCustomerModel =
+                                      suggestion;
+                                  controller.customerController.text =
+                                      suggestion.name;
+                                  // node.nextFocus();
+                                },
                               ),
-                              items: controller.allCustomers
-                                  .map(
-                                    (e) => DropdownMenuItem<CustomerModel>(
-                                      value: e,
-                                      onTap: () {},
-                                      child: CustomText(e.name),
-                                    ),
-                                  )
-                                  .toList(),
-                            )
+                            ),
+                            // DropdownButton<CustomerModel>(
+                            //   value: controller.selectedCustomer,
+                            //   onChanged: (CustomerModel? data) {
+                            //     if (data != null) {
+                            //       controller.setSelectedCustomerModel = data;
+                            //     }
+                            //   },
+                            //   hint: const CustomText(
+                            //     "Select a Customer",
+                            //   ),
+                            //   items: controller.allCustomers
+                            //       .map(
+                            //         (e) => DropdownMenuItem<CustomerModel>(
+                            //           value: e,
+                            //           onTap: () {},
+                            //           child: CustomText(e.name),
+                            //         ),
+                            //       )
+                            //       .toList(),
+                            // )
                           ],
                         ),
                       ],
@@ -450,8 +502,9 @@ class Utility {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.3,
-                      child: const TextField(
-                        decoration: InputDecoration(
+                      child: TextField(
+                        controller: controller.previousAmountController,
+                        decoration: const InputDecoration(
                           hintText: "Previous Month Debit",
                         ),
                       ),

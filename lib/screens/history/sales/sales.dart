@@ -1,6 +1,20 @@
 import 'dart:io';
 
+import 'package:annai_store/controller/history/sales/sales.dart';
+import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/history/sales.dart';
+import 'package:annai_store/models/bill/bill.dart';
+import 'package:annai_store/screens/billing/sales/sales.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/printer/printer.dart';
+import 'package:annai_store/utils/upi.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/custom_button.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/full_container.dart';
+import 'package:annai_store/widgets/header_text.dart';
+import 'package:annai_store/widgets/print_optn.dart';
 import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
@@ -8,21 +22,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart';
-
-import '../../../controller/history/sales/sales.dart';
-import '../../../controller/home/home.dart';
-import '../../../enum/history/sales.dart';
-import '../../../models/bill/bill.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../../utils/printer/printer.dart';
-import '../../../utils/upi.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_table.dart';
-import '../../../widgets/full_container.dart';
-import '../../../widgets/header_text.dart';
-import '../../../widgets/print_optn.dart';
-import '../../billing/sales/sales.dart';
 
 class SalesHistory extends StatefulWidget {
   const SalesHistory({Key? key}) : super(key: key);

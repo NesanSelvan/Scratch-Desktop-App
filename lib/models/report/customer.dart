@@ -6,11 +6,28 @@ class CustomerReport {
   final double debit;
   final double credit;
 
-  CustomerReport(this.createdAt, this.particulars, this.vchType, this.vchNo,
-      this.debit, this.credit);
+  CustomerReport(
+    this.createdAt,
+    this.particulars,
+    this.vchType,
+    this.vchNo,
+    this.debit,
+    this.credit,
+  );
 }
 
 enum VchType {
   gst,
-  receipt,
+  receipt;
+
+  String get type {
+    switch (this) {
+      case gst:
+        return "GST Sales";
+      case receipt:
+        return "Receipt";
+      default:
+        return "-";
+    }
+  }
 }

@@ -1,8 +1,10 @@
 import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/enum/statement.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/utils/datetime/datetime.dart';
+import 'package:annai_store/utils/keyboard/keyboard.dart';
 import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +29,10 @@ class ReportController extends GetxController {
   CompanyModel? _selectedCompany;
   CompanyModel? get selectedCompany => _selectedCompany;
 
-  set setSelectedCustomerModel(CustomerModel value) {
+  TextEditingController customerController = TextEditingController();
+  FocusNode customerFocusNode = FocusNode();
+
+  set setSelectedCustomerModel(CustomerModel? value) {
     _selectedCustomer = value;
     update();
   }
@@ -41,6 +46,17 @@ class ReportController extends GetxController {
     debugPrint("Statement Init");
     getAllCustomers();
     getAllCompanies();
+  }
+
+  void keyboardSelectCustomerModel(KeyboardEventEnum keyboardEventEnum) {
+    final text = customerController.text;
+    setSelectedCustomerModel = KeyboardUtilities.keyboardSelectCustomerModel(
+      text,
+      allCustomers,
+      selectedCustomer,
+      keyboardEventEnum,
+    );
+    update();
   }
 
   @override
@@ -88,6 +104,8 @@ class ReportController extends GetxController {
     update();
   }
 
+  TextEditingController previousAmountController = TextEditingController();
+
   Future<void> handleCustomerReportStatementGeneration(
     BuildContext context,
   ) async {
@@ -97,6 +115,7 @@ class ReportController extends GetxController {
         startDate,
         endDate,
         _selectedCustomer!,
+        previousAmountManually: double.tryParse(previousAmountController.text),
       );
       PDFGenerator.openPdf(path);
     }

@@ -61,6 +61,7 @@ dependencies:
   pdf: ^3.4.2
   printing: ^5.2.1
   screenshot: ^1.2.3
+  intl:
   syncfusion_flutter_barcodes: ^19.4.42
   uuid: ^3.0.4
   validators:

@@ -154,15 +154,23 @@ class ReceiptDB {
     DateTime endDate,
     String customerId,
   ) {
+    final finalStartDate =
+        DateTime(startDate.year, startDate.month, startDate.day);
+    final finalEndDate = DateTime(endDate.year, endDate.month, endDate.day);
     final List<ReceiptModel> receipts = [];
 
-    final startEndDiff = endDate.difference(startDate).inDays;
+    final startEndDiff = finalEndDate.difference(finalStartDate).inDays;
 
     for (final item in getAllReceipt()
         .where((element) => element.customerModel.id == customerId)
         .toList()) {
-      debugPrint("${endDate.difference(item.createdAt).inDays}");
-      final dateDiff = endDate.difference(item.createdAt).inDays;
+      final finalDateTime = DateTime(
+        item.createdAt.year,
+        item.createdAt.month,
+        item.createdAt.day,
+      );
+      final dateDiff = finalEndDate.difference(finalDateTime).inDays;
+
       if (dateDiff <= startEndDiff && dateDiff >= 0) {
         receipts.add(item);
       }

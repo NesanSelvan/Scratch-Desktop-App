@@ -150,15 +150,20 @@ class SalesDB {
     DateTime endDate,
     String customerId,
   ) {
+    final finalStartDate =
+        DateTime(startDate.year, startDate.month, startDate.day);
+    final finalEndDate = DateTime(endDate.year, endDate.month, endDate.day);
     final List<BillModel> bills = [];
-    log("${endDate.difference(startDate).inDays}");
-    final startEndDiff = endDate.difference(startDate).inDays;
+    final startEndDiff = finalEndDate.difference(finalStartDate).inDays;
+    log("startEndDiff $startEndDiff");
     for (final item in getAllBill()
         .where((element) => element.customerModel.id == customerId)) {
-      log("${endDate.difference(item.dateTime).inDays}");
-      final dateDiff = endDate.difference(item.dateTime).inDays;
+      final finalDateTime =
+          DateTime(item.dateTime.year, item.dateTime.month, item.dateTime.day);
+      final dateDiff = finalEndDate.difference(finalDateTime).inDays;
       if (dateDiff <= startEndDiff && dateDiff >= 0) {
         if (item.customerModel.id == customerId) {
+          log("dateDiff $dateDiff ${item.dateTime} ${item.billNo}");
           bills.add(item);
         }
       }
