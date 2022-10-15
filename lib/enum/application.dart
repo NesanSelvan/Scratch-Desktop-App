@@ -10,7 +10,7 @@ class Application {
 
   static double version() {
     if (currentApplication == ApplicationEnum.AnnaiStore) {
-      return 21.2;
+      return 21.4;
     }
     if (currentApplication == ApplicationEnum.AnnaiTraders) {
       return 11.1;

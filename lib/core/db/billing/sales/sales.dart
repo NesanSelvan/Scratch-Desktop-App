@@ -168,6 +168,7 @@ class SalesDB {
         }
       }
     }
+    log("Bills DateTime ${bills.first.dateTime} ${bills.last.dateTime}");
     return bills;
   }
 

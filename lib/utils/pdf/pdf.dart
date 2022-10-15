@@ -2988,8 +2988,8 @@ class PDFGenerator {
                                     ? getPriceByCustomer(
                                         e.productModel!,
                                         billModel.customerModel,
-                                      ).toStringAsFixed(2)
-                                    : e.rate!.toStringAsFixed(2),
+                                      ).toString()
+                                    : e.rate!.toString(),
                               ),
                             )
                             .toList(),
@@ -4814,22 +4814,48 @@ class PDFGenerator {
     }
   }
 
-  pw.Widget boldTextWithPadding(String text) {
-    return pw.Padding(
-      padding: const pw.EdgeInsets.symmetric(vertical: 8),
-      child: pw.Text(
-        text,
-        style: pw.TextStyle(
-          fontWeight: pw.FontWeight.bold,
+  pw.Widget boldTextWithPadding(
+    String text, {
+    pw.Alignment? alignment,
+    double? rightPadding,
+    pw.Border? border,
+  }) {
+    return pw.Container(
+      decoration: pw.BoxDecoration(
+        border: border,
+      ),
+      child: pw.Padding(
+        padding: pw.EdgeInsets.fromLTRB(0, 8, rightPadding ?? 0, 8),
+        child: pw.Align(
+          alignment: alignment ?? pw.Alignment.centerLeft,
+          child: pw.Text(
+            text,
+            style: pw.TextStyle(
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );
   }
 
-  pw.Widget textWithPadding(String text) {
-    return pw.Padding(
-      padding: const pw.EdgeInsets.symmetric(vertical: 8),
-      child: pw.Text(text),
+  pw.Widget textWithPadding(
+    String text, {
+    pw.Alignment? alignment,
+    double? rightPadding,
+    pw.Border? border,
+  }) {
+    return pw.Container(
+      decoration: pw.BoxDecoration(
+        border: border,
+      ),
+      child: pw.Padding(
+        padding: pw.EdgeInsets.fromLTRB(0, 8, rightPadding ?? 0, 8),
+        child: pw.Align(
+          alignment: alignment ?? pw.Alignment.centerLeft,
+          child: pw.Text(text),
+        ),
+      ),
     );
   }
 
@@ -4866,6 +4892,7 @@ class PDFGenerator {
       totalDebit += bill.price;
       customersReport.add(customerReport);
     }
+    totalDebit += previousAmount;
 
     for (final receipt in receipts) {
       final customerReport = CustomerReport(
@@ -4882,13 +4909,13 @@ class PDFGenerator {
 
     customersReport.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
-    log("customersReport: ${customersReport.length} ${customerModel.name} ${receipts.length}");
+    log("customersReport: ${bills.length} ${receipts.length} ${customersReport.length} ${customerModel.name} ${receipts.length}");
 
     final pdf = pw.Document();
 
     pdf.addPage(
       pw.MultiPage(
-        maxPages: 100,
+        maxPages: 120,
         pageFormat: getA4Size,
         build: (pw.Context context) {
           return [
@@ -4921,7 +4948,7 @@ class PDFGenerator {
               ),
             ),
             pw.Padding(
-              padding: const pw.EdgeInsets.all(10),
+              padding: const pw.EdgeInsets.all(25),
               child: pw.Table(
                 children: [
                   pw.TableRow(
@@ -4947,7 +4974,6 @@ class PDFGenerator {
                     ],
                   ),
                   ...customersReport
-                      .take(50)
                       .map(
                         (e) => pw.TableRow(
                           children: [
@@ -4957,8 +4983,16 @@ class PDFGenerator {
                             textWithPadding(e.particulars),
                             textWithPadding(e.vchType.type),
                             textWithPadding(e.vchNo),
-                            textWithPadding("${e.debit == 0 ? '' : e.debit}"),
-                            textWithPadding("${e.credit == 0 ? '' : e.credit}"),
+                            textWithPadding(
+                              e.debit == 0 ? '' : e.debit.toStringAsFixed(2),
+                              alignment: pw.Alignment.centerRight,
+                              rightPadding: 4,
+                            ),
+                            textWithPadding(
+                              e.credit == 0 ? '' : e.credit.toStringAsFixed(2),
+                              alignment: pw.Alignment.centerRight,
+                              rightPadding: 4,
+                            ),
                           ],
                         ),
                       )
@@ -4969,11 +5003,64 @@ class PDFGenerator {
                       boldTextWithPadding("Closing balance"),
                       textWithPadding(""),
                       textWithPadding(""),
+                      textWithPadding(
+                        totalDebit == 0 ? '' : totalDebit.toStringAsFixed(2),
+                        alignment: pw.Alignment.centerRight,
+                        rightPadding: 4,
+                        border: const pw.Border(
+                          top: pw.BorderSide(),
+                        ),
+                      ),
+                      textWithPadding(
+                        totalCredit == 0 ? '' : totalCredit.toStringAsFixed(2),
+                        alignment: pw.Alignment.centerRight,
+                        rightPadding: 4,
+                        border: const pw.Border(
+                          top: pw.BorderSide(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  pw.TableRow(
+                    children: [
+                      textWithPadding(""),
+                      boldTextWithPadding(""),
+                      textWithPadding(""),
+                      textWithPadding(""),
+                      textWithPadding(
+                        "",
+                      ),
+                      textWithPadding(
+                        (totalDebit - totalCredit).toStringAsFixed(2),
+                        alignment: pw.Alignment.centerRight,
+                        rightPadding: 4,
+                      ),
+                    ],
+                  ),
+                  pw.TableRow(
+                    children: [
+                      textWithPadding(""),
+                      boldTextWithPadding(""),
+                      textWithPadding(""),
+                      textWithPadding(""),
                       boldTextWithPadding(
                         totalDebit == 0 ? '' : totalDebit.toStringAsFixed(2),
+                        alignment: pw.Alignment.centerRight,
+                        rightPadding: 4,
+                        border: const pw.Border(
+                          top: pw.BorderSide(),
+                          bottom: pw.BorderSide(),
+                        ),
                       ),
                       boldTextWithPadding(
-                        totalCredit == 0 ? '' : totalCredit.toStringAsFixed(2),
+                        ((totalDebit - totalCredit) + totalCredit)
+                            .toStringAsFixed(2),
+                        alignment: pw.Alignment.centerRight,
+                        rightPadding: 4,
+                        border: const pw.Border(
+                          top: pw.BorderSide(),
+                          bottom: pw.BorderSide(),
+                        ),
                       ),
                     ],
                   ),
