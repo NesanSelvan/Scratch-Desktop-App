@@ -1,21 +1,19 @@
+import 'package:annai_store/controller/server/server.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/models/category/category.dart';
+import 'package:annai_store/models/company/company.dart';
+import 'package:annai_store/models/failure/failure.dart';
+import 'package:annai_store/models/price/price.dart';
 import 'package:annai_store/models/product/product.dart';
+import 'package:annai_store/models/unit/unit.dart';
+import 'package:annai_store/utils/image/image.dart';
+import 'package:annai_store/utils/keyboard/keyboard.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../enum/keyboard.dart';
-import '../../models/company/company.dart';
-import '../../models/failure/failure.dart';
-import '../../models/price/price.dart';
-import '../../models/unit/unit.dart';
-import '../../utils/image/image.dart';
-import '../../utils/keyboard/keyboard.dart';
-import '../../utils/search/search.dart';
-import '../server/server.dart';
 
 class ProductController extends GetxController {
   List<ProductModel> productModelList = Database().productDB.getAllProduct();
@@ -532,23 +530,31 @@ class ProductController extends GetxController {
 
   Future<void> addProductNumber() async {
     int count = 1;
-    final categoryList = categoryDB.getAllCategory();
-    for (final category in categoryList) {
-      final productsList = productDB.getAllProductByCategoryId(category.id);
-      for (final product in productsList) {
-        final productNumber = "$count.${category.hsnCode}";
-        debugPrint("Product No : $productNumber");
-        await productDB
-            .updateProduct(product.copyWith(productNumber: productNumber));
-        count += 1;
-      }
-      // count += 1000 - productsList.length;
-      count = 1;
+    for (final product in productModelList) {
+      // final productNumber = "$count.${category.hsnCode}";
+      // debugPrint("Product No : $productNumber");
+      await productDB.updateProduct(product.copyWith(productNumber: "$count"));
+      count += 1;
     }
+    // final categoryList = categoryDB.getAllCategory();
+    // for (final category in categoryList) {
+    //   final productsList = productDB.getAllProductByCategoryId(category.id);
+    //   for (final product in productsList) {
+    //     final productNumber = "$count.${category.hsnCode}";
+    //     debugPrint("Product No : $productNumber");
+    //     await productDB
+    //         .updateProduct(product.copyWith(productNumber: productNumber));
+    //     count += 1;
+    //   }
+    //   // count += 1000 - productsList.length;
+    //   count = 1;
+    // }
   }
 
   Future<void> updateProductNumber(
-      String newNumber, ProductModel product) async {
+    String newNumber,
+    ProductModel product,
+  ) async {
     final products = productDB.getAllProduct();
     bool isExists = false;
     for (final p in products) {
@@ -648,51 +654,23 @@ class ProductController extends GetxController {
 
   void searchProduct(String text) {
     searchedProductModel.clear();
-    // final datas = productModelList.where((element) {
-    //   // ignore: avoid_bool_literals_in_conditional_expressions
-    //   return element.code
-    //               .toString()
-    //               .toLowerCase()
-    //               .contains(text.toLowerCase()) ||
-    //           element.productName
-    //               .toString()
-    //               .toLowerCase()
-    //               .contains(text.toLowerCase()) ||
-    //           element.unitQty
-    //               .toString()
-    //               .toLowerCase()
-    //               .contains(text.toLowerCase()) ||
-    //           element.purchasePrice
-    //               .toString()
-    //               .toLowerCase()
-    //               .contains(text.toLowerCase()) ||
-    //           element.sellingPrice
-    //               .toString()
-    //               .toLowerCase()
-    //               .contains(text.toLowerCase()) ||
-    //           element.retail
-    //               .toString()
-    //               .toLowerCase()
-    //               .contains(text.toLowerCase()) ||
-    //           element.productNumber == null
-    //       ? false
-    //       : element.productNumber
-    //               .toString()
-    //               .toLowerCase()
-    //               .contains(text.toLowerCase()) ||
-    //           companyDB
-    //               .getCustomerModelById(element.companyId)
-    //               .name
-    //               .toString()
-    //               .toLowerCase()
-    //               .contains(text.toLowerCase()) ||
-    //           element.wholesale
-    //               .toString()
-    //               .toLowerCase()
-    //               .contains(text.toLowerCase());
-    // }).toList();
-    final datas =
-        SearchUtility.customSearch<ProductModel>(text, productModelList);
+
+    // final datas =
+    //     SearchUtility.customSearch<ProductModel>(text, productModelList);
+
+    final datas = productModelList.where((element) {
+      // ignore: avoid_bool_literals_in_conditional_expressions
+      return element.code.toLowerCase().contains(text.toLowerCase()) ||
+              element.productName.toLowerCase().contains(text.toLowerCase()) ||
+              element.productNumber == null ||
+              element.productNumber == ""
+          ? true
+          : element.productNumber
+              .toString()
+              .toLowerCase()
+              .contains(text.toLowerCase());
+    }).toList();
+
     searchedProductModel = datas;
     update();
   }

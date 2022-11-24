@@ -56,22 +56,16 @@ class SearchUtility {
         //   return element.differentPriceList.where((price) => price.code.toLowerCase().contains(pattern.toLowerCase())
         // }).toList()).toList();
         final matchedData = typeDatas.where((element) {
-          if (element.productNumber == null) {
+          if (element.productNumber == null || element.productNumber == "") {
             return element.productName
                     .toLowerCase()
                     .contains(pattern.toLowerCase()) ||
-                element.code
-                    .toString()
-                    .toLowerCase()
-                    .contains(pattern.toLowerCase());
+                element.code.toLowerCase().contains(pattern.toLowerCase());
           }
           return element.productName
                   .toLowerCase()
                   .contains(pattern.toLowerCase()) ||
-              element.code
-                  .toString()
-                  .toLowerCase()
-                  .contains(pattern.toLowerCase()) ||
+              element.code.toLowerCase().contains(pattern.toLowerCase()) ||
               (element.productNumber ?? "")
                   .toLowerCase()
                   .contains(pattern.toLowerCase());

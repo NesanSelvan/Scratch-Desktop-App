@@ -493,7 +493,7 @@ class GenerateExcelSheetData {
     DateTime endDate,
   ) async {
     final bills = salesDB.getBillByDate(startDate, endDate).reversed.toList();
-    log("Sales Statement Count ${bills.length}");
+    log("Sales Statement Counts ${bills.length}");
     final excel = Excel.createExcel();
     final sheetObject = excel['Sheet1'];
 

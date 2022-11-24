@@ -7,6 +7,7 @@ import 'package:annai_store/controller/payments/receipt/receipt.dart';
 import 'package:annai_store/controller/product/product.dart';
 import 'package:annai_store/core/constants/calculations/basic_cal.dart';
 import 'package:annai_store/core/constants/calculations/calculations.dart';
+import 'package:annai_store/core/constants/calculations/report.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/billing/sales.dart';
@@ -240,8 +241,12 @@ class _SalesScreen1State extends State<SalesScreen1> {
       );
       receiptController.customerController.text =
           receiptController.selectedCustomerModel!.name;
+      final pendingAmount = ReportCalculations.getStartBalance(
+        DateTime(DateTime.now().year, 4),
+        receiptController.selectedCustomerModel!.id,
+      );
       receiptController.pendingAmountController.text =
-          "${receiptController.selectedCustomerModel!.pendingAmount}";
+          pendingAmount.toStringAsFixed(2);
     } else {
       CustomUtilies.customFailureSnackBar(
         "Please Enter the Customer First",
@@ -1192,8 +1197,14 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                       rc.selectedCustomerModel = suggestion;
                                       rc.customerController.text =
                                           suggestion.name;
+                                      final pendingAmount =
+                                          ReportCalculations.getStartBalance(
+                                        DateTime(DateTime.now().year, 4),
+                                        suggestion.id,
+                                      );
+                                      print("pendingAmount: $pendingAmount");
                                       rc.pendingAmountController.text =
-                                          "${suggestion.pendingAmount}";
+                                          pendingAmount.toStringAsFixed(2);
                                       debugPrint('Selected $suggestion');
                                       // node.nextFocus();
                                     },

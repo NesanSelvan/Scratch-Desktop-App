@@ -149,6 +149,26 @@ class ReceiptDB {
     return receipts;
   }
 
+  List<ReceiptModel> getBillByStartDateAndCustomer(
+    DateTime startDate,
+    String customerId,
+  ) {
+    final List<ReceiptModel> receipts = [];
+    final finalStartDate =
+        DateTime(startDate.year, startDate.month, startDate.day);
+    for (final item in getAllReceipt()
+        .where((element) => element.customerModel.id == customerId)
+        .toList()) {
+      final diff = item.createdAt.difference(finalStartDate);
+      print(diff.inDays);
+
+      if (diff.inDays > 0) {
+        receipts.add(item);
+      }
+    }
+    return receipts;
+  }
+
   List<ReceiptModel> getReceiptByDateAndCustomerId(
     DateTime startDate,
     DateTime endDate,

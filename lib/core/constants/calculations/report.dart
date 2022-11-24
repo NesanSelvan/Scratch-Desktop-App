@@ -13,6 +13,7 @@ class ReportCalculations {
       startDate,
       customerId,
     );
+    print("Bills ${bills.length}");
     for (final bill in bills) {
       amount += bill.price;
     }
@@ -40,7 +41,48 @@ class ReportCalculations {
   ) {
     final billAmount = getPreviousBillsCalulations(startDate, customerId);
     final receiptAmount = getPreviousReceiptCalulations(startDate, customerId);
-    log("Amount $billAmount, $receiptAmount");
+    log("Amount $billAmount, $receiptAmount $startDate");
+    return billAmount - receiptAmount;
+  }
+
+  static double getStartBillsCalulations(
+    DateTime startDate,
+    String customerId,
+  ) {
+    double amount = 0;
+    final bills = salesDB.getBillByStartDateAndCustomer(
+      startDate,
+      customerId,
+    );
+    print("Bills ${bills.length}");
+    for (final bill in bills) {
+      amount += bill.price;
+    }
+    return amount;
+  }
+
+  static double getStartReceiptCalulations(
+    DateTime startDate,
+    String customerId,
+  ) {
+    double amount = 0;
+    final bills = receiptDB.getBillByStartDateAndCustomer(
+      startDate,
+      customerId,
+    );
+    for (final bill in bills) {
+      amount += bill.givenAmount;
+    }
+    return amount;
+  }
+
+  static double getStartBalance(
+    DateTime startDate,
+    String customerId,
+  ) {
+    final billAmount = getStartBillsCalulations(startDate, customerId);
+    final receiptAmount = getStartReceiptCalulations(startDate, customerId);
+    log("Amount $billAmount, $receiptAmount $startDate");
     return billAmount - receiptAmount;
   }
 

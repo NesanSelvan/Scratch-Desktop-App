@@ -93,17 +93,35 @@ class SalesDB {
   }
 
   List<BillModel> getBillByDate(DateTime startDate, DateTime endDate) {
+    final finalStartDate =
+        DateTime(startDate.year, startDate.month, startDate.day);
+    final finalEndDate = DateTime(endDate.year, endDate.month, endDate.day);
     final List<BillModel> bills = [];
-    debugPrint("${endDate.difference(startDate).inDays}");
-    final startEndDiff = endDate.difference(startDate).inDays;
+    final startEndDiff = finalEndDate.difference(finalStartDate).inDays;
+    log("startEndDiff $startEndDiff");
     for (final item in getAllBill()) {
-      debugPrint("${endDate.difference(item.dateTime).inDays}");
-      final dateDiff = endDate.difference(item.dateTime).inDays;
+      final finalDateTime =
+          DateTime(item.dateTime.year, item.dateTime.month, item.dateTime.day);
+      final dateDiff = finalEndDate.difference(finalDateTime).inDays;
       if (dateDiff <= startEndDiff && dateDiff >= 0) {
         bills.add(item);
       }
     }
+    log("Bills DateTime ${bills.first.dateTime} ${bills.last.dateTime}");
     return bills;
+    // final List<BillModel> bills = [];
+    // final finalStartDate =
+    //     DateTime(startDate.year, startDate.month, startDate.day);
+    // final finalEndDate = DateTime(endDate.year, endDate.month, endDate.day);
+
+    // final startEndDiff = finalEndDate.difference(finalStartDate).inDays;
+    // for (final item in getAllBill()) {
+    //   final dateDiff = finalEndDate.difference(item.dateTime).inDays;
+    //   if (dateDiff <= startEndDiff && dateDiff >= 0) {
+    //     bills.add(item);
+    //   }
+    // }
+    // return bills;
   }
 
   List<BillModel> getTodaysBill() {
@@ -168,7 +186,7 @@ class SalesDB {
         }
       }
     }
-    log("Bills DateTime ${bills.first.dateTime} ${bills.last.dateTime}");
+    // log("Bills DateTime ${bills.first.dateTime} ${bills.last.dateTime}");
     return bills;
   }
 
@@ -189,5 +207,32 @@ class SalesDB {
       _updatedBill.add(bill.copyWith(givenAmount: 0));
     }
     await updateBillToDB(_updatedBill);
+  }
+
+  List<BillModel> getBillByStartDateAndCustomer(
+    DateTime startDate,
+    String customerId,
+  ) {
+    print("Hello ${getAllBill().length} $customerId");
+    final List<BillModel> bills = [];
+    final customerBills = getAllBill()
+        .where((element) => element.customerModel.id == customerId)
+        .toList();
+    print("CustomerBills: $customerBills");
+    final finalStartDate =
+        DateTime(startDate.year, startDate.month, startDate.day);
+    for (final item in customerBills) {
+      // print(item.dateTime);
+      final diff = item.dateTime.difference(finalStartDate);
+      print(diff.inDays);
+
+      if (diff.inDays > 0) {
+        bills.add(item);
+      }
+      // log("diff: $diff");
+    }
+    print("CustomerBills: $bills");
+
+    return bills;
   }
 }
