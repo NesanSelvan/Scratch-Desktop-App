@@ -1,26 +1,25 @@
 import 'dart:io';
 
+import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/core/constants/calculations/calculations.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/keyboard.dart';
+import 'package:annai_store/enum/printer/printer.dart';
+import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/models/price/price.dart';
+import 'package:annai_store/models/product/product.dart';
 import 'package:annai_store/models/quotations/quotations.dart';
 import 'package:annai_store/models/sales/product/sales_product.dart';
+import 'package:annai_store/models/unit/unit.dart';
+import 'package:annai_store/utils/keyboard/keyboard.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/printer/printer.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart';
-
-import '../../../enum/keyboard.dart';
-import '../../../enum/printer/printer.dart';
-import '../../../models/customer/customer.dart';
-import '../../../models/price/price.dart';
-import '../../../models/product/product.dart';
-import '../../../models/unit/unit.dart';
-import '../../../utils/keyboard/keyboard.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../../utils/printer/printer.dart';
-import '../sales/sales.dart';
 
 class QuotationController extends GetxController {
   DateTime pickedDateTime = getTodaysDate();
@@ -32,11 +31,6 @@ class QuotationController extends GetxController {
   final pendingAmountController = TextEditingController();
   TextEditingController invoiceNumberController =
       TextEditingController(text: "1 / 2020-2021");
-  final supplierRefController = TextEditingController();
-  final orderDateController = TextEditingController();
-  final despatchDocNoController = TextEditingController();
-  final despatchThroughController = TextEditingController();
-  final destinationController = TextEditingController();
   final customerController = TextEditingController();
   final unitController = TextEditingController();
   final rateController = TextEditingController();
@@ -53,14 +47,36 @@ class QuotationController extends GetxController {
   final priceKeyboardNode = FocusNode();
 
   void performInit() {
-    final list = quotationDB.getAllQuotation();
+    if (quotationModel == null) {
+      final list = quotationDB.getAllQuotation();
 
-    invoiceNumberController = TextEditingController(
-      text: getBillNo(list.map((e) => e.quotationNo).toList()),
-    );
-
-    debugPrint('INIT $list');
+      invoiceNumberController = TextEditingController(
+        text: getBillNo(list.map((e) => e.quotationNo).toList()),
+      );
+    } else {
+      setAllFieldForSelectedBill();
+    }
     update();
+  }
+
+  bool isUpdated = false;
+  void setAllFieldForSelectedBill() {
+//     customerFocusNode.unfocus();
+    if (!isUpdated) {
+      selectedCustomerModel = _quotationModel!.customerModel;
+      customerController.text = _quotationModel!.customerModel.name;
+
+      noteController.text = _quotationModel!.note ?? "";
+      invoiceNumberController.text = _quotationModel!.quotationNo;
+
+      salesProductModelList = _quotationModel!.productList;
+
+      pickedDateTime = _quotationModel!.dateTime;
+      isUpdated = true;
+      try {
+        update();
+      } catch (e) {}
+    }
   }
 
   @override
@@ -295,6 +311,8 @@ class QuotationController extends GetxController {
   }
 
   void clearAll() {
+    _quotationModel = null;
+    isUpdated = false;
     addSelectedProductModel(null);
     selectedCustomerModel = null;
     salesProductModelList.clear();
@@ -303,12 +321,17 @@ class QuotationController extends GetxController {
     discountController.clear();
     noteController.clear();
     pendingAmountController.clear();
-    supplierRefController.clear();
-    orderDateController.clear();
-    despatchDocNoController.clear();
-    despatchThroughController.clear();
-    destinationController.clear();
     customerController.clear();
+    update();
+  }
+
+  QuotationModel? _quotationModel;
+  QuotationModel? get quotationModel => _quotationModel;
+
+  set quotationModel(QuotationModel? quotationModel) {
+    _quotationModel = quotationModel;
+    setAllFieldForSelectedBill();
+
     update();
   }
 
@@ -323,24 +346,51 @@ class QuotationController extends GetxController {
       createdAt: DateTime.now(),
     );
     try {
-      await quotationDB.addQuotationToDb(quotationModel);
-      if (printerEnum != null) {
-        if (printerEnum == PrinterEnum.Normal) {
-          final data = await PDFGenerator.generateQuotation(quotationModel);
-          final file = File(data);
-          await PrinterUtility.normalPrint(file);
-        } else {
-          final data = await PDFGenerator.generateThermalBillForQuotation(
-            quotationModel,
-          );
-          final file = File(data);
-          await PrinterUtility.thermalPrint(file);
+      if (_quotationModel == null) {
+        await quotationDB.addQuotationToDb(quotationModel);
+        if (printerEnum != null) {
+          if (printerEnum == PrinterEnum.Normal) {
+            final data = await PDFGenerator.generateQuotation(quotationModel);
+            final file = File(data);
+            await PrinterUtility.normalPrint(file);
+          } else {
+            final data = await PDFGenerator.generateThermalBillForQuotation(
+              quotationModel,
+            );
+            final file = File(data);
+            await PrinterUtility.thermalPrint(file);
+          }
         }
+        CustomUtilies.customSuccessSnackBar(
+          "Success",
+          "Quotation Added Successfully",
+        );
+      } else {
+        if (salesProductModelList.isEmpty) {
+          CustomUtilies.customFailureSnackBar(
+            "Error",
+            "Please add some Product",
+          );
+          return;
+        }
+        final seleCust =
+            selectedCustomerModel ?? _quotationModel!.customerModel;
+        await quotationDB.updateQuotation(
+          _quotationModel!.copyWith(
+            customerModel: seleCust,
+            dateTime: pickedDateTime,
+            price: getGrandTotal(salesProductModelList, seleCust),
+            productList: salesProductModelList,
+            note: noteController.text,
+          ),
+        );
+        CustomUtilies.customSuccessSnackBar(
+          "Success",
+          "Quotation Updated Successfully",
+        );
+        clearAll();
+        performInit();
       }
-      CustomUtilies.customSuccessSnackBar(
-        "Success",
-        "Quotation Added Successfully",
-      );
       performInit();
       setPickedDateTime(getTodaysDate());
     } catch (e) {

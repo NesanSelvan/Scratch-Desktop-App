@@ -1,7 +1,19 @@
 import 'dart:io';
 
+import 'package:annai_store/controller/history/quotation/quotation.dart';
+import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/history/quotation.dart';
 import 'package:annai_store/models/quotations/quotations.dart';
+import 'package:annai_store/screens/billing/quotation/quotation.dart';
+import 'package:annai_store/screens/billing/sales/sales.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/printer/printer.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/custom_button.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/full_container.dart';
+import 'package:annai_store/widgets/header_text.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
@@ -9,18 +21,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 // import 'package:qr_flutter/qr_flutter.dart';
 import 'package:validators/validators.dart';
-
-import '../../../controller/history/quotation/quotation.dart';
-import '../../../controller/home/home.dart';
-import '../../../enum/history/sales.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../../utils/printer/printer.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_table.dart';
-import '../../../widgets/full_container.dart';
-import '../../../widgets/header_text.dart';
-import '../../billing/sales/sales.dart';
 
 class QuotationHistory extends StatefulWidget {
   const QuotationHistory({Key? key}) : super(key: key);
@@ -179,7 +179,7 @@ class _QuotationHistoryState extends State<QuotationHistory> {
                         ),
                         Container(
                           width: CustomScreenUtility(context).width /
-                                  SalesHistoryEnum.values.length -
+                                  QuotationHistoryEnum.values.length -
                               10,
                           alignment: Alignment.centerLeft,
                           // color: Colors.red,
@@ -218,12 +218,13 @@ class _QuotationHistoryState extends State<QuotationHistory> {
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
-                                    children: SalesHistoryEnum.values
+                                    children: QuotationHistoryEnum.values
                                         .map(
                                           (e) => CustomTableHeaderElement(
                                             width: CustomScreenUtility(context)
                                                     .width /
-                                                SalesHistoryEnum.values.length,
+                                                QuotationHistoryEnum
+                                                    .values.length,
                                             text:
                                                 getStrofAddSalesHistoryEnum(e),
                                           ),
@@ -261,92 +262,102 @@ class _QuotationHistoryState extends State<QuotationHistory> {
   }
 
   Widget buildInkWell(QuotationModel billModel) {
-    return InkWell(
-      onTap: () {
-        quotationHistoryNotifier.setSelectedQuotationModel = billModel;
-        debugPrint(
-          "Seected Bill Model: ${quotationHistoryNotifier.selectedQuotationModel!.quotationNo}",
+    return GestureDetector(
+      onDoubleTap: () {
+        homeController.setCurrentSelectedWidget(
+          QuotationScreen(
+            quotationModel: billModel,
+          ),
         );
+        homeController.update();
       },
-      child: Container(
-        color: quotationHistoryNotifier.selectedQuotationModel!.quotationNo ==
-                billModel.quotationNo
-            ? Colors.grey[300]
-            : Colors.white,
-        child: Row(
-          children: [
-            CustomTableElement(
-              width: CustomScreenUtility(context).width /
-                  SalesHistoryEnum.values.length,
-              text: getFormattedDateTime(billModel.dateTime),
-            ),
-            CustomTableElement(
-              width: CustomScreenUtility(context).width /
-                  SalesHistoryEnum.values.length,
-              text: billModel.quotationNo,
-            ),
-            CustomTableElement(
-              width: CustomScreenUtility(context).width /
-                  SalesHistoryEnum.values.length,
-              text: billModel.customerModel.name,
-            ),
-            CustomTableElement(
-              width: CustomScreenUtility(context).width /
-                  SalesHistoryEnum.values.length,
-              text: billModel.price.toString(),
-            ),
-            Container(
-              width: CustomScreenUtility(context).width /
-                      SalesHistoryEnum.values.length -
-                  20,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        viewQuotation(billModel);
-                      },
-                      child: Column(
-                        children: [
-                          CustomIcon(
-                            Icons.remove_red_eye,
-                            color: Colors.red[400],
-                            size: 16,
-                          ),
-                          CustomText(
-                            "F1.View",
-                            size: 8,
-                            color: Colors.grey[600],
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    InkWell(
-                      onTap: () async {
-                        printQuotation(billModel);
-                      },
-                      child: Column(
-                        children: [
-                          CustomIcon(
-                            Icons.print,
-                            size: 16,
-                            color: Colors.green[400],
-                          ),
-                          CustomText(
-                            "F2.Print",
-                            size: 8,
-                            color: Colors.grey[600],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+      child: InkWell(
+        onTap: () {
+          quotationHistoryNotifier.setSelectedQuotationModel = billModel;
+          debugPrint(
+            "Seected Bill Model: ${quotationHistoryNotifier.selectedQuotationModel!.quotationNo}",
+          );
+        },
+        child: Container(
+          color: quotationHistoryNotifier.selectedQuotationModel!.quotationNo ==
+                  billModel.quotationNo
+              ? Colors.grey[300]
+              : Colors.white,
+          child: Row(
+            children: [
+              CustomTableElement(
+                width: CustomScreenUtility(context).width /
+                    QuotationHistoryEnum.values.length,
+                text: getFormattedDateTime(billModel.dateTime),
               ),
-            )
-          ],
+              CustomTableElement(
+                width: CustomScreenUtility(context).width /
+                    QuotationHistoryEnum.values.length,
+                text: billModel.quotationNo,
+              ),
+              CustomTableElement(
+                width: CustomScreenUtility(context).width /
+                    QuotationHistoryEnum.values.length,
+                text: billModel.customerModel.name,
+              ),
+              CustomTableElement(
+                width: CustomScreenUtility(context).width /
+                    QuotationHistoryEnum.values.length,
+                text: billModel.price.toString(),
+              ),
+              Container(
+                width: CustomScreenUtility(context).width /
+                        QuotationHistoryEnum.values.length -
+                    20,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          viewQuotation(billModel);
+                        },
+                        child: Column(
+                          children: [
+                            CustomIcon(
+                              Icons.remove_red_eye,
+                              color: Colors.red[400],
+                              size: 16,
+                            ),
+                            CustomText(
+                              "F1.View",
+                              size: 8,
+                              color: Colors.grey[600],
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      InkWell(
+                        onTap: () async {
+                          printQuotation(billModel);
+                        },
+                        child: Column(
+                          children: [
+                            CustomIcon(
+                              Icons.print,
+                              size: 16,
+                              color: Colors.green[400],
+                            ),
+                            CustomText(
+                              "F2.Print",
+                              size: 8,
+                              color: Colors.grey[600],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

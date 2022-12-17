@@ -17,13 +17,18 @@ class PurchaseDB {
     final loginController = Get.put(LoginController());
     final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
     await Utility.showDeleteionDialog(
-        "All your Purchases record will get cleared", onYesTap: () async {
-      if (empType == PersonEnum.SoftwareOwner)
-        await Database().storage.setItem("purchases", []);
-      else
-        CustomUtilies.customFailureSnackBar(
-            "You cannot delete", "Please contact the administrator");
-    });
+      "All your Purchases record will get cleared",
+      onYesTap: () async {
+        if (empType == PersonEnum.SoftwareOwner) {
+          await Database().storage.setItem("purchases", []);
+        } else {
+          CustomUtilies.customFailureSnackBar(
+            "You cannot delete",
+            "Please contact the administrator",
+          );
+        }
+      },
+    );
   }
 
   List<PurchaseModel> getAllPurchase() {
@@ -78,7 +83,12 @@ class PurchaseDB {
       }
       pendingAmount += purchaseBill.grandTotal - totalGivenAmount;
     }
-    return pendingAmount;
+    final comapnyPayment = paymentDB.getPaymentByCompanyId(companyId);
+    double givenAmount = 0;
+    for (final company in comapnyPayment) {
+      givenAmount += company.givenAmount;
+    }
+    return pendingAmount - givenAmount;
   }
 
   Future<void> addPurchaseToDb(PurchaseModel purchaseModel) async {
@@ -149,7 +159,10 @@ class PurchaseDB {
   }
 
   List<PurchaseModel> getBillByDateAndCompany(
-      DateTime startDate, DateTime endDate, CompanyModel companyModel) {
+    DateTime startDate,
+    DateTime endDate,
+    CompanyModel companyModel,
+  ) {
     final List<PurchaseModel> bills = [];
     debugPrint("${endDate.difference(startDate).inDays}");
     final startEndDiff = endDate.difference(startDate).inDays;

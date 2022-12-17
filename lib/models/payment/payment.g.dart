@@ -19,6 +19,9 @@ _$_PaymentModel _$$_PaymentModelFromJson(Map<String, dynamic> json) =>
           ? null
           : PurchaseModel.fromJson(
               json['purchaseModel'] as Map<String, dynamic>),
+      companyModel: json['companyModel'] == null
+          ? null
+          : CompanyModel.fromJson(json['companyModel'] as Map<String, dynamic>),
       note: json['note'] as String?,
     );
 
@@ -32,5 +35,6 @@ Map<String, dynamic> _$$_PaymentModelToJson(_$_PaymentModel instance) =>
       'paymentID': instance.paymentID,
       'createdAt': instance.createdAt.toIso8601String(),
       'purchaseModel': instance.purchaseModel?.toJson(),
+      'companyModel': instance.companyModel?.toJson(),
       'note': instance.note,
     };

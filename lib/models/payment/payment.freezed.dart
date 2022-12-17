@@ -31,6 +31,7 @@ class _$PaymentModelTearOff {
       required String paymentID,
       required DateTime createdAt,
       PurchaseModel? purchaseModel,
+      CompanyModel? companyModel,
       String? note}) {
     return _PaymentModel(
       id: id,
@@ -41,6 +42,7 @@ class _$PaymentModelTearOff {
       paymentID: paymentID,
       createdAt: createdAt,
       purchaseModel: purchaseModel,
+      companyModel: companyModel,
       note: note,
     );
   }
@@ -63,6 +65,7 @@ mixin _$PaymentModel {
   String get paymentID => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   PurchaseModel? get purchaseModel => throw _privateConstructorUsedError;
+  CompanyModel? get companyModel => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -85,9 +88,11 @@ abstract class $PaymentModelCopyWith<$Res> {
       String paymentID,
       DateTime createdAt,
       PurchaseModel? purchaseModel,
+      CompanyModel? companyModel,
       String? note});
 
   $PurchaseModelCopyWith<$Res>? get purchaseModel;
+  $CompanyModelCopyWith<$Res>? get companyModel;
 }
 
 /// @nodoc
@@ -108,6 +113,7 @@ class _$PaymentModelCopyWithImpl<$Res> implements $PaymentModelCopyWith<$Res> {
     Object? paymentID = freezed,
     Object? createdAt = freezed,
     Object? purchaseModel = freezed,
+    Object? companyModel = freezed,
     Object? note = freezed,
   }) {
     return _then(_value.copyWith(
@@ -143,6 +149,10 @@ class _$PaymentModelCopyWithImpl<$Res> implements $PaymentModelCopyWith<$Res> {
           ? _value.purchaseModel
           : purchaseModel // ignore: cast_nullable_to_non_nullable
               as PurchaseModel?,
+      companyModel: companyModel == freezed
+          ? _value.companyModel
+          : companyModel // ignore: cast_nullable_to_non_nullable
+              as CompanyModel?,
       note: note == freezed
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -158,6 +168,17 @@ class _$PaymentModelCopyWithImpl<$Res> implements $PaymentModelCopyWith<$Res> {
 
     return $PurchaseModelCopyWith<$Res>(_value.purchaseModel!, (value) {
       return _then(_value.copyWith(purchaseModel: value));
+    });
+  }
+
+  @override
+  $CompanyModelCopyWith<$Res>? get companyModel {
+    if (_value.companyModel == null) {
+      return null;
+    }
+
+    return $CompanyModelCopyWith<$Res>(_value.companyModel!, (value) {
+      return _then(_value.copyWith(companyModel: value));
     });
   }
 }
@@ -178,10 +199,13 @@ abstract class _$PaymentModelCopyWith<$Res>
       String paymentID,
       DateTime createdAt,
       PurchaseModel? purchaseModel,
+      CompanyModel? companyModel,
       String? note});
 
   @override
   $PurchaseModelCopyWith<$Res>? get purchaseModel;
+  @override
+  $CompanyModelCopyWith<$Res>? get companyModel;
 }
 
 /// @nodoc
@@ -204,6 +228,7 @@ class __$PaymentModelCopyWithImpl<$Res> extends _$PaymentModelCopyWithImpl<$Res>
     Object? paymentID = freezed,
     Object? createdAt = freezed,
     Object? purchaseModel = freezed,
+    Object? companyModel = freezed,
     Object? note = freezed,
   }) {
     return _then(_PaymentModel(
@@ -239,6 +264,10 @@ class __$PaymentModelCopyWithImpl<$Res> extends _$PaymentModelCopyWithImpl<$Res>
           ? _value.purchaseModel
           : purchaseModel // ignore: cast_nullable_to_non_nullable
               as PurchaseModel?,
+      companyModel: companyModel == freezed
+          ? _value.companyModel
+          : companyModel // ignore: cast_nullable_to_non_nullable
+              as CompanyModel?,
       note: note == freezed
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -260,6 +289,7 @@ class _$_PaymentModel implements _PaymentModel {
       required this.paymentID,
       required this.createdAt,
       this.purchaseModel,
+      this.companyModel,
       this.note});
 
   factory _$_PaymentModel.fromJson(Map<String, dynamic> json) =>
@@ -282,11 +312,13 @@ class _$_PaymentModel implements _PaymentModel {
   @override
   final PurchaseModel? purchaseModel;
   @override
+  final CompanyModel? companyModel;
+  @override
   final String? note;
 
   @override
   String toString() {
-    return 'PaymentModel(id: $id, paymentNo: $paymentNo, purchaseId: $purchaseId, givenAmount: $givenAmount, paymentMethod: $paymentMethod, paymentID: $paymentID, createdAt: $createdAt, purchaseModel: $purchaseModel, note: $note)';
+    return 'PaymentModel(id: $id, paymentNo: $paymentNo, purchaseId: $purchaseId, givenAmount: $givenAmount, paymentMethod: $paymentMethod, paymentID: $paymentID, createdAt: $createdAt, purchaseModel: $purchaseModel, companyModel: $companyModel, note: $note)';
   }
 
   @override
@@ -306,6 +338,8 @@ class _$_PaymentModel implements _PaymentModel {
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality()
                 .equals(other.purchaseModel, purchaseModel) &&
+            const DeepCollectionEquality()
+                .equals(other.companyModel, companyModel) &&
             const DeepCollectionEquality().equals(other.note, note));
   }
 
@@ -320,6 +354,7 @@ class _$_PaymentModel implements _PaymentModel {
       const DeepCollectionEquality().hash(paymentID),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(purchaseModel),
+      const DeepCollectionEquality().hash(companyModel),
       const DeepCollectionEquality().hash(note));
 
   @JsonKey(ignore: true)
@@ -343,6 +378,7 @@ abstract class _PaymentModel implements PaymentModel {
       required String paymentID,
       required DateTime createdAt,
       PurchaseModel? purchaseModel,
+      CompanyModel? companyModel,
       String? note}) = _$_PaymentModel;
 
   factory _PaymentModel.fromJson(Map<String, dynamic> json) =
@@ -364,6 +400,8 @@ abstract class _PaymentModel implements PaymentModel {
   DateTime get createdAt;
   @override
   PurchaseModel? get purchaseModel;
+  @override
+  CompanyModel? get companyModel;
   @override
   String? get note;
   @override

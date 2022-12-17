@@ -1,25 +1,24 @@
 import 'dart:async';
 
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/billing/sales/sales_four.dart';
+import 'package:annai_store/controller/billing/sales/sales_one.dart';
+import 'package:annai_store/controller/billing/sales/sales_three.dart';
+import 'package:annai_store/controller/billing/sales/sales_two.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/printer/printer.dart';
+import 'package:annai_store/models/bill/bill.dart';
+import 'package:annai_store/models/product/product.dart';
+import 'package:annai_store/screens/billing/sales/components/sales_button.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/full_container.dart';
+import 'package:annai_store/widgets/header_text.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart';
-
-import '../../../controller/billing/sales/sales.dart';
-import '../../../controller/billing/sales/sales_four.dart';
-import '../../../controller/billing/sales/sales_one.dart';
-import '../../../controller/billing/sales/sales_three.dart';
-import '../../../controller/billing/sales/sales_two.dart';
-import '../../../enum/printer/printer.dart';
-import '../../../models/bill/bill.dart';
-import '../../../models/product/product.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/full_container.dart';
-import '../../../widgets/header_text.dart';
-import 'components/sales_button.dart';
 
 class SalesScreen extends StatefulWidget {
   BillModel? billModel;
@@ -121,8 +120,6 @@ class _SalesScreenState extends State<SalesScreen> {
     Timer(const Duration(seconds: 2), () {
       if (widget.billModel != null) {
         salesBillingOneController.setBillModel = widget.billModel!;
-        salesBillingOneController.setOldBillModel =
-            widget.billModel!.copyWith();
         salesBillingOneController.performInit();
       }
     });
@@ -253,8 +250,11 @@ class _SalesScreenState extends State<SalesScreen> {
     );
   }
 
-  Widget buildSuggestionContainer(Function(ProductModel) onSelected,
-      Iterable<ProductModel> options, BuildContext context) {
+  Widget buildSuggestionContainer(
+    Function(ProductModel) onSelected,
+    Iterable<ProductModel> options,
+    BuildContext context,
+  ) {
     return Align(
       alignment: Alignment.topLeft,
       child: Material(

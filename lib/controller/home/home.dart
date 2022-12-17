@@ -1,8 +1,7 @@
+import 'package:annai_store/screens/billing/sales/sales.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
-import '../../screens/billing/sales/sales.dart';
 
 class HomeController extends GetxController {
   // AddEnum addEnum = AddEnum.Product;

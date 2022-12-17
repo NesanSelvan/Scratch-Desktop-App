@@ -164,9 +164,7 @@ class EstimateScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: empType == PersonEnum.SoftwareOwner
-                                ? CustomScreenUtility(context).width * 0.2
-                                : CustomScreenUtility(context).width * 0.3,
+                            width: CustomScreenUtility(context).width * 0.2,
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             alignment: Alignment.topCenter,
                             child: SingleChildScrollView(
@@ -693,9 +691,7 @@ class EstimateScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            width: empType == PersonEnum.SoftwareOwner
-                                ? CustomScreenUtility(context).width * 0.6
-                                : CustomScreenUtility(context).width * 0.7,
+                            width: CustomScreenUtility(context).width * 0.8,
                             child: SingleChildScrollView(
                               child: Column(
                                 children: [

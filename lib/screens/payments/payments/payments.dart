@@ -1,5 +1,21 @@
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/home/home.dart';
+import 'package:annai_store/controller/payments/payment.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/keyboard.dart';
+import 'package:annai_store/enum/payments/receipt.dart';
+import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/purchase/purchase.dart';
+import 'package:annai_store/screens/billing/sales/sales.dart';
+import 'package:annai_store/utils/null/null.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/custom_button.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/custom_typeahead.dart';
+import 'package:annai_store/widgets/full_container.dart';
+import 'package:annai_store/widgets/header_text.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
@@ -7,23 +23,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart';
-
-import '../../../controller/billing/sales/sales.dart';
-import '../../../controller/home/home.dart';
-import '../../../controller/payments/payment.dart';
-import '../../../enum/keyboard.dart';
-import '../../../enum/payments/receipt.dart';
-import '../../../models/company/company.dart';
-import '../../../utils/null/null.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_table.dart';
-import '../../../widgets/custom_typeahead.dart';
-import '../../../widgets/full_container.dart';
-import '../../../widgets/header_text.dart';
-import '../../../widgets/text_field.dart';
-import '../../billing/sales/sales.dart';
 
 // ignore: must_be_immutable
 class PaymentScreen extends StatelessWidget {
@@ -41,6 +40,8 @@ class PaymentScreen extends StatelessWidget {
       // paymentController.pendingAmountController.text =
       //     "${paymentController.selectedPurchaseBill!.price - paymentController.selectedPurchaseBill!.givenAmount!}";
       paymentController.update();
+    } else if (paymentController.purchaseBillNoController.text == "") {
+      paymentController.givenAmountNode.requestFocus();
     }
   }
 
@@ -111,7 +112,10 @@ class PaymentScreen extends StatelessWidget {
                               );
                             } else if (data.logicalKey ==
                                 LogicalKeyboardKey.enter) {
-                              onBillNoControllerEditingComplete();
+                              if (controller.purchaseBillNoController.text !=
+                                  "") {
+                                onBillNoControllerEditingComplete();
+                              }
                             }
                           }
                           break;
@@ -529,8 +533,12 @@ class PaymentScreen extends StatelessWidget {
                                                     ).width *
                                                     0.75 /
                                                     PaymentEnum.values.length,
-                                                text:
-                                                    "${purchaseDB.getPurchaseModelById(e.purchaseId)?.billNo}",
+                                                text: purchaseDB
+                                                        .getPurchaseModelById(
+                                                          e.purchaseId,
+                                                        )
+                                                        ?.billNo ??
+                                                    '-',
                                               ),
                                               CustomTableElement(
                                                 width: CustomScreenUtility(
@@ -539,7 +547,7 @@ class PaymentScreen extends StatelessWidget {
                                                     0.75 /
                                                     PaymentEnum.values.length,
                                                 text:
-                                                    '${purchaseDB.getPurchaseModelById(e.purchaseId)?.grandTotal}',
+                                                    '${purchaseDB.getPurchaseModelById(e.purchaseId)?.grandTotal ?? '-'}',
                                               ),
                                               CustomTableElement(
                                                 width: CustomScreenUtility(

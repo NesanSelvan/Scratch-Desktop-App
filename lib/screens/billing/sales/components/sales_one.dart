@@ -211,7 +211,9 @@ class _SalesScreen1State extends State<SalesScreen1> {
       receiptController.salesBillNoController.text =
           receiptController.selectedBillModel!.billNo;
       receiptController.pendingAmountController.text =
-          "${receiptController.selectedBillModel!.price - receiptController.selectedBillModel!.givenAmount!}";
+          (receiptController.selectedBillModel!.price -
+                  receiptController.selectedBillModel!.givenAmount!)
+              .toStringAsFixed(2);
       final customerData = receiptController.customersList
           ?.where(
             (element) =>

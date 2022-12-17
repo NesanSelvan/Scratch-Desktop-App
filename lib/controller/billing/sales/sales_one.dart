@@ -75,14 +75,6 @@ class SalesBillingOneController extends GetxController {
     update();
   }
 
-  BillModel? _oldBillModel;
-  BillModel? get oldBillModel => _oldBillModel;
-
-  set setOldBillModel(BillModel billModel) {
-    _oldBillModel = billModel;
-    update();
-  }
-
   void onPriceModelArrowRight() {
     debugPrint("Movibg Right");
     if (_selectedProductModel != null) {
@@ -523,6 +515,7 @@ class SalesBillingOneController extends GetxController {
   void clearAll() {
     isUpdated = false;
     _billModel = null;
+    isUpdated = false;
     _selectedProductModel?.differentPriceList?.clear();
     _selectedProductModel = null;
     selectedCustomerModel = null;

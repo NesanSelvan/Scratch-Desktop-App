@@ -1,17 +1,16 @@
+import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/core/constants/calculations/payments/payment.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/keyboard.dart';
+import 'package:annai_store/models/company/company.dart';
+import 'package:annai_store/models/payment/payment.dart';
+import 'package:annai_store/models/purchase/purchase.dart';
+import 'package:annai_store/utils/keyboard/keyboard.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart';
-
-import '../../enum/keyboard.dart';
-import '../../models/company/company.dart';
-import '../../models/payment/payment.dart';
-import '../../models/purchase/purchase.dart';
-import '../../utils/keyboard/keyboard.dart';
-import '../billing/sales/sales.dart';
 
 class PaymentController extends GetxController {
   // PaymentModel
@@ -268,39 +267,42 @@ class PaymentController extends GetxController {
   }
 
   Future<void> addPaymentData(BuildContext context) async {
-    if (_selectedPurchaseBill != null) {
-      try {
-        final givenAmount = double.parse(givenAmountController.text);
+    // if (_selectedPurchaseBill != null) {
+    try {
+      final givenAmount = double.parse(givenAmountController.text);
 
-        final pm = PaymentModel(
-          id: const Uuid().v4(),
-          paymentNo: paymentNoController.text,
-          givenAmount: givenAmount,
-          paymentMethod: selectedPaymentMethod,
-          purchaseId: _selectedPurchaseBill!.id,
-          paymentID: paymentIDController.text,
-          createdAt: pickedDateTime,
-          purchaseModel: _selectedPurchaseBill,
-        );
-        await paymentDB.addPaymentToDb(pm);
-        purchaseDB.updatePurchase(
+      final pm = PaymentModel(
+        id: const Uuid().v4(),
+        paymentNo: paymentNoController.text,
+        givenAmount: givenAmount,
+        paymentMethod: selectedPaymentMethod,
+        purchaseId: _selectedPurchaseBill?.id ?? "",
+        paymentID: paymentIDController.text,
+        createdAt: pickedDateTime,
+        purchaseModel: _selectedPurchaseBill,
+        companyModel: _selectedCompanyModel,
+      );
+      await paymentDB.addPaymentToDb(pm);
+      if (_selectedPurchaseBill != null) {
+        await purchaseDB.updatePurchase(
           _selectedPurchaseBill!.copyWith(
             paymentsIdList: [..._selectedPurchaseBill!.paymentsIdList, pm.id],
           ),
         );
-        performInit();
-        setPickedDateTime(getTodaysDate());
-      } catch (e) {
-        CustomUtilies.customFailureSnackBar("Error", "$e");
       }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Please Select a Purchase Bill"),
-          backgroundColor: Colors.red,
-        ),
-      );
+      performInit();
+      setPickedDateTime(getTodaysDate());
+    } catch (e) {
+      CustomUtilies.customFailureSnackBar("Error", "$e");
     }
+    // } else {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     const SnackBar(
+    //       content: Text("Please Select a Purchase Bill"),
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    // }
   }
 
   // Future<void> deleteReceipt(ReceiptModel paymentModel) async {
