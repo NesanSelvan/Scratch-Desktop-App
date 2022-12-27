@@ -1,21 +1,20 @@
+import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/core/constants/calculations/bills/purchase.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/keyboard.dart';
+import 'package:annai_store/models/company/company.dart';
+import 'package:annai_store/models/product/product.dart';
+import 'package:annai_store/models/purchase/product/purchase_product.dart';
 import 'package:annai_store/models/purchase/purchase.dart';
+import 'package:annai_store/models/stocks/stock.dart';
+import 'package:annai_store/utils/image/image.dart';
+import 'package:annai_store/utils/keyboard/keyboard.dart';
+import 'package:annai_store/utils/null/null.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart';
-
-import '../../../enum/keyboard.dart';
-import '../../../models/company/company.dart';
-import '../../../models/product/product.dart';
-import '../../../models/purchase/product/purchase_product.dart';
-import '../../../models/stocks/stock.dart';
-import '../../../utils/image/image.dart';
-import '../../../utils/keyboard/keyboard.dart';
-import '../../../utils/null/null.dart';
-import '../sales/sales.dart';
 
 class PurchaseController extends GetxController {
   DateTime pickedDateTime = getTodaysDate();
@@ -29,6 +28,7 @@ class PurchaseController extends GetxController {
 
   final totalAmountController = TextEditingController(text: "0");
   final forwardingSalesController = TextEditingController(text: "0");
+  final tcsSalesController = TextEditingController(text: "0");
   final taxController = TextEditingController(text: "0");
   final taxableValueController = TextEditingController(text: "0");
   final lorryFrightController = TextEditingController(text: "0");
@@ -322,7 +322,6 @@ class PurchaseController extends GetxController {
     purchaseProductModelList.clear();
     discountPercController.clear();
     productController.clear();
-    qtyController.text = "1";
     companyController.clear();
     discountController.text = "0";
     rateController.text = "0";
@@ -331,7 +330,9 @@ class PurchaseController extends GetxController {
     taxableValueController.text = "0";
     taxController.text = "0";
     totalAmountController.text = "0";
+    tcsSalesController.text = "0";
     invoiceNumberController.clear();
+    qtyController.text = "0";
     grandTotal = 0;
     _imagesList.clear();
     update();
@@ -342,6 +343,7 @@ class PurchaseController extends GetxController {
     productController.clear();
     qtyController.text = "0";
     discountController.text = "0";
+    discountPercController.text = "0";
     rateController.text = "0";
     amountController.text = "0";
     lorryFrightController.text = "0";
@@ -396,6 +398,8 @@ class PurchaseController extends GetxController {
     taxableValueController.text = taxableValue.toStringAsFixed(2);
     totalAmount =
         taxableValue + purchaseCalculation.taxAmount(taxableValue, tax);
+    // totalAmount = totalAmount + (totalAmount * tcsSalesAmount);
+    // print("totalAmount: $totalAmount");
     totalAmountController.text = totalAmount.toStringAsFixed(2);
     update();
     return [
@@ -406,7 +410,7 @@ class PurchaseController extends GetxController {
       lorryFright,
       taxableValue,
       tax,
-      double.tryParse(totalAmount.toStringAsFixed(2)) ?? 0
+      double.tryParse(totalAmount.toStringAsFixed(2)) ?? 0,
     ];
   }
 
@@ -436,6 +440,7 @@ class PurchaseController extends GetxController {
       lorryFrightTotal:
           double.tryParse(lorryFrightOverallTotalController.text) ?? 0,
       forwardingSales: double.tryParse(forwardingSalesController.text) ?? 0,
+      tcsSales: double.tryParse(tcsSalesController.text) ?? 0,
     );
 
     try {
@@ -484,6 +489,7 @@ class PurchaseController extends GetxController {
       grandTotal += item.totalAmount;
     }
     grandTotal += forwardingSales;
+    grandTotal += grandTotal * tcsSalesAmount;
     grandTotal = double.parse(grandTotal.toStringAsFixed(2));
   }
 
@@ -502,6 +508,10 @@ class PurchaseController extends GetxController {
 
   double get forwardingSales =>
       double.tryParse(forwardingSalesController.text) ?? 0;
+
+  double get tcsSales => double.tryParse(tcsSalesController.text) ?? 0;
+  double get tcsSalesAmount =>
+      (double.tryParse(tcsSalesController.text) ?? 0) / 100;
 
   PurchaseProductModel get getTotalPurchaseProductModel {
     double qty = 0;

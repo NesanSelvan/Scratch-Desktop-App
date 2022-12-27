@@ -1,36 +1,35 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/product/product.dart';
+import 'package:annai_store/controller/server/server.dart';
 import 'package:annai_store/core/constants/calculations/basic_cal.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/enum/keyboard.dart';
+import 'package:annai_store/enum/product.dart';
+import 'package:annai_store/models/category/category.dart';
+import 'package:annai_store/models/company/company.dart';
+import 'package:annai_store/models/product/product.dart';
+import 'package:annai_store/models/unit/unit.dart';
+import 'package:annai_store/screens/viewer/image_viewer.dart';
+import 'package:annai_store/utils/image/image.dart';
+import 'package:annai_store/utils/null/null.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/printer/printer.dart';
+import 'package:annai_store/widgets/custom_keyboard.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/custom_typeahead.dart';
+import 'package:annai_store/widgets/operation_buttons.dart';
+import 'package:annai_store/widgets/search_by.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
-
-import '../../../controller/billing/sales/sales.dart';
-import '../../../controller/product/product.dart';
-import '../../../controller/server/server.dart';
-import '../../../enum/keyboard.dart';
-import '../../../enum/product.dart';
-import '../../../models/category/category.dart';
-import '../../../models/company/company.dart';
-import '../../../models/product/product.dart';
-import '../../../models/unit/unit.dart';
-import '../../../utils/image/image.dart';
-import '../../../utils/null/null.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../../utils/printer/printer.dart';
-import '../../../widgets/custom_keyboard.dart';
-import '../../../widgets/custom_table.dart';
-import '../../../widgets/custom_typeahead.dart';
-import '../../../widgets/operation_buttons.dart';
-import '../../../widgets/search_by.dart';
-import '../../../widgets/text_field.dart';
-import '../../viewer/image_viewer.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({Key? key}) : super(key: key);
@@ -1118,7 +1117,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   Widget buildSuggestionContainer(
-      Function(CategoryModel) onSelected, Iterable<CategoryModel> options) {
+    Function(CategoryModel) onSelected,
+    Iterable<CategoryModel> options,
+  ) {
     return Align(
       alignment: Alignment.topLeft,
       child: Material(
@@ -1185,10 +1186,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ProductEnum.values.length,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: CustomTextField(
-                    controller: productNumberController,
-                    label: "Enter Product Number",
-                  ),
+                  child: Text(productNumberController.text),
+                  // child: CustomTextField(
+                  //   controller: productNumberController,
+                  //   label: "Enter Product Number",
+                  // ),
                 ),
               ),
               CustomTableElement(
@@ -1252,6 +1254,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 child: Container(
                   width: 240,
                   height: 100,
+                  // padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: SfBarcodeGenerator(
                     value: '${e.productNumber}',
                     showValue: true,
@@ -1259,6 +1262,47 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
               ),
             ],
+          ),
+          CustomTextButton(
+            "Print",
+            onPressed: () async {
+              screenshotController.capture().then((Uint8List? image) async {
+                if (image != null) {
+                  final path = await PDFGenerator.generateBarcode(
+                    [image, image, image, image],
+                    e.sellingPrice,
+                  );
+                  PDFGenerator.openPdf(path);
+                  final file = File(path);
+                  await PrinterUtility.barcodePrint(file);
+                } else {
+                  CustomUtilies.customFailureSnackBar("Error", "Image is null");
+                }
+              }).catchError((onError) {
+                print(onError);
+              });
+            },
+          ),
+          CustomTextButton(
+            "Potrait",
+            onPressed: () async {
+              screenshotController.capture().then((Uint8List? image) async {
+                if (image != null) {
+                  final path = await PDFGenerator.generateBarcode(
+                    [image, image, image, image],
+                    e.sellingPrice,
+                    isPotrait: true,
+                  );
+                  PDFGenerator.openPdf(path);
+                  final file = File(path);
+                  await PrinterUtility.barcodePrint(file);
+                } else {
+                  CustomUtilies.customFailureSnackBar("Error", "Image is null");
+                }
+              }).catchError((onError) {
+                print(onError);
+              });
+            },
           ),
           Container(
             padding: const EdgeInsets.only(left: 10),
@@ -1331,24 +1375,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     .toList(),
               ),
             ),
-          CustomTextButton(
-            "Print",
-            onPressed: () async {
-              screenshotController.capture().then((Uint8List? image) async {
-                if (image != null) {
-                  final path =
-                      await PDFGenerator.generateBarcode(image, e.sellingPrice);
-                  PDFGenerator.openPdf(path);
-                  final file = File(path);
-                  await PrinterUtility.barcodePrint(file);
-                } else {
-                  CustomUtilies.customFailureSnackBar("Error", "Image is null");
-                }
-              }).catchError((onError) {
-                print(onError);
-              });
-            },
-          )
         ],
       ),
     );

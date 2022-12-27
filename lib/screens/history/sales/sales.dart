@@ -316,7 +316,9 @@ class _SalesHistoryState extends State<SalesHistory> {
               CustomTableElement(
                 width: CustomScreenUtility(context).width /
                     SalesHistoryEnum.values.length,
-                text: billModel.price.toStringAsFixed(2),
+                text: billModel.billNo == "2865 / 2022 - 2023"
+                    ? billModel.price.toStringAsFixed(2)
+                    : billModel.price.round().toStringAsFixed(2),
               ),
               CustomTableElement(
                 width: CustomScreenUtility(context).width /

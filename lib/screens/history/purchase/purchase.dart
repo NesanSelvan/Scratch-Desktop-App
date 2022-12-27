@@ -1,5 +1,15 @@
+import 'package:annai_store/controller/history/purchase/purchase.dart';
+import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/history/sales.dart';
 import 'package:annai_store/models/purchase/purchase.dart';
+import 'package:annai_store/screens/billing/sales/sales.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/custom_button.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/full_container.dart';
+import 'package:annai_store/widgets/header_text.dart';
+import 'package:annai_store/widgets/print_optn.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
@@ -7,17 +17,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 // import 'package:qr_flutter/qr_flutter.dart';
 import 'package:validators/validators.dart';
-
-import '../../../controller/history/purchase/purchase.dart';
-import '../../../controller/home/home.dart';
-import '../../../enum/history/sales.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_table.dart';
-import '../../../widgets/full_container.dart';
-import '../../../widgets/header_text.dart';
-import '../../../widgets/print_optn.dart';
-import '../../billing/sales/sales.dart';
 
 class PurchaseHistory extends StatefulWidget {
   const PurchaseHistory({Key? key}) : super(key: key);
@@ -317,6 +316,7 @@ class _PurchaseHistoryState extends State<PurchaseHistory> {
                 .toList()
           ],
         ),
+        const SizedBox(height: 10),
         if (billModel.isNormalPurchaseBill ?? false)
           Column(
             children: [
@@ -359,6 +359,21 @@ class _PurchaseHistoryState extends State<PurchaseHistory> {
               ),
             ],
           ),
+        const SizedBox(height: 10),
+        if (billModel.tcsSales != null && billModel.tcsSales != 0)
+          Text("TCS & Sales ${billModel.tcsSales}%"),
+        const SizedBox(height: 10),
+        if (billModel.forwardingSales != null && billModel.forwardingSales != 0)
+          Text("Forwarding Sales ${billModel.forwardingSales}"),
+        const SizedBox(height: 20),
+        Text(
+          "Grand Total ${billModel.grandTotal}",
+          style: const TextStyle(
+            fontWeight: FontWeight.w900,
+            fontSize: 20,
+          ),
+        ),
+        const SizedBox(height: 20),
       ],
     );
   }

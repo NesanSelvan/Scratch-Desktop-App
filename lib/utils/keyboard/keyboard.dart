@@ -1,25 +1,25 @@
+import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/models/category/category.dart';
+import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/models/product/product.dart';
+import 'package:annai_store/models/purchase/purchase.dart';
+import 'package:annai_store/models/unit/unit.dart';
+import 'package:annai_store/utils/search/search.dart';
+import 'package:annai_store/utils/utility.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 
-import '../../enum/keyboard.dart';
-import '../../models/company/company.dart';
-import '../../models/purchase/purchase.dart';
-import '../../models/unit/unit.dart';
-import '../search/search.dart';
-import '../utility.dart';
-
 // ignore: avoid_classes_with_only_static_members
 class KeyboardUtilities {
   static CategoryModel? keyboardSelectCategoryModel(
-      String text,
-      List<CategoryModel> _categoryList,
-      CategoryModel? selectedCategory,
-      KeyboardEventEnum keyboardEventEnum) {
+    String text,
+    List<CategoryModel> _categoryList,
+    CategoryModel? selectedCategory,
+    KeyboardEventEnum keyboardEventEnum,
+  ) {
     debugPrint('text: $text');
     final catList =
         SearchUtility.customSearch<CategoryModel>(text, _categoryList);
@@ -65,10 +65,11 @@ class KeyboardUtilities {
   }
 
   static UnitModel? keyboardSelectUnitModel(
-      String text,
-      List<UnitModel> _unitList,
-      UnitModel? selectedUnit,
-      KeyboardEventEnum keyboardEventEnum) {
+    String text,
+    List<UnitModel> _unitList,
+    UnitModel? selectedUnit,
+    KeyboardEventEnum keyboardEventEnum,
+  ) {
     debugPrint('text: $text');
     final unitList = SearchUtility.customSearch<UnitModel>(text, _unitList);
 
@@ -110,10 +111,11 @@ class KeyboardUtilities {
   }
 
   static CompanyModel? keyboardSelectCompanyModel(
-      String text,
-      List<CompanyModel> _companyList,
-      CompanyModel? selectedCompanyModel,
-      KeyboardEventEnum keyboardEventEnum) {
+    String text,
+    List<CompanyModel> _companyList,
+    CompanyModel? selectedCompanyModel,
+    KeyboardEventEnum keyboardEventEnum,
+  ) {
     debugPrint('text: $text');
     final compList =
         SearchUtility.customSearch<CompanyModel>(text, _companyList);
@@ -206,10 +208,11 @@ class KeyboardUtilities {
   }
 
   static CustomerModel? keyboardSelectCustomerModel(
-      String text,
-      List<CustomerModel> customersDBList,
-      CustomerModel? selectedCustomerModel,
-      KeyboardEventEnum keyboardEventEnum) {
+    String text,
+    List<CustomerModel> customersDBList,
+    CustomerModel? selectedCustomerModel,
+    KeyboardEventEnum keyboardEventEnum,
+  ) {
     debugPrint('text: $text');
     final customerList =
         SearchUtility.customSearch<CustomerModel>(text, customersDBList);
@@ -254,10 +257,11 @@ class KeyboardUtilities {
   }
 
   static PurchaseModel? keyboardSelectPurchaseModel(
-      String text,
-      List<PurchaseModel> _purchaseList,
-      PurchaseModel? selectedPurchaseModel,
-      KeyboardEventEnum keyboardEventEnum) {
+    String text,
+    List<PurchaseModel> _purchaseList,
+    PurchaseModel? selectedPurchaseModel,
+    KeyboardEventEnum keyboardEventEnum,
+  ) {
     debugPrint('text: $text');
     final compList = _purchaseList
         .where(
@@ -330,9 +334,7 @@ class KeyboardUtilities {
   void validateNumberInput(String inputText, FocusNode focusNode) {
     try {
       double.parse(inputText);
-      if (inputText != "") {
-        focusNode.requestFocus();
-      }
+      focusNode.requestFocus();
     } catch (e) {
       CustomUtilies.customFailureSnackBar(
         "Error",

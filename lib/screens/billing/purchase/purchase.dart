@@ -1,35 +1,34 @@
+import 'package:annai_store/controller/billing/purchase/purchase.dart';
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/history/sales/sales.dart';
+import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/billing/sales.dart';
+import 'package:annai_store/enum/keyboard.dart';
+import 'package:annai_store/models/company/company.dart';
+import 'package:annai_store/models/product/product.dart';
+import 'package:annai_store/models/purchase/product/purchase_product.dart';
+import 'package:annai_store/screens/add/customer/customer.dart';
+import 'package:annai_store/screens/add/product/product.dart';
+import 'package:annai_store/screens/billing/sales/components/sales_button.dart';
+import 'package:annai_store/screens/billing/sales/sales.dart';
+import 'package:annai_store/utils/image/image.dart';
+import 'package:annai_store/utils/keyboard/keyboard.dart';
+import 'package:annai_store/utils/null/null.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/add_inkwell.dart';
+import 'package:annai_store/widgets/custom_keyboard.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/custom_typeahead.dart';
+import 'package:annai_store/widgets/full_container.dart';
+import 'package:annai_store/widgets/header_text.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart';
-
-import '../../../controller/billing/purchase/purchase.dart';
-import '../../../controller/billing/sales/sales.dart';
-import '../../../controller/history/sales/sales.dart';
-import '../../../controller/home/home.dart';
-import '../../../enum/billing/sales.dart';
-import '../../../enum/keyboard.dart';
-import '../../../models/company/company.dart';
-import '../../../models/product/product.dart';
-import '../../../models/purchase/product/purchase_product.dart';
-import '../../../utils/image/image.dart';
-import '../../../utils/keyboard/keyboard.dart';
-import '../../../utils/null/null.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/add_inkwell.dart';
-import '../../../widgets/custom_keyboard.dart';
-import '../../../widgets/custom_table.dart';
-import '../../../widgets/custom_typeahead.dart';
-import '../../../widgets/full_container.dart';
-import '../../../widgets/header_text.dart';
-import '../../../widgets/text_field.dart';
-import '../../add/customer/customer.dart';
-import '../../add/product/product.dart';
-import '../sales/components/sales_button.dart';
-import '../sales/sales.dart';
 
 class PurchaseScreen extends StatefulWidget {
   const PurchaseScreen({Key? key}) : super(key: key);
@@ -46,8 +45,6 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
   HomeController homeController = Get.put(HomeController());
 
   final FocusNode _focusNode = FocusNode();
-
-  final productNode = FocusNode();
 
   final givenAmountNode = FocusNode();
 
@@ -67,6 +64,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
   final totalAmountNode = FocusNode();
   final forwardingSalesNode = FocusNode();
+  final tcsSalesNode = FocusNode();
 
   final discountNode = FocusNode();
 
@@ -76,7 +74,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
     purchaseController.productController.clear();
     purchaseController.getPurchaseBillNo();
     purchaseController.getProductsByCompany();
-    productNode.requestFocus();
+    purchaseController.productNode.requestFocus();
     purchaseController.update();
   }
 
@@ -511,6 +509,37 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                             const SizedBox(height: 20),
                                             const Divider(),
                                             const SizedBox(height: 10),
+                                            InkWell(
+                                              onTap: () {
+                                                controller
+                                                        .isDiscountPercentage =
+                                                    !controller
+                                                        .isDiscountPercentage;
+                                                controller.calculateDiscount();
+                                                controller.calculateAmounts();
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Checkbox(
+                                                    value: controller
+                                                        .isDiscountPercentage,
+                                                    onChanged: (val) {
+                                                      if (val != null) {
+                                                        controller
+                                                                .isDiscountPercentage =
+                                                            val;
+                                                        controller
+                                                            .calculateDiscount();
+                                                        controller
+                                                            .calculateAmounts();
+                                                      }
+                                                    },
+                                                  ),
+                                                  const Text("Is Percentage"),
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
                                             CustomTextField(
                                               focusNode: discountNode,
                                               label: "Enter Discount",
@@ -545,37 +574,6 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                           : frightNode,
                                                 );
                                               },
-                                            ),
-                                            const SizedBox(height: 10),
-                                            InkWell(
-                                              onTap: () {
-                                                controller
-                                                        .isDiscountPercentage =
-                                                    !controller
-                                                        .isDiscountPercentage;
-                                                controller.calculateDiscount();
-                                                controller.calculateAmounts();
-                                              },
-                                              child: Row(
-                                                children: [
-                                                  Checkbox(
-                                                    value: controller
-                                                        .isDiscountPercentage,
-                                                    onChanged: (val) {
-                                                      if (val != null) {
-                                                        controller
-                                                                .isDiscountPercentage =
-                                                            val;
-                                                        controller
-                                                            .calculateDiscount();
-                                                        controller
-                                                            .calculateAmounts();
-                                                      }
-                                                    },
-                                                  ),
-                                                  const Text("Is Percentage"),
-                                                ],
-                                              ),
                                             ),
                                             const SizedBox(
                                               height: 10,
@@ -691,7 +689,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                 KeyboardUtilities()
                                                     .validateNumberInput(
                                                   controller.taxController.text,
-                                                  productNode,
+                                                  controller.productNode,
                                                 );
                                                 controller
                                                     .addSelectedPurchaseProductModel();
@@ -710,16 +708,25 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                   controller
                                                       .totalAmountController
                                                       .text,
-                                                  productNode,
+                                                  controller.productNode,
                                                 );
                                                 controller.productController
                                                     .clear();
-                                                productNode.requestFocus();
                                               },
                                             ),
                                           ],
                                         ),
                                       ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    CustomTextField(
+                                      focusNode: tcsSalesNode,
+                                      controller: controller.tcsSalesController,
+                                      label: "TCS & Sales",
+                                      onEditingComplete: () {
+                                        controller.calculateAmounts();
+                                        controller.calculateGrandTotal();
+                                      },
                                     ),
                                     const SizedBox(height: 30),
                                     Row(
@@ -733,7 +740,8 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                 .addSelectedPurchaseProductModel();
                                             controller.productController
                                                 .clear();
-                                            productNode.requestFocus();
+                                            controller.productNode
+                                                .requestFocus();
                                           },
                                         ),
                                         SalesButton(
@@ -753,6 +761,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                       onEditingComplete: () {
                                         controller.calculateAmounts();
                                         controller.calculateGrandTotal();
+                                        controller.productNode.requestFocus();
                                       },
                                     ),
                                     const SizedBox(height: 70),
@@ -1003,7 +1012,13 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                       if (controller.forwardingSales != 0)
                                         forwardingSales(
                                           controller.forwardingSales,
-                                        )
+                                        ),
+                                      if (controller.tcsSales != 0)
+                                        tcsSales(
+                                          controller.tcsSales,
+                                          controller
+                                              .getTotalPurchaseProductModel,
+                                        ),
                                     ],
                                   )
                                 ],
@@ -1023,8 +1038,11 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
     );
   }
 
-  Widget buildInkWell(PurchaseProductModel e, PurchaseController controller,
-      BuildContext context) {
+  Widget buildInkWell(
+    PurchaseProductModel e,
+    PurchaseController controller,
+    BuildContext context,
+  ) {
     return InkWell(
       onTap: () {
         controller.onSalesModelTap(e);
@@ -1252,6 +1270,85 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 0.8 /
                 PurchaseBillingEnum.values.length,
             text: totalAmount.toString(),
+          ),
+          CustomTableElement(
+            width: CustomScreenUtility(context).width *
+                0.8 /
+                PurchaseBillingEnum.values.length,
+            text: "",
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget tcsSales(
+    double tcsSales,
+    PurchaseProductModel purchaseProductModel,
+  ) {
+    return Container(
+      child: Row(
+        children: [
+          CustomTableElement(
+            width: CustomScreenUtility(context).width *
+                0.8 /
+                PurchaseBillingEnum.values.length,
+            text: "",
+          ),
+          CustomTableElement(
+            width: CustomScreenUtility(context).width *
+                0.8 /
+                PurchaseBillingEnum.values.length,
+            text: "TCS & Sales",
+          ),
+          CustomTableElement(
+            width: CustomScreenUtility(context).width *
+                0.8 /
+                PurchaseBillingEnum.values.length,
+            text: "${tcsSales.toString()} %",
+          ),
+          CustomTableElement(
+            width: CustomScreenUtility(context).width *
+                0.8 /
+                PurchaseBillingEnum.values.length,
+            text: "",
+          ),
+          CustomTableElement(
+            width: CustomScreenUtility(context).width *
+                0.8 /
+                PurchaseBillingEnum.values.length,
+            text: "",
+          ),
+          CustomTableElement(
+            width: CustomScreenUtility(context).width *
+                0.8 /
+                PurchaseBillingEnum.values.length,
+            text: "",
+          ),
+          CustomTableElement(
+            width: CustomScreenUtility(context).width *
+                0.8 /
+                PurchaseBillingEnum.values.length,
+            text: "",
+          ),
+          CustomTableElement(
+            width: CustomScreenUtility(context).width *
+                0.8 /
+                PurchaseBillingEnum.values.length,
+            text: "",
+          ),
+          CustomTableElement(
+            width: CustomScreenUtility(context).width *
+                0.8 /
+                PurchaseBillingEnum.values.length,
+            text: "",
+          ),
+          CustomTableElement(
+            width: CustomScreenUtility(context).width *
+                0.8 /
+                PurchaseBillingEnum.values.length,
+            text: (purchaseProductModel.totalAmount * (tcsSales / 100))
+                .toStringAsFixed(2),
           ),
           CustomTableElement(
             width: CustomScreenUtility(context).width *

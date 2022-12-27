@@ -1,5 +1,6 @@
 import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/controller/payments/receipt/receipt.dart';
+import 'package:annai_store/core/constants/calculations/report.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/enum/payments/receipt.dart';
 import 'package:annai_store/models/bill/bill.dart';
@@ -68,10 +69,14 @@ class ReceiptScreen extends StatelessWidget {
       debugPrint(
         'Selected Customer :P ${receiptController.selectedCustomerModel}',
       );
+      final pendingAmount = ReportCalculations.getStartBalance(
+        DateTime(DateTime.now().year, 4),
+        receiptController.selectedCustomerModel!.id,
+      );
       receiptController.customerController.text =
           receiptController.selectedCustomerModel!.name;
       receiptController.pendingAmountController.text =
-          "${receiptController.selectedCustomerModel!.pendingAmount}";
+          pendingAmount.toStringAsFixed(2);
     } else {
       CustomUtilies.customFailureSnackBar(
         "Please Enter the Customer First",
@@ -336,8 +341,10 @@ class ReceiptScreen extends StatelessWidget {
                                                 );
                                           });
                                         },
-                                        itemBuilder: (BuildContext context,
-                                            BillModel suggestion) {
+                                        itemBuilder: (
+                                          BuildContext context,
+                                          BillModel suggestion,
+                                        ) {
                                           debugPrint(
                                             'Suggestion Selected ${suggestion.billNo}',
                                           );
@@ -443,8 +450,10 @@ class ReceiptScreen extends StatelessWidget {
                                         }
                                       });
                                     },
-                                    itemBuilder: (BuildContext context,
-                                        CustomerModel suggestion) {
+                                    itemBuilder: (
+                                      BuildContext context,
+                                      CustomerModel suggestion,
+                                    ) {
                                       debugPrint(
                                         'Suggestion Selected ${suggestion.name}',
                                       );
@@ -462,8 +471,13 @@ class ReceiptScreen extends StatelessWidget {
                                           suggestion;
                                       controller.customerController.text =
                                           suggestion.name;
+                                      final pendingAmount =
+                                          ReportCalculations.getStartBalance(
+                                        DateTime(DateTime.now().year, 4),
+                                        suggestion.id,
+                                      );
                                       controller.pendingAmountController.text =
-                                          "${suggestion.pendingAmount}";
+                                          pendingAmount.toStringAsFixed(2);
                                       debugPrint('Selected $suggestion');
                                       // node.nextFocus();
                                     },

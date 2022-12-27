@@ -324,44 +324,76 @@ class PDFGenerator {
   }
 
   static Future<String> generateBarcode(
-    Uint8List imageBytes,
-    double price,
-  ) async {
+    List<Uint8List> imageBytes,
+    double price, {
+    bool isPotrait = false,
+  }) async {
     final pdf = pw.Document(deflate: zlib.encode);
 
-    final memImg = pw.MemoryImage(
-      imageBytes,
+    final List<pw.MemoryImage> memImages = [];
+    for (final element in imageBytes) {
+      memImages.add(
+        pw.MemoryImage(
+          element,
+        ),
+      );
+    }
+    // final memImg = pw.MemoryImage(
+    //   imageBytes,
+    // );
+    const width = 2.55 * PdfPageFormat.cm;
+    const height = 2 * PdfPageFormat.cm;
+    final pageFormat = PdfPageFormat(
+      isPotrait ? height : width * 4,
+      !isPotrait ? height : width * 4,
     );
 
     pdf.addPage(
       pw.Page(
-        pageFormat:
-            const PdfPageFormat(2.5 * PdfPageFormat.cm, 2 * PdfPageFormat.cm),
+        pageFormat: pageFormat,
         margin: const pw.EdgeInsets.all(2),
+        orientation: pw.PageOrientation.landscape,
         build: (pw.Context context) {
-          return pw.Column(
-            children: [
-              pw.Container(
-                color: PdfColor.fromHex("#000000"),
-                margin: const pw.EdgeInsets.only(top: 4, bottom: 4),
-                child: pw.Container(
-                  alignment: pw.Alignment.center,
-                  child: pw.Text(
-                    "A One Traders",
-                    style: pw.TextStyle(
-                      fontSize: 6,
-                      color: PdfColor.fromHex("#FFFFFF"),
+          return pw.Row(
+            children: memImages
+                .map(
+                  (e) => pw.Container(
+                    width: width,
+                    margin: const pw.EdgeInsets.symmetric(horizontal: 2),
+                    child: pw.Column(
+                      children: [
+                        pw.Container(
+                          color: PdfColor.fromHex("#000000"),
+                          margin: const pw.EdgeInsets.only(top: 4, bottom: 4),
+                          child: pw.Container(
+                            alignment: pw.Alignment.center,
+                            child: pw.Text(
+                              "A One Traders",
+                              style: pw.TextStyle(
+                                fontSize: 6,
+                                color: PdfColor.fromHex("#FFFFFF"),
+                              ),
+                            ),
+                          ),
+                        ),
+                        pw.Container(
+                          child: pw.Image(e),
+                          width: 100,
+                          height: 50,
+                        ),
+                        // pw.Container(child: pw.Image(memImg), width: 100, height: 50),
+                        pw.Text(
+                          "Rs. $price",
+                          style: pw.TextStyle(
+                            fontSize: 7,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ),
-              ),
-              pw.Container(child: pw.Image(memImg), width: 100, height: 50),
-              pw.Text(
-                "Rs. $price",
-                style:
-                    pw.TextStyle(fontSize: 7, fontWeight: pw.FontWeight.bold),
-              )
-            ],
+                )
+                .toList(),
           );
           // pw.Image(image)
         },
@@ -2919,7 +2951,8 @@ class PDFGenerator {
                               children: [
                                 smallBoldText("Output CGST"),
                                 smallBoldText("Output SGST"),
-                                smallBoldText("Round Off"),
+                                if (billModel.billNo != "2865 / 2022 - 2023")
+                                  smallBoldText("Round Off"),
                               ],
                             ),
                           )
@@ -3055,10 +3088,15 @@ class PDFGenerator {
                       : getA4Size.height * 0.55,
                   width: getA4Size.width * 0.110,
                   insideText: smallBoldText(
-                    getGrandTotal(
-                      billModel.productList!,
-                      billModel.customerModel,
-                    ).round().toStringAsFixed(1),
+                    billModel.billNo == "2865 / 2022 - 2023"
+                        ? getGrandTotal(
+                            billModel.productList!,
+                            billModel.customerModel,
+                          ).toStringAsFixed(2)
+                        : getGrandTotal(
+                            billModel.productList!,
+                            billModel.customerModel,
+                          ).round().toStringAsFixed(2),
                   ),
                   child: pw.Container(
                     child: pw.Container(
@@ -3117,9 +3155,10 @@ class PDFGenerator {
                                   )[1]
                                       .toStringAsFixed(2),
                                 ),
-                              smallText(
-                                "${roundOff.operation == OperationEnum.Add ? '+' : '-'} ${roundOff.roundOffAmount.toStringAsFixed(2)}",
-                              ),
+                              if (billModel.billNo != "2865 / 2022 - 2023")
+                                smallText(
+                                  "${roundOff.operation == OperationEnum.Add ? '+' : '-'} ${roundOff.roundOffAmount.toStringAsFixed(2)}",
+                                ),
                             ],
                           )
                         ],

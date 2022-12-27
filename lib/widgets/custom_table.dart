@@ -1,23 +1,25 @@
 import 'dart:io';
 
+import 'package:annai_store/screens/viewer/image_viewer.dart';
 import 'package:custom/custom_text.dart';
 import 'package:flutter/material.dart';
-
-import '../screens/viewer/image_viewer.dart';
 
 class CustomTableElement extends StatelessWidget {
   final String text;
   final double width;
+  final Alignment? alignment;
   const CustomTableElement({
     Key? key,
     required this.text,
     required this.width,
+    this.alignment,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
+      alignment: Alignment.centerRight,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: CustomText(
@@ -44,6 +46,7 @@ class CustomTableImageElement extends StatelessWidget {
     return Container(
       width: width,
       height: 65,
+      alignment: Alignment.centerRight,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: imagesList.isEmpty
@@ -79,7 +82,7 @@ class CustomTableIconElement extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      alignment: Alignment.centerLeft,
+      alignment: Alignment.center,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: CustomIcon(
@@ -104,6 +107,7 @@ class CustomTableHeaderElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.centerRight,
       width: width,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),

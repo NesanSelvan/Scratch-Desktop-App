@@ -38,6 +38,7 @@ class _$PurchaseModelTearOff {
       required DateTime dateTime,
       String? note,
       List<String>? imagesPathList,
+      double? tcsSales,
       required DateTime createdAt}) {
     return _PurchaseModel(
       id: id,
@@ -55,6 +56,7 @@ class _$PurchaseModelTearOff {
       dateTime: dateTime,
       note: note,
       imagesPathList: imagesPathList,
+      tcsSales: tcsSales,
       createdAt: createdAt,
     );
   }
@@ -85,6 +87,7 @@ mixin _$PurchaseModel {
   DateTime get dateTime => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   List<String>? get imagesPathList => throw _privateConstructorUsedError;
+  double? get tcsSales => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -114,6 +117,7 @@ abstract class $PurchaseModelCopyWith<$Res> {
       DateTime dateTime,
       String? note,
       List<String>? imagesPathList,
+      double? tcsSales,
       DateTime createdAt});
 
   $CompanyModelCopyWith<$Res> get companyModel;
@@ -145,6 +149,7 @@ class _$PurchaseModelCopyWithImpl<$Res>
     Object? dateTime = freezed,
     Object? note = freezed,
     Object? imagesPathList = freezed,
+    Object? tcsSales = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -208,6 +213,10 @@ class _$PurchaseModelCopyWithImpl<$Res>
           ? _value.imagesPathList
           : imagesPathList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      tcsSales: tcsSales == freezed
+          ? _value.tcsSales
+          : tcsSales // ignore: cast_nullable_to_non_nullable
+              as double?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -246,6 +255,7 @@ abstract class _$PurchaseModelCopyWith<$Res>
       DateTime dateTime,
       String? note,
       List<String>? imagesPathList,
+      double? tcsSales,
       DateTime createdAt});
 
   @override
@@ -280,6 +290,7 @@ class __$PurchaseModelCopyWithImpl<$Res>
     Object? dateTime = freezed,
     Object? note = freezed,
     Object? imagesPathList = freezed,
+    Object? tcsSales = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_PurchaseModel(
@@ -343,6 +354,10 @@ class __$PurchaseModelCopyWithImpl<$Res>
           ? _value.imagesPathList
           : imagesPathList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      tcsSales: tcsSales == freezed
+          ? _value.tcsSales
+          : tcsSales // ignore: cast_nullable_to_non_nullable
+              as double?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -371,6 +386,7 @@ class _$_PurchaseModel implements _PurchaseModel {
       required this.dateTime,
       this.note,
       this.imagesPathList,
+      this.tcsSales,
       required this.createdAt});
 
   factory _$_PurchaseModel.fromJson(Map<String, dynamic> json) =>
@@ -409,11 +425,13 @@ class _$_PurchaseModel implements _PurchaseModel {
   @override
   final List<String>? imagesPathList;
   @override
+  final double? tcsSales;
+  @override
   final DateTime createdAt;
 
   @override
   String toString() {
-    return 'PurchaseModel(id: $id, billNo: $billNo, companyModel: $companyModel, isNormalPurchaseBill: $isNormalPurchaseBill, lorryFright: $lorryFright, lorryFrightTax: $lorryFrightTax, lorryFrightTotal: $lorryFrightTotal, productList: $productList, paymentsIdList: $paymentsIdList, isTax: $isTax, grandTotal: $grandTotal, forwardingSales: $forwardingSales, dateTime: $dateTime, note: $note, imagesPathList: $imagesPathList, createdAt: $createdAt)';
+    return 'PurchaseModel(id: $id, billNo: $billNo, companyModel: $companyModel, isNormalPurchaseBill: $isNormalPurchaseBill, lorryFright: $lorryFright, lorryFrightTax: $lorryFrightTax, lorryFrightTotal: $lorryFrightTotal, productList: $productList, paymentsIdList: $paymentsIdList, isTax: $isTax, grandTotal: $grandTotal, forwardingSales: $forwardingSales, dateTime: $dateTime, note: $note, imagesPathList: $imagesPathList, tcsSales: $tcsSales, createdAt: $createdAt)';
   }
 
   @override
@@ -446,6 +464,7 @@ class _$_PurchaseModel implements _PurchaseModel {
             const DeepCollectionEquality().equals(other.note, note) &&
             const DeepCollectionEquality()
                 .equals(other.imagesPathList, imagesPathList) &&
+            const DeepCollectionEquality().equals(other.tcsSales, tcsSales) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt));
   }
 
@@ -467,6 +486,7 @@ class _$_PurchaseModel implements _PurchaseModel {
       const DeepCollectionEquality().hash(dateTime),
       const DeepCollectionEquality().hash(note),
       const DeepCollectionEquality().hash(imagesPathList),
+      const DeepCollectionEquality().hash(tcsSales),
       const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
@@ -497,6 +517,7 @@ abstract class _PurchaseModel implements PurchaseModel {
       required DateTime dateTime,
       String? note,
       List<String>? imagesPathList,
+      double? tcsSales,
       required DateTime createdAt}) = _$_PurchaseModel;
 
   factory _PurchaseModel.fromJson(Map<String, dynamic> json) =
@@ -532,6 +553,8 @@ abstract class _PurchaseModel implements PurchaseModel {
   String? get note;
   @override
   List<String>? get imagesPathList;
+  @override
+  double? get tcsSales;
   @override
   DateTime get createdAt;
   @override

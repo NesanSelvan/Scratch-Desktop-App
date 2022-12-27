@@ -31,6 +31,7 @@ _$_PurchaseModel _$$_PurchaseModelFromJson(Map<String, dynamic> json) =>
       imagesPathList: (json['imagesPathList'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      tcsSales: (json['tcsSales'] as num?)?.toDouble(),
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
@@ -51,5 +52,6 @@ Map<String, dynamic> _$$_PurchaseModelToJson(_$_PurchaseModel instance) =>
       'dateTime': instance.dateTime.toIso8601String(),
       'note': instance.note,
       'imagesPathList': instance.imagesPathList,
+      'tcsSales': instance.tcsSales,
       'createdAt': instance.createdAt.toIso8601String(),
     };
