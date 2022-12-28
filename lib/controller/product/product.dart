@@ -1,6 +1,7 @@
 import 'package:annai_store/controller/server/server.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/keyboard.dart';
+import 'package:annai_store/enum/sort/product.dart';
 import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/failure/failure.dart';
@@ -239,6 +240,36 @@ class ProductController extends GetxController {
     companyModelList = Database().companyDB.getAllCompany();
     print("On Init...");
     super.onInit();
+    update();
+  }
+
+  ProductSort get sort => _sort;
+  ProductSort _sort = ProductSort.category;
+  set sort(ProductSort productSort) {
+    _sort = productSort;
+    if (productSort == ProductSort.createdAt) {
+      productModelList.sort((a, b) {
+        return b.createdAt.compareTo(a.createdAt);
+      });
+    } else if (productSort == ProductSort.productName) {
+      productModelList.sort((a, b) {
+        return a.productName.compareTo(b.productName);
+      });
+    } else if (productSort == ProductSort.productNumber) {
+      productModelList.sort((a, b) {
+        int result;
+        if (a.productNumber == null) {
+          result = 1;
+        } else if (b.productNumber == null) {
+          result = -1;
+        } else {
+          result = (int.tryParse(a.productNumber!) ?? 0)
+              .compareTo(int.tryParse(b.productNumber!) ?? 0);
+        }
+        return result;
+      });
+    }
+    print("sort: $_sort");
     update();
   }
 
@@ -529,13 +560,23 @@ class ProductController extends GetxController {
   }
 
   Future<void> addProductNumber() async {
-    int count = 1;
+    productModelList.sort((a, b) {
+      return b.createdAt.compareTo(a.createdAt);
+    });
     for (final product in productModelList) {
       // final productNumber = "$count.${category.hsnCode}";
       // debugPrint("Product No : $productNumber");
-      await productDB.updateProduct(product.copyWith(productNumber: "$count"));
-      count += 1;
+      if (product.productNumber == null) {
+        print(product.productName);
+
+        await productDB.updateProduct(
+          product.copyWith(
+            productNumber: "${productDB.getAllProduct().length + 1}",
+          ),
+        );
+      }
     }
+    getAllProduct();
     // final categoryList = categoryDB.getAllCategory();
     // for (final category in categoryList) {
     //   final productsList = productDB.getAllProductByCategoryId(category.id);
@@ -649,6 +690,8 @@ class ProductController extends GetxController {
       return false;
     }
   }
+
+  List<ProductModel> sortProduct = [];
 
   List<ProductModel> searchedProductModel = [];
 

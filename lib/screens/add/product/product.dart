@@ -9,6 +9,7 @@ import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/enum/product.dart';
+import 'package:annai_store/enum/sort/product.dart';
 import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/product/product.dart';
@@ -157,6 +158,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                         setState(() {});
                                       },
                                     ),
+                                    DropdownButton<ProductSort>(
+                                      value: controller.sort,
+                                      items: ProductSort.values
+                                          .map(
+                                            (e) => DropdownMenuItem(
+                                              value: e,
+                                              child: Text(e.type),
+                                            ),
+                                          )
+                                          .toList(),
+                                      onChanged: (val) {
+                                        if (val != null) {
+                                          controller.sort = val;
+                                        }
+                                      },
+                                    )
                                   ],
                                 ),
                                 const SizedBox(height: 10),
@@ -1064,9 +1081,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                         ? controller.searchController
                                                                     .text ==
                                                                 ""
-                                                            ? buildProductByCategory(
-                                                                controller,
-                                                              )
+                                                            ? controller.sort ==
+                                                                    ProductSort
+                                                                        .category
+                                                                ? buildProductByCategory(
+                                                                    controller,
+                                                                  )
+                                                                : controller
+                                                                    .productModelList
+                                                                    .map(
+                                                                      (e) =>
+                                                                          buildInkWell(
+                                                                        e,
+                                                                        controller,
+                                                                      ),
+                                                                    )
+                                                                    .toList()
                                                             : controller
                                                                 .searchedProductModel
                                                                 .map(
@@ -1077,9 +1107,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                                   ),
                                                                 )
                                                                 .toList()
-                                                        : buildProductByCategory(
-                                                            controller,
-                                                          ),
+                                                        : controller.sort ==
+                                                                ProductSort
+                                                                    .category
+                                                            ? buildProductByCategory(
+                                                                controller,
+                                                              )
+                                                            : controller
+                                                                .productModelList
+                                                                .map(
+                                                                  (e) =>
+                                                                      buildInkWell(
+                                                                    e,
+                                                                    controller,
+                                                                  ),
+                                                                )
+                                                                .toList(),
                                           );
                                         },
                                       )

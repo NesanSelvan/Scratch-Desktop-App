@@ -99,8 +99,27 @@ class PurchaseController extends GetxController {
   @override
   void onInit() {
     performInit();
+    productNode.addListener(() {
+      if (productNode.hasFocus) {
+        getProductsByCompany();
+      }
+    });
+
+    productKeyboardNode.addListener(() {
+      if (productKeyboardNode.hasFocus) {
+        getProductsByCompany();
+      }
+    });
 
     super.onInit();
+  }
+
+  @override
+  void dispose() {
+    productNode.dispose();
+    productKeyboardNode.dispose();
+
+    super.dispose();
   }
 
   void setPickedDateTime(DateTime? dateTime) {

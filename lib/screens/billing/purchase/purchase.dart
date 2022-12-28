@@ -344,6 +344,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                   child: CustomTypeAhead<
                                                       ProductModel>(
                                                     // isKeyPressUp: false,
+                                                    onTap: () {
+                                                      controller
+                                                          .getProductsByCompany();
+                                                    },
                                                     isSpecialSearch: true,
                                                     keyboardFocusNode: controller
                                                         .productKeyboardNode,

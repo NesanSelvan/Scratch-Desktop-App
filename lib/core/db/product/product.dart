@@ -1,14 +1,13 @@
 import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/models/failure/failure.dart';
+import 'package:annai_store/models/price/price.dart';
+import 'package:annai_store/models/product/product.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../models/failure/failure.dart';
-import '../../../models/price/price.dart';
-import '../../../models/product/product.dart';
 
 class ProductDB {
   final storage = Database().storage;
@@ -35,13 +34,18 @@ class ProductDB {
     final loginController = Get.put(LoginController());
     final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
     await Utility.showDeleteionDialog(
-        "All your Products record will get cleared", onYesTap: () async {
-      if (empType == PersonEnum.SoftwareOwner)
-        await Database().storage.setItem("products", []);
-      else
-        CustomUtilies.customFailureSnackBar(
-            "You cannot delete", "Please contact the administrator");
-    });
+      "All your Products record will get cleared",
+      onYesTap: () async {
+        if (empType == PersonEnum.SoftwareOwner) {
+          await Database().storage.setItem("products", []);
+        } else {
+          CustomUtilies.customFailureSnackBar(
+            "You cannot delete",
+            "Please contact the administrator",
+          );
+        }
+      },
+    );
   }
 
   void checkProductIfExists(String code) {
@@ -56,7 +60,11 @@ class ProductDB {
   Future<void> addProductToDb(ProductModel productModel) async {
     try {
       checkProductIfExists(productModel.code);
-      final datas = [...getAllProduct(), productModel];
+
+      final _productNumber = productModel.copyWith(
+        productNumber: "${getAllProduct().length + 1}",
+      );
+      final datas = [...getAllProduct(), _productNumber];
       await updateProductToDB(datas);
     } catch (e) {
       throw Failure("$e");
@@ -75,11 +83,12 @@ class ProductDB {
   }
 
   Future<void> updateDifferentPriceModelList(
-      double mrp,
-      double retail,
-      double wholesale,
-      ProductModel productModel,
-      PriceModel priceModel) async {
+    double mrp,
+    double retail,
+    double wholesale,
+    ProductModel productModel,
+    PriceModel priceModel,
+  ) async {
     final List<PriceModel> difPriceList = [];
     for (final item in productModel.differentPriceList ?? []) {
       item as PriceModel;

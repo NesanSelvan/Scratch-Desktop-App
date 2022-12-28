@@ -1,5 +1,6 @@
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/enum/statement.dart';
+import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/utils/datetime/datetime.dart';
@@ -37,6 +38,8 @@ class StatementController extends GetxController {
     _selectedCompany = value;
     update();
   }
+
+  List<CategoryModel> allCateory = [];
 
   void performInit() {
     debugPrint("Statement Init");
