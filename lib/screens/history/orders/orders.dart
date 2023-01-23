@@ -1,25 +1,24 @@
 import 'dart:io';
 
+import 'package:annai_store/controller/history/order/order.dart';
+import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/history/sales.dart';
 import 'package:annai_store/models/orders/order.dart';
+import 'package:annai_store/screens/billing/sales/sales.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/printer/printer.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/custom_button.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/full_container.dart';
+import 'package:annai_store/widgets/header_text.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart';
-
-import '../../../controller/history/order/order.dart';
-import '../../../controller/home/home.dart';
-import '../../../enum/history/sales.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../../utils/printer/printer.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_table.dart';
-import '../../../widgets/full_container.dart';
-import '../../../widgets/header_text.dart';
-import '../../billing/sales/sales.dart';
 
 class OrderHistory extends StatefulWidget {
   const OrderHistory({Key? key}) : super(key: key);
@@ -266,7 +265,7 @@ class _OrderHistoryState extends State<OrderHistory> {
             CustomTableElement(
               width: CustomScreenUtility(context).width /
                   SalesHistoryEnum.values.length,
-              text: getFormattedDateTime(billModel.dateTime),
+              text: Utility.onlyDate(billModel.dateTime),
             ),
             CustomTableElement(
               width: CustomScreenUtility(context).width /

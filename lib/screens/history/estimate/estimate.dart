@@ -524,7 +524,7 @@ class _EstimateHistoryState extends State<EstimateHistory> {
             CustomTableElement(
               width: CustomScreenUtility(context).width /
                   EstimateHistoryEnum.values.length,
-              text: getFormattedDateTime(billModel.dateTime),
+              text: Utility.onlyDate(billModel.dateTime),
             ),
             CustomTableElement(
               width: CustomScreenUtility(context).width /

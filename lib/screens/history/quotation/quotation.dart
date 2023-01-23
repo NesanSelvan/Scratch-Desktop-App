@@ -288,7 +288,7 @@ class _QuotationHistoryState extends State<QuotationHistory> {
               CustomTableElement(
                 width: CustomScreenUtility(context).width /
                     QuotationHistoryEnum.values.length,
-                text: getFormattedDateTime(billModel.dateTime),
+                text: Utility.onlyDate(billModel.dateTime),
               ),
               CustomTableElement(
                 width: CustomScreenUtility(context).width /
@@ -303,7 +303,7 @@ class _QuotationHistoryState extends State<QuotationHistory> {
               CustomTableElement(
                 width: CustomScreenUtility(context).width /
                     QuotationHistoryEnum.values.length,
-                text: billModel.price.toString(),
+                text: billModel.price.round().toString(),
               ),
               Container(
                 width: CustomScreenUtility(context).width /

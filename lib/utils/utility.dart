@@ -45,6 +45,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:menubar/menubar.dart' as menubar;
 import 'package:validators/validators.dart';
 
@@ -1116,5 +1117,9 @@ class Utility {
         },
       );
     }
+  }
+
+  static String onlyDate(DateTime dateTime) {
+    return DateFormat("dd/MM/yyyy").format(dateTime);
   }
 }

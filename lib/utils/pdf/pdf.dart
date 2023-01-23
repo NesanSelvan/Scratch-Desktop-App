@@ -414,6 +414,25 @@ class PDFGenerator {
     final taxCalModel =
         QuoatationCalculations.getQuotationTaxCalModel(billModel);
     final pdf = pw.Document();
+
+    final _serialNoWidth = getA4Size.width * 0.05;
+    final _descriptionWidth = getA4Size.width * 0.365;
+    final _hsnWidth = getA4Size.width * 0.089;
+    final _qtyWidth = getA4Size.width * 0.089;
+    final _rateWidth = getA4Size.width * 0.089;
+    final _priceWidth = getA4Size.width * 0.099;
+    final _discountWidth = getA4Size.width * 0.079;
+    final _amountWidth = getA4Size.width * 0.089;
+    final roundOff = getRoundOff(
+      getGrandTotal(
+        billModel.productList,
+        billModel.customerModel,
+      ),
+    );
+
+    final grandTotal =
+        getGrandTotal(billModel.productList, billModel.customerModel);
+
     pdf.addPage(
       pw.MultiPage(
         pageFormat: getA4Size,
@@ -514,35 +533,35 @@ class PDFGenerator {
                       pw.Row(
                         children: [
                           pw.Container(
-                            width: getA4Size.width * 0.05,
+                            width: _serialNoWidth,
                             child: tableCellContText("No."),
                           ),
                           pw.Container(
-                            width: getA4Size.width * 0.365,
+                            width: _descriptionWidth,
                             child: tableCellContText("Description"),
                           ),
                           pw.Container(
-                            width: getA4Size.width * 0.089,
+                            width: _hsnWidth,
                             child: tableCellContText("HSN"),
                           ),
                           pw.Container(
-                            width: getA4Size.width * 0.089,
+                            width: _qtyWidth,
                             child: tableCellContText("Qty"),
                           ),
                           pw.Container(
-                            width: getA4Size.width * 0.089,
+                            width: _rateWidth,
                             child: tableCellContText("Rate"),
                           ),
                           pw.Container(
-                            width: getA4Size.width * 0.089,
+                            width: _priceWidth,
                             child: tableCellContText("Price"),
                           ),
                           pw.Container(
-                            width: getA4Size.width * 0.089,
+                            width: _discountWidth,
                             child: tableCellContText("Dis"),
                           ),
                           pw.Container(
-                            width: getA4Size.width * 0.089,
+                            width: _amountWidth,
                             child: tableCellContText("Amount"),
                           )
                         ],
@@ -552,12 +571,12 @@ class PDFGenerator {
                   pw.Row(
                     children: [
                       customizedTableData(
-                        width: getA4Size.width * 0.05,
+                        width: _serialNoWidth,
                         height: 265,
                         child: pw.Column(
                           children: billModel.productList
                               .map(
-                                (e) => smallText(
+                                (e) => vSmallText(
                                   "${billModel.productList.indexOf(e) + 1}",
                                 ),
                               )
@@ -565,7 +584,7 @@ class PDFGenerator {
                         ),
                       ),
                       customizedTableData(
-                        width: getA4Size.width * 0.365,
+                        width: _descriptionWidth,
                         height: 265,
                         child: pw.Container(
                           padding: const pw.EdgeInsets.only(right: 5, left: 5),
@@ -575,7 +594,7 @@ class PDFGenerator {
                               ...billModel.productList
                                   .map(
                                     (e) =>
-                                        smallText(e.productModel!.productName),
+                                        vSmallText(e.productModel!.productName),
                                   )
                                   .toList(),
                               pw.SizedBox(height: 30),
@@ -603,7 +622,7 @@ class PDFGenerator {
                       ),
                       customizedTableData(
                         height: 265,
-                        width: getA4Size.width * 0.089,
+                        width: _hsnWidth,
                         child: pw.Container(
                           padding: const pw.EdgeInsets.only(right: 2, left: 2),
                           child: pw.Column(
@@ -618,12 +637,12 @@ class PDFGenerator {
                         ),
                       ),
                       customizedTableData(
-                        width: getA4Size.width * 0.089,
+                        width: _qtyWidth,
                         height: 265,
                         child: pw.Container(
                           padding: const pw.EdgeInsets.only(right: 2, left: 2),
                           child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            crossAxisAlignment: pw.CrossAxisAlignment.end,
                             children: billModel.productList
                                 .map((e) => vSmallText("${e.qty}"))
                                 .toList(),
@@ -631,12 +650,12 @@ class PDFGenerator {
                         ),
                       ),
                       customizedTableData(
-                        width: getA4Size.width * 0.089,
+                        width: _rateWidth,
                         height: 265,
                         child: pw.Container(
                           padding: const pw.EdgeInsets.only(right: 2, left: 2),
                           child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            crossAxisAlignment: pw.CrossAxisAlignment.end,
                             children: billModel.productList
                                 .map(
                                   (e) => vSmallText(
@@ -648,12 +667,12 @@ class PDFGenerator {
                         ),
                       ),
                       customizedTableData(
-                        width: getA4Size.width * 0.089,
+                        width: _priceWidth,
                         height: 265,
                         child: pw.Container(
                           padding: const pw.EdgeInsets.only(right: 2, left: 2),
                           child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            crossAxisAlignment: pw.CrossAxisAlignment.end,
                             children: billModel.productList
                                 .map(
                                   (e) => vSmallText(
@@ -668,12 +687,12 @@ class PDFGenerator {
                         ),
                       ),
                       customizedTableData(
-                        width: getA4Size.width * 0.089,
+                        width: _discountWidth,
                         height: 265,
                         child: pw.Container(
                           padding: const pw.EdgeInsets.only(right: 2, left: 2),
                           child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            crossAxisAlignment: pw.CrossAxisAlignment.end,
                             children: billModel.productList
                                 .map(
                                   (e) => vSmallText(
@@ -685,65 +704,64 @@ class PDFGenerator {
                         ),
                       ),
                       customizedTableData(
-                        width: getA4Size.width * 0.089,
+                        width: _amountWidth,
                         height: 265,
                         isInnerTextCenter: true,
                         insideText: smallBoldText(
-                          "${getGrandTotal(billModel.productList, billModel.customerModel)}",
+                          grandTotal.round().toStringAsFixed(2),
                         ),
                         child: pw.Container(
                           padding: const pw.EdgeInsets.only(right: 2, left: 2),
                           child: pw.Column(
-                            mainAxisAlignment: pw.MainAxisAlignment.center,
+                            crossAxisAlignment: pw.CrossAxisAlignment.end,
                             children: [
                               ...billModel.productList
                                   .map(
                                     (e) => vSmallText(
-                                      "${getAmount(e, billModel.customerModel)}",
+                                      getAmount(e, billModel.customerModel)
+                                          .toStringAsFixed(2),
                                     ),
                                   )
                                   .toList(),
                               pw.Divider(),
                               //
-                              pw.Column(
-                                mainAxisAlignment: pw.MainAxisAlignment.center,
-                                children: [
-                                  vSmallText(
-                                    calculateAmountWithoutTax(
-                                      billModel.productList,
-                                      billModel.customerModel,
-                                    ).toStringAsFixed(2),
-                                  ),
-                                  pw.SizedBox(height: 2),
-                                  if (billModel.customerModel.state ==
-                                      "Tamil Nadu")
-                                    pw.Column(
-                                      children: [
-                                        vSmallText(
-                                          (getTotalTaxableAndTotalTaxValue(
-                                                    taxCalModel,
-                                                  )[1] /
-                                                  2)
-                                              .toStringAsFixed(2),
-                                        ),
-                                        vSmallText(
-                                          (getTotalTaxableAndTotalTaxValue(
-                                                    taxCalModel,
-                                                  )[1] /
-                                                  2)
-                                              .toStringAsFixed(2),
-                                        ),
-                                      ],
-                                    )
-                                  else
+                              vSmallText(
+                                calculateAmountWithoutTax(
+                                  billModel.productList,
+                                  billModel.customerModel,
+                                ).toStringAsFixed(2),
+                              ),
+                              pw.SizedBox(height: 2),
+                              if (billModel.customerModel.state == "Tamil Nadu")
+                                pw.Column(
+                                  mainAxisAlignment: pw.MainAxisAlignment.end,
+                                  children: [
                                     vSmallText(
-                                      getTotalTaxableAndTotalTaxValue(
-                                        taxCalModel,
-                                      )[1]
+                                      (getTotalTaxableAndTotalTaxValue(
+                                                taxCalModel,
+                                              )[1] /
+                                              2)
                                           .toStringAsFixed(2),
                                     ),
-                                ],
-                              )
+                                    vSmallText(
+                                      (getTotalTaxableAndTotalTaxValue(
+                                                taxCalModel,
+                                              )[1] /
+                                              2)
+                                          .toStringAsFixed(2),
+                                    ),
+                                  ],
+                                )
+                              else
+                                vSmallText(
+                                  getTotalTaxableAndTotalTaxValue(
+                                    taxCalModel,
+                                  )[1]
+                                      .toStringAsFixed(2),
+                                ),
+                              vSmallText(
+                                "${roundOff.operation == OperationEnum.Add ? ' ' : '- '} ${roundOff.roundOffAmount.toStringAsFixed(2)}",
+                              ),
                             ],
                           ),
                         ),
@@ -761,7 +779,7 @@ class PDFGenerator {
                       children: [
                         normalText("Amount Chargeable (in words)"),
                         boldText(
-                          "INR ${NumberToWord().convert('en-in', getGrandTotal(billModel.productList, billModel.customerModel).round())} ",
+                          "INR ${NumberToWord().convert('en-in', grandTotal.round())} ",
                         )
                       ],
                     ),
@@ -2451,12 +2469,9 @@ class PDFGenerator {
     List<TaxCalModel> taxCalModel,
   ) {
     return pw.Column(
-      mainAxisAlignment: pw.MainAxisAlignment.end,
       crossAxisAlignment: pw.CrossAxisAlignment.end,
       children: [
         pw.Column(
-          mainAxisAlignment: pw.MainAxisAlignment.end,
-          crossAxisAlignment: pw.CrossAxisAlignment.end,
           children: [
             pw.Row(
               children: [
@@ -2732,6 +2747,16 @@ class PDFGenerator {
       ),
     );
 
+    final _bigScreenHeight = getA4Size.height * 0.54;
+    final _serialNoWidth = getA4Size.width * 0.05;
+    final _productNameWidth = getA4Size.width * 0.3795;
+    final _hsnCodeWidth = getA4Size.width * 0.089;
+    final _qtyWidth = getA4Size.width * 0.06;
+    final _rateWidth = getA4Size.width * 0.089;
+    final _priceWidth = getA4Size.width * 0.099;
+    final _discountWidth = getA4Size.width * 0.080;
+    final _grandTotalWidth = getA4Size.width * 0.110;
+
     pdf.addPage(
       pw.MultiPage(
         pageFormat: getA4Size,
@@ -2876,35 +2901,35 @@ class PDFGenerator {
                 pw.Row(
                   children: [
                     pw.Container(
-                      width: getA4Size.width * 0.05,
+                      width: _serialNoWidth,
                       child: tableCellContText("No."),
                     ),
                     pw.Container(
-                      width: getA4Size.width * 0.3795,
+                      width: _productNameWidth,
                       child: tableCellContText("Description"),
                     ),
                     pw.Container(
-                      width: getA4Size.width * 0.089,
+                      width: _hsnCodeWidth,
                       child: tableCellContText("HSN"),
                     ),
                     pw.Container(
-                      width: getA4Size.width * 0.06,
+                      width: _qtyWidth,
                       child: tableCellContText("Qty"),
                     ),
                     pw.Container(
-                      width: getA4Size.width * 0.089,
+                      width: _rateWidth,
                       child: tableCellContText("Rate"),
                     ),
                     pw.Container(
-                      width: getA4Size.width * 0.089,
+                      width: _priceWidth,
                       child: tableCellContText("Price"),
                     ),
                     pw.Container(
-                      width: getA4Size.width * 0.089,
+                      width: _discountWidth,
                       child: tableCellContText("Dis"),
                     ),
                     pw.Container(
-                      width: getA4Size.width * 0.110,
+                      width: _grandTotalWidth,
                       child: tableCellContText("Amount"),
                     )
                   ],
@@ -2914,10 +2939,8 @@ class PDFGenerator {
             pw.Row(
               children: [
                 customizedTableData(
-                  height: billHeight <= maxBillHeight
-                      ? null
-                      : getA4Size.height * 0.55,
-                  width: getA4Size.width * 0.05,
+                  height: billHeight <= maxBillHeight ? null : _bigScreenHeight,
+                  width: _serialNoWidth,
                   child: pw.Container(
                     child: pw.Column(
                       children: billModel.productList!
@@ -2931,10 +2954,8 @@ class PDFGenerator {
                   ),
                 ),
                 customizedTableData(
-                  height: billHeight <= maxBillHeight
-                      ? null
-                      : getA4Size.height * 0.55,
-                  width: getA4Size.width * 0.3795,
+                  height: billHeight <= maxBillHeight ? null : _bigScreenHeight,
+                  width: _productNameWidth,
                   child: pw.Container(
                     padding: const pw.EdgeInsets.only(right: 5, left: 5),
                     child: pw.Column(
@@ -2969,10 +2990,8 @@ class PDFGenerator {
                   insideText: boldText("Total"),
                 ),
                 customizedTableData(
-                  height: billHeight <= maxBillHeight
-                      ? null
-                      : getA4Size.height * 0.55,
-                  width: getA4Size.width * 0.089,
+                  height: billHeight <= maxBillHeight ? null : _bigScreenHeight,
+                  width: _hsnCodeWidth,
                   child: pw.Container(
                     padding: const pw.EdgeInsets.only(right: 5, left: 5),
                     child: pw.Column(
@@ -2986,10 +3005,8 @@ class PDFGenerator {
                   ),
                 ),
                 customizedTableData(
-                  height: billHeight <= maxBillHeight
-                      ? null
-                      : getA4Size.height * 0.55,
-                  width: getA4Size.width * 0.06,
+                  height: billHeight <= maxBillHeight ? null : _bigScreenHeight,
+                  width: _qtyWidth,
                   child: pw.Container(
                     padding: const pw.EdgeInsets.symmetric(horizontal: 2),
                     alignment: pw.Alignment.centerRight,
@@ -3003,10 +3020,8 @@ class PDFGenerator {
                   ),
                 ),
                 customizedTableData(
-                  height: billHeight <= maxBillHeight
-                      ? null
-                      : getA4Size.height * 0.55,
-                  width: getA4Size.width * 0.089,
+                  height: billHeight <= maxBillHeight ? null : _bigScreenHeight,
+                  width: _rateWidth,
                   child: pw.Container(
                     child: pw.Container(
                       padding: const pw.EdgeInsets.symmetric(horizontal: 5),
@@ -3031,10 +3046,8 @@ class PDFGenerator {
                   ),
                 ),
                 customizedTableData(
-                  height: billHeight <= maxBillHeight
-                      ? null
-                      : getA4Size.height * 0.55,
-                  width: getA4Size.width * 0.089,
+                  height: billHeight <= maxBillHeight ? null : _bigScreenHeight,
+                  width: _priceWidth,
                   child: pw.Container(
                     child: pw.Container(
                       padding: const pw.EdgeInsets.symmetric(horizontal: 5),
@@ -3057,10 +3070,8 @@ class PDFGenerator {
                   ),
                 ),
                 customizedTableData(
-                  height: billHeight <= maxBillHeight
-                      ? null
-                      : getA4Size.height * 0.55,
-                  width: getA4Size.width * 0.089,
+                  height: billHeight <= maxBillHeight ? null : _bigScreenHeight,
+                  width: _discountWidth,
                   child: pw.Container(
                     child: pw.Container(
                       padding: const pw.EdgeInsets.symmetric(horizontal: 5),
@@ -3083,10 +3094,8 @@ class PDFGenerator {
                   ),
                 ),
                 customizedTableData(
-                  height: billHeight <= maxBillHeight
-                      ? null
-                      : getA4Size.height * 0.55,
-                  width: getA4Size.width * 0.110,
+                  height: billHeight <= maxBillHeight ? null : _bigScreenHeight,
+                  width: _grandTotalWidth,
                   insideText: smallBoldText(
                     billModel.billNo == "2865 / 2022 - 2023"
                         ? getGrandTotal(
@@ -3188,11 +3197,15 @@ class PDFGenerator {
       pdf.addPage(
         pw.MultiPage(
           pageFormat: getA4Size,
-          margin: const pw.EdgeInsets.all(5),
+          margin: const pw.EdgeInsets.symmetric(vertical: 15, horizontal: 12),
           build: (pw.Context context) {
             return <pw.Widget>[
-              _getFotterTaxColumn(billModel, taxCalModel),
-              bankCont
+              pw.Column(
+                children: [
+                  _getFotterTaxColumn(billModel, taxCalModel),
+                  bankCont,
+                ],
+              )
             ];
           },
         ),

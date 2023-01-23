@@ -296,7 +296,7 @@ class _SalesHistoryState extends State<SalesHistory> {
               CustomTableElement(
                 width: CustomScreenUtility(context).width /
                     SalesHistoryEnum.values.length,
-                text: getFormattedDateTime(billModel.dateTime),
+                text: Utility.onlyDate(billModel.dateTime),
               ),
               CustomTableElement(
                 width: CustomScreenUtility(context).width /
@@ -324,6 +324,7 @@ class _SalesHistoryState extends State<SalesHistory> {
                 width: CustomScreenUtility(context).width /
                     (SalesHistoryEnum.values.length + 2),
                 text: (billModel.price - billModel.givenAmount!)
+                    .round()
                     .toStringAsFixed(2),
               ),
               Container(

@@ -211,7 +211,7 @@ class _PurchaseHistoryState extends State<PurchaseHistory> {
             CustomTableElement(
               width: CustomScreenUtility(context).width /
                   PurchaseHistoryEnum.values.length,
-              text: getFormattedDateTime(billModel.dateTime),
+              text: Utility.onlyDate(billModel.dateTime),
             ),
             CustomTableImageElement(
               width: CustomScreenUtility(context).width /
