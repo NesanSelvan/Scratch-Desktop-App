@@ -1,7 +1,6 @@
+import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/models/purchase/purchase.dart';
 import 'package:get/get.dart';
-
-import '../../billing/sales/sales.dart';
 
 class PurchaseHistoryNotifier extends GetxController {
   // final purchaseDB = Database().purchaseDB;
@@ -90,6 +89,14 @@ class PurchaseHistoryNotifier extends GetxController {
     //   await paymentDB.deletePayment(item);
     // }
     await purchaseDB.deletePurchase(purchaseModel);
+    performInit();
+  }
+
+  Future<void> updateDateOfPurchaseBill(
+    DateTime date,
+    PurchaseModel purchaseModel,
+  ) async {
+    await purchaseDB.updatePurchase(purchaseModel.copyWith(dateTime: date));
     performInit();
   }
 }

@@ -190,6 +190,34 @@ class SalesDB {
     return bills;
   }
 
+  List<BillModel> getBillByDateAndCategory(
+    DateTime startDate,
+    DateTime endDate,
+    String categoryId,
+  ) {
+    final finalStartDate =
+        DateTime(startDate.year, startDate.month, startDate.day);
+    final finalEndDate = DateTime(endDate.year, endDate.month, endDate.day);
+    final List<BillModel> bills = [];
+    final startEndDiff = finalEndDate.difference(finalStartDate).inDays;
+    log("startEndDiff $startEndDiff");
+    //TODO: Start working from here
+    // for (final item in getAllBill()
+    //     .where((element) => element.customerModel.id == customerId)) {
+    //   final finalDateTime =
+    //       DateTime(item.dateTime.year, item.dateTime.month, item.dateTime.day);
+    //   final dateDiff = finalEndDate.difference(finalDateTime).inDays;
+    //   if (dateDiff <= startEndDiff && dateDiff >= 0) {
+    //     if (item.customerModel.id == customerId) {
+    //       log("dateDiff $dateDiff ${item.dateTime} ${item.billNo}");
+    //       bills.add(item);
+    //     }
+    //   }
+    // }
+    // log("Bills DateTime ${bills.first.dateTime} ${bills.last.dateTime}");
+    return bills;
+  }
+
   Future<void> fixBillNo() async {
     final allBill = getAllBill();
     final List<BillModel> _updatedBill = [];

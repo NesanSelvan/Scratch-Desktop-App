@@ -62,1010 +62,1072 @@ class _AddProductScreenState extends State<AddProductScreen> {
         backgroundColor: Colors.white,
         body: GetBuilder<ProductController>(
           builder: (controller) {
-            return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              width: CustomScreenUtility(context).width,
-              height: CustomScreenUtility(context).height,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: CustomScreenUtility(context).height * 0.07,
-                      child: const Center(
-                        child: CustomText(
-                          "Product Management",
-                          size: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
+            return Stack(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  width: CustomScreenUtility(context).width,
+                  height: CustomScreenUtility(context).height,
+                  child: SingleChildScrollView(
+                    child: Column(
                       children: [
-                        Container(
-                          width: CustomScreenUtility(context).width * 0.2,
-                          child: OperationButtons(
-                            onAdd: () {
-                              debugPrint("${productController.categoryList}");
-                              productController.addProduct();
-                            },
-                            onClear: productController.clearAll,
-                            onDelete: productController.deleteProduct,
-                            onUpdate: productController.updateProduct,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            // color: Colors.red,
-                            width: CustomScreenUtility(context).width * 0.78,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CountContainer(
-                                      type: "No of Product",
-                                      count: controller.productModelList.length
-                                          .toDouble(),
-                                    ),
-                                    if (controller.searchController.text != "")
-                                      const SizedBox(width: 10),
-                                    if (controller.searchController.text != "")
-                                      CountContainer(
-                                        type: "No of Searched Product",
-                                        count: controller
-                                            .searchedProductModel.length
-                                            .toDouble(),
-                                      ),
-                                    const SizedBox(width: 10),
-                                    const SearchByText(),
-                                    const SizedBox(width: 10),
-                                    // DropdownButton<ProductEnum>(
-                                    //     value: searchProductEnum,
-                                    //     onChanged: (e) {
-                                    //       setState(() {
-                                    //         searchProductEnum = e!;
-                                    //       });
-                                    //     },
-                                    //     items: ProductEnum.values
-                                    //         .map((e) => DropdownMenuItem<ProductEnum>(
-                                    //             value: e,
-                                    //             child: CustomText(
-                                    //               unitEnumToStr(e),
-                                    //               size: 12,
-                                    //             )))
-                                    //         .toList()),
-                                    const SizedBox(width: 10),
-                                    SizedBox(
-                                      width: 250,
-                                      child: CustomTextField(
-                                        controller:
-                                            productController.searchController,
-                                        label: "Search",
-                                        onChange: (String value) {
-                                          productController
-                                              .searchProduct(value);
-                                        },
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    CustomTextButton(
-                                      "Generate Product No Again",
-                                      onPressed: () async {
-                                        await controller.addProductNumber();
-                                        setState(() {});
-                                      },
-                                    ),
-                                    DropdownButton<ProductSort>(
-                                      value: controller.sort,
-                                      items: ProductSort.values
-                                          .map(
-                                            (e) => DropdownMenuItem(
-                                              value: e,
-                                              child: Text(e.type),
-                                            ),
-                                          )
-                                          .toList(),
-                                      onChanged: (val) {
-                                        if (val != null) {
-                                          controller.sort = val;
-                                        }
-                                      },
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Container(
-                                  color: kLightPrimaryColor,
-                                  child: Row(
-                                    children: ProductEnum.values
-                                        .map(
-                                          (e) => CustomTableHeaderElement(
-                                            width: CustomScreenUtility(context)
-                                                    .width *
-                                                0.70 /
-                                                ProductEnum.values.length,
-                                            text: companyEnumToStr(e),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                              ],
+                        SizedBox(
+                          height: CustomScreenUtility(context).height * 0.07,
+                          child: const Center(
+                            child: CustomText(
+                              "Product Management",
+                              size: 24,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: CustomScreenUtility(context).height * 0.8,
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Row(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            SizedBox(
+                            Container(
                               width: CustomScreenUtility(context).width * 0.2,
-                              child: SingleChildScrollView(
+                              child: OperationButtons(
+                                onAdd: () {
+                                  debugPrint(
+                                    "${productController.categoryList}",
+                                  );
+                                  productController.addProduct();
+                                },
+                                onClear: productController.clearAll,
+                                onDelete: productController.deleteProduct,
+                                onUpdate: productController.updateProduct,
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                // color: Colors.red,
+                                width:
+                                    CustomScreenUtility(context).width * 0.78,
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.center,
                                       children: [
-                                        const CustomText(
-                                          "Menu",
-                                          fontWeight: FontWeight.bold,
+                                        CountContainer(
+                                          type: "No of Product",
+                                          count: controller
+                                              .productModelList.length
+                                              .toDouble(),
                                         ),
-                                        IconButton(
-                                          icon: const CustomIcon(
-                                            Icons.refresh,
-                                            color: kPrimaryColor,
+                                        if (controller.searchController.text !=
+                                            "")
+                                          const SizedBox(width: 10),
+                                        if (controller.searchController.text !=
+                                            "")
+                                          CountContainer(
+                                            type: "No of Searched Product",
+                                            count: controller
+                                                .searchedProductModel.length
+                                                .toDouble(),
                                           ),
-                                          onPressed: () {
-                                            print("Searching....");
-                                            controller.onInit();
-                                            // controller.searchedProductModel
-                                            //     .clear();
-                                            controller.getAllProduct();
-                                            controller.update();
-                                          },
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(height: 20),
-                                    // GetBuilder<ServerController>(
-                                    //     builder: (serverController) {
-                                    //   return CustomTextField(
-                                    //     autofocus: true,
-                                    //     focusNode: controller.codeFocus,
-                                    //     controller: barcodeController,
-                                    //     label: "Enter Code",
-                                    //     onEditingComplete: () {
-                                    //       controller.nameFocus.requestFocus();
-                                    //     },
-                                    //   );
-                                    // }),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.codeKeyboardFocus,
-                                      autofocus: true,
-                                      focusNode: controller.codeFocus,
-                                      controller: barcodeController,
-                                      label: "Enter Code",
-                                      // nextNode: controller.nameFocus,
-                                      onEditingComplete: () {
-                                        try {
-                                          productDB.checkProductIfExists(
-                                            barcodeController.text,
-                                          );
-                                          controller.nameFocus.requestFocus();
-                                        } catch (e) {
-                                          CustomUtilies.customFailureSnackBar(
-                                            "Error in Adding Product",
-                                            "$e",
-                                          );
-                                        }
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      nextNode: controller.companyFocus,
-                                      prevNode: controller.codeFocus,
-                                      keyboardNode:
-                                          controller.nameKeyboardFocus,
-                                      controller: controller.nameController,
-                                      label: "Enter Name",
-                                      focusNode: controller.nameFocus,
-                                      textInputType: TextInputType.number,
-                                      initialValue: controller
-                                          .categoryList.first.catSymbol,
-                                      onEditingComplete: () {
-                                        controller.getAllCategory();
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    Row(
-                                      children: [
-                                        Checkbox(
-                                          value: controller.multipleCompanyHas,
-                                          onChanged: (val) {
-                                            controller.multipleCompanyHas = val;
+                                        const SizedBox(width: 10),
+                                        const SearchByText(),
+                                        const SizedBox(width: 10),
+                                        // DropdownButton<ProductEnum>(
+                                        //     value: searchProductEnum,
+                                        //     onChanged: (e) {
+                                        //       setState(() {
+                                        //         searchProductEnum = e!;
+                                        //       });
+                                        //     },
+                                        //     items: ProductEnum.values
+                                        //         .map((e) => DropdownMenuItem<ProductEnum>(
+                                        //             value: e,
+                                        //             child: CustomText(
+                                        //               unitEnumToStr(e),
+                                        //               size: 12,
+                                        //             )))
+                                        //         .toList()),
+                                        const SizedBox(width: 10),
+                                        SizedBox(
+                                          width: 250,
+                                          child: CustomTextField(
+                                            controller: productController
+                                                .searchController,
+                                            label: "Search",
+                                            onChange: (String value) {
+                                              productController
+                                                  .searchProduct(value);
+                                            },
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        CustomTextButton(
+                                          "Generate Product No Again",
+                                          onPressed: () async {
+                                            await controller.addProductNumber();
+                                            setState(() {});
                                           },
                                         ),
-                                        const CustomText(
-                                          "Multiple Company Has this product?",
+                                        DropdownButton<ProductSort>(
+                                          value: controller.sort,
+                                          items: ProductSort.values
+                                              .map(
+                                                (e) => DropdownMenuItem(
+                                                  value: e,
+                                                  child: Text(e.type),
+                                                ),
+                                              )
+                                              .toList(),
+                                          onChanged: (val) {
+                                            if (val != null) {
+                                              controller.sort = val;
+                                            }
+                                          },
                                         )
                                       ],
                                     ),
-                                    const SizedBox(height: 20),
-                                    CustomTypeAhead<CompanyModel>(
-                                      nextNode: controller.categoryFocus,
-                                      prevNode: controller.nameFocus,
-                                      onArrowDown: () {
-                                        controller.keyboardSelectCompanyModel(
-                                          KeyboardEventEnum.ArrowDown,
-                                        );
-                                      },
-                                      onArrowUp: () {
-                                        controller.keyboardSelectCompanyModel(
-                                          KeyboardEventEnum.ArrowUp,
-                                        );
-                                      },
-                                      onEnter: () {
-                                        if (controller.selectedCompany !=
-                                            null) {
-                                          controller.companyController.text =
-                                              controller.selectedCompany!.name;
-                                        } else {
-                                          CustomUtilies.customFailureSnackBar(
-                                            "Error",
-                                            "Please Select Company to proceed further",
-                                          );
-                                          controller.companyFocus
-                                              .requestFocus();
-                                        }
-                                        debugPrint(
-                                          "controller.companyModelList : ${controller.companyModelList}",
-                                        );
-                                      },
-                                      focusNode: controller.companyFocus,
-                                      onEditingComplete: () {
-                                        if (controller.selectedCompany !=
-                                            null) {
-                                          controller.companyController.text =
-                                              controller.selectedCompany!.name;
-                                          // final uniqueCode = UniqueCode()
-                                          //     .getBarcodeUniqueCode(
-                                          //         1,
-                                          //         controller.selectedCategory!,
-                                          //         controller.selectedUnit!,
-                                          //         double.parse(controller
-                                          //             .purchasePriceController
-                                          //             .text),
-                                          //         double.parse(controller
-                                          //             .wholesaleController
-                                          //             .text),
-                                          //         double.parse(controller
-                                          //             .retailController.text),
-                                          //         double.parse(controller
-                                          //             .mrpController.text),
-                                          //         controller.selectedCompany!);
-                                          // if (uniqueCode != null) {
-                                          //   barcodeController.text = uniqueCode;
-                                          // }
-                                        }
-                                      },
-                                      controller: controller.companyController,
-                                      modelList: controller.companyModelList,
-                                      model:
-                                          NullCheckUtilities.getDummyCompany(),
-                                      selectedModel: controller.selectedCompany,
-                                      onSuggestionSelected: (suggestion) {
-                                        controller.selectedCompany = suggestion;
-                                        controller.companyController.text =
-                                            suggestion.name;
-                                        debugPrint('Selected $suggestion');
-                                      },
-                                      keyboardFocusNode:
-                                          controller.companyKeyboardFocus,
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTypeAhead<CategoryModel>(
-                                      onArrowDown: () {
-                                        controller.keyboardSelectCategoryModel(
-                                          KeyboardEventEnum.ArrowDown,
-                                        );
-                                      },
-                                      onArrowUp: () {
-                                        controller.keyboardSelectCategoryModel(
-                                          KeyboardEventEnum.ArrowUp,
-                                        );
-                                      },
-                                      onEnter: () {
-                                        if (controller.selectedCategory !=
-                                            null) {
-                                          controller.categoryController.text =
-                                              controller
-                                                  .selectedCategory!.category;
-                                          controller.unitNode.requestFocus();
-                                        } else {
-                                          controller.categoryFocus
-                                              .requestFocus();
-                                        }
-                                      },
-                                      focusNode: controller.categoryFocus,
-                                      onEditingComplete: () {
-                                        if (controller.selectedCategory !=
-                                            null) {
-                                          controller.categoryController.text =
-                                              controller
-                                                  .selectedCategory!.category;
-                                        } else {
-                                          CustomUtilies.customFailureSnackBar(
-                                            "Error",
-                                            "Please show Category",
-                                          );
-                                        }
-                                      },
-                                      nextNode: controller.unitNode,
-                                      prevNode: controller.nameFocus,
-                                      controller: controller.categoryController,
-                                      modelList: controller.categoryList,
-                                      model:
-                                          NullCheckUtilities.getDummyCategory(),
-                                      selectedModel:
-                                          controller.selectedCategory,
-                                      onSuggestionSelected: (suggestion) {
-                                        controller
-                                            .setSelectedCategory(suggestion);
-                                        controller.categoryController.text =
-                                            suggestion.category;
-                                        debugPrint('Selected $suggestion');
-                                        controller.unitNode.requestFocus();
-                                      },
-                                      keyboardFocusNode:
-                                          controller.categoryKeyboardFocus,
-                                    ),
-
-                                    // RawKeyboardListener(
-                                    //   focusNode: controller.categoryKeyboardFocus,
-                                    //   onKey: (RawKeyEvent rawKeyEvent) async {
-                                    //     final isKeyDown =
-                                    //         Utility().isKeyDown(rawKeyEvent);
-
-                                    //     switch (rawKeyEvent.data.runtimeType) {
-                                    //       case RawKeyEventDataWindows:
-                                    //         final data = rawKeyEvent.data
-                                    //             as RawKeyEventDataWindows;
-                                    //         debugPrint(
-                                    //             'Sales One: ${data.logicalKey}');
-
-                                    //         if (!isKeyDown) {
-                                    //           if (data.logicalKey ==
-                                    //               LogicalKeyboardKey.arrowDown) {
-                                    //             controller
-                                    //                 .keyboardSelectCategoryModel(
-                                    //                     KeyboardEventEnum
-                                    //                         .ArrowDown);
-                                    //           } else if (data.logicalKey ==
-                                    //               LogicalKeyboardKey.arrowUp) {
-                                    //             controller
-                                    //                 .keyboardSelectCategoryModel(
-                                    //                     KeyboardEventEnum
-                                    //                         .ArrowUp);
-                                    //           } else if (data.logicalKey ==
-                                    //               LogicalKeyboardKey.enter) {
-                                    //             // controller
-                                    //             //     .keyboardSelectProductModel();
-                                    //             debugPrint(
-                                    //                 'Product ${controller.selectedCategory}');
-                                    //             if (controller.selectedCategory !=
-                                    //                 null) {
-                                    //               controller.categoryController
-                                    //                       .text =
-                                    //                   controller.selectedCategory!
-                                    //                       .category;
-                                    //               controller.unitNode
-                                    //                   .requestFocus();
-                                    //             } else {
-                                    //               controller.categoryFocus
-                                    //                   .requestFocus();
-                                    //             }
-                                    //           }
-                                    //         }
-                                    //         break;
-                                    //       default:
-                                    //         throw Exception(
-                                    //             'Unsupported platform ${rawKeyEvent.data.runtimeType}');
-                                    //     }
-                                    //   },
-                                    //   child: TypeAheadField<CategoryModel>(
-                                    //     textFieldConfiguration:
-                                    //         TextFieldConfiguration(
-                                    //       focusNode: controller.categoryFocus,
-                                    //       controller:
-                                    //           controller.categoryController,
-                                    //       onEditingComplete: () {
-                                    //         if (controller.selectedCategory !=
-                                    //             null) {
-                                    //           controller.categoryController.text =
-                                    //               controller
-                                    //                   .selectedCategory!.category;
-                                    //           controller.unitNode.requestFocus();
-                                    //         } else {
-                                    //           CustomUtilies.customFailureSnackBar(
-                                    //               "Error",
-                                    //               "Please show Category");
-                                    //         }
-                                    //       },
-                                    //       decoration: getInputDecoration(
-                                    //           null,
-                                    //           controller.selectedCategory ==
-                                    //                       null ||
-                                    //                   !controller
-                                    //                       .categoryFocus.hasFocus
-                                    //               ? "Enter Category"
-                                    //               : controller
-                                    //                   .selectedCategory!.category,
-                                    //           controller.selectedCategory == null
-                                    //               ? ""
-                                    //               : controller.selectedCategory!
-                                    //                   .category),
-                                    //     ),
-                                    //     suggestionsCallback: (pattern) async {
-                                    //       return controller.categoryList.where(
-                                    //           (suggestion) =>
-                                    //               suggestion.category
-                                    //                   .toLowerCase()
-                                    //                   .contains(pattern
-                                    //                       .toLowerCase()) ||
-                                    //               (suggestion.hsnCode
-                                    //                   .toString()
-                                    //                   .contains(pattern
-                                    //                       .toLowerCase())));
-                                    //     },
-                                    //     itemBuilder:
-                                    //         (context, CategoryModel suggestion) {
-                                    //       return ListTile(
-                                    //         tileColor:
-                                    //             controller.selectedCategory ==
-                                    //                     suggestion
-                                    //                 ? Colors.grey[300]
-                                    //                 : Colors.white,
-                                    //         title: Text(suggestion.category),
-                                    //         subtitle:
-                                    //             Text("${suggestion.hsnCode}"),
-                                    //       );
-                                    //     },
-                                    //     onSuggestionSelected: (suggestion) {
-                                    //       controller.selectedCategory =
-                                    //           suggestion;
-                                    //       controller.categoryController.text =
-                                    //           suggestion.category;
-                                    //       debugPrint('Selected $suggestion');
-                                    //       controller.unitNode.requestFocus();
-                                    //       // Navigator.of(context).push(MaterialPageRoute(
-                                    //       //   builder: (context) => ProductPage(product: suggestion)
-                                    //       // ));
-                                    //     },
-                                    //   ),
-                                    // ),
-
-                                    const SizedBox(height: 20),
-                                    CustomTypeAhead<UnitModel>(
-                                      onArrowDown: () {
-                                        controller.keyboardSelectUnitModel(
-                                          KeyboardEventEnum.ArrowDown,
-                                        );
-                                      },
-                                      onArrowUp: () {
-                                        controller.keyboardSelectUnitModel(
-                                          KeyboardEventEnum.ArrowUp,
-                                        );
-                                      },
-                                      onEnter: () {
-                                        if (controller.selectedUnit != null) {
-                                          controller.unitController.text =
-                                              controller.selectedUnit!.symbol ??
-                                                  "";
-                                          controller.unitQtyFocus
-                                              .requestFocus();
-                                        } else {
-                                          controller.unitNode.requestFocus();
-                                        }
-                                      },
-                                      focusNode: controller.unitNode,
-                                      onEditingComplete: () {
-                                        if (controller.selectedUnit != null) {
-                                          controller.unitController.text =
-                                              controller.selectedUnit!.symbol ??
-                                                  "";
-                                        } else {
-                                          CustomUtilies.customFailureSnackBar(
-                                            "Error",
-                                            "Please show Category",
-                                          );
-                                        }
-                                      },
-                                      nextNode: controller.unitQtyFocus,
-                                      prevNode: controller.categoryFocus,
-                                      controller: controller.unitController,
-                                      modelList: controller.allUnitsList,
-                                      model: NullCheckUtilities.getDummyUnit(),
-                                      selectedModel: controller.selectedUnit,
-                                      onSuggestionSelected: (suggestion) {
-                                        controller.setSelectedUnit(suggestion);
-                                        controller.unitController.text =
-                                            suggestion.symbol ?? "";
-                                        debugPrint('Selected $suggestion');
-                                      },
-                                      keyboardFocusNode:
-                                          controller.unitKeyboardFocus,
-                                    ),
-
-                                    const SizedBox(height: 20),
-
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.unitKeyboardQtyFocus,
-                                      focusNode: controller.unitQtyFocus,
-                                      controller: controller.unitQtyController,
-                                      label: "Enter Unit Qty",
-                                      nextNode: controller.purchaseFocus,
-                                      prevNode: controller.unitNode,
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      focusNode: controller.purchaseFocus,
-                                      keyboardNode:
-                                          controller.purchaseKeyboardFocus,
-                                      prevNode: controller.unitQtyFocus,
-                                      nextNode: controller.wholesaleFocus,
-                                      controller:
-                                          controller.purchasePriceController,
-                                      label: "Enter Purchase Price",
-                                      onChange: (String val) {
-                                        // try {
-                                        //   final value = double.parse(val);
-                                        //   final mrp = controller
-                                        //       .getMrpRetailWholesaleByPercCal(
-                                        //           value)
-                                        //       .first;
-                                        //   final retail = controller
-                                        //       .getMrpRetailWholesaleByPercCal(
-                                        //           value)[1];
-                                        //   final wholesale = controller
-                                        //       .getMrpRetailWholesaleByPercCal(
-                                        //           value)
-                                        //       .last;
-                                        //   controller.mrpController.text = "$mrp";
-                                        //   controller.retailController.text =
-                                        //       "$retail";
-                                        //   controller.wholesaleController.text =
-                                        //       "$wholesale";
-                                        // } catch (e) {
-                                        //   CustomUtilies.customFailureSnackBar(
-                                        //       "Error", "Please Enter Number");
-                                        // }
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTextButton(
-                                      "Update Prices",
-                                      onPressed: () {
-                                        if (controller.selectedProductModel !=
-                                            null) {
-                                          controller
-                                              .updateMRPRetailWholeByPercCalculation();
-                                        }
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.wholesaleKeyboardFocus,
-                                      nextNode: controller.retailFocus,
-                                      prevNode: controller.purchaseFocus,
-                                      focusNode: controller.wholesaleFocus,
-                                      controller:
-                                          controller.wholesaleController,
-                                      label: "Enter Wholesale",
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.retailKeyboardFocus,
-                                      nextNode: controller.mrpFocus,
-                                      prevNode: controller.wholesaleFocus,
-                                      focusNode: controller.retailFocus,
-                                      controller: controller.retailController,
-                                      isKeyPressUp: false,
-                                      label: "Enter Retail",
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode: controller.mrpKeyboardFocus,
-                                      nextNode: controller.code1Focus,
-                                      prevNode: controller.retailFocus,
-                                      isKeyPressUp: false,
-                                      focusNode: controller.mrpFocus,
-                                      controller: controller.mrpController,
-                                      label: "Enter MRP",
-                                      textInputType: TextInputType.number,
-                                      onAdd: () {
-                                        controller.addPriceModelList();
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTextButton(
-                                      "Calculate Without Tax",
-                                      onPressed: () {
-                                        controller
-                                            .calculateMRPRetailWholesalePurchaseFromMrpWithTax();
-                                      },
-                                    ),
-                                    CustomTextButton(
-                                      "Add Images",
-                                      onPressed: () {
-                                        final result =
-                                            ImageUtilities.openFilePicker();
-                                        if (result != null) {
-                                          controller.setImageInImagesList =
-                                              result.path;
-                                        }
-                                      },
-                                    ),
-                                    SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
+                                    const SizedBox(height: 10),
+                                    Container(
+                                      color: kLightPrimaryColor,
                                       child: Row(
-                                        children: controller.imagesList
+                                        children: ProductEnum.values
                                             .map(
-                                              (e) => ImageContainer(
-                                                imagePath: e,
-                                                onRemoveImageTap: () {
-                                                  controller
-                                                      .removeImageFromImagesList = e;
-                                                },
+                                              (e) => CustomTableHeaderElement(
+                                                width:
+                                                    CustomScreenUtility(context)
+                                                            .width *
+                                                        0.70 /
+                                                        ProductEnum
+                                                            .values.length,
+                                                text: companyEnumToStr(e),
                                               ),
                                             )
                                             .toList(),
                                       ),
                                     ),
-                                    if (controller.selectedProductModel != null)
-                                      SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                          children: [
-                                            CustomText(
-                                              "MRP : ${BasicCalculation.calculateTax(categoryDB.getCategoryModelById(controller.selectedProductModel!.categoryId).tax, controller.selectedProductModel!.sellingPrice).toStringAsFixed(2)}  ",
-                                            ),
-                                            CustomText(
-                                              "Retail : ${BasicCalculation.calculateTax(categoryDB.getCategoryModelById(controller.selectedProductModel!.categoryId).tax, controller.selectedProductModel!.retail).toStringAsFixed(2)} ",
-                                            ),
-                                            CustomText(
-                                              "Wholesale : ${BasicCalculation.calculateTax(categoryDB.getCategoryModelById(controller.selectedProductModel!.categoryId).tax, controller.selectedProductModel!.wholesale).toStringAsFixed(2)} ",
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-
-                                    const SizedBox(height: 20),
-                                    CustomText(
-                                      "For Bill price",
-                                      size: 10,
-                                      color: Colors.grey[400],
-                                    ),
-                                    const SizedBox(height: 20),
-                                    ...controller.priceModelList
-                                        .map(
-                                          (e) => ExpansionTile(
-                                            onExpansionChanged: (bool val) {
-                                              if (val) {
-                                                controller
-                                                    .setSelectedPriceModel = e;
-                                              } else {
-                                                controller
-                                                        .setSelectedPriceModel =
-                                                    null;
-                                              }
-                                            },
-                                            trailing: IconButton(
-                                              onPressed: () {
-                                                controller.priceModelList
-                                                    .remove(e);
-                                                controller.update();
-                                              },
-                                              icon: Icon(
-                                                Icons.delete,
-                                                color: Colors.red[400],
-                                              ),
-                                            ),
-                                            title: CustomText(
-                                              "${e.unitModel.formalName}",
-                                            ),
-                                            children: [
-                                              CustomText(
-                                                "Purchase Price : ${e.purchasePrice}",
-                                              ),
-                                              CustomText("MRP : ${e.mrp}"),
-                                              CustomText(
-                                                "Retail : ${e.retail}",
-                                              ),
-                                              CustomText(
-                                                "Wholesale : ${e.wholesale}",
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                        .toList(),
-                                    if (controller.selectedPriceModel != null)
-                                      CustomTextButton(
-                                        "Update Price",
-                                        onPressed: () {
-                                          controller.updatePriceModelList();
-                                        },
-                                      ),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.code1KeyboardFocus,
-                                      prevNode: controller.mrpFocus,
-                                      nextNode: controller.unit1Node,
-                                      focusNode: controller.code1Focus,
-                                      controller: controller.code1Controller,
-                                      label: "Enter Code for this Unit",
-                                      onEditingComplete: () =>
-                                          controller.unit1Node.requestFocus(),
-                                    ),
-                                    const SizedBox(height: 20),
-
-                                    CustomTypeAhead<UnitModel>(
-                                      onArrowDown: () {
-                                        controller.keyboardSelectUnit1Model(
-                                          KeyboardEventEnum.ArrowDown,
-                                        );
-                                      },
-                                      onArrowUp: () {
-                                        controller.keyboardSelectUnit1Model(
-                                          KeyboardEventEnum.ArrowUp,
-                                        );
-                                      },
-                                      onEnter: () {
-                                        if (controller.selectedUnit1 != null) {
-                                          controller.unit1Controller.text =
-                                              controller
-                                                      .selectedUnit1!.symbol ??
-                                                  "";
-                                          controller.unitQty1Focus
-                                              .requestFocus();
-                                        } else {
-                                          controller.unit1Node.requestFocus();
-                                        }
-                                      },
-                                      focusNode: controller.unit1Node,
-                                      onEditingComplete: () {
-                                        if (controller.selectedUnit1 != null) {
-                                          controller.unit1Controller.text =
-                                              controller
-                                                      .selectedUnit1!.symbol ??
-                                                  "";
-                                        } else {
-                                          CustomUtilies.customFailureSnackBar(
-                                            "Error",
-                                            "Please show Category",
-                                          );
-                                        }
-                                      },
-                                      nextNode: controller.unitQty1Focus,
-                                      prevNode: controller.code1Focus,
-                                      controller: controller.unit1Controller,
-                                      modelList: controller.allUnitsList,
-                                      model: NullCheckUtilities.getDummyUnit(),
-                                      selectedModel: controller.selectedUnit1,
-                                      onSuggestionSelected: (suggestion) {
-                                        controller.setSelectedUnit1(suggestion);
-                                        controller.unit1Controller.text =
-                                            suggestion.symbol ?? "";
-                                        debugPrint('Selected $suggestion');
-                                        controller.unit1Node.requestFocus();
-                                      },
-                                      keyboardFocusNode:
-                                          controller.unit1KeyboardNode,
-                                    ),
-
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.unitQty1KeyboardFocus,
-                                      prevNode: controller.unit1Node,
-                                      nextNode: controller.purchase1Focus,
-                                      focusNode: controller.unitQty1Focus,
-                                      controller: controller.unitQty1Controller,
-                                      label: "Enter Unit Qty",
-                                      onEditingComplete: () => controller
-                                          .purchase1Focus
-                                          .requestFocus(),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.purchase1KeyboardFocus,
-                                      prevNode: controller.unitQty1Focus,
-                                      nextNode: controller.wholesale1Focus,
-                                      focusNode: controller.purchase1Focus,
-                                      controller:
-                                          controller.purchasePrice1Controller,
-                                      label: "Enter Purchase Price",
-                                      onChange: (val) {
-                                        // try {
-                                        //   final value = double.parse(val);
-
-                                        //   final mrp = controller
-                                        //       .getMrpRetailWholesaleByPercCal(
-                                        //           value)
-                                        //       .first;
-                                        //   final retail = controller
-                                        //       .getMrpRetailWholesaleByPercCal(
-                                        //           value)[1];
-                                        //   final wholesale = controller
-                                        //       .getMrpRetailWholesaleByPercCal(
-                                        //           value)
-                                        //       .last;
-                                        //   controller.mrp1Controller.text =
-                                        //       "$mrp";
-                                        //   controller.retail1Controller.text =
-                                        //       "$retail";
-                                        //   controller.wholesale1Controller.text =
-                                        //       "$wholesale";
-                                        // } catch (e) {
-                                        //   CustomUtilies.customFailureSnackBar(
-                                        //       "Error", "Please Enter Number");
-                                        // }
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.wholesale1KeyboardFocus,
-                                      focusNode: controller.wholesale1Focus,
-                                      controller:
-                                          controller.wholesale1Controller,
-                                      label: "Enter Wholesale",
-                                      prevNode: controller.purchase1Focus,
-                                      nextNode: controller.retail1Focus,
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.retail1KeyboardFocus,
-                                      focusNode: controller.retail1Focus,
-                                      controller: controller.retail1Controller,
-                                      prevNode: controller.wholesale1Focus,
-                                      nextNode: controller.mrp1Focus,
-                                      label: "Enter Retail",
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomKeyboard(
-                                      isKeyPressUp: false,
-                                      focusNode: controller.mrp1KeyboardFocus,
-                                      onShiftRight: () {
-                                        controller.retail1Focus.requestFocus();
-                                      },
-                                      onEnter: () async {
-                                        if (controller.mrp1Controller.text !=
-                                            "") {
-                                          controller.addPriceModelList();
-                                          await controller.addProduct();
-                                          controller.codeFocus.requestFocus();
-                                        } else {
-                                          controller.mrp1Focus.requestFocus();
-                                        }
-                                      },
-                                      onAdd: () {
-                                        controller.addPriceModelList();
-                                      },
-                                      onArrowDown: () {},
-                                      onArrowUp: () {},
-                                      child: CustomTextField(
-                                        focusNode: controller.mrp1Focus,
-                                        controller: controller.mrp1Controller,
-                                        label: "Enter MRP 1",
-                                        onChange: (String val) {
-                                          if (val.contains("+")) {
-                                            controller.addPriceModelList();
-                                            // controller.unit1Node.requestFocus();
-                                          }
-                                        },
-                                        onEditingComplete: () async {
-                                          debugPrint(
-                                            "SDSAD ${controller.mrp1Controller.text}",
-                                          );
-                                          if (controller.mrp1Controller.text !=
-                                              "") {
-                                            controller.addPriceModelList();
-                                            await controller.addProduct();
-                                            controller.codeFocus.requestFocus();
-                                          } else {
-                                            controller.mrp1Focus.requestFocus();
-                                          }
-                                        },
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 20),
-                                    CustomTextButton(
-                                      "Calculate Without Tax",
-                                      onPressed: () {
-                                        controller
-                                            .calculateMRPRetailWholesalePurchaseFromMrpWithTaxDifferentPriceModel();
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.wholesalePercKeyboardFocus,
-                                      focusNode: controller.wholesalePercFocus,
-                                      controller:
-                                          controller.wholesalePercController,
-                                      nextNode: controller.retailPercFocus,
-                                      label: "Enter Wholesale",
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.retailPercKeyboardFocus,
-                                      focusNode: controller.retailPercFocus,
-                                      controller:
-                                          controller.retailPercController,
-                                      prevNode: controller.wholesalePercFocus,
-                                      nextNode: controller.mrpPercFocus,
-                                      label: "Enter Retail",
-                                    ),
-                                    const SizedBox(height: 20),
-                                    CustomTFWithKeyboard(
-                                      keyboardNode:
-                                          controller.mrpPercKeyboardFocus,
-                                      focusNode: controller.mrpPercFocus,
-                                      controller: controller.mrpPercController,
-                                      prevNode: controller.retailPercFocus,
-                                      label: "Enter MRP",
-                                    ),
                                   ],
                                 ),
                               ),
                             ),
-                            Container(
-                              color: Colors.grey[10],
-                              width: CustomScreenUtility(context).width * 0.77,
-                              child: Align(
-                                alignment: Alignment.topCenter,
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      GetBuilder<ProductController>(
-                                        builder: (controller) {
-                                          return Column(
-                                            children: controller
-                                                    .productModelList.isEmpty
-                                                ? [
-                                                    const CustomText(
-                                                      "No Product Record Exists",
-                                                      color: Colors.red,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      size: 14,
-                                                    )
-                                                  ]
-                                                : controller.searchController
-                                                                .text !=
-                                                            "" &&
-                                                        controller
-                                                            .searchedProductModel
-                                                            .isEmpty
+                          ],
+                        ),
+                        SizedBox(
+                          height: CustomScreenUtility(context).height * 0.8,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width:
+                                      CustomScreenUtility(context).width * 0.2,
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const CustomText(
+                                              "Menu",
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            IconButton(
+                                              icon: const CustomIcon(
+                                                Icons.refresh,
+                                                color: kPrimaryColor,
+                                              ),
+                                              onPressed: () {
+                                                print("Searching....");
+                                                controller.onInit();
+                                                // controller.searchedProductModel
+                                                //     .clear();
+                                                controller.getAllProduct();
+                                                controller.update();
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(height: 20),
+                                        // GetBuilder<ServerController>(
+                                        //     builder: (serverController) {
+                                        //   return CustomTextField(
+                                        //     autofocus: true,
+                                        //     focusNode: controller.codeFocus,
+                                        //     controller: barcodeController,
+                                        //     label: "Enter Code",
+                                        //     onEditingComplete: () {
+                                        //       controller.nameFocus.requestFocus();
+                                        //     },
+                                        //   );
+                                        // }),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode:
+                                              controller.codeKeyboardFocus,
+                                          autofocus: true,
+                                          focusNode: controller.codeFocus,
+                                          controller: barcodeController,
+                                          label: "Enter Code",
+                                          // nextNode: controller.nameFocus,
+                                          onEditingComplete: () {
+                                            try {
+                                              productDB.checkProductIfExists(
+                                                barcodeController.text,
+                                              );
+                                              controller.nameFocus
+                                                  .requestFocus();
+                                            } catch (e) {
+                                              CustomUtilies
+                                                  .customFailureSnackBar(
+                                                "Error in Adding Product",
+                                                "$e",
+                                              );
+                                            }
+                                          },
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          nextNode: controller.companyFocus,
+                                          prevNode: controller.codeFocus,
+                                          keyboardNode:
+                                              controller.nameKeyboardFocus,
+                                          controller: controller.nameController,
+                                          label: "Enter Name",
+                                          focusNode: controller.nameFocus,
+                                          textInputType: TextInputType.number,
+                                          initialValue: controller
+                                              .categoryList.first.catSymbol,
+                                          onEditingComplete: () {
+                                            controller.getAllCategory();
+                                          },
+                                        ),
+                                        const SizedBox(height: 20),
+                                        Row(
+                                          children: [
+                                            Checkbox(
+                                              value:
+                                                  controller.multipleCompanyHas,
+                                              onChanged: (val) {
+                                                controller.multipleCompanyHas =
+                                                    val;
+                                              },
+                                            ),
+                                            const CustomText(
+                                              "Multiple Company Has this product?",
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTypeAhead<CompanyModel>(
+                                          nextNode: controller.categoryFocus,
+                                          prevNode: controller.nameFocus,
+                                          onArrowDown: () {
+                                            controller
+                                                .keyboardSelectCompanyModel(
+                                              KeyboardEventEnum.ArrowDown,
+                                            );
+                                          },
+                                          onArrowUp: () {
+                                            controller
+                                                .keyboardSelectCompanyModel(
+                                              KeyboardEventEnum.ArrowUp,
+                                            );
+                                          },
+                                          onEnter: () {
+                                            if (controller.selectedCompany !=
+                                                null) {
+                                              controller
+                                                      .companyController.text =
+                                                  controller
+                                                      .selectedCompany!.name;
+                                            } else {
+                                              CustomUtilies
+                                                  .customFailureSnackBar(
+                                                "Error",
+                                                "Please Select Company to proceed further",
+                                              );
+                                              controller.companyFocus
+                                                  .requestFocus();
+                                            }
+                                            debugPrint(
+                                              "controller.companyModelList : ${controller.companyModelList}",
+                                            );
+                                          },
+                                          focusNode: controller.companyFocus,
+                                          onEditingComplete: () {
+                                            if (controller.selectedCompany !=
+                                                null) {
+                                              controller
+                                                      .companyController.text =
+                                                  controller
+                                                      .selectedCompany!.name;
+                                              // final uniqueCode = UniqueCode()
+                                              //     .getBarcodeUniqueCode(
+                                              //         1,
+                                              //         controller.selectedCategory!,
+                                              //         controller.selectedUnit!,
+                                              //         double.parse(controller
+                                              //             .purchasePriceController
+                                              //             .text),
+                                              //         double.parse(controller
+                                              //             .wholesaleController
+                                              //             .text),
+                                              //         double.parse(controller
+                                              //             .retailController.text),
+                                              //         double.parse(controller
+                                              //             .mrpController.text),
+                                              //         controller.selectedCompany!);
+                                              // if (uniqueCode != null) {
+                                              //   barcodeController.text = uniqueCode;
+                                              // }
+                                            }
+                                          },
+                                          controller:
+                                              controller.companyController,
+                                          modelList:
+                                              controller.companyModelList,
+                                          model: NullCheckUtilities
+                                              .getDummyCompany(),
+                                          selectedModel:
+                                              controller.selectedCompany,
+                                          onSuggestionSelected: (suggestion) {
+                                            controller.selectedCompany =
+                                                suggestion;
+                                            controller.companyController.text =
+                                                suggestion.name;
+                                            debugPrint('Selected $suggestion');
+                                          },
+                                          keyboardFocusNode:
+                                              controller.companyKeyboardFocus,
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTypeAhead<CategoryModel>(
+                                          onArrowDown: () {
+                                            controller
+                                                .keyboardSelectCategoryModel(
+                                              KeyboardEventEnum.ArrowDown,
+                                            );
+                                          },
+                                          onArrowUp: () {
+                                            controller
+                                                .keyboardSelectCategoryModel(
+                                              KeyboardEventEnum.ArrowUp,
+                                            );
+                                          },
+                                          onEnter: () {
+                                            if (controller.selectedCategory !=
+                                                null) {
+                                              controller
+                                                      .categoryController.text =
+                                                  controller.selectedCategory!
+                                                      .category;
+                                              controller.unitNode
+                                                  .requestFocus();
+                                            } else {
+                                              controller.categoryFocus
+                                                  .requestFocus();
+                                            }
+                                          },
+                                          focusNode: controller.categoryFocus,
+                                          onEditingComplete: () {
+                                            if (controller.selectedCategory !=
+                                                null) {
+                                              controller
+                                                      .categoryController.text =
+                                                  controller.selectedCategory!
+                                                      .category;
+                                            } else {
+                                              CustomUtilies
+                                                  .customFailureSnackBar(
+                                                "Error",
+                                                "Please show Category",
+                                              );
+                                            }
+                                          },
+                                          nextNode: controller.unitNode,
+                                          prevNode: controller.nameFocus,
+                                          controller:
+                                              controller.categoryController,
+                                          modelList: controller.categoryList,
+                                          model: NullCheckUtilities
+                                              .getDummyCategory(),
+                                          selectedModel:
+                                              controller.selectedCategory,
+                                          onSuggestionSelected: (suggestion) {
+                                            controller.setSelectedCategory(
+                                              suggestion,
+                                            );
+                                            controller.categoryController.text =
+                                                suggestion.category;
+                                            debugPrint('Selected $suggestion');
+                                            controller.unitNode.requestFocus();
+                                          },
+                                          keyboardFocusNode:
+                                              controller.categoryKeyboardFocus,
+                                        ),
+
+                                        // RawKeyboardListener(
+                                        //   focusNode: controller.categoryKeyboardFocus,
+                                        //   onKey: (RawKeyEvent rawKeyEvent) async {
+                                        //     final isKeyDown =
+                                        //         Utility().isKeyDown(rawKeyEvent);
+
+                                        //     switch (rawKeyEvent.data.runtimeType) {
+                                        //       case RawKeyEventDataWindows:
+                                        //         final data = rawKeyEvent.data
+                                        //             as RawKeyEventDataWindows;
+                                        //         debugPrint(
+                                        //             'Sales One: ${data.logicalKey}');
+
+                                        //         if (!isKeyDown) {
+                                        //           if (data.logicalKey ==
+                                        //               LogicalKeyboardKey.arrowDown) {
+                                        //             controller
+                                        //                 .keyboardSelectCategoryModel(
+                                        //                     KeyboardEventEnum
+                                        //                         .ArrowDown);
+                                        //           } else if (data.logicalKey ==
+                                        //               LogicalKeyboardKey.arrowUp) {
+                                        //             controller
+                                        //                 .keyboardSelectCategoryModel(
+                                        //                     KeyboardEventEnum
+                                        //                         .ArrowUp);
+                                        //           } else if (data.logicalKey ==
+                                        //               LogicalKeyboardKey.enter) {
+                                        //             // controller
+                                        //             //     .keyboardSelectProductModel();
+                                        //             debugPrint(
+                                        //                 'Product ${controller.selectedCategory}');
+                                        //             if (controller.selectedCategory !=
+                                        //                 null) {
+                                        //               controller.categoryController
+                                        //                       .text =
+                                        //                   controller.selectedCategory!
+                                        //                       .category;
+                                        //               controller.unitNode
+                                        //                   .requestFocus();
+                                        //             } else {
+                                        //               controller.categoryFocus
+                                        //                   .requestFocus();
+                                        //             }
+                                        //           }
+                                        //         }
+                                        //         break;
+                                        //       default:
+                                        //         throw Exception(
+                                        //             'Unsupported platform ${rawKeyEvent.data.runtimeType}');
+                                        //     }
+                                        //   },
+                                        //   child: TypeAheadField<CategoryModel>(
+                                        //     textFieldConfiguration:
+                                        //         TextFieldConfiguration(
+                                        //       focusNode: controller.categoryFocus,
+                                        //       controller:
+                                        //           controller.categoryController,
+                                        //       onEditingComplete: () {
+                                        //         if (controller.selectedCategory !=
+                                        //             null) {
+                                        //           controller.categoryController.text =
+                                        //               controller
+                                        //                   .selectedCategory!.category;
+                                        //           controller.unitNode.requestFocus();
+                                        //         } else {
+                                        //           CustomUtilies.customFailureSnackBar(
+                                        //               "Error",
+                                        //               "Please show Category");
+                                        //         }
+                                        //       },
+                                        //       decoration: getInputDecoration(
+                                        //           null,
+                                        //           controller.selectedCategory ==
+                                        //                       null ||
+                                        //                   !controller
+                                        //                       .categoryFocus.hasFocus
+                                        //               ? "Enter Category"
+                                        //               : controller
+                                        //                   .selectedCategory!.category,
+                                        //           controller.selectedCategory == null
+                                        //               ? ""
+                                        //               : controller.selectedCategory!
+                                        //                   .category),
+                                        //     ),
+                                        //     suggestionsCallback: (pattern) async {
+                                        //       return controller.categoryList.where(
+                                        //           (suggestion) =>
+                                        //               suggestion.category
+                                        //                   .toLowerCase()
+                                        //                   .contains(pattern
+                                        //                       .toLowerCase()) ||
+                                        //               (suggestion.hsnCode
+                                        //                   .toString()
+                                        //                   .contains(pattern
+                                        //                       .toLowerCase())));
+                                        //     },
+                                        //     itemBuilder:
+                                        //         (context, CategoryModel suggestion) {
+                                        //       return ListTile(
+                                        //         tileColor:
+                                        //             controller.selectedCategory ==
+                                        //                     suggestion
+                                        //                 ? Colors.grey[300]
+                                        //                 : Colors.white,
+                                        //         title: Text(suggestion.category),
+                                        //         subtitle:
+                                        //             Text("${suggestion.hsnCode}"),
+                                        //       );
+                                        //     },
+                                        //     onSuggestionSelected: (suggestion) {
+                                        //       controller.selectedCategory =
+                                        //           suggestion;
+                                        //       controller.categoryController.text =
+                                        //           suggestion.category;
+                                        //       debugPrint('Selected $suggestion');
+                                        //       controller.unitNode.requestFocus();
+                                        //       // Navigator.of(context).push(MaterialPageRoute(
+                                        //       //   builder: (context) => ProductPage(product: suggestion)
+                                        //       // ));
+                                        //     },
+                                        //   ),
+                                        // ),
+
+                                        const SizedBox(height: 20),
+                                        CustomTypeAhead<UnitModel>(
+                                          onArrowDown: () {
+                                            controller.keyboardSelectUnitModel(
+                                              KeyboardEventEnum.ArrowDown,
+                                            );
+                                          },
+                                          onArrowUp: () {
+                                            controller.keyboardSelectUnitModel(
+                                              KeyboardEventEnum.ArrowUp,
+                                            );
+                                          },
+                                          onEnter: () {
+                                            if (controller.selectedUnit !=
+                                                null) {
+                                              controller.unitController.text =
+                                                  controller.selectedUnit!
+                                                          .symbol ??
+                                                      "";
+                                              controller.unitQtyFocus
+                                                  .requestFocus();
+                                            } else {
+                                              controller.unitNode
+                                                  .requestFocus();
+                                            }
+                                          },
+                                          focusNode: controller.unitNode,
+                                          onEditingComplete: () {
+                                            if (controller.selectedUnit !=
+                                                null) {
+                                              controller.unitController.text =
+                                                  controller.selectedUnit!
+                                                          .symbol ??
+                                                      "";
+                                            } else {
+                                              CustomUtilies
+                                                  .customFailureSnackBar(
+                                                "Error",
+                                                "Please show Category",
+                                              );
+                                            }
+                                          },
+                                          nextNode: controller.unitQtyFocus,
+                                          prevNode: controller.categoryFocus,
+                                          controller: controller.unitController,
+                                          modelList: controller.allUnitsList,
+                                          model:
+                                              NullCheckUtilities.getDummyUnit(),
+                                          selectedModel:
+                                              controller.selectedUnit,
+                                          onSuggestionSelected: (suggestion) {
+                                            controller
+                                                .setSelectedUnit(suggestion);
+                                            controller.unitController.text =
+                                                suggestion.symbol ?? "";
+                                            debugPrint('Selected $suggestion');
+                                          },
+                                          keyboardFocusNode:
+                                              controller.unitKeyboardFocus,
+                                        ),
+
+                                        const SizedBox(height: 20),
+
+                                        CustomTFWithKeyboard(
+                                          keyboardNode:
+                                              controller.unitKeyboardQtyFocus,
+                                          focusNode: controller.unitQtyFocus,
+                                          controller:
+                                              controller.unitQtyController,
+                                          label: "Enter Unit Qty",
+                                          nextNode: controller.purchaseFocus,
+                                          prevNode: controller.unitNode,
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          focusNode: controller.purchaseFocus,
+                                          keyboardNode:
+                                              controller.purchaseKeyboardFocus,
+                                          prevNode: controller.unitQtyFocus,
+                                          nextNode: controller.wholesaleFocus,
+                                          controller: controller
+                                              .purchasePriceController,
+                                          label: "Enter Purchase Price",
+                                          onChange: (String val) {
+                                            // try {
+                                            //   final value = double.parse(val);
+                                            //   final mrp = controller
+                                            //       .getMrpRetailWholesaleByPercCal(
+                                            //           value)
+                                            //       .first;
+                                            //   final retail = controller
+                                            //       .getMrpRetailWholesaleByPercCal(
+                                            //           value)[1];
+                                            //   final wholesale = controller
+                                            //       .getMrpRetailWholesaleByPercCal(
+                                            //           value)
+                                            //       .last;
+                                            //   controller.mrpController.text = "$mrp";
+                                            //   controller.retailController.text =
+                                            //       "$retail";
+                                            //   controller.wholesaleController.text =
+                                            //       "$wholesale";
+                                            // } catch (e) {
+                                            //   CustomUtilies.customFailureSnackBar(
+                                            //       "Error", "Please Enter Number");
+                                            // }
+                                          },
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTextButton(
+                                          "Update Prices",
+                                          onPressed: () {
+                                            if (controller
+                                                    .selectedProductModel !=
+                                                null) {
+                                              controller
+                                                  .updateMRPRetailWholeByPercCalculation();
+                                            }
+                                          },
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode:
+                                              controller.wholesaleKeyboardFocus,
+                                          nextNode: controller.retailFocus,
+                                          prevNode: controller.purchaseFocus,
+                                          focusNode: controller.wholesaleFocus,
+                                          controller:
+                                              controller.wholesaleController,
+                                          label: "Enter Wholesale",
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode:
+                                              controller.retailKeyboardFocus,
+                                          nextNode: controller.mrpFocus,
+                                          prevNode: controller.wholesaleFocus,
+                                          focusNode: controller.retailFocus,
+                                          controller:
+                                              controller.retailController,
+                                          isKeyPressUp: false,
+                                          label: "Enter Retail",
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode:
+                                              controller.mrpKeyboardFocus,
+                                          nextNode: controller.code1Focus,
+                                          prevNode: controller.retailFocus,
+                                          isKeyPressUp: false,
+                                          focusNode: controller.mrpFocus,
+                                          controller: controller.mrpController,
+                                          label: "Enter MRP",
+                                          textInputType: TextInputType.number,
+                                          onAdd: () {
+                                            controller.addPriceModelList();
+                                          },
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTextButton(
+                                          "Calculate Without Tax",
+                                          onPressed: () {
+                                            controller
+                                                .calculateMRPRetailWholesalePurchaseFromMrpWithTax();
+                                          },
+                                        ),
+                                        CustomTextButton(
+                                          "Add Images",
+                                          onPressed: () {
+                                            final result =
+                                                ImageUtilities.openFilePicker();
+                                            if (result != null) {
+                                              controller.setImageInImagesList =
+                                                  result.path;
+                                            }
+                                          },
+                                        ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            children: controller.imagesList
+                                                .map(
+                                                  (e) => ImageContainer(
+                                                    imagePath: e,
+                                                    onRemoveImageTap: () {
+                                                      controller
+                                                          .removeImageFromImagesList = e;
+                                                    },
+                                                  ),
+                                                )
+                                                .toList(),
+                                          ),
+                                        ),
+                                        if (controller.selectedProductModel !=
+                                            null)
+                                          SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Row(
+                                              children: [
+                                                CustomText(
+                                                  "MRP : ${BasicCalculation.calculateTax(categoryDB.getCategoryModelById(controller.selectedProductModel!.categoryId).tax, controller.selectedProductModel!.sellingPrice).toStringAsFixed(2)}  ",
+                                                ),
+                                                CustomText(
+                                                  "Retail : ${BasicCalculation.calculateTax(categoryDB.getCategoryModelById(controller.selectedProductModel!.categoryId).tax, controller.selectedProductModel!.retail).toStringAsFixed(2)} ",
+                                                ),
+                                                CustomText(
+                                                  "Wholesale : ${BasicCalculation.calculateTax(categoryDB.getCategoryModelById(controller.selectedProductModel!.categoryId).tax, controller.selectedProductModel!.wholesale).toStringAsFixed(2)} ",
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+
+                                        const SizedBox(height: 20),
+                                        CustomText(
+                                          "For Bill price",
+                                          size: 10,
+                                          color: Colors.grey[400],
+                                        ),
+                                        const SizedBox(height: 20),
+                                        ...controller.priceModelList
+                                            .map(
+                                              (e) => ExpansionTile(
+                                                onExpansionChanged: (bool val) {
+                                                  if (val) {
+                                                    controller
+                                                        .setSelectedPriceModel = e;
+                                                  } else {
+                                                    controller
+                                                            .setSelectedPriceModel =
+                                                        null;
+                                                  }
+                                                },
+                                                trailing: IconButton(
+                                                  onPressed: () {
+                                                    controller.priceModelList
+                                                        .remove(e);
+                                                    controller.update();
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red[400],
+                                                  ),
+                                                ),
+                                                title: CustomText(
+                                                  "${e.unitModel.formalName}",
+                                                ),
+                                                children: [
+                                                  CustomText(
+                                                    "Purchase Price : ${e.purchasePrice}",
+                                                  ),
+                                                  CustomText("MRP : ${e.mrp}"),
+                                                  CustomText(
+                                                    "Retail : ${e.retail}",
+                                                  ),
+                                                  CustomText(
+                                                    "Wholesale : ${e.wholesale}",
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                            .toList(),
+                                        if (controller.selectedPriceModel !=
+                                            null)
+                                          CustomTextButton(
+                                            "Update Price",
+                                            onPressed: () {
+                                              controller.updatePriceModelList();
+                                            },
+                                          ),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode:
+                                              controller.code1KeyboardFocus,
+                                          prevNode: controller.mrpFocus,
+                                          nextNode: controller.unit1Node,
+                                          focusNode: controller.code1Focus,
+                                          controller:
+                                              controller.code1Controller,
+                                          label: "Enter Code for this Unit",
+                                          onEditingComplete: () => controller
+                                              .unit1Node
+                                              .requestFocus(),
+                                        ),
+                                        const SizedBox(height: 20),
+
+                                        CustomTypeAhead<UnitModel>(
+                                          onArrowDown: () {
+                                            controller.keyboardSelectUnit1Model(
+                                              KeyboardEventEnum.ArrowDown,
+                                            );
+                                          },
+                                          onArrowUp: () {
+                                            controller.keyboardSelectUnit1Model(
+                                              KeyboardEventEnum.ArrowUp,
+                                            );
+                                          },
+                                          onEnter: () {
+                                            if (controller.selectedUnit1 !=
+                                                null) {
+                                              controller.unit1Controller.text =
+                                                  controller.selectedUnit1!
+                                                          .symbol ??
+                                                      "";
+                                              controller.unitQty1Focus
+                                                  .requestFocus();
+                                            } else {
+                                              controller.unit1Node
+                                                  .requestFocus();
+                                            }
+                                          },
+                                          focusNode: controller.unit1Node,
+                                          onEditingComplete: () {
+                                            if (controller.selectedUnit1 !=
+                                                null) {
+                                              controller.unit1Controller.text =
+                                                  controller.selectedUnit1!
+                                                          .symbol ??
+                                                      "";
+                                            } else {
+                                              CustomUtilies
+                                                  .customFailureSnackBar(
+                                                "Error",
+                                                "Please show Category",
+                                              );
+                                            }
+                                          },
+                                          nextNode: controller.unitQty1Focus,
+                                          prevNode: controller.code1Focus,
+                                          controller:
+                                              controller.unit1Controller,
+                                          modelList: controller.allUnitsList,
+                                          model:
+                                              NullCheckUtilities.getDummyUnit(),
+                                          selectedModel:
+                                              controller.selectedUnit1,
+                                          onSuggestionSelected: (suggestion) {
+                                            controller
+                                                .setSelectedUnit1(suggestion);
+                                            controller.unit1Controller.text =
+                                                suggestion.symbol ?? "";
+                                            debugPrint('Selected $suggestion');
+                                            controller.unit1Node.requestFocus();
+                                          },
+                                          keyboardFocusNode:
+                                              controller.unit1KeyboardNode,
+                                        ),
+
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode:
+                                              controller.unitQty1KeyboardFocus,
+                                          prevNode: controller.unit1Node,
+                                          nextNode: controller.purchase1Focus,
+                                          focusNode: controller.unitQty1Focus,
+                                          controller:
+                                              controller.unitQty1Controller,
+                                          label: "Enter Unit Qty",
+                                          onEditingComplete: () => controller
+                                              .purchase1Focus
+                                              .requestFocus(),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode:
+                                              controller.purchase1KeyboardFocus,
+                                          prevNode: controller.unitQty1Focus,
+                                          nextNode: controller.wholesale1Focus,
+                                          focusNode: controller.purchase1Focus,
+                                          controller: controller
+                                              .purchasePrice1Controller,
+                                          label: "Enter Purchase Price",
+                                          onChange: (val) {
+                                            // try {
+                                            //   final value = double.parse(val);
+
+                                            //   final mrp = controller
+                                            //       .getMrpRetailWholesaleByPercCal(
+                                            //           value)
+                                            //       .first;
+                                            //   final retail = controller
+                                            //       .getMrpRetailWholesaleByPercCal(
+                                            //           value)[1];
+                                            //   final wholesale = controller
+                                            //       .getMrpRetailWholesaleByPercCal(
+                                            //           value)
+                                            //       .last;
+                                            //   controller.mrp1Controller.text =
+                                            //       "$mrp";
+                                            //   controller.retail1Controller.text =
+                                            //       "$retail";
+                                            //   controller.wholesale1Controller.text =
+                                            //       "$wholesale";
+                                            // } catch (e) {
+                                            //   CustomUtilies.customFailureSnackBar(
+                                            //       "Error", "Please Enter Number");
+                                            // }
+                                          },
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode: controller
+                                              .wholesale1KeyboardFocus,
+                                          focusNode: controller.wholesale1Focus,
+                                          controller:
+                                              controller.wholesale1Controller,
+                                          label: "Enter Wholesale",
+                                          prevNode: controller.purchase1Focus,
+                                          nextNode: controller.retail1Focus,
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode:
+                                              controller.retail1KeyboardFocus,
+                                          focusNode: controller.retail1Focus,
+                                          controller:
+                                              controller.retail1Controller,
+                                          prevNode: controller.wholesale1Focus,
+                                          nextNode: controller.mrp1Focus,
+                                          label: "Enter Retail",
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomKeyboard(
+                                          isKeyPressUp: false,
+                                          focusNode:
+                                              controller.mrp1KeyboardFocus,
+                                          onShiftRight: () {
+                                            controller.retail1Focus
+                                                .requestFocus();
+                                          },
+                                          onEnter: () async {
+                                            if (controller
+                                                    .mrp1Controller.text !=
+                                                "") {
+                                              controller.addPriceModelList();
+                                              await controller.addProduct();
+                                              controller.codeFocus
+                                                  .requestFocus();
+                                            } else {
+                                              controller.mrp1Focus
+                                                  .requestFocus();
+                                            }
+                                          },
+                                          onAdd: () {
+                                            controller.addPriceModelList();
+                                          },
+                                          onArrowDown: () {},
+                                          onArrowUp: () {},
+                                          child: CustomTextField(
+                                            focusNode: controller.mrp1Focus,
+                                            controller:
+                                                controller.mrp1Controller,
+                                            label: "Enter MRP 1",
+                                            onChange: (String val) {
+                                              if (val.contains("+")) {
+                                                controller.addPriceModelList();
+                                                // controller.unit1Node.requestFocus();
+                                              }
+                                            },
+                                            onEditingComplete: () async {
+                                              debugPrint(
+                                                "SDSAD ${controller.mrp1Controller.text}",
+                                              );
+                                              if (controller
+                                                      .mrp1Controller.text !=
+                                                  "") {
+                                                controller.addPriceModelList();
+                                                await controller.addProduct();
+                                                controller.codeFocus
+                                                    .requestFocus();
+                                              } else {
+                                                controller.mrp1Focus
+                                                    .requestFocus();
+                                              }
+                                            },
+                                          ),
+                                        ),
+
+                                        const SizedBox(height: 20),
+                                        CustomTextButton(
+                                          "Calculate Without Tax",
+                                          onPressed: () {
+                                            controller
+                                                .calculateMRPRetailWholesalePurchaseFromMrpWithTaxDifferentPriceModel();
+                                          },
+                                        ),
+                                        const SizedBox(height: 20),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode: controller
+                                              .wholesalePercKeyboardFocus,
+                                          focusNode:
+                                              controller.wholesalePercFocus,
+                                          controller: controller
+                                              .wholesalePercController,
+                                          nextNode: controller.retailPercFocus,
+                                          label: "Enter Wholesale",
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode: controller
+                                              .retailPercKeyboardFocus,
+                                          focusNode: controller.retailPercFocus,
+                                          controller:
+                                              controller.retailPercController,
+                                          prevNode:
+                                              controller.wholesalePercFocus,
+                                          nextNode: controller.mrpPercFocus,
+                                          label: "Enter Retail",
+                                        ),
+                                        const SizedBox(height: 20),
+                                        CustomTFWithKeyboard(
+                                          keyboardNode:
+                                              controller.mrpPercKeyboardFocus,
+                                          focusNode: controller.mrpPercFocus,
+                                          controller:
+                                              controller.mrpPercController,
+                                          prevNode: controller.retailPercFocus,
+                                          label: "Enter MRP",
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  color: Colors.grey[10],
+                                  width:
+                                      CustomScreenUtility(context).width * 0.77,
+                                  child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          GetBuilder<ProductController>(
+                                            builder: (controller) {
+                                              return Column(
+                                                children: controller
+                                                        .productModelList
+                                                        .isEmpty
                                                     ? [
                                                         const CustomText(
                                                           "No Product Record Exists",
@@ -1075,13 +1137,55 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                           size: 14,
                                                         )
                                                       ]
-                                                    : controller
-                                                            .searchedProductModel
-                                                            .isNotEmpty
-                                                        ? controller.searchController
-                                                                    .text ==
-                                                                ""
-                                                            ? controller.sort ==
+                                                    : controller.searchController
+                                                                    .text !=
+                                                                "" &&
+                                                            controller
+                                                                .searchedProductModel
+                                                                .isEmpty
+                                                        ? [
+                                                            const CustomText(
+                                                              "No Product Record Exists",
+                                                              color: Colors.red,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              size: 14,
+                                                            )
+                                                          ]
+                                                        : controller
+                                                                .searchedProductModel
+                                                                .isNotEmpty
+                                                            ? controller.searchController
+                                                                        .text ==
+                                                                    ""
+                                                                ? controller.sort ==
+                                                                        ProductSort
+                                                                            .category
+                                                                    ? buildProductByCategory(
+                                                                        controller,
+                                                                      )
+                                                                    : controller
+                                                                        .productModelList
+                                                                        .map(
+                                                                          (e) =>
+                                                                              buildInkWell(
+                                                                            e,
+                                                                            controller,
+                                                                          ),
+                                                                        )
+                                                                        .toList()
+                                                                : controller
+                                                                    .searchedProductModel
+                                                                    .map(
+                                                                      (e) =>
+                                                                          buildInkWell(
+                                                                        e,
+                                                                        controller,
+                                                                      ),
+                                                                    )
+                                                                    .toList()
+                                                            : controller.sort ==
                                                                     ProductSort
                                                                         .category
                                                                 ? buildProductByCategory(
@@ -1096,48 +1200,41 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                                         controller,
                                                                       ),
                                                                     )
-                                                                    .toList()
-                                                            : controller
-                                                                .searchedProductModel
-                                                                .map(
-                                                                  (e) =>
-                                                                      buildInkWell(
-                                                                    e,
-                                                                    controller,
-                                                                  ),
-                                                                )
-                                                                .toList()
-                                                        : controller.sort ==
-                                                                ProductSort
-                                                                    .category
-                                                            ? buildProductByCategory(
-                                                                controller,
-                                                              )
-                                                            : controller
-                                                                .productModelList
-                                                                .map(
-                                                                  (e) =>
-                                                                      buildInkWell(
-                                                                    e,
-                                                                    controller,
-                                                                  ),
-                                                                )
-                                                                .toList(),
-                                          );
-                                        },
-                                      )
-                                    ],
+                                                                    .toList(),
+                                              );
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                if (controller.count != -1)
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: Colors.black.withOpacity(0.2),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const CircularProgressIndicator(),
+                          Text(
+                            "${controller.count}/${productDB.getAllProduct().length}",
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+              ],
             );
           },
         ),

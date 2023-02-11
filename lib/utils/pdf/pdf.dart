@@ -15,6 +15,7 @@ import 'package:annai_store/enum/operation.dart';
 import 'package:annai_store/enum/payments/payment.dart';
 import 'package:annai_store/extensions/type.dart';
 import 'package:annai_store/models/bill/bill.dart';
+import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/models/estimate/estimate.dart';
 import 'package:annai_store/models/orders/order.dart';
@@ -265,12 +266,13 @@ class PDFGenerator {
     bool isHalf = false,
     required pw.Widget child,
     required double width,
+    bool dynamicHeight = false,
   }) {
     return pw.Container(
       width: isHalf ? width / 2 : width,
-      height: 70,
       alignment: pw.Alignment.centerLeft,
       padding: const pw.EdgeInsets.all(5),
+      height: dynamicHeight ? null : 70,
       decoration: pw.BoxDecoration(border: getBorder()),
       child: child,
     );
@@ -2466,8 +2468,10 @@ class PDFGenerator {
 
   static pw.Column _getFotterTaxColumn(
     BillModel billModel,
-    List<TaxCalModel> taxCalModel,
-  ) {
+    List<TaxCalModel> taxCalModel, {
+    bool dynamicHeight = false,
+  }) {
+    print("taxCalModel: ${taxCalModel.length}");
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.end,
       children: [
@@ -2518,6 +2522,7 @@ class PDFGenerator {
         pw.Row(
           children: [
             taxCalBodyData(
+              dynamicHeight: dynamicHeight,
               width: getA4Size.width * 0.1968,
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.end,
@@ -2526,6 +2531,7 @@ class PDFGenerator {
               ),
             ),
             taxCalBodyData(
+              dynamicHeight: dynamicHeight,
               width: getA4Size.width * 0.1968,
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.end,
@@ -2538,6 +2544,7 @@ class PDFGenerator {
               pw.Row(
                 children: [
                   taxCalBodyData(
+                    dynamicHeight: dynamicHeight,
                     width: getA4Size.width * 0.1968,
                     isHalf: true,
                     child: pw.Column(
@@ -2552,6 +2559,7 @@ class PDFGenerator {
                     ),
                   ),
                   taxCalBodyData(
+                    dynamicHeight: dynamicHeight,
                     width: getA4Size.width * 0.1968,
                     isHalf: true,
                     child: pw.Column(
@@ -2564,6 +2572,7 @@ class PDFGenerator {
                     ),
                   ),
                   taxCalBodyData(
+                    dynamicHeight: dynamicHeight,
                     width: getA4Size.width * 0.1968,
                     isHalf: true,
                     child: pw.Column(
@@ -2578,6 +2587,7 @@ class PDFGenerator {
                     ),
                   ),
                   taxCalBodyData(
+                    dynamicHeight: dynamicHeight,
                     width: getA4Size.width * 0.1968,
                     isHalf: true,
                     child: pw.Column(
@@ -2595,6 +2605,7 @@ class PDFGenerator {
               pw.Row(
                 children: [
                   taxCalBodyData(
+                    dynamicHeight: dynamicHeight,
                     width: getA4Size.width * 0.1968,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.end,
@@ -2606,6 +2617,7 @@ class PDFGenerator {
                     ),
                   ),
                   taxCalBodyData(
+                    dynamicHeight: dynamicHeight,
                     width: getA4Size.width * 0.1968,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.end,
@@ -2619,6 +2631,7 @@ class PDFGenerator {
                 ],
               ),
             taxCalBodyData(
+              dynamicHeight: dynamicHeight,
               width: getA4Size.width * 0.17,
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.end,
@@ -3202,7 +3215,11 @@ class PDFGenerator {
             return <pw.Widget>[
               pw.Column(
                 children: [
-                  _getFotterTaxColumn(billModel, taxCalModel),
+                  _getFotterTaxColumn(
+                    billModel,
+                    taxCalModel,
+                    dynamicHeight: true,
+                  ),
                   bankCont,
                 ],
               )
@@ -4722,11 +4739,15 @@ class PDFGenerator {
 
   static Future<String> generateStatementByCustomer(
     CustomerModel customerModel,
+    CategoryModel categoryModel,
     DateTime startDate,
     DateTime endDate,
   ) async {
-    final bills =
-        salesDB.getBillByDateAndCustomer(startDate, endDate, customerModel.id);
+    final bills = salesDB.getBillByDateAndCustomer(
+      startDate,
+      endDate,
+      customerModel.id,
+    );
     final receipts = receiptDB.getReceiptByDateAndCustomerId(
       startDate,
       endDate,
@@ -4922,8 +4943,11 @@ class PDFGenerator {
           startDate,
           customerModel.id,
         );
-    final bills =
-        salesDB.getBillByDateAndCustomer(startDate, endDate, customerModel.id);
+    final bills = salesDB.getBillByDateAndCustomer(
+      startDate,
+      endDate,
+      customerModel.id,
+    );
     final receipts = receiptDB.getReceiptByDateAndCustomerId(
       startDate,
       endDate,

@@ -208,10 +208,35 @@ class _PurchaseHistoryState extends State<PurchaseHistory> {
             : Colors.white,
         child: Row(
           children: [
-            CustomTableElement(
-              width: CustomScreenUtility(context).width /
-                  PurchaseHistoryEnum.values.length,
-              text: Utility.onlyDate(billModel.dateTime),
+            InkWell(
+              onTap: () async {
+                print("Hello");
+                final dateTime = await showDatePickerDialog(
+                  context,
+                  initialDate: billModel.dateTime,
+                  firstDate: DateTime.now().subtract(
+                    const Duration(
+                      days: 365 * 5,
+                    ),
+                  ),
+                  lastDate: DateTime.now().add(
+                    const Duration(
+                      days: 365 * 5,
+                    ),
+                  ),
+                );
+                if (dateTime != null) {
+                  purchaseHistoryNotifier.updateDateOfPurchaseBill(
+                    dateTime,
+                    billModel,
+                  );
+                }
+              },
+              child: CustomTableElement(
+                width: CustomScreenUtility(context).width /
+                    PurchaseHistoryEnum.values.length,
+                text: Utility.onlyDate(billModel.dateTime),
+              ),
             ),
             CustomTableImageElement(
               width: CustomScreenUtility(context).width /

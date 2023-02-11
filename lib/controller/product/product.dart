@@ -559,24 +559,30 @@ class ProductController extends GetxController {
     update();
   }
 
+  int count = -1;
+
   Future<void> addProductNumber() async {
     productModelList.sort((a, b) {
       return b.createdAt.compareTo(a.createdAt);
     });
+    final productLength = productDB.getAllProduct().length;
+    count = 0;
     for (final product in productModelList) {
       // final productNumber = "$count.${category.hsnCode}";
       // debugPrint("Product No : $productNumber");
-      if (product.productNumber == null) {
-        print(product.productName);
-
-        await productDB.updateProduct(
-          product.copyWith(
-            productNumber: "${productDB.getAllProduct().length + 1}",
-          ),
-        );
-      }
+      await productDB.updateProduct(
+        product.copyWith(
+          productNumber: "${count + 1}",
+        ),
+      );
+      count++;
+      print("productDB: ${product.productName} $count");
+      update();
     }
+    count = 0;
     getAllProduct();
+    update();
+    print("Update Done");
     // final categoryList = categoryDB.getAllCategory();
     // for (final category in categoryList) {
     //   final productsList = productDB.getAllProductByCategoryId(category.id);
@@ -639,7 +645,7 @@ class ProductController extends GetxController {
       final List<String> updatedImagesList =
           await ImageUtilities.moveImagesToSafeDir(_imagesList);
       if (await updateSelectedProduct(
-        ProductModel(
+        selectedProductModel!.copyWith(
           id: selectedProductModel!.id,
           code: barcodeController.text,
           imagesList: updatedImagesList,

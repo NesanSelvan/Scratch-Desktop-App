@@ -1,7 +1,20 @@
 import 'dart:io';
 
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/history/estimate/estimate.dart';
+import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/history/sales.dart';
 import 'package:annai_store/models/estimate/estimate.dart';
+import 'package:annai_store/screens/billing/sales/sales.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/printer/printer.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/custom_button.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/full_container.dart';
+import 'package:annai_store/widgets/header_text.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
@@ -9,20 +22,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart';
-
-import '../../../controller/billing/sales/sales.dart';
-import '../../../controller/history/estimate/estimate.dart';
-import '../../../controller/home/home.dart';
-import '../../../enum/history/sales.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../../utils/printer/printer.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_table.dart';
-import '../../../widgets/full_container.dart';
-import '../../../widgets/header_text.dart';
-import '../../../widgets/text_field.dart';
-import '../../billing/sales/sales.dart';
 
 class EstimateHistory extends StatefulWidget {
   const EstimateHistory({Key? key}) : super(key: key);
@@ -521,10 +520,35 @@ class _EstimateHistoryState extends State<EstimateHistory> {
             : Colors.white,
         child: Row(
           children: [
-            CustomTableElement(
-              width: CustomScreenUtility(context).width /
-                  EstimateHistoryEnum.values.length,
-              text: Utility.onlyDate(billModel.dateTime),
+            InkWell(
+              onTap: () async {
+                print("Hello");
+                final dateTime = await showDatePickerDialog(
+                  context,
+                  initialDate: billModel.dateTime,
+                  firstDate: DateTime.now().subtract(
+                    const Duration(
+                      days: 365 * 5,
+                    ),
+                  ),
+                  lastDate: DateTime.now().add(
+                    const Duration(
+                      days: 365 * 5,
+                    ),
+                  ),
+                );
+                if (dateTime != null) {
+                  estimateHistoryNotifier.updateDateOfPurchaseBill(
+                    dateTime,
+                    billModel,
+                  );
+                }
+              },
+              child: CustomTableElement(
+                width: CustomScreenUtility(context).width /
+                    EstimateHistoryEnum.values.length,
+                text: Utility.onlyDate(billModel.dateTime),
+              ),
             ),
             CustomTableElement(
               width: CustomScreenUtility(context).width /

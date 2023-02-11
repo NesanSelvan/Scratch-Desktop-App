@@ -218,50 +218,50 @@ class PurchaseController extends GetxController {
         debugPrint(
           'qtyController.text ${categoryDB.getCategoryModelById(selectedProductModel!.categoryId)}',
         );
-        final matchedData = purchaseProductModelList
-            .where(
-              (element) => element.productModel.id == selectedProductModel!.id,
-            )
-            .toList();
+        // final matchedData = purchaseProductModelList
+        //     .where(
+        //       (element) => element.productModel.id == selectedProductModel!.id,
+        //     )
+        //     .toList();
 
         final allAmounts = calculateAmounts();
 
-        if (matchedData.isEmpty) {
-          final purchaseProductModel = PurchaseProductModel(
-            id: selectedProductModel!.id,
-            categoryModel: categoryDB
-                .getCategoryModelById(selectedProductModel!.categoryId),
-            productModel: selectedProductModel!,
-            qty: allAmounts[0],
-            rate: allAmounts[1],
-            amount: allAmounts[2],
-            discount: allAmounts[3],
-            lorryFright: allAmounts[4],
-            taxableValue: allAmounts[5],
-            tax: allAmounts[6],
-            totalAmount: allAmounts[7],
-          );
-          debugPrint('qtyController $purchaseProductModel');
-          purchaseProductModelList.add(purchaseProductModel);
-        } else {
-          final index = purchaseProductModelList.indexOf(matchedData[0]);
-          final purchaseProductModel = PurchaseProductModel(
-            id: selectedProductModel!.id,
-            categoryModel: categoryDB
-                .getCategoryModelById(selectedProductModel!.categoryId),
-            productModel: selectedProductModel!,
-            qty: allAmounts[0],
-            rate: allAmounts[1],
-            amount: allAmounts[2],
-            discount: allAmounts[3],
-            lorryFright: allAmounts[4],
-            taxableValue: allAmounts[5],
-            tax: allAmounts[6],
-            totalAmount: allAmounts[7],
-          );
-          debugPrint('qtyController $purchaseProductModel');
-          purchaseProductModelList[index] = purchaseProductModel;
-        }
+        // if (matchedData.isEmpty) {
+        final purchaseProductModel = PurchaseProductModel(
+          id: selectedProductModel!.id,
+          categoryModel:
+              categoryDB.getCategoryModelById(selectedProductModel!.categoryId),
+          productModel: selectedProductModel!,
+          qty: allAmounts[0],
+          rate: allAmounts[1],
+          amount: allAmounts[2],
+          discount: allAmounts[3],
+          lorryFright: allAmounts[4],
+          taxableValue: allAmounts[5],
+          tax: allAmounts[6],
+          totalAmount: allAmounts[7],
+        );
+        debugPrint('qtyController $purchaseProductModel');
+        purchaseProductModelList.add(purchaseProductModel);
+        // } else {
+        //   final index = purchaseProductModelList.indexOf(matchedData[0]);
+        //   final purchaseProductModel = PurchaseProductModel(
+        //     id: selectedProductModel!.id,
+        //     categoryModel: categoryDB
+        //         .getCategoryModelById(selectedProductModel!.categoryId),
+        //     productModel: selectedProductModel!,
+        //     qty: allAmounts[0],
+        //     rate: allAmounts[1],
+        //     amount: allAmounts[2],
+        //     discount: allAmounts[3],
+        //     lorryFright: allAmounts[4],
+        //     taxableValue: allAmounts[5],
+        //     tax: allAmounts[6],
+        //     totalAmount: allAmounts[7],
+        //   );
+        //   debugPrint('qtyController $purchaseProductModel');
+        //   purchaseProductModelList[index] = purchaseProductModel;
+        // }
         clearAfterAddingAProduct();
       } catch (e) {
         CustomUtilies.customFailureSnackBar(

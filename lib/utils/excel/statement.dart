@@ -6,6 +6,7 @@ import 'package:annai_store/core/constants/calculations/basic_cal.dart';
 import 'package:annai_store/core/constants/calculations/bills/purchase.dart';
 import 'package:annai_store/core/constants/calculations/bills/sales.dart';
 import 'package:annai_store/enum/application.dart';
+import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/models/purchase/purchase.dart';
@@ -140,7 +141,8 @@ class GenerateExcelSheetData {
         );
         final stock = stocksDB.getStockModelByProductId(product.id);
 
-        final stockQty = stock == null ? 0.0 : stock.qty;
+        double stockQty = stock == null ? 0.0 : stock.qty;
+        stockQty = stockQty < 0 ? 0 : stockQty;
 
         excelData(
           sheetObject: sheetObject,
@@ -152,7 +154,8 @@ class GenerateExcelSheetData {
           indexByString: "D$currentPointer",
           value: stockQty,
         );
-        final netTaxableAmount = product.sellingPrice * stockQty;
+        double netTaxableAmount = product.sellingPrice * stockQty;
+        netTaxableAmount = netTaxableAmount < 0 ? 0 : netTaxableAmount;
         excelData(
           sheetObject: sheetObject,
           indexByString: "E$currentPointer",
@@ -160,11 +163,12 @@ class GenerateExcelSheetData {
         );
         totalNetTaxableValue += netTaxableAmount;
 
-        final netValue = basicCalculation.calculateAmountWithTax(
+        double netValue = basicCalculation.calculateAmountWithTax(
           product,
           category,
           stockQty,
         );
+        netValue = netValue < 0 ? 0 : netValue;
         totalNetValue += netValue;
         excelData(
           sheetObject: sheetObject,
@@ -829,7 +833,188 @@ class GenerateExcelSheetData {
     CustomerModel customerModel,
   ) async {
     final bills = salesDB
-        .getBillByDateAndCustomer(startDate, endDate, customerModel.id)
+        .getBillByDateAndCustomer(
+          startDate,
+          endDate,
+          customerModel.id,
+        )
+        .reversed
+        .toList();
+    final excel = Excel.createExcel();
+    final sheetObject = excel['Sheet1'];
+
+    final cellStyle = CellStyle(
+      backgroundColorHex: "#1AFF1A",
+      fontFamily: getFontFamily(FontFamily.Calibri),
+    );
+
+    cellStyle.underline = Underline.Single;
+
+    customExcelData(
+      sheetObject: sheetObject,
+      indexByString: "D1",
+      value: Application.appName,
+      fontSize: 14,
+      isBold: true,
+    );
+
+    excelData(sheetObject: sheetObject, indexByString: "D2", value: "Vallior");
+    customExcelData(
+      sheetObject: sheetObject,
+      indexByString: "D3",
+      value: "Sales Report",
+      underline: Underline.Single,
+      isBold: true,
+    );
+
+    excelData(sheetObject: sheetObject, indexByString: "A5", value: "From");
+    excelData(
+      sheetObject: sheetObject,
+      indexByString: "B5",
+      value: getFormattedDate(startDate),
+    );
+
+    excelData(sheetObject: sheetObject, indexByString: "D5", value: "TO");
+    excelData(
+      sheetObject: sheetObject,
+      indexByString: "E5",
+      value: getFormattedDate(endDate),
+    );
+
+    header(sheetObject: sheetObject, indexByString: "A7", value: "GSTIN No");
+    header(sheetObject: sheetObject, indexByString: "B7", value: "Invoice No");
+    header(sheetObject: sheetObject, indexByString: "C7", value: "Date");
+    header(sheetObject: sheetObject, indexByString: "D7", value: "Party Name");
+    header(
+      sheetObject: sheetObject,
+      indexByString: "E7",
+      value: "Invoice Amount",
+    );
+    header(sheetObject: sheetObject, indexByString: "F7", value: "Tax");
+    header(
+      sheetObject: sheetObject,
+      indexByString: "G7",
+      value: "Taxable Value",
+    );
+
+    int currentPoint = 8;
+
+    debugPrint("Bills Length: ${bills.length}");
+
+    double totalInvoiceAmount = 0;
+    double totalTaxableValue = 0;
+    String previousBillNo = "";
+
+    for (var i = 0; i < bills.length; i++) {
+      final taxCalModel = SalesCalculation.getTaxCalModel(bills[i]);
+      for (final taxData in taxCalModel) {
+        excelData(
+          sheetObject: sheetObject,
+          indexByString: "B$currentPoint",
+          value: bills[i].billNo,
+        );
+        excelData(
+          sheetObject: sheetObject,
+          indexByString: "A$currentPoint",
+          value: bills[i].customerModel.gstin == ""
+              ? "-"
+              : bills[i].customerModel.gstin!,
+        );
+        excelData(
+          sheetObject: sheetObject,
+          indexByString: "C$currentPoint",
+          value: bills[i].dateTime == null
+              ? ""
+              : getFormattedDate(bills[i].dateTime),
+        );
+        excelData(
+          sheetObject: sheetObject,
+          indexByString: "D$currentPoint",
+          value: bills[i].customerModel.name,
+        );
+        excelData(
+          sheetObject: sheetObject,
+          indexByString: "E$currentPoint",
+          value: bills[i].price,
+        );
+        if (previousBillNo != bills[i].billNo) {
+          totalInvoiceAmount += bills[i].price;
+        }
+        previousBillNo = bills[i].billNo;
+        excelData(
+          sheetObject: sheetObject,
+          indexByString: "F$currentPoint",
+          value: taxData.rate,
+        );
+        excelData(
+          sheetObject: sheetObject,
+          indexByString: "G$currentPoint",
+          value: taxData.taxableVal,
+        );
+        totalTaxableValue += taxData.taxableVal;
+        currentPoint++;
+      }
+    }
+
+    header(
+      sheetObject: sheetObject,
+      indexByString: "A${currentPoint + 1}",
+      value: "Grand Total",
+    );
+
+    header(
+      sheetObject: sheetObject,
+      indexByString: "E${currentPoint + 1}",
+      value: totalInvoiceAmount,
+    );
+
+    header(
+      sheetObject: sheetObject,
+      indexByString: "G${currentPoint + 1}",
+      value: totalTaxableValue,
+    );
+
+    final invoiceTotalCell =
+        sheetObject.cell(CellIndex.indexByString("E${currentPoint + 1}"));
+    invoiceTotalCell.value = totalInvoiceAmount;
+    invoiceTotalCell.cellStyle = CellStyle(bold: true);
+
+    final taxableTotalCell =
+        sheetObject.cell(CellIndex.indexByString("G${currentPoint + 1}"));
+    taxableTotalCell.value = totalTaxableValue;
+    taxableTotalCell.cellStyle = CellStyle(bold: true);
+
+    final datas = excel.encode();
+    if (datas != null) {
+      final path = await getExcelFilePath("sales");
+      await saveToExcelFile(path, datas);
+      // File(path)
+      //   ..createSync(recursive: true)
+      //   ..writeAsBytesSync(datas);
+      // try {
+      //   const excelPath =
+      //       "C://Program Files (x86)/Microsoft Office/root/Office16/EXCEL.EXE";
+      //   print('process start');
+      //   Process.run(excelPath, [path]).then((ProcessResult results) {
+      //     print(results.stdout);
+      //   });
+      // } catch (e) {
+      //   print(e);
+      // }
+    }
+  }
+
+  Future<void> generateSalesStatementByHSNCode(
+    DateTime startDate,
+    DateTime endDate,
+    CategoryModel categoryModel,
+  ) async {
+    final bills = salesDB
+        .getBillByDateAndCustomer(
+          startDate,
+          endDate,
+          categoryModel.id,
+        )
         .reversed
         .toList();
     final excel = Excel.createExcel();

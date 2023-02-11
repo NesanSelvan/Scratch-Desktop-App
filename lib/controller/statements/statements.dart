@@ -13,6 +13,7 @@ class StatementController extends GetxController {
   DateTime _startDate = DateTimeUtility.getBillStartDate();
   DateTime _endDate = DateTimeUtility.getBillEndDate();
   bool isAllCustomer = true;
+  bool isAllHSNCode = true;
   bool isAllCompany = true;
   StatementType statementType = StatementType.Excel;
 
@@ -24,6 +25,11 @@ class StatementController extends GetxController {
   CustomerModel? _selectedCustomer;
   CustomerModel? get selectedCustomer => _selectedCustomer;
 
+  List<CategoryModel> _allCategory = [];
+  List<CategoryModel> get allCategory => _allCategory;
+  CategoryModel? _selectedCategory;
+  CategoryModel? get selectedCategory => _selectedCategory;
+
   List<CompanyModel> _allCompanies = [];
   List<CompanyModel> get allCompanies => _allCompanies;
   CompanyModel? _selectedCompany;
@@ -31,6 +37,11 @@ class StatementController extends GetxController {
 
   set setSelectedCustomerModel(CustomerModel value) {
     _selectedCustomer = value;
+    update();
+  }
+
+  set setSelectedCategoryModel(CategoryModel value) {
+    _selectedCategory = value;
     update();
   }
 
@@ -44,6 +55,7 @@ class StatementController extends GetxController {
   void performInit() {
     debugPrint("Statement Init");
     getAllCustomers();
+    getAllCatories();
     getAllCompanies();
   }
 
@@ -58,6 +70,12 @@ class StatementController extends GetxController {
     update();
   }
 
+  set setAllCategory(List<CategoryModel> data) {
+    _allCategory = data;
+    _allCategory.sort((a, b) => a.hsnCode.compareTo(b.hsnCode));
+    update();
+  }
+
   set setAllCompanies(List<CompanyModel> data) {
     _allCompanies = data;
     _allCompanies.sort((a, b) => a.name.compareTo(b.name));
@@ -66,6 +84,10 @@ class StatementController extends GetxController {
 
   void getAllCustomers() {
     setAllCustomers = customerDB.getAllCustomer();
+  }
+
+  void getAllCatories() {
+    setAllCategory = categoryDB.getAllCategory();
   }
 
   void getAllCompanies() {
@@ -79,6 +101,11 @@ class StatementController extends GetxController {
 
   set setAllCustomerCheck(bool val) {
     isAllCustomer = val;
+    update();
+  }
+
+  set setAllHSNCode(bool val) {
+    isAllHSNCode = val;
     update();
   }
 
@@ -99,22 +126,24 @@ class StatementController extends GetxController {
     final excelSheetData = GenerateExcelSheetData();
     switch (statementEnum) {
       case StatementEnum.Sales:
-        if (isAllCustomer) {
-          await excelSheetData.generateSalesStatement(_startDate, _endDate);
-        } else {
-          if (_selectedCustomer != null) {
-            await excelSheetData.generateSalesStatementByCustomer(
-              _startDate,
-              _endDate,
-              _selectedCustomer!,
-            );
+        if (salesStatementBy == SalesStatementBy.customer) {
+          if (isAllCustomer) {
+            await excelSheetData.generateSalesStatement(_startDate, _endDate);
           } else {
-            CustomUtilies.customFailureSnackBar(
-              "Error",
-              "Please Select Customer",
-            );
+            if (_selectedCustomer != null) {
+              await excelSheetData.generateSalesStatementByCustomer(
+                _startDate,
+                _endDate,
+                _selectedCustomer!,
+              );
+            } else {
+              CustomUtilies.customFailureSnackBar(
+                "Error",
+                "Please Select Customer",
+              );
+            }
           }
-        }
+        } else {}
         break;
       case StatementEnum.Stock:
         await excelSheetData.generateStockStatement();
@@ -159,4 +188,16 @@ class StatementController extends GetxController {
         break;
     }
   }
+
+  SalesStatementBy _salesStatementBy = SalesStatementBy.customer;
+  SalesStatementBy get salesStatementBy => _salesStatementBy;
+  set salesStatementBy(SalesStatementBy value) {
+    _salesStatementBy = value;
+    update();
+  }
+}
+
+enum SalesStatementBy {
+  customer,
+  hsnCode,
 }

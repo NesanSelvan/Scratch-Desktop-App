@@ -66,7 +66,6 @@ class CustomTypeAhead<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final suggesstionBoxController = SuggestionsBoxController();
-    Object redrawObject = Object();
 
     return GestureDetector(
       onTap: onTap,
@@ -111,7 +110,6 @@ class CustomTypeAhead<T> extends StatelessWidget {
                 ? () {
                     onArrowDown!();
                     debugPrint("Selected Type : $selectedModel");
-                    redrawObject = Object();
                   }
                 : () {},
             onArrowUp: onArrowUp ?? () {},
@@ -125,7 +123,6 @@ class CustomTypeAhead<T> extends StatelessWidget {
               }
             },
             child: TypeAheadField<T>(
-              // key: ValueKey<Object>(redrawObject),
               textFieldConfiguration: TextFieldConfiguration(
                 focusNode: focusNode,
                 autofocus: autofocus ?? false,

@@ -11,7 +11,9 @@ import 'package:validators/validators.dart';
 // ignore: avoid_classes_with_only_static_members
 class SalesCalculation {
   static double getSalesRateByCustomer(
-      SalesProductModel productModel, CustomerModel? customerModel) {
+    SalesProductModel productModel,
+    CustomerModel? customerModel,
+  ) {
     if (customerModel == null) {
       return 0;
     }
@@ -30,7 +32,9 @@ class SalesCalculation {
   }
 
   static double getSalesPrice(
-      SalesProductModel productModel, CustomerModel? customerModel) {
+    SalesProductModel productModel,
+    CustomerModel? customerModel,
+  ) {
     return (productModel.qty ?? 0) * (productModel.rate ?? 0);
     if (productModel.rate == null) {
       if (customerModel == null) {
@@ -49,7 +53,7 @@ class SalesCalculation {
     for (final item in billModel.productList!) {
       final amount = getAmount(item, billModel.customerModel);
       final sameHSNCodeTaxCal = taxCalList
-          .where((element) => element.tax == item.categoryModel?.tax)
+          .where((element) => element.hsnCode == item.categoryModel?.hsnCode)
           .toList();
       if (sameHSNCodeTaxCal.isEmpty) {
         final taxCalModel = TaxCalModel(
@@ -90,7 +94,9 @@ class SalesCalculation {
   }
 
   static double getTaxThermalBillRate(
-      SalesProductModel salesProductModel, BillModel billModel) {
+    SalesProductModel salesProductModel,
+    BillModel billModel,
+  ) {
     final amount = getAmount(salesProductModel, billModel.customerModel);
     debugPrint("Amount : $amount");
 

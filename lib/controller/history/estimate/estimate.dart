@@ -1,13 +1,12 @@
+import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/printer/printer.dart';
 import 'package:annai_store/models/estimate/estimate.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../../enum/printer/printer.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../billing/sales/sales.dart';
 
 class EstimateHistoryNotifier extends GetxController {
   // final estimateDB = Database().estimateDB;
@@ -37,8 +36,10 @@ class EstimateHistoryNotifier extends GetxController {
     update();
   }
 
-  Future addAndUpdateEstimate(EstimateModel estimate,
-      SalesBillingController salesBillingController) async {
+  Future addAndUpdateEstimate(
+    EstimateModel estimate,
+    SalesBillingController salesBillingController,
+  ) async {
     if (estimate.billId == null || estimate.billId == "") {
       final billId = const Uuid().v4();
       await salesBillingController.addBillToDB(
@@ -274,5 +275,13 @@ class EstimateHistoryNotifier extends GetxController {
     final data = await PDFGenerator.generateThermalBillForEstimate(billModel);
     PDFGenerator.openPdf(data);
     debugPrint(data);
+  }
+
+  Future<void> updateDateOfPurchaseBill(
+    DateTime date,
+    EstimateModel purchaseModel,
+  ) async {
+    await estimateDB.updateEstimate(purchaseModel.copyWith(dateTime: date));
+    performInit();
   }
 }

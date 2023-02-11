@@ -285,10 +285,35 @@ class _QuotationHistoryState extends State<QuotationHistory> {
               : Colors.white,
           child: Row(
             children: [
-              CustomTableElement(
-                width: CustomScreenUtility(context).width /
-                    QuotationHistoryEnum.values.length,
-                text: Utility.onlyDate(billModel.dateTime),
+              InkWell(
+                onTap: () async {
+                  print("Hello");
+                  final dateTime = await showDatePickerDialog(
+                    context,
+                    initialDate: billModel.dateTime,
+                    firstDate: DateTime.now().subtract(
+                      const Duration(
+                        days: 365 * 5,
+                      ),
+                    ),
+                    lastDate: DateTime.now().add(
+                      const Duration(
+                        days: 365 * 5,
+                      ),
+                    ),
+                  );
+                  if (dateTime != null) {
+                    quotationHistoryNotifier.updateDateOfPurchaseBill(
+                      dateTime,
+                      billModel,
+                    );
+                  }
+                },
+                child: CustomTableElement(
+                  width: CustomScreenUtility(context).width /
+                      QuotationHistoryEnum.values.length,
+                  text: Utility.onlyDate(billModel.dateTime),
+                ),
               ),
               CustomTableElement(
                 width: CustomScreenUtility(context).width /

@@ -13,6 +13,7 @@ import 'package:annai_store/enum/billing.dart';
 import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/enum/person/person.dart';
 import 'package:annai_store/enum/statement.dart';
+import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/screens/add/product/sub/sub_product.dart';
@@ -115,86 +116,203 @@ class Utility {
               builder: (controller) {
                 return Column(
                   children: [
+                    DropdownButton<SalesStatementBy>(
+                      value: controller.salesStatementBy,
+                      items: SalesStatementBy.values
+                          .map(
+                            (e) => DropdownMenuItem<SalesStatementBy>(
+                              value: e,
+                              child: CustomText(e.name),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (val) {
+                        if (val != null) {
+                          controller.salesStatementBy = val;
+                        }
+                      },
+                    ),
                     if (StatementEnum.Sales == statementEnum)
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const CustomText(
-                            "Select Customer",
-                            fontWeight: FontWeight.bold,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  controller.setAllCustomerCheck =
-                                      !controller.isAllCustomer;
-                                },
-                                child: Row(
+                          if (controller.salesStatementBy ==
+                              SalesStatementBy.customer)
+                            Column(
+                              children: [
+                                const CustomText(
+                                  "Select Customer",
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
-                                    Checkbox(
-                                      value: controller.isAllCustomer,
-                                      onChanged: (bool? val) {
+                                    InkWell(
+                                      onTap: () {
                                         controller.setAllCustomerCheck =
-                                            val ?? false;
+                                            !controller.isAllCustomer;
                                       },
+                                      child: Row(
+                                        children: [
+                                          Checkbox(
+                                            value: controller.isAllCustomer,
+                                            onChanged: (bool? val) {
+                                              controller.setAllCustomerCheck =
+                                                  val ?? false;
+                                            },
+                                          ),
+                                          const CustomText(
+                                            "All Customer",
+                                            size: 12,
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                    const CustomText(
-                                      "All Customer",
-                                      size: 12,
-                                    )
+                                    if (controller.isAllCustomer)
+                                      Container()
+                                    else
+                                      DropdownButton<CustomerModel>(
+                                        value: controller.selectedCustomer,
+                                        onChanged: (CustomerModel? data) {
+                                          if (data != null) {
+                                            controller
+                                                    .setSelectedCustomerModel =
+                                                data;
+                                          }
+                                        },
+                                        hint: const CustomText(
+                                          "Select a Customer",
+                                        ),
+                                        items: controller.allCustomers
+                                            .map(
+                                              (e) => DropdownMenuItem<
+                                                  CustomerModel>(
+                                                value: e,
+                                                onTap: () {},
+                                                child: CustomText(e.name),
+                                              ),
+                                            )
+                                            .toList(),
+                                      )
                                   ],
                                 ),
-                              ),
-                              if (controller.isAllCustomer)
-                                Container()
-                              else
-                                DropdownButton<CustomerModel>(
-                                  value: controller.selectedCustomer,
-                                  onChanged: (CustomerModel? data) {
-                                    if (data != null) {
-                                      controller.setSelectedCustomerModel =
-                                          data;
-                                    }
-                                  },
-                                  hint: const CustomText(
-                                    "Select a Customer",
+                                if (!controller.isAllCustomer)
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text("Select Statement Type"),
+                                      DropdownButton<StatementType>(
+                                        value: controller.statementType,
+                                        items: StatementType.values
+                                            .map(
+                                              (e) => DropdownMenuItem<
+                                                  StatementType>(
+                                                value: e,
+                                                child: Text(e.name),
+                                              ),
+                                            )
+                                            .toList(),
+                                        onChanged: (val) {
+                                          if (val != null) {
+                                            controller.statementType = val;
+                                          }
+                                          controller.update();
+                                        },
+                                      ),
+                                    ],
                                   ),
-                                  items: controller.allCustomers
-                                      .map(
-                                        (e) => DropdownMenuItem<CustomerModel>(
-                                          value: e,
-                                          onTap: () {},
-                                          child: CustomText(e.name),
-                                        ),
-                                      )
-                                      .toList(),
-                                )
-                            ],
-                          ),
-                          if (!controller.isAllCustomer)
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              ],
+                            )
+                          else
+                            Column(
                               children: [
-                                const Text("Select Statement Type"),
-                                DropdownButton<StatementType>(
-                                  value: controller.statementType,
-                                  items: StatementType.values
-                                      .map(
-                                        (e) => DropdownMenuItem<StatementType>(
-                                          value: e,
-                                          child: Text(e.name),
-                                        ),
-                                      )
-                                      .toList(),
-                                  onChanged: (val) {
-                                    if (val != null) {
-                                      controller.statementType = val;
-                                    }
-                                    controller.update();
-                                  },
+                                const CustomText(
+                                  "Select HSN Code",
+                                  fontWeight: FontWeight.bold,
                                 ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        controller.setAllHSNCode =
+                                            !controller.isAllHSNCode;
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Checkbox(
+                                            value: controller.isAllHSNCode,
+                                            onChanged: (bool? val) {
+                                              controller.setAllHSNCode =
+                                                  val ?? false;
+                                            },
+                                          ),
+                                          const CustomText(
+                                            "All HSN Code",
+                                            size: 12,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    if (controller.isAllHSNCode)
+                                      Container()
+                                    else
+                                      DropdownButton<CategoryModel>(
+                                        value: controller.selectedCategory,
+                                        onChanged: (CategoryModel? data) {
+                                          if (data != null) {
+                                            controller
+                                                    .setSelectedCategoryModel =
+                                                data;
+                                          }
+                                        },
+                                        hint: const CustomText(
+                                          "Select a HSN Code",
+                                        ),
+                                        items: controller.allCategory
+                                            .map(
+                                              (e) => DropdownMenuItem<
+                                                  CategoryModel>(
+                                                value: e,
+                                                onTap: () {},
+                                                child: CustomText(
+                                                  "${e.category} (${e.hsnCode})",
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                      )
+                                  ],
+                                ),
+                                if (!controller.isAllHSNCode)
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text("Select Statement Type"),
+                                      DropdownButton<StatementType>(
+                                        value: controller.statementType,
+                                        items: StatementType.values
+                                            .map(
+                                              (e) => DropdownMenuItem<
+                                                  StatementType>(
+                                                value: e,
+                                                child: Text(e.name),
+                                              ),
+                                            )
+                                            .toList(),
+                                        onChanged: (val) {
+                                          if (val != null) {
+                                            controller.statementType = val;
+                                          }
+                                          controller.update();
+                                        },
+                                      ),
+                                    ],
+                                  )
                               ],
                             )
                         ],
@@ -318,10 +436,12 @@ class Utility {
                         if (controller.statementType == StatementType.Excel) {
                           generateStatement();
                         } else {
-                          if (controller.selectedCustomer != null) {
+                          if (controller.selectedCustomer != null &&
+                              controller.selectedCategory != null) {
                             final data =
                                 await PDFGenerator.generateStatementByCustomer(
                               controller.selectedCustomer!,
+                              controller.selectedCategory!,
                               controller.startDate,
                               controller.endDate,
                             );

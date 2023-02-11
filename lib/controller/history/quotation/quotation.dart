@@ -1,10 +1,9 @@
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/models/quotations/quotations.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
-import '../../../utils/pdf/pdf.dart';
-import '../../billing/sales/sales.dart';
-import '../../home/home.dart';
 
 class QuotationHistoryNotifier extends GetxController {
   // final quotationDB = Database().quotationDB;
@@ -89,7 +88,9 @@ class QuotationHistoryNotifier extends GetxController {
   }
 
   Future<void> viewQuotation(
-      QuotationModel quotationModel, HomeController homeController) async {
+    QuotationModel quotationModel,
+    HomeController homeController,
+  ) async {
     final data = await PDFGenerator.generateQuotation(quotationModel);
     PDFGenerator.openPdf(data);
     // homeController.setCurrentSelectedWidget(PdfViewer(filePath: data));
@@ -97,9 +98,19 @@ class QuotationHistoryNotifier extends GetxController {
   }
 
   Future<void> viewThermal(
-      QuotationModel billModel, HomeController homeController) async {
+    QuotationModel billModel,
+    HomeController homeController,
+  ) async {
     final data = await PDFGenerator.generateThermalBillForQuotation(billModel);
     PDFGenerator.openPdf(data);
     debugPrint(data);
+  }
+
+  Future<void> updateDateOfPurchaseBill(
+    DateTime date,
+    QuotationModel purchaseModel,
+  ) async {
+    await quotationDB.updateQuotation(purchaseModel.copyWith(dateTime: date));
+    performInit();
   }
 }
