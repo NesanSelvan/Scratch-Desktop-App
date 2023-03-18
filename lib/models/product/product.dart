@@ -1,6 +1,5 @@
+import 'package:annai_store/models/price/price.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../price/price.dart';
 
 part 'product.freezed.dart';
 part 'product.g.dart';

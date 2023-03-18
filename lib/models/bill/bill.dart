@@ -1,7 +1,6 @@
+import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/models/sales/product/sales_product.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../customer/customer.dart';
-import '../sales/product/sales_product.dart';
 
 part 'bill.freezed.dart';
 part 'bill.g.dart';
@@ -9,27 +8,28 @@ part 'bill.g.dart';
 @freezed
 abstract class BillModel with _$BillModel {
   @JsonSerializable(explicitToJson: true)
-  const factory BillModel(
-      {required String id,
-      required String billNo,
-      String? borrowId,
-      required CustomerModel customerModel,
-      @Default(0) double? givenAmount,
-      @Default(false) bool? isPaid,
-      @Default(true) bool? isTax,
-      @Default("") String? paidId,
-      required double price,
-      required List<SalesProductModel>? productList,
-      required DateTime dateTime,
-      @Default(0) double? discount,
-      @Default("") String? note,
-      @Default("") String? supplierRef,
-      @Default("") String? buyerOrderNo,
-      DateTime? buyerOrderDate,
-      @Default("") String? dispatchDocumentNo,
-      @Default("") String? dispatchThrough,
-      @Default("") String? destination,
-      @Default(false) bool? isA4Printed}) = _BillModel;
+  const factory BillModel({
+    required String id,
+    required String billNo,
+    String? borrowId,
+    required CustomerModel customerModel,
+    @Default(0) double? givenAmount,
+    @Default(false) bool? isPaid,
+    @Default(true) bool? isTax,
+    @Default("") String? paidId,
+    required double price,
+    required List<SalesProductModel>? productList,
+    required DateTime dateTime,
+    @Default(0) double? discount,
+    @Default("") String? note,
+    @Default("") String? supplierRef,
+    @Default("") String? buyerOrderNo,
+    DateTime? buyerOrderDate,
+    @Default("") String? dispatchDocumentNo,
+    @Default("") String? dispatchThrough,
+    @Default("") String? destination,
+    @Default(false) bool? isA4Printed,
+  }) = _BillModel;
   factory BillModel.fromJson(Map<String, dynamic> json) =>
       _$BillModelFromJson(json);
 }

@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
+import 'dart:developer';
+
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/controller/billing/sales/sales_one.dart';
 import 'package:annai_store/controller/home/home.dart';
@@ -69,6 +71,7 @@ class _SalesScreen1State extends State<SalesScreen1> {
 
   final rateNode = FocusNode();
   final FocusNode _focusNodeCustomer1 = FocusNode();
+  final List<String> someData = ["ASD", "DSA", "Aset", "Test", "Zasd"];
 
   void addBillToSalesList() {
     if (salesBillingOneController.selectedProductModel == null) {
@@ -87,7 +90,8 @@ class _SalesScreen1State extends State<SalesScreen1> {
                 element.name.toLowerCase().trim() == "Dont know".toLowerCase(),
           )
           .toList()[0];
-      final rate = double.parse(salesBillingOneController.rateController.text);
+      final rate =
+          double.tryParse(salesBillingOneController.rateController.text) ?? 0;
       final product = ProductModel(
         differentPriceList: [],
         id: const Uuid().v4(),
@@ -262,12 +266,18 @@ class _SalesScreen1State extends State<SalesScreen1> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    receiptController.performInit();
-    final node = FocusScope.of(context);
+  void initState() {
+    super.initState();
+
     salesBillingOneController.onInit();
     salesBillingOneController.getAllProducts();
     salesBillingOneController.getAllCustomers();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // receiptController.performInit();
+    final node = FocusScope.of(context);
     return GetBuilder<SalesBillingOneController>(
       builder: (controller) {
         return Container(
@@ -315,7 +325,17 @@ class _SalesScreen1State extends State<SalesScreen1> {
                               child: CustomTextField(
                                 controller: controller.invoiceNumberController,
                                 label: "Invoice No",
-                                onEditingComplete: () {},
+                                onChange: (val) {
+                                  // controller.invoiceNumberController.text = val;
+                                  print(
+                                    "onChange controller.invoiceNumberController: ${controller.invoiceNumberController.text}",
+                                  );
+                                },
+                                onEditingComplete: () {
+                                  print(
+                                    "controller.invoiceNumberController: ${controller.invoiceNumberController.text}",
+                                  );
+                                },
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -472,7 +492,6 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                   salesBillingController
                                       .updateCurrentSalesWidgetToNext();
                                 },
-                                onEnter: () {},
                                 focusNode: unitNode,
                                 onEditingComplete: () {
                                   if (salesBillingOneController
@@ -490,10 +509,10 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                 modelList: Database().getAllUnits(),
                                 model: NullCheckUtilities.getDummyUnit(),
                                 onSuggestionSelected: (suggestion) {
+                                  log('Selected $suggestion');
                                   controller.setUnitModel = suggestion;
                                   salesBillingOneController.productController
                                       .text = suggestion.symbol ?? "";
-                                  debugPrint('Selected $suggestion');
                                   controller.priceNode.requestFocus();
                                   // Navigator.of(context).push(MaterialPageRoute(
                                   //   builder: (context) => ProductPage(product: suggestion)
@@ -868,11 +887,33 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                   modelList: controller.customersList ?? [],
                                   model: NullCheckUtilities.getDummyCustomer(),
                                   onSuggestionSelected: (suggestion) {
+                                    log("suggestion: ${suggestion.name}");
                                     controller.selectedCustomerModel =
                                         suggestion;
                                     controller.customerController.text =
                                         suggestion.name;
-                                    // node.nextFocus();
+                                    if (salesBillingOneController
+                                            .selectedCustomerModel !=
+                                        null) {
+                                      debugPrint(
+                                        'Selected Customer :P ${salesBillingOneController.selectedCustomerModel}',
+                                      );
+                                      salesBillingOneController
+                                              .customerController.text =
+                                          salesBillingOneController
+                                              .selectedCustomerModel!.name;
+                                      salesBillingOneController
+                                          .productController
+                                          .clear();
+                                      controller.productNode.requestFocus();
+                                    } else {
+                                      CustomUtilies.customFailureSnackBar(
+                                        "Please Enter the Customer First",
+                                        "Error",
+                                      );
+                                      controller.customerFocusNode
+                                          .requestFocus();
+                                    }
                                   },
                                 ),
                               ),
@@ -1095,8 +1136,16 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                       debugPrint(
                                         'Suggestion Selected ${suggestion.billNo}',
                                       );
-                                      return ListTile(
-                                        title: Text(suggestion.billNo),
+                                      return GestureDetector(
+                                        onPanDown: (details) {
+                                          rc.setSelectedBillModel = suggestion;
+                                          rc.salesBillNoController.text =
+                                              suggestion.billNo;
+                                          onBillNoControllerEditingComplete();
+                                        },
+                                        child: ListTile(
+                                          title: Text(suggestion.billNo),
+                                        ),
                                       );
                                     },
                                     onSuggestionSelected: (suggestion) {
@@ -1187,12 +1236,33 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                       debugPrint(
                                         'Suggestion Selected ${suggestion.name}',
                                       );
-                                      return ListTile(
-                                        tileColor: rc.selectedCustomerModel ==
-                                                suggestion
-                                            ? Colors.grey[300]
-                                            : Colors.white,
-                                        title: Text(suggestion.name),
+                                      return GestureDetector(
+                                        onPanDown: (panDetails) {
+                                          rc.selectedCustomerModel = suggestion;
+                                          rc.customerController.text =
+                                              suggestion.name;
+                                          final pendingAmount =
+                                              ReportCalculations
+                                                  .getStartBalance(
+                                            DateTime(DateTime.now().year, 4),
+                                            suggestion.id,
+                                          );
+                                          onCustomerControllerComplete();
+                                          print(
+                                            "pendingAmount: $pendingAmount",
+                                          );
+                                          rc.pendingAmountController.text =
+                                              pendingAmount.toStringAsFixed(2);
+                                          debugPrint('Selected $suggestion');
+                                          // node.nextFocus();
+                                        },
+                                        child: ListTile(
+                                          tileColor: rc.selectedCustomerModel ==
+                                                  suggestion
+                                              ? Colors.grey[300]
+                                              : Colors.white,
+                                          title: Text(suggestion.name),
+                                        ),
                                       );
                                     },
                                     onSuggestionSelected: (suggestion) {

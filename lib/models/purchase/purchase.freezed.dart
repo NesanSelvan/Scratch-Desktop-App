@@ -30,6 +30,7 @@ class _$PurchaseModelTearOff {
       required double? lorryFright,
       required double? lorryFrightTax,
       required double? lorryFrightTotal,
+      required double? overallDiscount,
       required List<PurchaseProductModel> productList,
       List<String> paymentsIdList = const [],
       bool isTax = true,
@@ -48,6 +49,7 @@ class _$PurchaseModelTearOff {
       lorryFright: lorryFright,
       lorryFrightTax: lorryFrightTax,
       lorryFrightTotal: lorryFrightTotal,
+      overallDiscount: overallDiscount,
       productList: productList,
       paymentsIdList: paymentsIdList,
       isTax: isTax,
@@ -78,6 +80,7 @@ mixin _$PurchaseModel {
   double? get lorryFright => throw _privateConstructorUsedError;
   double? get lorryFrightTax => throw _privateConstructorUsedError;
   double? get lorryFrightTotal => throw _privateConstructorUsedError;
+  double? get overallDiscount => throw _privateConstructorUsedError;
   List<PurchaseProductModel> get productList =>
       throw _privateConstructorUsedError;
   List<String> get paymentsIdList => throw _privateConstructorUsedError;
@@ -109,6 +112,7 @@ abstract class $PurchaseModelCopyWith<$Res> {
       double? lorryFright,
       double? lorryFrightTax,
       double? lorryFrightTotal,
+      double? overallDiscount,
       List<PurchaseProductModel> productList,
       List<String> paymentsIdList,
       bool isTax,
@@ -141,6 +145,7 @@ class _$PurchaseModelCopyWithImpl<$Res>
     Object? lorryFright = freezed,
     Object? lorryFrightTax = freezed,
     Object? lorryFrightTotal = freezed,
+    Object? overallDiscount = freezed,
     Object? productList = freezed,
     Object? paymentsIdList = freezed,
     Object? isTax = freezed,
@@ -180,6 +185,10 @@ class _$PurchaseModelCopyWithImpl<$Res>
       lorryFrightTotal: lorryFrightTotal == freezed
           ? _value.lorryFrightTotal
           : lorryFrightTotal // ignore: cast_nullable_to_non_nullable
+              as double?,
+      overallDiscount: overallDiscount == freezed
+          ? _value.overallDiscount
+          : overallDiscount // ignore: cast_nullable_to_non_nullable
               as double?,
       productList: productList == freezed
           ? _value.productList
@@ -247,6 +256,7 @@ abstract class _$PurchaseModelCopyWith<$Res>
       double? lorryFright,
       double? lorryFrightTax,
       double? lorryFrightTotal,
+      double? overallDiscount,
       List<PurchaseProductModel> productList,
       List<String> paymentsIdList,
       bool isTax,
@@ -282,6 +292,7 @@ class __$PurchaseModelCopyWithImpl<$Res>
     Object? lorryFright = freezed,
     Object? lorryFrightTax = freezed,
     Object? lorryFrightTotal = freezed,
+    Object? overallDiscount = freezed,
     Object? productList = freezed,
     Object? paymentsIdList = freezed,
     Object? isTax = freezed,
@@ -321,6 +332,10 @@ class __$PurchaseModelCopyWithImpl<$Res>
       lorryFrightTotal: lorryFrightTotal == freezed
           ? _value.lorryFrightTotal
           : lorryFrightTotal // ignore: cast_nullable_to_non_nullable
+              as double?,
+      overallDiscount: overallDiscount == freezed
+          ? _value.overallDiscount
+          : overallDiscount // ignore: cast_nullable_to_non_nullable
               as double?,
       productList: productList == freezed
           ? _value.productList
@@ -378,6 +393,7 @@ class _$_PurchaseModel implements _PurchaseModel {
       required this.lorryFright,
       required this.lorryFrightTax,
       required this.lorryFrightTotal,
+      required this.overallDiscount,
       required this.productList,
       this.paymentsIdList = const [],
       this.isTax = true,
@@ -407,6 +423,8 @@ class _$_PurchaseModel implements _PurchaseModel {
   @override
   final double? lorryFrightTotal;
   @override
+  final double? overallDiscount;
+  @override
   final List<PurchaseProductModel> productList;
   @JsonKey()
   @override
@@ -431,7 +449,7 @@ class _$_PurchaseModel implements _PurchaseModel {
 
   @override
   String toString() {
-    return 'PurchaseModel(id: $id, billNo: $billNo, companyModel: $companyModel, isNormalPurchaseBill: $isNormalPurchaseBill, lorryFright: $lorryFright, lorryFrightTax: $lorryFrightTax, lorryFrightTotal: $lorryFrightTotal, productList: $productList, paymentsIdList: $paymentsIdList, isTax: $isTax, grandTotal: $grandTotal, forwardingSales: $forwardingSales, dateTime: $dateTime, note: $note, imagesPathList: $imagesPathList, tcsSales: $tcsSales, createdAt: $createdAt)';
+    return 'PurchaseModel(id: $id, billNo: $billNo, companyModel: $companyModel, isNormalPurchaseBill: $isNormalPurchaseBill, lorryFright: $lorryFright, lorryFrightTax: $lorryFrightTax, lorryFrightTotal: $lorryFrightTotal, overallDiscount: $overallDiscount, productList: $productList, paymentsIdList: $paymentsIdList, isTax: $isTax, grandTotal: $grandTotal, forwardingSales: $forwardingSales, dateTime: $dateTime, note: $note, imagesPathList: $imagesPathList, tcsSales: $tcsSales, createdAt: $createdAt)';
   }
 
   @override
@@ -451,6 +469,8 @@ class _$_PurchaseModel implements _PurchaseModel {
                 .equals(other.lorryFrightTax, lorryFrightTax) &&
             const DeepCollectionEquality()
                 .equals(other.lorryFrightTotal, lorryFrightTotal) &&
+            const DeepCollectionEquality()
+                .equals(other.overallDiscount, overallDiscount) &&
             const DeepCollectionEquality()
                 .equals(other.productList, productList) &&
             const DeepCollectionEquality()
@@ -478,6 +498,7 @@ class _$_PurchaseModel implements _PurchaseModel {
       const DeepCollectionEquality().hash(lorryFright),
       const DeepCollectionEquality().hash(lorryFrightTax),
       const DeepCollectionEquality().hash(lorryFrightTotal),
+      const DeepCollectionEquality().hash(overallDiscount),
       const DeepCollectionEquality().hash(productList),
       const DeepCollectionEquality().hash(paymentsIdList),
       const DeepCollectionEquality().hash(isTax),
@@ -509,6 +530,7 @@ abstract class _PurchaseModel implements PurchaseModel {
       required double? lorryFright,
       required double? lorryFrightTax,
       required double? lorryFrightTotal,
+      required double? overallDiscount,
       required List<PurchaseProductModel> productList,
       List<String> paymentsIdList,
       bool isTax,
@@ -537,6 +559,8 @@ abstract class _PurchaseModel implements PurchaseModel {
   double? get lorryFrightTax;
   @override
   double? get lorryFrightTotal;
+  @override
+  double? get overallDiscount;
   @override
   List<PurchaseProductModel> get productList;
   @override

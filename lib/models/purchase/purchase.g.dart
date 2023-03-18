@@ -16,6 +16,7 @@ _$_PurchaseModel _$$_PurchaseModelFromJson(Map<String, dynamic> json) =>
       lorryFright: (json['lorryFright'] as num?)?.toDouble(),
       lorryFrightTax: (json['lorryFrightTax'] as num?)?.toDouble(),
       lorryFrightTotal: (json['lorryFrightTotal'] as num?)?.toDouble(),
+      overallDiscount: (json['overallDiscount'] as num?)?.toDouble(),
       productList: (json['productList'] as List<dynamic>)
           .map((e) => PurchaseProductModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -44,6 +45,7 @@ Map<String, dynamic> _$$_PurchaseModelToJson(_$_PurchaseModel instance) =>
       'lorryFright': instance.lorryFright,
       'lorryFrightTax': instance.lorryFrightTax,
       'lorryFrightTotal': instance.lorryFrightTotal,
+      'overallDiscount': instance.overallDiscount,
       'productList': instance.productList.map((e) => e.toJson()).toList(),
       'paymentsIdList': instance.paymentsIdList,
       'isTax': instance.isTax,

@@ -36,20 +36,20 @@ class _LoginScreenState extends State<LoginScreen> {
         // _scaffoldKey.currentState!.showSnackBar(
         //     const SnackBar(content: CustomText("New update has been found")));
 
-        _scaffoldKey.currentState!.showSnackBar(
-          SnackBar(
-            duration: const Duration(seconds: 30),
-            content: CustomText("New version $version update has been found"),
-            backgroundColor: Colors.green[400],
-            action: SnackBarAction(
-              label: "View",
-              onPressed: () async {
-                await Utility().showUpdateDialog(context, loginController);
-              },
-              textColor: Colors.white,
-            ),
-          ),
-        );
+        //   _scaffoldKey.currentState!.showSnackBar(
+        //     SnackBar(
+        //       duration: const Duration(seconds: 30),
+        //       content: CustomText("New version $version update has been found"),
+        //       backgroundColor: Colors.green[400],
+        //       action: SnackBarAction(
+        //         label: "View",
+        //         onPressed: () async {
+        //           await Utility().showUpdateDialog(context, loginController);
+        //         },
+        //         textColor: Colors.white,
+        //       ),
+        //     ),
+        //   );
       }
     } catch (e) {
       CustomUtilies.customFailureSnackBar("Error", "$e");

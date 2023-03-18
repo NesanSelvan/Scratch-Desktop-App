@@ -16,6 +16,7 @@ class PurchaseModel with _$PurchaseModel {
     required double? lorryFright,
     required double? lorryFrightTax,
     required double? lorryFrightTotal,
+    required double? overallDiscount,
     required List<PurchaseProductModel> productList,
     @Default([]) List<String> paymentsIdList,
     @Default(true) bool isTax,

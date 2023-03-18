@@ -326,7 +326,7 @@ class _$_CustomerModel implements _CustomerModel {
 
   @override
   String toString() {
-    return 'CustomerModel(id: $id, name: $name, email: $email, address: $address, pincode: $pincode, state: $state, type: $type, isPending: $isPending, mobileNo: $mobileNo, gstin: $gstin, pendingAmount: $pendingAmount, createdAt: $createdAt)';
+    return '$name';
   }
 
   @override

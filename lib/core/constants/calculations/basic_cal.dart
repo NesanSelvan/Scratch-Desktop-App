@@ -3,7 +3,10 @@ import 'package:annai_store/models/product/product.dart';
 
 class BasicCalculation {
   double calculateAmountWithTax(
-      ProductModel productModel, CategoryModel categoryModel, double qty) {
+    ProductModel productModel,
+    CategoryModel categoryModel,
+    double qty,
+  ) {
     final amount = qty * productModel.sellingPrice;
     return amount + (amount * (categoryModel.tax / 100));
   }

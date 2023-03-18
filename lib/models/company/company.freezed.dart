@@ -368,7 +368,7 @@ class _$_CompanyModel implements _CompanyModel {
 
   @override
   String toString() {
-    return 'CompanyModel(id: $id, name: $name, address: $address, companyNo: $companyNo, email: $email, website: $website, licNO: $licNO, placeOfDispatch: $placeOfDispatch, pan: $pan, mobileNoList: $mobileNoList, gstin: $gstin, bankId: $bankId, isNormalPurchaseBill: $isNormalPurchaseBill, createdAt: $createdAt)';
+    return '$name';
   }
 
   @override

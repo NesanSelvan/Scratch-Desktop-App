@@ -143,7 +143,25 @@ class StatementController extends GetxController {
               );
             }
           }
-        } else {}
+        } else {
+          // generateSalesByHSNCodeStatement
+          if (isAllHSNCode) {
+            await excelSheetData.generateSalesStatement(_startDate, _endDate);
+          } else {
+            if (_selectedCategory != null) {
+              await excelSheetData.generateSalesByHSNCodeStatement(
+                _startDate,
+                _endDate,
+                (_selectedCategory?.hsnCode ?? '').toString(),
+              );
+            } else {
+              CustomUtilies.customFailureSnackBar(
+                "Error",
+                "Please Select Customer",
+              );
+            }
+          }
+        }
         break;
       case StatementEnum.Stock:
         await excelSheetData.generateStockStatement();

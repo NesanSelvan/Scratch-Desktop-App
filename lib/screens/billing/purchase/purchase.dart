@@ -957,6 +957,32 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                           ],
                                         ),
                                       ),
+                                      Container(
+                                        width:
+                                            CustomScreenUtility(context).width *
+                                                0.2,
+                                        child: CustomKeyboard(
+                                          focusNode: controller
+                                              .overallDiscountKeyboardNode,
+                                          child: CustomTextField(
+                                            autofocus: true,
+                                            focusNode:
+                                                controller.overallDiscountNode,
+                                            controller: controller
+                                                .overallDiscountController,
+                                            label:
+                                                "Enter Overall Bill Discount",
+                                            onChange: (val) {
+                                              print(val);
+                                              controller.calculateGrandTotal();
+                                            },
+                                          ),
+                                          onEnter: () {},
+                                          onArrowUp: () {},
+                                          onArrowDown: () {},
+                                          onAdd: () {},
+                                        ),
+                                      ),
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,

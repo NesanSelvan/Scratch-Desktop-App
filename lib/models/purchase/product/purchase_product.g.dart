@@ -7,8 +7,7 @@ part of 'purchase_product.dart';
 // **************************************************************************
 
 _$_PurchaseProductModel _$$_PurchaseProductModelFromJson(
-  Map<String, dynamic> json,
-) =>
+        Map<String, dynamic> json) =>
     _$_PurchaseProductModel(
       id: json['id'] as String,
       categoryModel:
@@ -26,8 +25,7 @@ _$_PurchaseProductModel _$$_PurchaseProductModelFromJson(
     );
 
 Map<String, dynamic> _$$_PurchaseProductModelToJson(
-  _$_PurchaseProductModel instance,
-) =>
+        _$_PurchaseProductModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'categoryModel': instance.categoryModel.toJson(),

@@ -1,6 +1,7 @@
 import 'package:annai_store/controller/history/purchase/purchase.dart';
 import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/billing/sales.dart';
 import 'package:annai_store/enum/history/sales.dart';
 import 'package:annai_store/models/purchase/purchase.dart';
 import 'package:annai_store/screens/billing/sales/sales.dart';
@@ -309,15 +310,30 @@ class _PurchaseHistoryState extends State<PurchaseHistory> {
           children: [
             TableRow(
               children: [
-                const TableCell(child: CustomText("Product Name")),
-                const TableCell(child: CustomText("Category")),
-                const TableCell(child: CustomText("Rate")),
-                const TableCell(child: CustomText("Qty")),
-                const TableCell(child: CustomText("Price")),
-                if (!(billModel.isNormalPurchaseBill ?? true))
-                  const TableCell(child: CustomText("Lorry Fright")),
-                const TableCell(child: CustomText("Tax")),
-                const TableCell(child: CustomText("Total Amount")),
+                ...PurchaseBillingEnum.values
+                    .map(
+                      (e) => TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.bottom,
+                        child: CustomTableHeaderElement(
+                          width: CustomScreenUtility(context).width *
+                              0.8 /
+                              PurchaseBillingEnum.values.length,
+                          text: getStrofAddPurchaseBillingEnum(
+                            e,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList()
+                // const TableCell(child: CustomText("Product Name")),
+                // const TableCell(child: CustomText("Category")),
+                // const TableCell(child: CustomText("Rate")),
+                // const TableCell(child: CustomText("Qty")),
+                // const TableCell(child: CustomText("Price")),
+                // if (!(billModel.isNormalPurchaseBill ?? true))
+                //   const TableCell(child: CustomText("Lorry Fright")),
+                // const TableCell(child: CustomText("Tax")),
+                // const TableCell(child: CustomText("Total Amount")),
               ],
             ),
             ...billModel.productList
@@ -325,16 +341,128 @@ class _PurchaseHistoryState extends State<PurchaseHistory> {
                   (e) => TableRow(
                     children: [
                       TableCell(
-                        child: CustomText(e.productModel.productName),
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          width: CustomScreenUtility(context).width *
+                              0.8 /
+                              PurchaseBillingEnum.values.length,
+                          child: CustomText(
+                            (e.categoryModel.hsnCode ?? "").toString(),
+                          ),
+                        ),
                       ),
-                      TableCell(child: CustomText(e.categoryModel.category)),
-                      TableCell(child: CustomText("${e.rate}")),
-                      TableCell(child: CustomText("${e.qty}")),
-                      TableCell(child: CustomText("${e.amount}")),
-                      if (!(billModel.isNormalPurchaseBill ?? true))
-                        TableCell(child: CustomText("${e.lorryFright}")),
-                      TableCell(child: CustomText("${e.tax}")),
-                      TableCell(child: CustomText("${e.taxableValue}")),
+                      TableCell(
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          width: CustomScreenUtility(context).width *
+                              0.8 /
+                              PurchaseBillingEnum.values.length,
+                          child: CustomText(
+                            (e.productModel.productName).toString(),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          width: CustomScreenUtility(context).width *
+                              0.8 /
+                              PurchaseBillingEnum.values.length,
+                          child: CustomText(
+                            (e.qty).toString(),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          width: CustomScreenUtility(context).width *
+                              0.8 /
+                              PurchaseBillingEnum.values.length,
+                          child: CustomText(
+                            (e.rate).toStringAsFixed(2),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          width: CustomScreenUtility(context).width *
+                              0.8 /
+                              PurchaseBillingEnum.values.length,
+                          child: CustomText(
+                            (e.amount).toStringAsFixed(2),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          width: CustomScreenUtility(context).width *
+                              0.8 /
+                              PurchaseBillingEnum.values.length,
+                          child: CustomText(
+                            (e.discount).toStringAsFixed(2),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          width: CustomScreenUtility(context).width *
+                              0.8 /
+                              PurchaseBillingEnum.values.length,
+                          child: CustomText(
+                            (e.lorryFright).toStringAsFixed(2),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          width: CustomScreenUtility(context).width *
+                              0.8 /
+                              PurchaseBillingEnum.values.length,
+                          child: CustomText(
+                            (e.taxableValue).toStringAsFixed(2),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          width: CustomScreenUtility(context).width *
+                              0.8 /
+                              PurchaseBillingEnum.values.length,
+                          child: CustomText(
+                            (e.tax).toStringAsFixed(2),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          width: CustomScreenUtility(context).width *
+                              0.8 /
+                              PurchaseBillingEnum.values.length,
+                          child: CustomText(
+                            (e.totalAmount).toStringAsFixed(2),
+                          ),
+                        ),
+                      ),
+                      const TableCell(
+                        child: CustomText(
+                          '',
+                        ),
+                      ),
+                      // TableCell(child: CustomText(e.categoryModel.category)),
+                      // TableCell(child: CustomText("${e.rate}")),
+                      // TableCell(child: CustomText("${e.qty}")),
+                      // TableCell(child: CustomText("${e.amount}")),
+                      // if (!(billModel.isNormalPurchaseBill ?? true))
+                      //   TableCell(child: CustomText("${e.lorryFright}")),
+                      // TableCell(child: CustomText("${e.tax}")),
+                      // TableCell(child: CustomText("${e.taxableValue}")),
                     ],
                   ),
                 )
@@ -391,6 +519,20 @@ class _PurchaseHistoryState extends State<PurchaseHistory> {
         if (billModel.forwardingSales != null && billModel.forwardingSales != 0)
           Text("Forwarding Sales ${billModel.forwardingSales}"),
         const SizedBox(height: 20),
+        Text(
+          "Total ${billModel.grandTotal + (billModel.overallDiscount ?? 0)}",
+          style: const TextStyle(
+            fontWeight: FontWeight.w900,
+            fontSize: 20,
+          ),
+        ),
+        Text(
+          "Overal Discount ${billModel.overallDiscount ?? 0}",
+          style: const TextStyle(
+            fontWeight: FontWeight.w900,
+            fontSize: 20,
+          ),
+        ),
         Text(
           "Grand Total ${billModel.grandTotal}",
           style: const TextStyle(

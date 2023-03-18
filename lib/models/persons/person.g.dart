@@ -30,7 +30,7 @@ Map<String, dynamic> _$$_PersonModelToJson(_$_PersonModel instance) =>
       'address': instance.address,
       'pincode': instance.pincode,
       'state': instance.state,
-      'type': _$PersonEnumEnumMap[instance.type],
+      'type': _$PersonEnumEnumMap[instance.type]!,
       'mobileNo': instance.mobileNo,
       'createdAt': instance.createdAt?.toIso8601String(),
     };

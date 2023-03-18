@@ -1,15 +1,14 @@
+import 'package:annai_store/controller/history/sales/sales.dart';
+import 'package:annai_store/controller/server/server.dart';
+import 'package:annai_store/models/message.dart';
+import 'package:annai_store/services/api.dart';
+import 'package:annai_store/utils/file/file.dart';
+import 'package:annai_store/widgets/custom_button.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../controller/history/sales/sales.dart';
-import '../../controller/server/server.dart';
-import '../../models/message.dart';
-import '../../services/api.dart';
-import '../../utils/file/file.dart';
-import '../../widgets/custom_button.dart';
-import '../../widgets/text_field.dart';
 
 class ServerPage extends StatefulWidget {
   @override
@@ -84,7 +83,7 @@ class _ServerPageState extends State<ServerPage> {
                             const SizedBox(
                               height: 15,
                             ),
-                            RaisedButton(
+                            ElevatedButton(
                               onPressed: controller.startServer,
                               child: Text(
                                 controller.server!.running

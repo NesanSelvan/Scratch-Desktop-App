@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:annai_store/controller/auth/login.dart';
@@ -535,7 +536,7 @@ class Utility {
                                 },
                                 selectedModel: controller.selectedCustomer,
                                 controller: controller.customerController,
-                                modelList: controller.allCustomers ?? [],
+                                modelList: controller.allCustomers,
                                 model: NullCheckUtilities.getDummyCustomer(),
                                 onSuggestionSelected: (suggestion) {
                                   controller.setSelectedCustomerModel =
@@ -1070,17 +1071,17 @@ class Utility {
     LoginController loginController,
   ) async {
     final strData = await Utility().checkCurrentVersion();
-    debugPrint(strData);
+    log(strData);
     final jsonData = jsonDecode(strData) as Map<String, dynamic>;
 
-    debugPrint("JsonData : $jsonData");
+    log("JsonData : $jsonData");
     final version = jsonData['version'] ?? "";
     final description = jsonData['description']
         ?.toString()
         .replaceAll("[", "")
         .replaceAll("]", "")
         .split(",");
-    debugPrint("Description: $description");
+    log("Description: $description");
     return showDialog(
       context: context,
       builder: (context) {

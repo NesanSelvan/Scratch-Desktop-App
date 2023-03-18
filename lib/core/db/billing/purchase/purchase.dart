@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/core/db/db.dart';
@@ -42,7 +44,7 @@ class PurchaseDB {
         datas.add(PurchaseModel.fromJson(item as Map<String, dynamic>));
       }
     }
-    return datas;
+    return datas.reversed.toList();
   }
 
   List<PurchaseModel> getPurchaseBillByCompanyId(String companyId) {
@@ -95,13 +97,6 @@ class PurchaseDB {
     debugPrint("This Purchase Details : $purchaseModel");
     try {
       final purchaseModelList = getAllPurchase();
-      // final matchedPurchase = purchaseModelList
-      //     .where((element) => element.quotationNo == purchaseModel.quotationNo)
-      //     .toList();
-      // if (matchedPurchase.isNotEmpty) {
-      //   throw Failure(
-      //       "Purchase with same Purchase No ${purchaseModel.quotationNo} Already Exists !");
-      // }
       final datas = [...purchaseModelList, purchaseModel];
       await updatePurchaseToDB(datas);
     } catch (e) {
@@ -112,7 +107,7 @@ class PurchaseDB {
 
   Future<void> updatePurchaseToDB(List<PurchaseModel> purchaseModelList) async {
     final purchaseModelListMap = getPurchaseListJson(purchaseModelList);
-    debugPrint("purchaseModelListMap: $purchaseModelListMap");
+    log("purchaseModelListMap: $purchaseModelListMap");
     await storage.setItem("purchases", purchaseModelListMap);
   }
 

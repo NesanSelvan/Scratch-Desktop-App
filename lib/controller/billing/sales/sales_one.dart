@@ -97,6 +97,7 @@ class SalesBillingOneController extends GetxController {
   }
 
   void performInit() {
+    log("performInit");
     rateFocusNode.addListener(() {
       if (rateFocusNode.hasFocus) {
         rateController.selection = TextSelection(
@@ -149,6 +150,7 @@ class SalesBillingOneController extends GetxController {
       final list = salesDB.getAllBill();
       // debugPrint(
       //     "BillNO List: ${getBillNo(list.map((e) => e.billNo).toList())}");
+
       invoiceNumberController.text =
           getSalesBillNo(list.map((e) => e.billNo).toList());
     } else {
@@ -218,9 +220,9 @@ class SalesBillingOneController extends GetxController {
   set setSelectedPriceModel(PriceModel? val) {
     _selectedPriceModel = val;
     if (val != null) {
-      if (selectedCustomerModel!.type == customerType[0]) {
+      if (selectedCustomerModel?.type == customerType[0]) {
         rateController.text = "${val.mrp}";
-      } else if (selectedCustomerModel!.type == customerType[1]) {
+      } else if (selectedCustomerModel?.type == customerType[1]) {
         rateController.text = "${val.retail}";
       }
       //Wholesale
@@ -544,26 +546,43 @@ class SalesBillingOneController extends GetxController {
     SalesBillingController salesBillingController,
     PrinterEnum printerEnum,
   ) async {
+    log("invoiceNumberController.text: ${invoiceNumberController.text}");
     debugPrint("destinationController.text: ${destinationController.text}");
     log("Updating Bill Customer: ${selectedCustomerModel?.name}");
 
     if (productsList!.isNotEmpty) {
       // if(salesBillingController)
       if (_billModel == null) {
-        await salesBillingController.addBillToDB(
-          invoiceNumberController.text,
-          selectedCustomerModel,
-          salesProductModelList,
-          noteController.text,
-          supplierRefController.text,
-          orderDateController.text,
-          despatchDocNoController.text,
-          destinationController.text,
-          performInit,
-          clearAll,
-          pickedDateTime,
-          printerEnum,
-        );
+        log("invoiceNumberController.text: ${invoiceNumberController.text}");
+        final datas = salesDB
+            .getAllBill()
+            .where((element) => element.billNo == invoiceNumberController.text)
+            .toList();
+        if (datas.isEmpty) {
+          await salesBillingController.addBillToDB(
+            invoiceNumberController.text,
+            selectedCustomerModel,
+            salesProductModelList,
+            noteController.text,
+            supplierRefController.text,
+            orderDateController.text,
+            despatchDocNoController.text,
+            destinationController.text,
+            performInit,
+            clearAll,
+            pickedDateTime,
+            printerEnum,
+          );
+          CustomUtilies.customSuccessSnackBar(
+            "Success",
+            "Bill Added Successfully",
+          );
+        } else {
+          CustomUtilies.customFailureSnackBar(
+            "Error",
+            "Bill No Already exists",
+          );
+        }
       } else {
         if (salesProductModelList.isEmpty) {
           CustomUtilies.customFailureSnackBar(

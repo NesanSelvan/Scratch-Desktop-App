@@ -6,21 +6,22 @@ part 'company.g.dart';
 @freezed
 abstract class CompanyModel with _$CompanyModel {
   @JsonSerializable(explicitToJson: true)
-  const factory CompanyModel(
-      {required String id,
-      required String name,
-      required String address,
-      int? companyNo,
-      @Default("") String? email,
-      @Default("") String? website,
-      @Default("") String? licNO,
-      @Default("") String? placeOfDispatch,
-      @Default("") String? pan,
-      required String mobileNoList,
-      @Default("") String? gstin,
-      @Default("") String? bankId,
-      @Default(true) bool? isNormalPurchaseBill,
-      required DateTime createdAt}) = _CompanyModel;
+  const factory CompanyModel({
+    required String id,
+    required String name,
+    required String address,
+    int? companyNo,
+    @Default("") String? email,
+    @Default("") String? website,
+    @Default("") String? licNO,
+    @Default("") String? placeOfDispatch,
+    @Default("") String? pan,
+    required String mobileNoList,
+    @Default("") String? gstin,
+    @Default("") String? bankId,
+    @Default(true) bool? isNormalPurchaseBill,
+    required DateTime createdAt,
+  }) = _CompanyModel;
   factory CompanyModel.fromJson(Map<String, dynamic> json) =>
       _$CompanyModelFromJson(json);
 }

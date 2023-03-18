@@ -420,7 +420,7 @@ class _$_ProductModel implements _ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, code: $code, productNumber: $productNumber, productName: $productName, categoryId: $categoryId, unitId: $unitId, unitQty: $unitQty, differentPriceList: $differentPriceList, purchasePrice: $purchasePrice, sellingPrice: $sellingPrice, isHidden: $isHidden, wholesale: $wholesale, retail: $retail, isPending: $isPending, companyId: $companyId, imagesList: $imagesList, createdAt: $createdAt)';
+    return '$productName';
   }
 
   @override

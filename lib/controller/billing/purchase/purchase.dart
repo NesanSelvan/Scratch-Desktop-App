@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/core/constants/calculations/bills/purchase.dart';
 import 'package:annai_store/core/constants/constants.dart';
@@ -38,13 +40,16 @@ class PurchaseController extends GetxController {
   final amountController = TextEditingController(text: "0");
 
   TextEditingController invoiceNumberController = TextEditingController();
+  TextEditingController overallDiscountController = TextEditingController();
   List<PurchaseProductModel> purchaseProductModelList = [];
   PurchaseProductModel? selectedPurchaseProductModel;
 
   final companyNode = FocusNode();
   final invoiceNoKeyboardNode = FocusNode();
+  final overallDiscountKeyboardNode = FocusNode();
   final companyKeyboardNode = FocusNode();
   final invoiceNoNode = FocusNode();
+  final overallDiscountNode = FocusNode();
   final productNode = FocusNode();
   final productKeyboardNode = FocusNode();
 
@@ -460,10 +465,13 @@ class PurchaseController extends GetxController {
           double.tryParse(lorryFrightOverallTotalController.text) ?? 0,
       forwardingSales: double.tryParse(forwardingSalesController.text) ?? 0,
       tcsSales: double.tryParse(tcsSalesController.text) ?? 0,
+      overallDiscount: double.tryParse(overallDiscountController.text) ?? 0,
     );
+    log("purchaseModel: $purchaseModel");
 
     try {
       await purchaseDB.addPurchaseToDb(purchaseModel);
+      log("purchaseModel: $purchaseModel added to DB");
       for (final item in purchaseProductModelList) {
         final catModel = categoryDB.getCategoryModelById(item.categoryModel.id);
         await categoryDB.updateCategory(catModel.copyWith(tax: item.tax));
@@ -509,7 +517,9 @@ class PurchaseController extends GetxController {
     }
     grandTotal += forwardingSales;
     grandTotal += grandTotal * tcsSalesAmount;
+    grandTotal -= double.tryParse(overallDiscountController.text) ?? 0;
     grandTotal = double.parse(grandTotal.toStringAsFixed(2));
+    update();
   }
 
   void removeAPurchaseProduct(PurchaseProductModel salesProductModel) {
