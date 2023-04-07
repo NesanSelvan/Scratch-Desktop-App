@@ -8,6 +8,7 @@ import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/product/product.dart';
 import 'package:annai_store/models/purchase/product/purchase_product.dart';
+import 'package:annai_store/models/purchase/purchase.dart';
 import 'package:annai_store/screens/add/customer/customer.dart';
 import 'package:annai_store/screens/add/product/product.dart';
 import 'package:annai_store/screens/billing/sales/components/sales_button.dart';
@@ -31,7 +32,8 @@ import 'package:get/get.dart';
 import 'package:validators/validators.dart';
 
 class PurchaseScreen extends StatefulWidget {
-  const PurchaseScreen({Key? key}) : super(key: key);
+  final PurchaseModel? billModel;
+  const PurchaseScreen({super.key, this.billModel});
 
   @override
   State<PurchaseScreen> createState() => _PurchaseScreenState();
@@ -67,6 +69,15 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
   final tcsSalesNode = FocusNode();
 
   final discountNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.billModel != null) {
+      purchaseController.setPurchaseModel = widget.billModel!;
+      purchaseController.performInit();
+    }
+  }
 
   void onCompanySelected() {
     purchaseController.companyController.text =

@@ -54,10 +54,10 @@ class ReportCalculations {
       startDate,
       customerId,
     );
-    print("Bills ${bills.length}");
     for (final bill in bills) {
       amount += bill.price;
     }
+    log("Bills ${bills.length} $amount");
     return amount;
   }
 

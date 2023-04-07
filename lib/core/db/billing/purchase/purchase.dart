@@ -123,7 +123,7 @@ class PurchaseDB {
         billsList.where((element) => element.id == purchaseModel.id).toList();
     final index = billsList.indexOf(datas[0]);
     billsList[index] = purchaseModel;
-    updatePurchaseToDB(billsList);
+    await updatePurchaseToDB(billsList);
   }
 
   PurchaseModel? getPurchaseModelById(String id) {

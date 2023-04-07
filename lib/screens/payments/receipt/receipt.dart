@@ -22,7 +22,7 @@ import 'package:validators/validators.dart';
 
 // ignore: must_be_immutable
 class ReceiptScreen extends StatelessWidget {
-  ReceiptScreen({Key? key}) : super(key: key);
+  ReceiptScreen({super.key});
   final FocusNode _focusNode = FocusNode();
   final FocusNode _focusNodeCustomer = FocusNode();
   final FocusNode _focusNodeCustomer1 = FocusNode();
@@ -69,8 +69,15 @@ class ReceiptScreen extends StatelessWidget {
       debugPrint(
         'Selected Customer :P ${receiptController.selectedCustomerModel}',
       );
+      final todayDate = DateTime.now();
+      late DateTime selectedDateTime;
+      if (todayDate.month >= 4) {
+        selectedDateTime = DateTime(todayDate.year, 4);
+      } else {
+        selectedDateTime = DateTime(todayDate.year - 1, 4);
+      }
       final pendingAmount = ReportCalculations.getStartBalance(
-        DateTime(DateTime.now().year, 4),
+        selectedDateTime,
         receiptController.selectedCustomerModel!.id,
       );
       receiptController.customerController.text =
@@ -471,9 +478,18 @@ class ReceiptScreen extends StatelessWidget {
                                           suggestion;
                                       controller.customerController.text =
                                           suggestion.name;
+                                      final todayDate = DateTime.now();
+                                      late DateTime selectedDateTime;
+                                      if (todayDate.month >= 4) {
+                                        selectedDateTime =
+                                            DateTime(todayDate.year, 4);
+                                      } else {
+                                        selectedDateTime =
+                                            DateTime(todayDate.year - 1, 4);
+                                      }
                                       final pendingAmount =
                                           ReportCalculations.getStartBalance(
-                                        DateTime(DateTime.now().year, 4),
+                                        selectedDateTime,
                                         suggestion.id,
                                       );
                                       controller.pendingAmountController.text =

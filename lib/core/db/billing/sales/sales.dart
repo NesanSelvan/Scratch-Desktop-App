@@ -220,46 +220,44 @@ class SalesDB {
 
   Future<void> fixBillNo() async {
     final allBill = getAllBill();
-    final List<BillModel> _updatedBill = [];
+    final List<BillModel> updatedBill = [];
     for (final bill in allBill) {
       final billNo = bill.billNo.split("/").first.trim();
-      _updatedBill.add(bill.copyWith(billNo: "$billNo / ${getYear()}"));
+      updatedBill.add(bill.copyWith(billNo: "$billNo / ${getYear()}"));
     }
-    await updateBillToDB(_updatedBill);
+    await updateBillToDB(updatedBill);
   }
 
   Future<void> clearGivenAmount() async {
     final allBill = getAllBill();
-    final List<BillModel> _updatedBill = [];
+    final List<BillModel> updatedBill = [];
     for (final bill in allBill) {
-      _updatedBill.add(bill.copyWith(givenAmount: 0));
+      updatedBill.add(bill.copyWith(givenAmount: 0));
     }
-    await updateBillToDB(_updatedBill);
+    await updateBillToDB(updatedBill);
   }
 
   List<BillModel> getBillByStartDateAndCustomer(
     DateTime startDate,
     String customerId,
   ) {
-    print("Hello ${getAllBill().length} $customerId");
     final List<BillModel> bills = [];
     final customerBills = getAllBill()
         .where((element) => element.customerModel.id == customerId)
         .toList();
-    print("CustomerBills: $customerBills");
     final finalStartDate =
         DateTime(startDate.year, startDate.month, startDate.day);
     for (final item in customerBills) {
-      // print(item.dateTime);
+      print(item.dateTime);
       final diff = item.dateTime.difference(finalStartDate);
       print(diff.inDays);
 
-      if (diff.inDays > 0) {
+      if (diff.inDays >= 0) {
         bills.add(item);
       }
       // log("diff: $diff");
     }
-    print("CustomerBills: $bills");
+    log("customerBills: ${bills.length}");
 
     return bills;
   }

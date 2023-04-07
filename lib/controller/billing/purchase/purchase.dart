@@ -67,6 +67,15 @@ class PurchaseController extends GetxController {
     update();
   }
 
+  PurchaseModel? _billModel;
+  PurchaseModel? get billModel => _billModel;
+
+  set setPurchaseModel(PurchaseModel billModel) {
+    _billModel = billModel;
+    log("_billModel: ${_billModel?.billNo}");
+    update();
+  }
+
   void calculateOverallLorryFright(String? val) {
     double lorryFright = 0;
     double lorryFrightTax = 0;
@@ -98,7 +107,53 @@ class PurchaseController extends GetxController {
 
   void performInit() {
     getAllCompany();
+    if (_billModel != null) {
+      // clearAll();
+      isUpdated = false;
+      setAllFieldForSelectedBill();
+    }
     update();
+  }
+
+  bool isUpdated = false;
+  void setAllFieldForSelectedBill() {
+    log("setAllFieldForSelectedBill: $isUpdated");
+//     customerFocusNode.unfocus();
+    if (!isUpdated) {
+      setSelectedCompanyModel = _billModel!.companyModel;
+      companyController.text = _billModel!.companyModel.name;
+      invoiceNumberController.text = _billModel!.billNo;
+      overallDiscountController.text =
+          (_billModel!.overallDiscount ?? '').toString();
+
+      pickedDateTime = _billModel!.dateTime;
+      purchaseProductModelList = _billModel!.productList ?? [];
+      forwardingSalesController.text =
+          (_billModel!.forwardingSales ?? '').toString();
+      tcsSalesController.text = (_billModel!.tcsSales ?? '').toString();
+      lorryFrightController.text = (_billModel!.tcsSales ?? '').toString();
+
+      calculateGrandTotal();
+
+      // customerController.text = _billModel!.customerModel.name;
+
+      // noteController.text = _billModel!.note ?? "";
+      // invoiceNumberController.text = _billModel!.billNo;
+
+      // salesProductModelList = _billModel!.productList;
+
+      // supplierRefController.text = _billModel!.supplierRef ?? "";
+      // orderDateController.text = _billModel!.buyerOrderDate == null
+      //     ? ""
+      //     : getFormattedDate(_billModel!.buyerOrderDate!);
+      // despatchDocNoController.text = _billModel!.dispatchDocumentNo ?? "";
+      // destinationController.text = _billModel!.destination ?? "";
+      // pickedDateTime = _billModel!.dateTime;
+      isUpdated = true;
+      try {
+        update();
+      } catch (e) {}
+    }
   }
 
   @override
@@ -342,6 +397,7 @@ class PurchaseController extends GetxController {
 
   void clearAll() {
     selectedProductModel = null;
+    isUpdated = false;
     _selectedCompanyModel = null;
     purchaseProductModelList.clear();
     discountPercController.clear();
@@ -449,7 +505,7 @@ class PurchaseController extends GetxController {
         await ImageUtilities.moveImagesToSafeDir(_imagesList);
 
     final purchaseModel = PurchaseModel(
-      id: const Uuid().v4(),
+      id: _billModel == null ? const Uuid().v4() : _billModel!.id,
       productList: purchaseProductModelList,
       dateTime: pickedDateTime,
       grandTotal: grandTotal,
@@ -470,7 +526,11 @@ class PurchaseController extends GetxController {
     log("purchaseModel: $purchaseModel");
 
     try {
-      await purchaseDB.addPurchaseToDb(purchaseModel);
+      if (_billModel == null) {
+        await purchaseDB.addPurchaseToDb(purchaseModel);
+      } else {
+        await purchaseDB.updatePurchase(purchaseModel);
+      }
       log("purchaseModel: $purchaseModel added to DB");
       for (final item in purchaseProductModelList) {
         final catModel = categoryDB.getCategoryModelById(item.categoryModel.id);
@@ -499,8 +559,10 @@ class PurchaseController extends GetxController {
       }
 
       CustomUtilies.customSuccessSnackBar(
-        "Added SuccessFull",
-        "Bill Added Successfully",
+        _billModel == null ? "Added SuccessFull" : "Updated Successfull",
+        _billModel == null
+            ? "Bill Added Successfully"
+            : "Bill Updated Successfully",
       );
       performInit();
       setPickedDateTime(getTodaysDate());

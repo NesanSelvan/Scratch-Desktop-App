@@ -247,8 +247,15 @@ class _SalesScreen1State extends State<SalesScreen1> {
       );
       receiptController.customerController.text =
           receiptController.selectedCustomerModel!.name;
+      final todayDate = DateTime.now();
+      late DateTime selectedDateTime;
+      if (todayDate.month >= 4) {
+        selectedDateTime = DateTime(todayDate.year, 4);
+      } else {
+        selectedDateTime = DateTime(todayDate.year - 1, 4);
+      }
       final pendingAmount = ReportCalculations.getStartBalance(
-        DateTime(DateTime.now().year, 4),
+        selectedDateTime,
         receiptController.selectedCustomerModel!.id,
       );
       receiptController.pendingAmountController.text =
@@ -1241,10 +1248,19 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                           rc.selectedCustomerModel = suggestion;
                                           rc.customerController.text =
                                               suggestion.name;
+                                          final todayDate = DateTime.now();
+                                          late DateTime selectedDateTime;
+                                          if (todayDate.month >= 4) {
+                                            selectedDateTime =
+                                                DateTime(todayDate.year, 4);
+                                          } else {
+                                            selectedDateTime =
+                                                DateTime(todayDate.year - 1, 4);
+                                          }
                                           final pendingAmount =
                                               ReportCalculations
                                                   .getStartBalance(
-                                            DateTime(DateTime.now().year, 4),
+                                            selectedDateTime,
                                             suggestion.id,
                                           );
                                           onCustomerControllerComplete();
@@ -1269,9 +1285,18 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                       rc.selectedCustomerModel = suggestion;
                                       rc.customerController.text =
                                           suggestion.name;
+                                      final todayDate = DateTime.now();
+                                      late DateTime selectedDateTime;
+                                      if (todayDate.month >= 4) {
+                                        selectedDateTime =
+                                            DateTime(todayDate.year, 4);
+                                      } else {
+                                        selectedDateTime =
+                                            DateTime(todayDate.year - 1, 4);
+                                      }
                                       final pendingAmount =
                                           ReportCalculations.getStartBalance(
-                                        DateTime(DateTime.now().year, 4),
+                                        selectedDateTime,
                                         suggestion.id,
                                       );
                                       print("pendingAmount: $pendingAmount");
