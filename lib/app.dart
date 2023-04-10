@@ -5,6 +5,7 @@ import 'package:annai_store/controller/paths/paths.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/application.dart';
+import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
 import 'package:annai_store/screens/auth/login.dart';
 import 'package:annai_store/utils/encrypt.dart';
 import 'package:annai_store/utils/file/file.dart';
@@ -12,6 +13,7 @@ import 'package:annai_store/utils/folder/folder.dart';
 import 'package:annai_store/utils/navigation_service.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -66,29 +68,32 @@ class _AppState extends State<MyApp> with WindowListener {
     Utility().performActivityWhenAppOpens();
     Database.instance.initialize();
     pathController.addIfNotExists();
-    return GetMaterialApp(
-      navigatorKey: NavigationService.navigatorKey,
-      title: Application.appName,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: kPrimaryColor,
-        primarySwatch: kMidPrimaryColor,
-      ),
-      // home: const Scaffold(body: Text("Hello")),
-      home: RawKeyboardListener(
-        focusNode: _focusNode,
-        onKey: (RawKeyEvent rawKeyEvent) {
-          // Utility().onKeyEvent(rawKeyEvent, context);
-        },
-        child: GetBuilder<LoginController>(
-          builder: (controller) {
-            // return controller.isAuthenticated
-            //     ? const HomeScreen()
-            //     : const
-            return isLoading
-                ? const CircularProgressIndicator()
-                : const LoginScreen();
+    return BlocProvider(
+      create: (context) => BarcodePrinterCubit(),
+      child: GetMaterialApp(
+        navigatorKey: NavigationService.navigatorKey,
+        title: Application.appName,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primaryColor: kPrimaryColor,
+          primarySwatch: kMidPrimaryColor,
+        ),
+        // home: const Scaffold(body: Text("Hello")),
+        home: RawKeyboardListener(
+          focusNode: _focusNode,
+          onKey: (RawKeyEvent rawKeyEvent) {
+            // Utility().onKeyEvent(rawKeyEvent, context);
           },
+          child: GetBuilder<LoginController>(
+            builder: (controller) {
+              // return controller.isAuthenticated
+              //     ? const HomeScreen()
+              //     : const
+              return isLoading
+                  ? const CircularProgressIndicator()
+                  : const LoginScreen();
+            },
+          ),
         ),
       ),
     );

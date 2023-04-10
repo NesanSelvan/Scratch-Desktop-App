@@ -346,8 +346,8 @@ class PDFGenerator {
     const width = 2.55 * PdfPageFormat.cm;
     const height = 2 * PdfPageFormat.cm;
     final pageFormat = PdfPageFormat(
-      isPotrait ? height : width * 4,
-      !isPotrait ? height : width * 4,
+      isPotrait ? height : width,
+      !isPotrait ? height : width,
     );
 
     pdf.addPage(
@@ -5161,5 +5161,68 @@ class PDFGenerator {
     } catch (e) {
       rethrow;
     }
+  }
+
+  static Future<Uint8List> generateBarcodePdf(
+      PdfPageFormat format, List<Uint8List> imagesBuffer) async {
+    final pdf = pw.Document();
+    final List<pw.MemoryImage> memImages = [];
+    for (final element in imagesBuffer) {
+      memImages.add(
+        pw.MemoryImage(
+          element,
+        ),
+      );
+    }
+    final height = format.height * (imagesBuffer.length / 4).ceil();
+    final pdfFormat = PdfPageFormat(format.width, height);
+    pdf.addPage(
+      pw.Page(
+        pageFormat: pdfFormat,
+        build: (context) {
+          return pw.GridView(
+            crossAxisCount: 4,
+            children: memImages
+                .map(
+                  (e) => pw.Container(
+                    width: pdfFormat.width / 4,
+                    height: pdfFormat.height,
+                    child: pw.Column(
+                      children: [
+                        pw.Container(
+                          color: PdfColor.fromHex("#000000"),
+                          margin: const pw.EdgeInsets.only(top: 4, bottom: 4),
+                          child: pw.Container(
+                            alignment: pw.Alignment.center,
+                            child: pw.Text(
+                              "A One Traders",
+                              style: pw.TextStyle(
+                                fontSize: 6,
+                                color: PdfColor.fromHex("#FFFFFF"),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        pw.Image(e),
+                        // pw.Container(child: pw.Image(memImg), width: 100, height: 50),
+                        pw.Text(
+                          "Rs. 100",
+                          style: pw.TextStyle(
+                            fontSize: 7,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
+          );
+        },
+      ),
+    );
+
+    return pdf.save();
   }
 }

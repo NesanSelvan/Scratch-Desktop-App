@@ -1,9 +1,14 @@
+import 'dart:developer';
+
 import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/controller/server/server.dart';
 import 'package:annai_store/controller/statements/statements.dart';
+import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
+import 'package:annai_store/features/barcode_printer/screens/barcode.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -59,7 +64,24 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         body: GetBuilder<HomeController>(
           builder: (controller) {
-            return homeController.currentSelectedWidget!;
+            return Stack(
+              children: [
+                homeController.currentSelectedWidget!,
+                BlocConsumer<BarcodePrinterCubit, BarcodePrinterState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    log("state: $state");
+                    if (state.barcodeImages.isNotEmpty)
+                      return Align(
+                        alignment: Alignment.topRight,
+                        child: BarcodePrinterWidget(),
+                      );
+                    else
+                      return SizedBox();
+                  },
+                )
+              ],
+            );
           },
         ),
       ),

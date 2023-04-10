@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:custom/ftn.dart';
 import 'package:pdf/pdf.dart';
@@ -142,8 +143,9 @@ class PrinterUtility {
     }
   }
 
-  static Future barcodePrint(File file) async {
+  static Future barcodePrint(List<Uint8List> allData) async {
     final printersList = await Printing.listPrinters();
+
     final barcodePrinterDataFromDB = pathsDB.getBarcodePrinterPath();
     if (barcodePrinterDataFromDB == null) {
       CustomUtilies.customFailureSnackBar(
@@ -158,24 +160,31 @@ class PrinterUtility {
         "Error",
         "$barcodePrinterDataFromDB Printer not found",
       );
-      PDFGenerator.openPdf(file.path);
+      // PDFGenerator.openPdf(file.path);
     } else {
-      final val = await Printing.directPrintPdf(
-        printer: printer,
-        onLayout: (_) async => file.readAsBytes(),
-        format: const PdfPageFormat(
-          2.5 * PdfPageFormat.cm,
-          2 * PdfPageFormat.cm,
-        ),
-        dynamicLayout: false,
-      );
-      if (val) {
-        CustomUtilies.customSuccessSnackBar("Success", "Printed Successfully");
-      } else {
-        CustomUtilies.customFailureSnackBar(
-          "Error",
-          "Something went wrong in printing",
-        );
+      // final val = await Printing.layoutPdf(
+      //   onLayout: (format) {
+      //     return PDFGenerator.generateBarcodePdf(format, allData);
+      //   },
+      // );
+      // if (val) {
+      //   CustomUtilies.customSuccessSnackBar("Success", "Printed Successfully");
+      // } else {
+      //   CustomUtilies.customFailureSnackBar(
+      //     "Error",
+      //     "Something went wrong in printing",
+      //   );
+      // }
+      final val = await PDFGenerator.generateBarcodePdf(
+          PdfPageFormat(101.6 * PdfPageFormat.mm, 20 * PdfPageFormat.mm),
+          allData);
+      final path = await PDFGenerator.getPDFFilePath();
+      final file = File(path);
+      try {
+        file.writeAsBytesSync(val);
+        PDFGenerator.openPdf(file.path);
+      } catch (e) {
+        rethrow;
       }
     }
   }

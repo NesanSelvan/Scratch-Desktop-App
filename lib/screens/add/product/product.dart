@@ -1,5 +1,9 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/controller/product/product.dart';
@@ -29,6 +33,8 @@ import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
@@ -295,9 +301,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           label: "Enter Name",
                                           focusNode: controller.nameFocus,
                                           textInputType: TextInputType.number,
-                                          initialValue: controller
-                                              .categoryList.isEmpty ? null: controller
-                                              .categoryList.first.catSymbol,
+                                          initialValue:
+                                              controller.categoryList.isEmpty
+                                                  ? null
+                                                  : controller.categoryList
+                                                      .first.catSymbol,
                                           onEditingComplete: () {
                                             controller.getAllCategory();
                                           },
@@ -1409,40 +1417,76 @@ class _AddProductScreenState extends State<AddProductScreen> {
             onPressed: () async {
               screenshotController.capture().then((Uint8List? image) async {
                 if (image != null) {
-                  final path = await PDFGenerator.generateBarcode(
-                    [image, image, image, image],
-                    e.sellingPrice,
-                  );
-                  PDFGenerator.openPdf(path);
-                  final file = File(path);
-                  await PrinterUtility.barcodePrint(file);
-                } else {
-                  CustomUtilies.customFailureSnackBar("Error", "Image is null");
+                  context.read<BarcodePrinterCubit>().addImages(image, 1);
                 }
+                // if (image != null) {
+                //   final path = await PDFGenerator.generateBarcode(
+                //     [image],
+                //     e.sellingPrice,
+                //   );
+                //   PDFGenerator.openPdf(path);
+                //   final file = File(path);
+                //   await PrinterUtility.barcodePrint(file);
+                // } else {
+                //   CustomUtilies.customFailureSnackBar("Error", "Image is null");
+                // }
               }).catchError((onError) {
                 print(onError);
               });
+
+              // final printersList = await Printing.listPrinters();
+              // Printer? printer;
+              // final printerDataFromDB = "Bar Code Printer T-9650 Pro";
+              // for (final item in printersList) {
+              //   if (item.name == printerDataFromDB ||
+              //       item.model == printerDataFromDB ||
+              //       item.url == printerDataFromDB ||
+              //       item.location == printerDataFromDB) {
+              //     printer = item;
+              //   }
+              // }
+
+              // if (printer != null) {
+              //   // Printing.pickPrinter(context: context);
+              //   Printing.layoutPdf(
+              //     onLayout: (format) {
+              //       print(format);
+              //       return _generatePdf(format, "Testing");
+              //     },
+              //     format: PdfPageFormat(
+              //       101.6 * PdfPageFormat.mm,
+              //       20 * PdfPageFormat.mm,
+              //     ),
+              //     usePrinterSettings: true,
+              //   );
+
+              //   Printing.directPrintPdf(
+              //       onLayout: (format) {
+              //         return _generatePdf(format, "Testing");
+              //       },
+              //       printer: printer);
+              // }
             },
           ),
           CustomTextButton(
             "Potrait",
             onPressed: () async {
-              screenshotController.capture().then((Uint8List? image) async {
-                if (image != null) {
-                  final path = await PDFGenerator.generateBarcode(
-                    [image, image, image, image],
-                    e.sellingPrice,
-                    isPotrait: true,
-                  );
-                  PDFGenerator.openPdf(path);
-                  final file = File(path);
-                  await PrinterUtility.barcodePrint(file);
-                } else {
-                  CustomUtilies.customFailureSnackBar("Error", "Image is null");
-                }
-              }).catchError((onError) {
-                print(onError);
-              });
+              // screenshotController.capture().then((Uint8List? image) async {
+              //   if (image != null) {
+              //     final path = await PDFGenerator.generateBarcode(
+              //       [image, image, image, image],
+              //       e.sellingPrice,
+              //       isPotrait: true,
+              //     );
+              //     PDFGenerator.openPdf(path);
+              //     final file = File(path);
+              //     await PrinterUtility.barcodePrint(file);
+              //   } else {
+              //     CustomUtilies.customFailureSnackBar("Error", "Image is null");
+              //   }
+              // }).catchError((onError) {
+              //   print(onError);
+              // });
             },
           ),
           Container(
@@ -1519,6 +1563,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
         ],
       ),
     );
+  }
+
+  Future<Uint8List> _generatePdf(PdfPageFormat format, String title) async {
+    final pdf = pw.Document();
+
+    pdf.addPage(
+      pw.Page(
+        pageFormat: format,
+        build: (context) => pw.Placeholder(),
+      ),
+    );
+
+    return pdf.save();
   }
 }
 
