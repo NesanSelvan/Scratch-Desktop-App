@@ -34,7 +34,7 @@ class SalesBillingFourController extends GetxController {
   final discountController = TextEditingController();
   final noteController = TextEditingController();
   TextEditingController invoiceNumberController =
-      TextEditingController(text: "1166 / 2020-2021");
+      TextEditingController();
   final supplierRefController = TextEditingController();
   final orderDateController = TextEditingController();
   final despatchDocNoController = TextEditingController();

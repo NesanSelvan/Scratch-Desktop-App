@@ -296,6 +296,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           focusNode: controller.nameFocus,
                                           textInputType: TextInputType.number,
                                           initialValue: controller
+                                              .categoryList.isEmpty ? null: controller
                                               .categoryList.first.catSymbol,
                                           onEditingComplete: () {
                                             controller.getAllCategory();

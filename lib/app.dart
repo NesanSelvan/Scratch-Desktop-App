@@ -1,24 +1,47 @@
+import 'dart:io';
+
 import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/controller/paths/paths.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/application.dart';
 import 'package:annai_store/screens/auth/login.dart';
+import 'package:annai_store/utils/encrypt.dart';
+import 'package:annai_store/utils/file/file.dart';
+import 'package:annai_store/utils/folder/folder.dart';
 import 'package:annai_store/utils/navigation_service.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:window_manager/window_manager.dart';
 
 class MyApp extends StatefulWidget {
   @override
   _AppState createState() => _AppState();
 }
 
-class _AppState extends State<MyApp> with WidgetsBindingObserver {
+class _AppState extends State<MyApp> with WindowListener {
   LoginController loginController = Get.put(LoginController());
   PathController pathController = Get.put(PathController());
   final FocusNode _focusNode = FocusNode();
   bool isLoading = true;
+
+  @override
+  void onWindowClose() {
+    // final allData = File(FileUtility.getFullDBFilePath());
+    // print(allData.path);
+    // final data = allData.readAsStringSync();
+    // final val = EncryptData.encryptAES(data);
+    // allData.writeAsStringSync(val);
+  }
+
+  @override
+  void onWindowFocus() {
+    print("onWindowFocus");
+  }
+
+  @override
+  void onWindowMinimize() {}
 
   Future<void> performInit() async {
     isLoading = false;
@@ -27,31 +50,21 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    windowManager.addListener(this);
     super.initState();
     performInit();
-    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    windowManager.removeListener(this);
     super.dispose();
-  }
-
-  AppLifecycleState? _notification;
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    debugPrint("App Life cycle Status : $state");
-    setState(() {
-      _notification = state;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     Utility().performActivityWhenAppOpens();
-    Database().initialize();
+    Database.instance.initialize();
     pathController.addIfNotExists();
     return GetMaterialApp(
       navigatorKey: NavigationService.navigatorKey,

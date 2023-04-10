@@ -56,6 +56,9 @@ class Utility {
     if (await Directory(FolderUtility.getDBFolderLocation()).exists()) {
       Process.run("attrib", ["+h ", FolderUtility.getDBFolderLocation()])
           .then((value) {
+        print(FolderUtility.getDBFolderLocation() +
+            "\\" +
+            FileUtility.getAppsFileName());
         debugPrint("Process Result: ${value.stdout}");
       });
     }

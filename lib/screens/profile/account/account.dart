@@ -1,6 +1,8 @@
 import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/models/persons/employee/employee.dart';
 import 'package:annai_store/utils/sales_end/sales_end.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
@@ -75,6 +77,17 @@ class _AccountScreenState extends State<AccountScreen> {
                                 backgoundColor: Colors.red,
                                 textColor: Colors.white,
                               ),
+                              if (getPersonEnumFromStr(
+                                      loginController.currentEmployee!.type) ==
+                                  PersonEnum.SoftwareOwner)
+                                CustomTextButton(
+                                  "Migrate DB to Hive",
+                                  onPressed: () async {
+                                    await Database.instance.migrateDBToHive();
+                                    CustomUtilies.customSuccessSnackBar(
+                                        "Successfull", "Migrated Succesfully");
+                                  },
+                                )
                             ],
                           ),
                           const SizedBox(

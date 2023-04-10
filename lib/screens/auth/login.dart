@@ -20,12 +20,17 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   LoginController loginController = Get.put(LoginController());
   final homeController = Get.put(HomeController());
   final FocusNode _focusNode = FocusNode();
   final FocusNode _focusNode1 = FocusNode();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("App Life cycle Status : $state");
+  }
 
   Future<void> handleVersion() async {
     try {
@@ -57,7 +62,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
     Database().storage.setItem("sales", []);
     debugPrint("All Bills List ${salesDB.getAllBill()}");

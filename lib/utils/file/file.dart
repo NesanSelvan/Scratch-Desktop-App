@@ -28,6 +28,6 @@ class FileUtility {
 
   static String getFullDBFilePath() {
     final folderPath = FolderUtility.getDBFolderLocation();
-    return "$folderPath\\$getDBFileName()";
+    return "$folderPath\\${getDBFileName()}";
   }
 }

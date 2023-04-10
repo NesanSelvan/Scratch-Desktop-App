@@ -18,6 +18,7 @@ class CustomTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final int? maxLines;
   final String? initialValue;
+  final Widget? suffix;
 
   const CustomTextField(
       {this.label,
@@ -34,6 +35,7 @@ class CustomTextField extends StatelessWidget {
       this.errorTextFieldColor,
       this.initialValue,
       this.prevNode,
+      this.suffix,
       this.nextNode});
 
   @override
@@ -49,6 +51,7 @@ class CustomTextField extends StatelessWidget {
       enabled: isEnabled,
       maxLines: maxLines ?? 1,
       cursorColor: kPrimaryColor,
+      
       onEditingComplete: () {
         if (onEditingComplete != null) {
           onEditingComplete!();
@@ -64,6 +67,7 @@ class CustomTextField extends StatelessWidget {
         "",
         isEnabled: isEnabled ?? true,
         errorTextFieldColor: errorTextFieldColor,
+        suffix: suffix,
       ),
     );
   }
@@ -71,8 +75,9 @@ class CustomTextField extends StatelessWidget {
 
 InputDecoration getInputDecoration(
     IconData? iconData, String label, String? hint,
-    {bool isEnabled = true, Color? errorTextFieldColor}) {
+    {bool isEnabled = true, Color? errorTextFieldColor, Widget? suffix}) {
   return InputDecoration(
+    suffix:suffix ,
     fillColor: isEnabled ? Colors.white : Colors.grey[100],
     disabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(4.0),

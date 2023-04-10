@@ -186,7 +186,7 @@ class _$_UnitModel implements _UnitModel {
 
   @override
   String toString() {
-    return '$symbol';
+    return 'UnitModel(id: $id, symbol: $symbol, formalName: $formalName, unitNo: $unitNo, dateTime: $dateTime)';
   }
 
   @override

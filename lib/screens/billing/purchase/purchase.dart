@@ -26,6 +26,7 @@ import 'package:annai_store/widgets/header_text.dart';
 import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -524,37 +525,37 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                             const SizedBox(height: 20),
                                             const Divider(),
                                             const SizedBox(height: 10),
-                                            InkWell(
-                                              onTap: () {
-                                                controller
-                                                        .isDiscountPercentage =
-                                                    !controller
-                                                        .isDiscountPercentage;
-                                                controller.calculateDiscount();
-                                                controller.calculateAmounts();
-                                              },
-                                              child: Row(
-                                                children: [
-                                                  Checkbox(
-                                                    value: controller
-                                                        .isDiscountPercentage,
-                                                    onChanged: (val) {
-                                                      if (val != null) {
-                                                        controller
-                                                                .isDiscountPercentage =
-                                                            val;
-                                                        controller
-                                                            .calculateDiscount();
-                                                        controller
-                                                            .calculateAmounts();
-                                                      }
-                                                    },
-                                                  ),
-                                                  const Text("Is Percentage"),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
+                                            // InkWell(
+                                            //   onTap: () {
+                                            //     controller
+                                            //             .isDiscountPercentage =
+                                            //         !controller
+                                            //             .isDiscountPercentage;
+                                            //     controller.calculateDiscount();
+                                            //     controller.calculateAmounts();
+                                            //   },
+                                            //   child: Row(
+                                            //     children: [
+                                            //       Checkbox(
+                                            //         value: controller
+                                            //             .isDiscountPercentage,
+                                            //         onChanged: (val) {
+                                            //           if (val != null) {
+                                            //             controller
+                                            //                     .isDiscountPercentage =
+                                            //                 val;
+                                            //             controller
+                                            //                 .calculateDiscount();
+                                            //             controller
+                                            //                 .calculateAmounts();
+                                            //           }
+                                            //         },
+                                            //       ),
+                                            //       const Text("Is Percentage"),
+                                            //     ],
+                                            //   ),
+                                            // ),
+                                            // const SizedBox(height: 10),
                                             CustomTextField(
                                               focusNode: discountNode,
                                               label: "Enter Discount",
@@ -573,6 +574,31 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                   );
                                                 }
                                               },
+                                              suffix: Column(
+                                                children: [
+                                                  Checkbox(
+                                                    value: controller
+                                                        .isDiscountPercentage,
+                                                    onChanged: (val) {
+                                                      if (val != null) {
+                                                        controller
+                                                                .isDiscountPercentage =
+                                                            val;
+                                                        controller
+                                                            .calculateDiscount();
+                                                        controller
+                                                            .calculateAmounts();
+                                                      }
+                                                    },
+                                                  ),
+                                                  const Text(
+                                                    "Is Percentage",
+                                                    style: TextStyle(
+                                                      fontSize: 8,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                               onEditingComplete: () {
                                                 KeyboardUtilities()
                                                     .validateNumberInput(
@@ -987,6 +1013,29 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                               print(val);
                                               controller.calculateGrandTotal();
                                             },
+                                            suffix: Column(
+                                              children: [
+                                                Checkbox(
+                                                  value: controller
+                                                      .overallDiscountPercentage,
+                                                  onChanged: (val) {
+                                                    if (val != null) {
+                                                      controller
+                                                              .overallDiscountPercentage =
+                                                          val;
+                                                      controller
+                                                          .calculateGrandTotal();
+                                                    }
+                                                  },
+                                                ),
+                                                Text(
+                                                  "Is Percentage",
+                                                  style: TextStyle(
+                                                    fontSize: 8,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                           onEnter: () {},
                                           onArrowUp: () {},
@@ -1400,5 +1449,16 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         ],
       ),
     );
+  }
+}
+
+// Custom Gesture Recognizer.
+// rejectGesture() is overridden. When a gesture is rejected, this is the function that is called. By default, it disposes of the
+// Recognizer and runs clean up. However we modified it so that instead the Recognizer is disposed of, it is actually manually added.
+// The result is instead you have one Recognizer winning the Arena, you have two. It is a win-win.
+class AllowMultipleGestureRecognizer extends TapGestureRecognizer {
+  @override
+  void rejectGesture(int pointer) {
+    acceptGesture(pointer);
   }
 }

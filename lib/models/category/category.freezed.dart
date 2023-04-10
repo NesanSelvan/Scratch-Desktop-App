@@ -235,7 +235,7 @@ class _$_CategoryModel implements _CategoryModel {
 
   @override
   String toString() {
-    return '$category';
+    return 'CategoryModel(id: $id, catSymbol: $catSymbol, hsnCode: $hsnCode, categoryNo: $categoryNo, category: $category, tax: $tax, dateTime: $dateTime)';
   }
 
   @override

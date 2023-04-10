@@ -55,6 +55,13 @@ class PurchaseController extends GetxController {
 
   double grandTotal = 0;
 
+  bool _overallDiscountPercentage = true;
+  bool get overallDiscountPercentage => _overallDiscountPercentage;
+  set overallDiscountPercentage(bool val) {
+    _overallDiscountPercentage = val;
+    update();
+  }
+
   final List<String> _imagesList = [];
   List<String> get imagesList => _imagesList;
   set setImageInImagesList(String data) {
@@ -574,12 +581,21 @@ class PurchaseController extends GetxController {
 
   void calculateGrandTotal() {
     grandTotal = 0;
+    late double tax = 0;
     for (final item in purchaseProductModelList) {
       grandTotal += item.totalAmount;
+      tax = item.tax;
     }
     grandTotal += forwardingSales;
     grandTotal += grandTotal * tcsSalesAmount;
-    grandTotal -= double.tryParse(overallDiscountController.text) ?? 0;
+    final discount = double.tryParse(overallDiscountController.text) ?? 0;
+    if (overallDiscountPercentage) {
+      final taxableValue = getTotalPurchaseProductModel.taxableValue;
+      grandTotal = taxableValue - (taxableValue * (discount / 100));
+      grandTotal += (grandTotal * (tax / 100));
+    } else {
+      grandTotal -= discount;
+    }
     grandTotal = double.parse(grandTotal.toStringAsFixed(2));
     update();
   }
