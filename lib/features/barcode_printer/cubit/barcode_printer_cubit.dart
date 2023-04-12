@@ -13,7 +13,7 @@ part 'barcode_printer_state.dart';
 class BarcodePrinterCubit extends Cubit<BarcodePrinterState> {
   BarcodePrinterCubit() : super(BarcodePrinterState(barcodeImages: []));
 
-  void addImages(Uint8List decodedImage, int count) {
+  void addImages(BarcodeAndPrice decodedImage, int count) {
     emit(state.copyWith(barcodeImages: [
       ...state.barcodeImages,
       ...List.generate(count, (index) => decodedImage)

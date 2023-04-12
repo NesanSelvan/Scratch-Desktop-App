@@ -3,6 +3,7 @@ import 'package:annai_store/models/customer/customer.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
@@ -65,204 +66,224 @@ class TodaysSaleScreen extends StatelessWidget {
                 header: "Todays Sales Management",
               ),
               const SizedBox(height: 10),
-              GetBuilder<TodaysSalesController>(
-                init: TodaysSalesController(),
-                builder: (controller) {
-                  return Expanded(
-                    child: Container(
-                      width: CustomScreenUtility(context).width,
-                      color: Colors.grey[100],
-                      child: Container(
-                        width: CustomScreenUtility(context).width,
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              Scrollable(
+                viewportBuilder:
+                    (BuildContext context, ViewportOffset position) {
+                  return GetBuilder<TodaysSalesController>(
+                    init: TodaysSalesController(),
+                    builder: (controller) {
+                      return Expanded(
+                        child: Container(
+                          width: CustomScreenUtility(context).width,
+                          color: Colors.grey[100],
+                          child: Container(
+                            width: CustomScreenUtility(context).width,
+                            child: Column(
                               children: [
-                                DateTimeInkWell(
-                                  onTap: () {},
-                                  dateTime: DateTime.now(),
-                                ),
+                                const SizedBox(height: 10),
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
-                                    Container(
-                                      width:
-                                          CustomScreenUtility(context).width *
+                                    DateTimeInkWell(
+                                      onTap: () {},
+                                      dateTime: DateTime.now(),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: CustomScreenUtility(context)
+                                                  .width *
                                               0.2,
-                                      child: RawKeyboardListener(
-                                        focusNode: _focus2Node,
-                                        onKey: (RawKeyEvent rawKeyEvent) {
-                                          final isKeyDown =
-                                              Utility().isKeyDown(rawKeyEvent);
-                                          switch (
-                                              rawKeyEvent.data.runtimeType) {
-                                            case RawKeyEventDataWindows:
-                                              final data = rawKeyEvent.data
-                                                  as RawKeyEventDataWindows;
-                                              debugPrint(
-                                                '${data.logicalKey}',
-                                              );
-                                              if (data.logicalKey ==
-                                                  LogicalKeyboardKey.enter) {
-                                                if (controller
-                                                        .selectedCustomerModel !=
-                                                    null) {
+                                          child: RawKeyboardListener(
+                                            focusNode: _focus2Node,
+                                            onKey: (RawKeyEvent rawKeyEvent) {
+                                              final isKeyDown = Utility()
+                                                  .isKeyDown(rawKeyEvent);
+                                              switch (rawKeyEvent
+                                                  .data.runtimeType) {
+                                                case RawKeyEventDataWindows:
+                                                  final data = rawKeyEvent.data
+                                                      as RawKeyEventDataWindows;
                                                   debugPrint(
-                                                    'Selected Customer :P ${controller.selectedCustomerModel}',
+                                                    '${data.logicalKey}',
                                                   );
-                                                  controller.customerController
-                                                          .text =
+                                                  if (data.logicalKey ==
+                                                      LogicalKeyboardKey
+                                                          .enter) {
+                                                    if (controller
+                                                            .selectedCustomerModel !=
+                                                        null) {
+                                                      debugPrint(
+                                                        'Selected Customer :P ${controller.selectedCustomerModel}',
+                                                      );
                                                       controller
-                                                          .selectedCustomerModel!
-                                                          .name;
-                                                } else {
-                                                  CustomUtilies
-                                                      .customFailureSnackBar(
-                                                    "Please Enter the Customer First",
-                                                    "Error",
+                                                              .customerController
+                                                              .text =
+                                                          controller
+                                                              .selectedCustomerModel!
+                                                              .name;
+                                                    } else {
+                                                      CustomUtilies
+                                                          .customFailureSnackBar(
+                                                        "Please Enter the Customer First",
+                                                        "Error",
+                                                      );
+                                                    }
+                                                  }
+                                                  if (!isKeyDown) {
+                                                    if (data.logicalKey ==
+                                                        LogicalKeyboardKey
+                                                            .arrowDown) {
+                                                      controller
+                                                          .keyboardSelectCustomerModel();
+                                                    }
+                                                  }
+                                                  break;
+                                                default:
+                                                  throw Exception(
+                                                    'Unsupported platform ${rawKeyEvent.data.runtimeType}',
                                                   );
-                                                }
-                                              }
-                                              if (!isKeyDown) {
-                                                if (data.logicalKey ==
-                                                    LogicalKeyboardKey
-                                                        .arrowDown) {
-                                                  controller
-                                                      .keyboardSelectCustomerModel();
-                                                }
-                                              }
-                                              break;
-                                            default:
-                                              throw Exception(
-                                                'Unsupported platform ${rawKeyEvent.data.runtimeType}',
-                                              );
-                                          }
-                                        },
-                                        child: TypeAheadField<CustomerModel>(
-                                          textFieldConfiguration:
-                                              TextFieldConfiguration(
-                                            onEditingComplete: () {
-                                              if (controller
-                                                      .selectedCustomerModel !=
-                                                  null) {
-                                                controller.customerController
-                                                        .text =
-                                                    controller
-                                                        .selectedCustomerModel!
-                                                        .name;
                                               }
                                             },
-                                            controller:
-                                                controller.customerController,
-                                            decoration: getInputDecoration(
-                                              null,
-                                              "Enter Customer",
-                                              controller.selectedCustomerModel ==
-                                                      null
-                                                  ? ""
-                                                  : controller
-                                                      .selectedCustomerModel!
-                                                      .name,
+                                            child:
+                                                TypeAheadField<CustomerModel>(
+                                              textFieldConfiguration:
+                                                  TextFieldConfiguration(
+                                                onEditingComplete: () {
+                                                  if (controller
+                                                          .selectedCustomerModel !=
+                                                      null) {
+                                                    controller
+                                                            .customerController
+                                                            .text =
+                                                        controller
+                                                            .selectedCustomerModel!
+                                                            .name;
+                                                  }
+                                                },
+                                                controller: controller
+                                                    .customerController,
+                                                decoration: getInputDecoration(
+                                                  null,
+                                                  "Enter Customer",
+                                                  controller.selectedCustomerModel ==
+                                                          null
+                                                      ? ""
+                                                      : controller
+                                                          .selectedCustomerModel!
+                                                          .name,
+                                                ),
+                                              ),
+                                              suggestionsCallback:
+                                                  (pattern) async {
+                                                return controller.customersList!
+                                                    .where(
+                                                  (suggestion) => suggestion
+                                                      .name
+                                                      .toLowerCase()
+                                                      .contains(
+                                                        pattern.toLowerCase(),
+                                                      ),
+                                                );
+                                              },
+                                              itemBuilder: (BuildContext
+                                                      context,
+                                                  CustomerModel suggestion) {
+                                                debugPrint(
+                                                  'Suggestion Selected ${controller.selectedCustomerModel}',
+                                                );
+                                                return ListTile(
+                                                  tileColor: controller
+                                                              .selectedCustomerModel ==
+                                                          suggestion
+                                                      ? Colors.grey[300]
+                                                      : Colors.white,
+                                                  title: Text(suggestion.name),
+                                                );
+                                              },
+                                              onSuggestionSelected:
+                                                  (suggestion) {
+                                                controller
+                                                        .selectedCustomerModel =
+                                                    suggestion;
+                                                controller.customerController
+                                                    .text = suggestion.name;
+                                                debugPrint(
+                                                  'Selected $suggestion',
+                                                );
+                                                // node.nextFocus();
+                                              },
                                             ),
                                           ),
-                                          suggestionsCallback: (pattern) async {
-                                            return controller.customersList!
-                                                .where(
-                                              (suggestion) => suggestion.name
-                                                  .toLowerCase()
-                                                  .contains(
-                                                    pattern.toLowerCase(),
-                                                  ),
-                                            );
-                                          },
-                                          itemBuilder: (BuildContext context,
-                                              CustomerModel suggestion) {
-                                            debugPrint(
-                                              'Suggestion Selected ${controller.selectedCustomerModel}',
-                                            );
-                                            return ListTile(
-                                              tileColor: controller
-                                                          .selectedCustomerModel ==
-                                                      suggestion
-                                                  ? Colors.grey[300]
-                                                  : Colors.white,
-                                              title: Text(suggestion.name),
-                                            );
-                                          },
-                                          onSuggestionSelected: (suggestion) {
-                                            controller.selectedCustomerModel =
-                                                suggestion;
-                                            controller.customerController.text =
-                                                suggestion.name;
-                                            debugPrint(
-                                              'Selected $suggestion',
-                                            );
-                                            // node.nextFocus();
-                                          },
                                         ),
-                                      ),
+                                        const SizedBox(width: 10),
+                                        AddInkWell(
+                                          onPressed: () {
+                                            homeController
+                                                .setCurrentSelectedWidget(
+                                              const AddCustomerScreen(),
+                                            );
+                                          },
+                                          size: CustomScreenUtility(context)
+                                                  .width *
+                                              0.02,
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(width: 10),
-                                    AddInkWell(
-                                      onPressed: () {
-                                        homeController.setCurrentSelectedWidget(
-                                          const AddCustomerScreen(),
-                                        );
-                                      },
-                                      size: CustomScreenUtility(context).width *
-                                          0.02,
-                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CustomText(
+                                          "Total Amount",
+                                          color: Colors.grey[500],
+                                        ),
+                                        CustomText(
+                                          "${controller.totalAmount}",
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
+                                const SizedBox(height: 20),
+                                Container(
+                                  color: kLightPrimaryColor,
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: columnList
+                                          .map(
+                                            (e) => CustomTableHeaderElement(
+                                              width:
+                                                  CustomScreenUtility(context)
+                                                          .width *
+                                                      0.95 /
+                                                      columnList.length,
+                                              text: e,
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                                  ),
+                                ),
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomText(
-                                      "Total Amount",
-                                      color: Colors.grey[500],
-                                    ),
-                                    CustomText(
-                                      "${controller.totalAmount}",
-                                      color: Colors.grey[700],
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ],
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: controller.allBills
+                                      .map(
+                                        (e) => buildInkWell(
+                                            e, controller, context),
+                                      )
+                                      .toList(),
                                 )
                               ],
                             ),
-                            const SizedBox(height: 20),
-                            Container(
-                              color: kLightPrimaryColor,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: columnList
-                                      .map(
-                                        (e) => CustomTableHeaderElement(
-                                          width: CustomScreenUtility(context)
-                                                  .width *
-                                              0.95 /
-                                              columnList.length,
-                                          text: e,
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
-                              ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: controller.allBills
-                                  .map(
-                                    (e) => buildInkWell(e, controller, context),
-                                  )
-                                  .toList(),
-                            )
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   );
                 },
               )

@@ -1,9 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pdf/widgets.dart' as pw;
 
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/controller/product/product.dart';
@@ -14,6 +10,7 @@ import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/enum/product.dart';
 import 'package:annai_store/enum/sort/product.dart';
+import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
 import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/product/product.dart';
@@ -21,8 +18,6 @@ import 'package:annai_store/models/unit/unit.dart';
 import 'package:annai_store/screens/viewer/image_viewer.dart';
 import 'package:annai_store/utils/image/image.dart';
 import 'package:annai_store/utils/null/null.dart';
-import 'package:annai_store/utils/pdf/pdf.dart';
-import 'package:annai_store/utils/printer/printer.dart';
 import 'package:annai_store/widgets/custom_keyboard.dart';
 import 'package:annai_store/widgets/custom_table.dart';
 import 'package:annai_store/widgets/custom_typeahead.dart';
@@ -32,14 +27,15 @@ import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
-import 'package:printing/printing.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:screenshot/screenshot.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
 class AddProductScreen extends StatefulWidget {
-  const AddProductScreen({Key? key}) : super(key: key);
+  const AddProductScreen({super.key});
 
   @override
   _AddProductScreenState createState() => _AddProductScreenState();
@@ -48,7 +44,6 @@ class AddProductScreen extends StatefulWidget {
 class _AddProductScreenState extends State<AddProductScreen> {
   final FocusNode _focusNode = FocusNode();
   ProductController productController = Get.put(ProductController());
-  ScreenshotController screenshotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
@@ -153,26 +148,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                         //             )))
                                         //         .toList()),
                                         const SizedBox(width: 10),
-                                        SizedBox(
-                                          width: 250,
-                                          child: CustomTextField(
-                                            controller: productController
-                                                .searchController,
-                                            label: "Search",
-                                            onChange: (String value) {
-                                              productController
-                                                  .searchProduct(value);
-                                            },
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        CustomTextButton(
-                                          "Generate Product No Again",
-                                          onPressed: () async {
-                                            await controller.addProductNumber();
-                                            setState(() {});
-                                          },
-                                        ),
                                         DropdownButton<ProductSort>(
                                           value: controller.sort,
                                           items: ProductSort.values
@@ -188,7 +163,28 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                               controller.sort = val;
                                             }
                                           },
-                                        )
+                                        ),
+                                        const SizedBox(width: 10),
+
+                                        SizedBox(
+                                          width: 250,
+                                          child: CustomTextField(
+                                            controller: productController
+                                                .searchController,
+                                            label: "Search",
+                                            onChange: (String value) {
+                                              productController
+                                                  .searchProduct(value);
+                                            },
+                                          ),
+                                        ),
+                                        // CustomTextButton(
+                                        //   "Generate Product No Again",
+                                        //   onPressed: () async {
+                                        //     await controller.addProductNumber();
+                                        //     setState(() {});
+                                        //   },
+                                        // ),
                                       ],
                                     ),
                                     const SizedBox(height: 10),
@@ -843,7 +839,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                   ),
                                                 ),
                                                 title: CustomText(
-                                                  "${e.unitModel.formalName}",
+                                                  "${e.unitQty} ${e.unitModel.formalName}",
                                                 ),
                                                 children: [
                                                   CustomText(
@@ -1033,7 +1029,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                     .mrp1Controller.text !=
                                                 "") {
                                               controller.addPriceModelList();
-                                              await controller.addProduct();
+                                              // await controller.addProduct();
                                               controller.codeFocus
                                                   .requestFocus();
                                             } else {
@@ -1065,7 +1061,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                       .mrp1Controller.text !=
                                                   "") {
                                                 controller.addPriceModelList();
-                                                await controller.addProduct();
+                                                // await controller.addProduct();
                                                 controller.codeFocus
                                                     .requestFocus();
                                               } else {
@@ -1126,95 +1122,93 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                   color: Colors.grey[10],
                                   width:
                                       CustomScreenUtility(context).width * 0.77,
+                                  height:
+                                      CustomScreenUtility(context).height * 0.8,
                                   child: Align(
                                     alignment: Alignment.topCenter,
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        children: [
-                                          GetBuilder<ProductController>(
-                                            builder: (controller) {
-                                              return Column(
-                                                children: controller
-                                                        .productModelList
-                                                        .isEmpty
-                                                    ? [
-                                                        const CustomText(
-                                                          "No Product Record Exists",
-                                                          color: Colors.red,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          size: 14,
-                                                        )
-                                                      ]
-                                                    : controller.searchController
-                                                                    .text !=
-                                                                "" &&
-                                                            controller
-                                                                .searchedProductModel
-                                                                .isEmpty
-                                                        ? [
-                                                            const CustomText(
-                                                              "No Product Record Exists",
-                                                              color: Colors.red,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              size: 14,
-                                                            )
-                                                          ]
-                                                        : controller
-                                                                .searchedProductModel
-                                                                .isNotEmpty
-                                                            ? controller.searchController
-                                                                        .text ==
-                                                                    ""
-                                                                ? controller.sort ==
-                                                                        ProductSort
-                                                                            .category
-                                                                    ? buildProductByCategory(
-                                                                        controller,
+                                    child: ListView(
+                                      children: [
+                                        GetBuilder<ProductController>(
+                                          builder: (controller) {
+                                            return Column(
+                                              children: controller
+                                                      .productModelList.isEmpty
+                                                  ? [
+                                                      const CustomText(
+                                                        "No Product Record Exists",
+                                                        color: Colors.red,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        size: 14,
+                                                      )
+                                                    ]
+                                                  : controller.searchController
+                                                                  .text !=
+                                                              "" &&
+                                                          controller
+                                                              .searchedProductModel
+                                                              .isEmpty
+                                                      ? [
+                                                          const CustomText(
+                                                            "No Product Record Exists",
+                                                            color: Colors.red,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            size: 14,
+                                                          )
+                                                        ]
+                                                      : controller
+                                                              .searchedProductModel
+                                                              .isNotEmpty
+                                                          ? controller.searchController
+                                                                      .text ==
+                                                                  ""
+                                                              ? controller.sort ==
+                                                                      ProductSort
+                                                                          .category
+                                                                  ? buildProductByCategory(
+                                                                      controller,
+                                                                    )
+                                                                  : controller
+                                                                      .productModelList
+                                                                      .map(
+                                                                        (e) =>
+                                                                            buildInkWell(
+                                                                          e,
+                                                                          controller,
+                                                                        ),
                                                                       )
-                                                                    : controller
-                                                                        .productModelList
-                                                                        .map(
-                                                                          (e) =>
-                                                                              buildInkWell(
-                                                                            e,
-                                                                            controller,
-                                                                          ),
-                                                                        )
-                                                                        .toList()
-                                                                : controller
-                                                                    .searchedProductModel
-                                                                    .map(
-                                                                      (e) =>
-                                                                          buildInkWell(
-                                                                        e,
-                                                                        controller,
-                                                                      ),
-                                                                    )
-                                                                    .toList()
-                                                            : controller.sort ==
-                                                                    ProductSort
-                                                                        .category
-                                                                ? buildProductByCategory(
-                                                                    controller,
+                                                                      .toList()
+                                                              : controller
+                                                                  .searchedProductModel
+                                                                  .map(
+                                                                    (e) =>
+                                                                        buildInkWell(
+                                                                      e,
+                                                                      controller,
+                                                                    ),
                                                                   )
-                                                                : controller
-                                                                    .productModelList
-                                                                    .map(
-                                                                      (e) =>
-                                                                          buildInkWell(
-                                                                        e,
-                                                                        controller,
-                                                                      ),
-                                                                    )
-                                                                    .toList(),
-                                              );
-                                            },
-                                          )
-                                        ],
-                                      ),
+                                                                  .toList()
+                                                          : controller.sort ==
+                                                                  ProductSort
+                                                                      .category
+                                                              ? buildProductByCategory(
+                                                                  controller,
+                                                                )
+                                                              : controller
+                                                                  .productModelList
+                                                                  .map(
+                                                                    (e) =>
+                                                                        buildInkWell(
+                                                                      e,
+                                                                      controller,
+                                                                    ),
+                                                                  )
+                                                                  .toList(),
+                                            );
+                                          },
+                                        )
+                                      ],
                                     ),
                                   ),
                                 )
@@ -1300,268 +1294,293 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Widget buildInkWell(ProductModel e, ProductController controller) {
     final productNumberController =
         TextEditingController(text: e.productNumber ?? "");
-    return InkWell(
-      onTap: () {
+    return ExpansionTile(
+      onExpansionChanged: (value) {
         controller.onProductTap(e);
       },
-      child: ExpansionTile(
-        onExpansionChanged: (value) {
-          controller.onProductTap(e);
-        },
-        title: Container(
-          color: controller.selectedProductModel == e
-              ? Colors.grey[100]
-              : controller.productModelList.indexOf(e) % 2 == 0
-                  ? Colors.white
-                  : Colors.grey[50],
-          child: Row(
-            children: [
-              // CustomTableElement(
-              //   width: CustomScreenUtility(context).width *
-              //       0.70 /
-              //       ProductEnum.values.length,
-              //   text: e.code,
-              // ),
-              // CustomTableElement(
-              //   width: CustomScreenUtility(context).width *
-              //       0.70 /
-              //       ProductEnum.values.length,
-              //   text: e.productNumber ?? "",
-              // ),
+      title: Container(
+        color: controller.selectedProductModel == e
+            ? Colors.grey[100]
+            : controller.productModelList.indexOf(e) % 2 == 0
+                ? Colors.white
+                : Colors.grey[50],
+        child: Row(
+          children: [
+            // CustomTableElement(
+            //   width: CustomScreenUtility(context).width *
+            //       0.70 /
+            //       ProductEnum.values.length,
+            //   text: e.code,
+            // ),
+            // CustomTableElement(
+            //   width: CustomScreenUtility(context).width *
+            //       0.70 /
+            //       ProductEnum.values.length,
+            //   text: e.productNumber ?? "",
+            // ),
 
-              Container(
-                width: CustomScreenUtility(context).width *
-                    0.70 /
-                    ProductEnum.values.length,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(productNumberController.text),
-                  // child: CustomTextField(
-                  //   controller: productNumberController,
-                  //   label: "Enter Product Number",
-                  // ),
+            Container(
+              width: CustomScreenUtility(context).width *
+                  0.70 /
+                  ProductEnum.values.length,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(productNumberController.text),
+                // child: CustomTextField(
+                //   controller: productNumberController,
+                //   label: "Enter Product Number",
+                // ),
+              ),
+            ),
+            CustomTableElement(
+              width: CustomScreenUtility(context).width *
+                  0.70 /
+                  ProductEnum.values.length,
+              text: e.productName,
+            ),
+            CustomTableElement(
+              width: CustomScreenUtility(context).width *
+                  0.70 /
+                  ProductEnum.values.length,
+              // text: validate,
+              text: e.companyId != null
+                  ? companyDB.getCompanyById(e.companyId!).name
+                  : "",
+            ),
+            CustomTableElement(
+              width: CustomScreenUtility(context).width *
+                  0.70 /
+                  ProductEnum.values.length,
+              text: Database().getUnitModelById(e.unitId)?.symbol ?? "",
+            ),
+            CustomTableElement(
+              width: CustomScreenUtility(context).width *
+                  0.70 /
+                  ProductEnum.values.length,
+              text: e.unitQty.toString(),
+            ),
+            Container(
+              width: CustomScreenUtility(context).width *
+                  0.70 /
+                  ProductEnum.values.length,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: InkWell(
+                  child: const Icon(Icons.update, color: kPrimaryColor),
+                  onTap: () async {
+                    await controller.updateProductNumber(
+                      productNumberController.text,
+                      e,
+                    );
+                  },
                 ),
               ),
-              CustomTableElement(
-                width: CustomScreenUtility(context).width *
-                    0.70 /
-                    ProductEnum.values.length,
-                text: e.productName,
-              ),
-              CustomTableElement(
-                width: CustomScreenUtility(context).width *
-                    0.70 /
-                    ProductEnum.values.length,
-                // text: validate,
-                text: e.companyId != null
-                    ? companyDB.getCompanyById(e.companyId!).name
-                    : "",
-              ),
-              CustomTableElement(
-                width: CustomScreenUtility(context).width *
-                    0.70 /
-                    ProductEnum.values.length,
-                text: Database().getUnitModelById(e.unitId)?.symbol ?? "",
-              ),
-              CustomTableElement(
-                width: CustomScreenUtility(context).width *
-                    0.70 /
-                    ProductEnum.values.length,
-                text: e.unitQty.toString(),
-              ),
-              Container(
-                width: CustomScreenUtility(context).width *
-                    0.70 /
-                    ProductEnum.values.length,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: InkWell(
-                    child: const Icon(Icons.update, color: kPrimaryColor),
-                    onTap: () async {
-                      await controller.updateProductNumber(
-                        productNumberController.text,
-                        e,
-                      );
-                    },
+            ),
+          ],
+        ),
+      ),
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildUnitBarcode(
+                  e,
+                  "${e.unitQty} ${Database.instance.getUnitModelById(e.unitId)?.symbol} (${Database.instance.getUnitModelById(e.unitId)?.formalName})",
+                  purchasePrice: e.purchasePrice,
+                  wholeSalePrice: double.tryParse(
+                        BasicCalculation.calculateTax(
+                          categoryDB.getCategoryModelById(e.categoryId).tax,
+                          e.wholesale,
+                        ).toStringAsFixed(2),
+                      ) ??
+                      0,
+                  retailPrice: double.tryParse(
+                        BasicCalculation.calculateTax(
+                          categoryDB.getCategoryModelById(e.categoryId).tax,
+                          e.retail,
+                        ).toStringAsFixed(2),
+                      ) ??
+                      0,
+                  mrp: double.parse(
+                    BasicCalculation.calculateTax(
+                      categoryDB.getCategoryModelById(e.categoryId).tax,
+                      e.sellingPrice,
+                    ).toStringAsFixed(2),
                   ),
+                  formalName:
+                      Database.instance.getUnitModelById(e.unitId)?.formalName,
+                  unitQty: e.unitQty ?? 0,
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: 10,
+                ),
+                ...(e.differentPriceList ?? [])
+                    .map(
+                      (f) => _buildUnitBarcode(
+                        e,
+                        "${f.unitQty} ${f.unitModel.symbol} (${f.unitModel.formalName})",
+                        formalName: f.unitModel.formalName,
+                        unitQty: (f.unitQty).toInt(),
+                        purchasePrice: f.purchasePrice ?? 0,
+                        wholeSalePrice: double.tryParse(
+                              BasicCalculation.calculateTax(
+                                categoryDB
+                                    .getCategoryModelById(e.categoryId)
+                                    .tax,
+                                f.wholesale,
+                              ).toStringAsFixed(2),
+                            ) ??
+                            0,
+                        retailPrice: double.tryParse(
+                              BasicCalculation.calculateTax(
+                                categoryDB
+                                    .getCategoryModelById(e.categoryId)
+                                    .tax,
+                                f.retail,
+                              ).toStringAsFixed(2),
+                            ) ??
+                            0,
+                        mrp: double.tryParse(
+                              BasicCalculation.calculateTax(
+                                categoryDB
+                                    .getCategoryModelById(e.categoryId)
+                                    .tax,
+                                f.mrp,
+                              ).toStringAsFixed(2),
+                            ) ??
+                            0,
+                      ),
+                    )
+                    .toList(),
+              ],
+            ),
           ),
         ),
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(
-                "Barcode",
-                color: Colors.grey[800],
-                fontWeight: FontWeight.bold,
-              ),
-              Screenshot(
-                controller: screenshotController,
-                child: Container(
-                  width: 240,
-                  height: 100,
-                  // padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: SfBarcodeGenerator(
-                    value: '${e.productNumber}',
-                    showValue: true,
-                  ),
-                ),
-              ),
-            ],
+        const CustomText("Images"),
+        if (e.imagesList == null)
+          const CustomText("No Images to display")
+        else
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: e.imagesList!
+                  .map(
+                    (e) => InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImageViewer(image: e),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: CustomScreenUtility(context).width * 0.2,
+                        child: Image.file(File(e)),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
           ),
-          CustomTextButton(
-            "Print",
-            onPressed: () async {
-              screenshotController.capture().then((Uint8List? image) async {
-                if (image != null) {
-                  context.read<BarcodePrinterCubit>().addImages(image, 1);
-                }
-                // if (image != null) {
-                //   final path = await PDFGenerator.generateBarcode(
-                //     [image],
-                //     e.sellingPrice,
-                //   );
-                //   PDFGenerator.openPdf(path);
-                //   final file = File(path);
-                //   await PrinterUtility.barcodePrint(file);
-                // } else {
-                //   CustomUtilies.customFailureSnackBar("Error", "Image is null");
-                // }
-              }).catchError((onError) {
-                print(onError);
-              });
+      ],
+    );
+  }
 
-              // final printersList = await Printing.listPrinters();
-              // Printer? printer;
-              // final printerDataFromDB = "Bar Code Printer T-9650 Pro";
-              // for (final item in printersList) {
-              //   if (item.name == printerDataFromDB ||
-              //       item.model == printerDataFromDB ||
-              //       item.url == printerDataFromDB ||
-              //       item.location == printerDataFromDB) {
-              //     printer = item;
-              //   }
-              // }
-
-              // if (printer != null) {
-              //   // Printing.pickPrinter(context: context);
-              //   Printing.layoutPdf(
-              //     onLayout: (format) {
-              //       print(format);
-              //       return _generatePdf(format, "Testing");
-              //     },
-              //     format: PdfPageFormat(
-              //       101.6 * PdfPageFormat.mm,
-              //       20 * PdfPageFormat.mm,
-              //     ),
-              //     usePrinterSettings: true,
-              //   );
-
-              //   Printing.directPrintPdf(
-              //       onLayout: (format) {
-              //         return _generatePdf(format, "Testing");
-              //       },
-              //       printer: printer);
-              // }
-            },
+  Column _buildUnitBarcode(
+    ProductModel e,
+    String title, {
+    required int unitQty,
+    required String? formalName,
+    required double purchasePrice,
+    required double retailPrice,
+    required double mrp,
+    required double wholeSalePrice,
+  }) {
+    ScreenshotController screenshotController = ScreenshotController();
+    final barcodeValue = "${e.productNumber}/$unitQty-${formalName ?? ''}";
+    return Column(
+      children: [
+        CustomText(
+          title,
+          color: Colors.grey[800],
+          fontWeight: FontWeight.bold,
+        ),
+        Screenshot(
+          controller: screenshotController,
+          child: Container(
+            width: 240,
+            height: 60,
+            // padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: SfBarcodeGenerator(
+              value: barcodeValue,
+              showValue: true,
+              textStyle: const TextStyle(
+                fontSize: 10,
+              ),
+              barColor: const Color(0xFF000000).withOpacity(0.8),
+            ),
           ),
-          CustomTextButton(
-            "Potrait",
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            CountContainer(type: "Purchase Price", count: purchasePrice),
+            const SizedBox(
+              width: 20,
+            ),
+            CountContainer(
+              type: "Wholesale Price",
+              count: wholeSalePrice,
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            CountContainer(
+              type: "Retail Price",
+              count: retailPrice,
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            CountContainer(
+              type: "MRP Price",
+              count: mrp,
+            ),
+          ],
+        ),
+        Center(
+          child: CustomTextButton(
+            "Add",
             onPressed: () async {
+              context.read<BarcodePrinterCubit>().addImages(
+                    BarcodeAndPrice(
+                      null,
+                      mrp,
+                      barcodeValue,
+                    ),
+                    1,
+                  );
+              print("Clicked: ${screenshotController.hashCode}");
+
               // screenshotController.capture().then((Uint8List? image) async {
+              //   log("image: $image");
               //   if (image != null) {
-              //     final path = await PDFGenerator.generateBarcode(
-              //       [image, image, image, image],
-              //       e.sellingPrice,
-              //       isPotrait: true,
-              //     );
-              //     PDFGenerator.openPdf(path);
-              //     final file = File(path);
-              //     await PrinterUtility.barcodePrint(file);
-              //   } else {
-              //     CustomUtilies.customFailureSnackBar("Error", "Image is null");
+
               //   }
               // }).catchError((onError) {
               //   print(onError);
               // });
             },
           ),
-          Container(
-            padding: const EdgeInsets.only(left: 10),
-            child: Row(
-              children: [
-                CountContainer(type: "Purchase Price", count: e.purchasePrice),
-                const SizedBox(
-                  width: 20,
-                ),
-                CountContainer(
-                  type: "Wholesale Price",
-                  count: double.parse(
-                    BasicCalculation.calculateTax(
-                      categoryDB.getCategoryModelById(e.categoryId).tax,
-                      e.wholesale,
-                    ).toStringAsFixed(2),
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                CountContainer(
-                  type: "Retail Price",
-                  count: double.parse(
-                    BasicCalculation.calculateTax(
-                      categoryDB.getCategoryModelById(e.categoryId).tax,
-                      e.retail,
-                    ).toStringAsFixed(2),
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                CountContainer(
-                  type: "MRP Price",
-                  count: double.parse(
-                    BasicCalculation.calculateTax(
-                      categoryDB.getCategoryModelById(e.categoryId).tax,
-                      e.sellingPrice,
-                    ).toStringAsFixed(2),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const CustomText("Images"),
-          if (e.imagesList == null)
-            const CustomText("No Images to display")
-          else
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: e.imagesList!
-                    .map(
-                      (e) => InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ImageViewer(image: e),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          width: CustomScreenUtility(context).width * 0.2,
-                          child: Image.file(File(e)),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -1584,12 +1603,12 @@ class ImageContainer extends StatelessWidget {
   final VoidCallback onRemoveImageTap;
   final double? width, height;
   const ImageContainer({
-    Key? key,
+    super.key,
     required this.onRemoveImageTap,
     required this.imagePath,
     this.width,
     this.height,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1626,10 +1645,10 @@ class CountContainer extends StatelessWidget {
   final String type;
   final double count;
   const CountContainer({
-    Key? key,
+    super.key,
     required this.type,
     required this.count,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,19 +1,12 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/enum/application.dart';
 import 'package:annai_store/enum/person/person.dart';
 import 'package:annai_store/models/persons/employee/employee.dart';
 import 'package:annai_store/screens/home/home.dart';
-import 'package:annai_store/utils/file/file.dart';
-import 'package:annai_store/utils/utility.dart';
 import 'package:custom/ftn.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 
 class LoginController extends GetxController {
   TextEditingController usernameController = TextEditingController();
@@ -24,41 +17,41 @@ class LoginController extends GetxController {
   bool isDownloading = false;
   EmployeeModel? currentEmployee;
 
-  Future<void> openExeFile(String filePath) async {
-    await Process.start(filePath, ["-t", "-l", "1000"]).then((value) {});
-  }
+  // Future<void> openExeFile(String filePath) async {
+  //   await Process.start(filePath, ["-t", "-l", "1000"]).then((value) {});
+  // }
 
-  Future<double> getCurrentVersion() async {
-    try {
-      final strData = await Utility().checkCurrentVersion();
-      final jsonData = jsonDecode(strData) as Map<String, dynamic>;
-      debugPrint("Latest Version: ${jsonData['version']}");
-      return double.parse("${jsonData['version']}");
-    } catch (e) {
-      return 0;
-    }
-  }
+  // Future<double> getCurrentVersion() async {
+  //   try {
+  //     final strData = await Utility().checkCurrentVersion();
+  //     final jsonData = jsonDecode(strData) as Map<String, dynamic>;
+  //     debugPrint("Latest Version: ${jsonData['version']}");
+  //     return double.parse("${jsonData['version']}");
+  //   } catch (e) {
+  //     return 0;
+  //   }
+  // }
 
-  Future<void> downloadNewVersion() async {
-    isDownloading = true;
-    update();
-    final dio = Dio();
-    final fileDownloadPath =
-        "${(await getApplicationDocumentsDirectory()).path}/${FileUtility.getAppsFileName()}.exe";
-    await dio.download(
-      "https://github.com/AgnelSelvan/AgnelSelvan.github.io/raw/main/${FileUtility.getAppsFileName()}/${FileUtility.getGithubExeName()}.exe",
-      fileDownloadPath,
-      onReceiveProgress: (received, total) {
-        final progress = (received / total) * 100;
-        debugPrint('Rec: $received , Total: $total, $progress%');
-        downloadProgress = double.parse(progress.toStringAsFixed(0));
-        update();
-      },
-    );
-    await openExeFile(fileDownloadPath);
-    isDownloading = false;
-    update();
-  }
+  // Future<void> downloadNewVersion() async {
+  //   isDownloading = true;
+  //   update();
+  //   final dio = Dio();
+  //   final fileDownloadPath =
+  //       "${(await getApplicationDocumentsDirectory()).path}/${FileUtility.getAppsFileName()}.exe";
+  //   await dio.download(
+  //     "https://github.com/AgnelSelvan/AgnelSelvan.github.io/raw/main/${FileUtility.getAppsFileName()}/${FileUtility.getGithubExeName()}.exe",
+  //     fileDownloadPath,
+  //     onReceiveProgress: (received, total) {
+  //       final progress = (received / total) * 100;
+  //       debugPrint('Rec: $received , Total: $total, $progress%');
+  //       downloadProgress = double.parse(progress.toStringAsFixed(0));
+  //       update();
+  //     },
+  //   );
+  //   await openExeFile(fileDownloadPath);
+  //   isDownloading = false;
+  //   update();
+  // }
 
   void handleLogin(HomeController homeController, BuildContext context) {
     final emp = employeeDB.getEmployeeByName(usernameController.text);

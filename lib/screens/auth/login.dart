@@ -4,6 +4,7 @@ import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/application.dart';
+import 'package:annai_store/features/new_version/widgets/button/button.dart';
 import 'package:annai_store/utils/sales_end/sales_end.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:annai_store/widgets/text_field.dart';
@@ -14,7 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -32,35 +33,6 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     print("App Life cycle Status : $state");
   }
 
-  Future<void> handleVersion() async {
-    try {
-      loginController.updateIsAuthenticated(false);
-      final version = await loginController.getCurrentVersion();
-      if (Application.version() < double.parse("$version")) {
-        // ignore: deprecated_member_use
-        // _scaffoldKey.currentState!.showSnackBar(
-        //     const SnackBar(content: CustomText("New update has been found")));
-
-        //   _scaffoldKey.currentState!.showSnackBar(
-        //     SnackBar(
-        //       duration: const Duration(seconds: 30),
-        //       content: CustomText("New version $version update has been found"),
-        //       backgroundColor: Colors.green[400],
-        //       action: SnackBarAction(
-        //         label: "View",
-        //         onPressed: () async {
-        //           await Utility().showUpdateDialog(context, loginController);
-        //         },
-        //         textColor: Colors.white,
-        //       ),
-        //     ),
-        //   );
-      }
-    } catch (e) {
-      CustomUtilies.customFailureSnackBar("Error", "$e");
-    }
-  }
-
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -73,7 +45,6 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     super.initState();
     Database().storage.setItem("sales", []);
     debugPrint("All Bills List ${salesDB.getAllBill()}");
-    // handleVersion();
   }
 
   @override
@@ -98,18 +69,28 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                         padding: const EdgeInsets.all(20),
                         child: Column(
                           children: [
-                            CustomText(
-                              "Login",
-                              size: 28,
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold,
-                            ),
-                            const SizedBox(height: 10),
-                            CustomText(
-                              "Version: ${Application.version()}",
-                              size: 12,
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    CustomText(
+                                      "Login",
+                                      size: 28,
+                                      color: Colors.grey[700],
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    CustomText(
+                                      "Version: ${Application.version()}",
+                                      size: 12,
+                                      color: Colors.grey[700],
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ],
+                                ),
+                                const AppUpdateButton(),
+                              ],
                             ),
                             const SizedBox(height: 50),
                             RawKeyboardListener(
@@ -216,9 +197,9 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
 class DownloadLoadingWidget extends StatelessWidget {
   final double progress;
   const DownloadLoadingWidget({
-    Key? key,
+    super.key,
     required this.progress,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

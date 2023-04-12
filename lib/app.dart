@@ -1,15 +1,15 @@
-import 'dart:io';
-
 import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/controller/paths/paths.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/application.dart';
+import 'package:annai_store/features/analytics/sales/cubit/sales_analytics_cubit.dart';
 import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
+import 'package:annai_store/features/loader/cubit/cubit/loader_cubit.dart';
+import 'package:annai_store/features/loader/cubit/loader_cubit.dart';
+import 'package:annai_store/features/loader/widgets/loader.dart';
+import 'package:annai_store/features/new_version/cubit/version_cubit.dart';
 import 'package:annai_store/screens/auth/login.dart';
-import 'package:annai_store/utils/encrypt.dart';
-import 'package:annai_store/utils/file/file.dart';
-import 'package:annai_store/utils/folder/folder.dart';
 import 'package:annai_store/utils/navigation_service.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +27,7 @@ class _AppState extends State<MyApp> with WindowListener {
   PathController pathController = Get.put(PathController());
   final FocusNode _focusNode = FocusNode();
   bool isLoading = true;
+  final _bloc = LoaderBloc();
 
   @override
   void onWindowClose() {
@@ -68,8 +69,21 @@ class _AppState extends State<MyApp> with WindowListener {
     Utility().performActivityWhenAppOpens();
     Database.instance.initialize();
     pathController.addIfNotExists();
-    return BlocProvider(
-      create: (context) => BarcodePrinterCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => BarcodePrinterCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SalesAnalyticsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => VersionCubit()..fetchLatestVersion(),
+        ),
+        BlocProvider(
+          create: (context) => LoaderCubit(),
+        ),
+      ],
       child: GetMaterialApp(
         navigatorKey: NavigationService.navigatorKey,
         title: Application.appName,
@@ -79,21 +93,26 @@ class _AppState extends State<MyApp> with WindowListener {
           primarySwatch: kMidPrimaryColor,
         ),
         // home: const Scaffold(body: Text("Hello")),
-        home: RawKeyboardListener(
-          focusNode: _focusNode,
-          onKey: (RawKeyEvent rawKeyEvent) {
-            // Utility().onKeyEvent(rawKeyEvent, context);
-          },
-          child: GetBuilder<LoginController>(
-            builder: (controller) {
-              // return controller.isAuthenticated
-              //     ? const HomeScreen()
-              //     : const
-              return isLoading
-                  ? const CircularProgressIndicator()
-                  : const LoginScreen();
-            },
-          ),
+        home: Stack(
+          children: [
+            RawKeyboardListener(
+              focusNode: _focusNode,
+              onKey: (RawKeyEvent rawKeyEvent) {
+                // Utility().onKeyEvent(rawKeyEvent, context);
+              },
+              child: GetBuilder<LoginController>(
+                builder: (controller) {
+                  // return controller.isAuthenticated
+                  //     ? const HomeScreen()
+                  //     : const
+                  return isLoading
+                      ? const CircularProgressIndicator()
+                      : const LoginScreen();
+                },
+              ),
+            ),
+            const ApplicationLoader(),
+          ],
         ),
       ),
     );

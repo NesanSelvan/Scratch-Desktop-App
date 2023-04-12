@@ -2,15 +2,27 @@
 
 part of 'barcode_printer_cubit.dart';
 
+class BarcodeAndPrice {
+  final Uint8List? barcodeBuffer;
+  final String barcodeValue;
+  final double amount;
+
+  BarcodeAndPrice(
+    this.barcodeBuffer,
+    this.amount,
+    this.barcodeValue,
+  );
+}
+
 class BarcodePrinterState {
-  final List<Uint8List> barcodeImages;
+  final List<BarcodeAndPrice> barcodeImages;
 
   BarcodePrinterState({
     required this.barcodeImages,
   });
 
   BarcodePrinterState copyWith({
-    List<Uint8List>? barcodeImages,
+    List<BarcodeAndPrice>? barcodeImages,
   }) {
     return BarcodePrinterState(
       barcodeImages: barcodeImages ?? this.barcodeImages,

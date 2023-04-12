@@ -100,12 +100,12 @@ String getBillNo(List<String> list) {
 }
 
 String getSalesBillNo(List<String> list) {
-  if(list.isEmpty){
+  if (list.isEmpty) {
     return "1 / ${getYear()}";
   }
-  
+
   debugPrint('Bill No : ${list.length + 1} / ${getYear()}');
-  
+
   list.sort((a, b) {
     final aBill = int.parse(a.split("/")[0].trim());
     final bBill = int.parse(b.split("/")[0].trim());
@@ -163,3 +163,9 @@ int getNoFromBillNo(String billNo) {
 final paymentMethod = ["Cash", "Cheque", "PayTM", "GPay", "NEFT"];
 
 const localhostPort = 5000;
+
+// ignore: avoid_classes_with_only_static_members
+class Constants {
+  static String ruppeeSymbol = "₹";
+  static String ruppeeSymbolCharCode = "\u{20B9}";
+}

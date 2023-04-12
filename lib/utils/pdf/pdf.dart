@@ -14,6 +14,7 @@ import 'package:annai_store/enum/application.dart';
 import 'package:annai_store/enum/operation.dart';
 import 'package:annai_store/enum/payments/payment.dart';
 import 'package:annai_store/extensions/type.dart';
+import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
 import 'package:annai_store/models/bill/bill.dart';
 import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/customer/customer.dart';
@@ -257,9 +258,9 @@ class PDFGenerator {
     );
   }
 
-  static Future<String> getPDFFilePath() async {
+  static Future<String> getPDFFilePath({int? count}) async {
     final path = await getApplicationDocumentsDirectory();
-    return "${path.path}/example.pdf";
+    return "${path.path}/example_${count ?? ''}.pdf";
   }
 
   static pw.Container taxCalBodyData({
@@ -5164,59 +5165,88 @@ class PDFGenerator {
   }
 
   static Future<Uint8List> generateBarcodePdf(
-      PdfPageFormat format, List<Uint8List> imagesBuffer) async {
+    PdfPageFormat format,
+    List<BarcodeAndPrice> imagesBuffer,
+  ) async {
     final pdf = pw.Document();
-    final List<pw.MemoryImage> memImages = [];
-    for (final element in imagesBuffer) {
-      memImages.add(
-        pw.MemoryImage(
-          element,
-        ),
-      );
-    }
-    final height = format.height * (imagesBuffer.length / 4).ceil();
-    final pdfFormat = PdfPageFormat(format.width, height);
+    // final List<pw.MemoryImage> memImages = [];
+    // for (final element in imagesBuffer) {
+    //   memImages.add(
+    //     pw.MemoryImage(
+    //       element.barcodeBuffer,
+    //     ),
+    //   );
+    // }
+    // final height = format.height * (imagesBuffer.length / 4).ceil();
+    // final pdfFormat = PdfPageFormat(format.width, height);
     pdf.addPage(
       pw.Page(
-        pageFormat: pdfFormat,
+        pageFormat: format,
         build: (context) {
           return pw.GridView(
             crossAxisCount: 4,
-            children: memImages
+            children: imagesBuffer
+                .asMap()
                 .map(
-                  (e) => pw.Container(
-                    width: pdfFormat.width / 4,
-                    height: pdfFormat.height,
-                    child: pw.Column(
-                      children: [
-                        pw.Container(
-                          color: PdfColor.fromHex("#000000"),
-                          margin: const pw.EdgeInsets.only(top: 4, bottom: 4),
-                          child: pw.Container(
-                            alignment: pw.Alignment.center,
-                            child: pw.Text(
-                              "A One Traders",
-                              style: pw.TextStyle(
-                                fontSize: 6,
-                                color: PdfColor.fromHex("#FFFFFF"),
+                  (key, value) => MapEntry(
+                    key,
+                    pw.Container(
+                      margin: const pw.EdgeInsets.symmetric(horizontal: 4),
+                      width: format.width / 4,
+                      height: format.height,
+                      child: pw.Column(
+                        children: [
+                          pw.Container(
+                            // color: PdfColor.fromHex("#000000"),
+                            margin: const pw.EdgeInsets.only(top: 4, bottom: 4),
+                            child: pw.Container(
+                              alignment: pw.Alignment.center,
+                              child: pw.Text(
+                                "A One Traders",
+                                style: pw.TextStyle(
+                                  fontSize: 6,
+                                  color: PdfColor.fromHex("#000000"),
+                                ),
                               ),
                             ),
                           ),
-                        ),
 
-                        pw.Image(e),
-                        // pw.Container(child: pw.Image(memImg), width: 100, height: 50),
-                        pw.Text(
-                          "Rs. 100",
-                          style: pw.TextStyle(
-                            fontSize: 7,
-                            fontWeight: pw.FontWeight.bold,
+                          // pw.Image(e),
+                          pw.Container(
+                            height: 24,
+                            width: format.width - 10,
+                            child: pw.BarcodeWidget(
+                              color: PdfColor.fromHex("#000000"),
+                              barcode: pw.Barcode.code128(),
+                              data: imagesBuffer[key].barcodeValue,
+                              textStyle: const pw.TextStyle(
+                                fontSize: 6,
+                              ),
+                            ),
                           ),
-                        )
-                      ],
+                          // pw.SizedBox(height: 2),
+                          // pw.Text(
+                          //   imagesBuffer[key].barcodeValue,
+                          //   style: pw.TextStyle(
+                          //     fontSize: 4,
+                          //     color: PdfColor.fromHex("#000000"),
+                          //   ),
+                          // ),
+                          pw.SizedBox(height: 4),
+                          pw.Text(
+                            "Rs. ${imagesBuffer[key].amount}",
+                            style: pw.TextStyle(
+                              fontSize: 8,
+                              color: PdfColor.fromHex("#000000"),
+                              fontWeight: pw.FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )
+                .values
                 .toList(),
           );
         },

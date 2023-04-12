@@ -7,7 +7,6 @@ class HomeController extends GetxController {
   // AddEnum addEnum = AddEnum.Product;
 
   Widget? currentSelectedWidget = SalesScreen();
-  List<Widget> listSelectedWidget = [SalesScreen()];
   @override
   void onInit() {
     currentSelectedWidget = SalesScreen();
@@ -29,16 +28,8 @@ class HomeController extends GetxController {
 
   void setCurrentSelectedWidget(Widget widget) {
     currentSelectedWidget = widget;
-    if (!listSelectedWidget.contains(widget)) listSelectedWidget.add(widget);
-    debugPrint('currentSelectedWidget $currentSelectedWidget');
-    update();
-  }
 
-  void backKeyPressed() {
-    if (listSelectedWidget.length != 1) {
-      listSelectedWidget.removeLast();
-      currentSelectedWidget = listSelectedWidget.last;
-    }
+    debugPrint('currentSelectedWidget $currentSelectedWidget');
     update();
   }
 
@@ -77,5 +68,4 @@ class HomeController extends GetxController {
   //   }
   //   clickedKeys.clear();
   // }
-
 }

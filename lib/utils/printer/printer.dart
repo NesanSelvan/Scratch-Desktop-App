@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'dart:typed_data';
 
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:custom/ftn.dart';
+import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
-
-import '../../controller/billing/sales/sales.dart';
-import '../pdf/pdf.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class PrinterUtility {
@@ -38,7 +38,9 @@ class PrinterUtility {
   }
 
   static Printer? _getPrinterByLocation(
-      List<Printer> printers, String location) {
+    List<Printer> printers,
+    String location,
+  ) {
     for (final item in printers) {
       if (item.location == location) {
         return item;
@@ -48,7 +50,9 @@ class PrinterUtility {
   }
 
   static Printer? _getSpecificPrinter(
-      List<Printer> printers, String printerDataFromDB) {
+    List<Printer> printers,
+    String printerDataFromDB,
+  ) {
     for (final item in printers) {
       if (item.name == printerDataFromDB ||
           item.model == printerDataFromDB ||
@@ -143,7 +147,10 @@ class PrinterUtility {
     }
   }
 
-  static Future barcodePrint(List<Uint8List> allData) async {
+  static Future barcodePrint(
+    List<BarcodeAndPrice> allData,
+    BuildContext context,
+  ) async {
     final printersList = await Printing.listPrinters();
 
     final barcodePrinterDataFromDB = pathsDB.getBarcodePrinterPath();
@@ -162,11 +169,47 @@ class PrinterUtility {
       );
       // PDFGenerator.openPdf(file.path);
     } else {
-      // final val = await Printing.layoutPdf(
-      //   onLayout: (format) {
-      //     return PDFGenerator.generateBarcodePdf(format, allData);
-      //   },
-      // );
+      final count = (allData.length / 4).ceil();
+      const barcodePdfFormat =
+          PdfPageFormat(101.6 * PdfPageFormat.mm, 20 * PdfPageFormat.mm);
+      // final height = barcodePdfFormat.height * count;
+      // final pdfFormat = PdfPageFormat(barcodePdfFormat.width, height);
+      for (var i = 0; i < count; i++) {
+        int lastImg = (i + 1) * 4;
+        if (allData.length < lastImg) {
+          lastImg = allData.length;
+        }
+        int start = i;
+
+        start = i * 4;
+
+        final reqImg = allData.sublist(start, lastImg);
+        print(
+          "start: $start last: $lastImg ${allData.length} ${reqImg.length}",
+        );
+
+        final pdfData = await PDFGenerator.generateBarcodePdf(
+          barcodePdfFormat,
+          reqImg,
+        );
+
+        final val = await Printing.directPrintPdf(
+          printer: printer,
+          onLayout: (format) {
+            return pdfData;
+          },
+          format: barcodePdfFormat,
+        );
+        // final path = await PDFGenerator.getPDFFilePath(count: i);
+        // final file = File(path);
+        // try {
+        //   file.writeAsBytesSync(pdfData);
+        //   PDFGenerator.openPdf(file.path);
+        // } catch (e) {
+        //   rethrow;
+        // }
+      }
+
       // if (val) {
       //   CustomUtilies.customSuccessSnackBar("Success", "Printed Successfully");
       // } else {
@@ -175,17 +218,18 @@ class PrinterUtility {
       //     "Something went wrong in printing",
       //   );
       // }
-      final val = await PDFGenerator.generateBarcodePdf(
-          PdfPageFormat(101.6 * PdfPageFormat.mm, 20 * PdfPageFormat.mm),
-          allData);
-      final path = await PDFGenerator.getPDFFilePath();
-      final file = File(path);
-      try {
-        file.writeAsBytesSync(val);
-        PDFGenerator.openPdf(file.path);
-      } catch (e) {
-        rethrow;
-      }
+      // }
+      // final val = await PDFGenerator.generateBarcodePdf(
+      //     PdfPageFormat(101.6 * PdfPageFormat.mm, 20 * PdfPageFormat.mm),
+      //     allData);
+      // final path = await PDFGenerator.getPDFFilePath();
+      // final file = File(path);
+      // try {
+      //   file.writeAsBytesSync(pdfData!);
+      //   PDFGenerator.openPdf(file.path);
+      // } catch (e) {
+      //   rethrow;
+      // }
     }
   }
 

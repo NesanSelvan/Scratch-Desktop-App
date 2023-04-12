@@ -104,6 +104,8 @@ class ProductController extends GetxController {
           final index = _priceModelList.indexOf(matchData.first);
           _priceModelList[index] =
               priceModel.copyWith(id: _priceModelList[index].id);
+          CustomUtilies.customSuccessSnackBar(
+              "Successfull", "Unit Updated successfully");
         }
         code1Focus.requestFocus();
         clearPriceModelTextFields();

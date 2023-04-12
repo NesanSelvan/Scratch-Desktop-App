@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:annai_store/controller/auth/login.dart';
@@ -9,11 +7,11 @@ import 'package:annai_store/controller/statements/statements.dart';
 import 'package:annai_store/controller/threads/threads.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/enum/add.dart';
-import 'package:annai_store/enum/application.dart';
 import 'package:annai_store/enum/billing.dart';
 import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/enum/person/person.dart';
 import 'package:annai_store/enum/statement.dart';
+import 'package:annai_store/features/analytics/sales/screens/sales.dart';
 import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/customer/customer.dart';
@@ -55,12 +53,7 @@ class Utility {
   Future<void> performActivityWhenAppOpens() async {
     if (await Directory(FolderUtility.getDBFolderLocation()).exists()) {
       Process.run("attrib", ["+h ", FolderUtility.getDBFolderLocation()])
-          .then((value) {
-        print(FolderUtility.getDBFolderLocation() +
-            "\\" +
-            FileUtility.getAppsFileName());
-        debugPrint("Process Result: ${value.stdout}");
-      });
+          .then((value) {});
     }
   }
 
@@ -471,7 +464,7 @@ class Utility {
     BuildContext context, {
     required Callback generateStatement,
   }) {
-    final _customerKeyboardNode = FocusNode();
+    final customerKeyboardNode = FocusNode();
     return showDialog(
       context: context,
       builder: (context) {
@@ -502,7 +495,7 @@ class Utility {
                             Container(
                               width: MediaQuery.of(context).size.width * 0.3,
                               child: CustomTypeAhead<CustomerModel>(
-                                keyboardFocusNode: _customerKeyboardNode,
+                                keyboardFocusNode: customerKeyboardNode,
                                 onArrowDown: () {
                                   controller.keyboardSelectCustomerModel(
                                     KeyboardEventEnum.ArrowDown,
@@ -874,6 +867,19 @@ class Utility {
                 .toList(),
           ),
           menubar.NativeSubmenu(
+            label: "Analytics",
+            children: [
+              menubar.NativeMenuItem(
+                label: "Overall",
+                onSelected: () {
+                  homeController
+                      .setCurrentSelectedWidget(const SalesAnalyticsScreen());
+                  homeController.update();
+                },
+              )
+            ],
+          ),
+          menubar.NativeSubmenu(
             label: 'Report',
             children: [
               menubar.NativeMenuItem(
@@ -1047,7 +1053,6 @@ class Utility {
               menubar.NativeMenuItem(
                 label: "Log out",
                 onSelected: () {
-                  homeController.listSelectedWidget.clear();
                   // homeController
                   //     .setCurrentSelectedWidget(const LoginScreen());
                   Navigator.push(
@@ -1066,83 +1071,6 @@ class Utility {
           return Container();
         },
       ),
-    );
-  }
-
-  Future showUpdateDialog(
-    BuildContext context,
-    LoginController loginController,
-  ) async {
-    final strData = await Utility().checkCurrentVersion();
-    log(strData);
-    final jsonData = jsonDecode(strData) as Map<String, dynamic>;
-
-    log("JsonData : $jsonData");
-    final version = jsonData['version'] ?? "";
-    final description = jsonData['description']
-        ?.toString()
-        .replaceAll("[", "")
-        .replaceAll("]", "")
-        .split(",");
-    log("Description: $description");
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return SimpleDialog(
-          title: CustomText("What's New in $version"),
-          contentPadding: const EdgeInsets.all(10),
-          children: [
-            if (description != null)
-              ...description
-                  .map(
-                    (e) => Row(
-                      children: [
-                        Container(
-                          width: 5,
-                          height: 5,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        CustomText(e, color: Colors.grey[600])
-                      ],
-                    ),
-                  )
-                  .toList(),
-            const SizedBox(height: 10),
-            FutureBuilder(
-              future: loginController.getCurrentVersion(),
-              builder: (context, version) {
-                if (version.hasData) {
-                  if (double.parse("${version.data}") > Application.version()) {
-                    return CustomTextButton(
-                      "Update",
-                      backgoundColor: kPrimaryColor,
-                      textColor: Colors.white,
-                      onPressed: () async {
-                        Navigator.pop(context);
-                        try {
-                          await loginController.downloadNewVersion();
-                        } catch (e) {
-                          CustomUtilies.customFailureSnackBar(
-                            "Error",
-                            "Error when downloading the new version",
-                          );
-                        }
-                      },
-                    );
-                  } else {
-                    return Container();
-                  }
-                }
-                return Container();
-              },
-            )
-          ],
-        );
-      },
     );
   }
 

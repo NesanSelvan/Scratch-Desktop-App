@@ -27,12 +27,10 @@ class StockDB {
   List<StockModel> getAllStocks() {
     try {
       final data = storage.getItem('stocks');
-      debugPrint('Stock Item: $data');
 
       final List<StockModel> datas = [];
       if (data != null) {
         for (final item in data as List) {
-          debugPrint('Stock Item: $item');
           datas.add(StockModel.fromJson(item as Map<String, dynamic>));
         }
       }

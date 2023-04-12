@@ -2,6 +2,7 @@ import 'package:annai_store/controller/auth/login.dart';
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/features/new_version/widgets/button/button.dart';
 import 'package:annai_store/models/persons/employee/employee.dart';
 import 'package:annai_store/utils/sales_end/sales_end.dart';
 import 'package:custom/custom_text.dart';
@@ -49,13 +50,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              CustomTextButton(
-                                "Check for Updates",
-                                onPressed: () async {
-                                  await Utility()
-                                      .showUpdateDialog(context, controller);
-                                },
-                              ),
+                              AppUpdateButton(),
                               CustomTextButton(
                                 "Create New Data",
                                 onPressed: () async {
