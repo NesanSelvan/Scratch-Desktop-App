@@ -20,8 +20,8 @@ abstract class UnitModel with _$UnitModel {
 }
 
 extension Extra on UnitModel {
-  NewUnitModel get newUnitModel => NewUnitModel(
-        id: id ?? Uuid().v4(),
+  Unit get unit => Unit(
+        id: id ?? const Uuid().v4(),
         createdAt: dateTime ?? DateTime.now(),
         symbol: symbol,
         formalName: formalName,

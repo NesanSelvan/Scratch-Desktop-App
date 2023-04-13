@@ -1,24 +1,22 @@
 import 'package:annai_store/controller/auth/login.dart';
+import 'package:annai_store/controller/personal_company/personal_company.dart';
 import 'package:annai_store/core/constants/constants.dart';
-import 'package:annai_store/core/db/db.dart';
+import 'package:annai_store/core/db/hive_db.dart';
+import 'package:annai_store/enum/application.dart';
 import 'package:annai_store/enum/person/person.dart';
 import 'package:annai_store/features/new_version/widgets/button/button.dart';
-import 'package:annai_store/models/persons/employee/employee.dart';
+import 'package:annai_store/screens/auth/login.dart';
 import 'package:annai_store/utils/sales_end/sales_end.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../../controller/personal_company/personal_company.dart';
-import '../../../enum/application.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/text_field.dart';
-import '../../auth/login.dart';
-
 class AccountScreen extends StatefulWidget {
-  const AccountScreen({Key? key}) : super(key: key);
+  const AccountScreen({super.key});
 
   @override
   _AccountScreenState createState() => _AccountScreenState();
@@ -50,37 +48,46 @@ class _AccountScreenState extends State<AccountScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              AppUpdateButton(),
+                              const AppUpdateButton(),
                               CustomTextButton(
                                 "Create New Data",
                                 onPressed: () async {
                                   final loginController =
                                       Get.put(LoginController());
                                   final empType = getPersonEnumFromStr(
-                                      loginController.currentEmployee!.type);
+                                    loginController.currentEmployee!.type,
+                                  );
                                   await Utility.showDeleteionDialog(
-                                      "Your data will be deleted and will create new data.",
-                                      onYesTap: () async {
-                                    if (empType == PersonEnum.SoftwareOwner)
-                                      SalesEnd.createNewDBFile(DateTime.now());
-                                    else
-                                      CustomUtilies.customFailureSnackBar(
+                                    "Your data will be deleted and will create new data.",
+                                    onYesTap: () async {
+                                      if (empType == PersonEnum.SoftwareOwner) {
+                                        SalesEnd.createNewDBFile(
+                                          DateTime.now(),
+                                        );
+                                      } else {
+                                        CustomUtilies.customFailureSnackBar(
                                           "You cannot delete",
-                                          "Please contact the administrator");
-                                  });
+                                          "Please contact the administrator",
+                                        );
+                                      }
+                                    },
+                                  );
                                 },
                                 backgoundColor: Colors.red,
                                 textColor: Colors.white,
                               ),
                               if (getPersonEnumFromStr(
-                                      loginController.currentEmployee!.type) ==
+                                    loginController.currentEmployee!.type,
+                                  ) ==
                                   PersonEnum.SoftwareOwner)
                                 CustomTextButton(
                                   "Migrate DB to Hive",
                                   onPressed: () async {
-                                    await Database.instance.migrateDBToHive();
+                                    await AppHiveDB.instance.migrateDBToHive();
                                     CustomUtilies.customSuccessSnackBar(
-                                        "Successfull", "Migrated Succesfully");
+                                      "Successfull",
+                                      "Migrated Succesfully",
+                                    );
                                   },
                                 )
                             ],
@@ -107,7 +114,7 @@ class _AccountScreenState extends State<AccountScreen> {
 }
 
 class MyPersonalCompanyDetails extends StatelessWidget {
-  const MyPersonalCompanyDetails({Key? key}) : super(key: key);
+  const MyPersonalCompanyDetails({super.key});
 
   @override
   Widget build(BuildContext context) {

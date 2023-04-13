@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 part 'new_unit.g.dart';
 
 @HiveType(typeId: 0)
-class NewUnitModel extends HiveObject {
+class Unit extends HiveObject {
   @HiveField(0)
   final String id;
 
@@ -25,7 +25,7 @@ class NewUnitModel extends HiveObject {
   @HiveField(5)
   final DateTime? updatedAt;
 
-  NewUnitModel({
+  Unit({
     required this.id,
     this.symbol,
     this.formalName,
@@ -34,7 +34,7 @@ class NewUnitModel extends HiveObject {
     this.updatedAt,
   });
 
-  NewUnitModel copyWith({
+  Unit copyWith({
     String? id,
     String? symbol,
     String? formalName,
@@ -42,7 +42,7 @@ class NewUnitModel extends HiveObject {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
-    return NewUnitModel(
+    return Unit(
       id: id ?? this.id,
       symbol: symbol ?? this.symbol,
       formalName: formalName ?? this.formalName,
@@ -54,7 +54,7 @@ class NewUnitModel extends HiveObject {
 
   @override
   String toString() {
-    return 'NewUnitModel(id: $id, symbol: $symbol, formalName: $formalName, unitNo: $unitNo, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Unit(id: $id, symbol: $symbol, formalName: $formalName, unitNo: $unitNo, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   Map<String, dynamic> toMap() {
@@ -68,8 +68,8 @@ class NewUnitModel extends HiveObject {
     };
   }
 
-  factory NewUnitModel.fromMap(Map<String, dynamic> map) {
-    return NewUnitModel(
+  factory Unit.fromMap(Map<String, dynamic> map) {
+    return Unit(
       id: map['id'] as String,
       symbol: map['symbol'] != null ? map['symbol'] as String : null,
       formalName:
@@ -84,11 +84,11 @@ class NewUnitModel extends HiveObject {
 
   String toJson() => json.encode(toMap());
 
-  factory NewUnitModel.fromJson(String source) =>
-      NewUnitModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Unit.fromJson(String source) =>
+      Unit.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  bool operator ==(covariant NewUnitModel other) {
+  bool operator ==(covariant Unit other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&

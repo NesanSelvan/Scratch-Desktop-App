@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:annai_store/core/db/bank/bank.dart';
 import 'package:annai_store/core/db/billing/estimate/estimate.dart';
 import 'package:annai_store/core/db/billing/orders/orders.dart';
@@ -21,13 +18,10 @@ import 'package:annai_store/core/db/product/product.dart';
 import 'package:annai_store/core/db/product/sub/sub_product.dart';
 import 'package:annai_store/core/db/stock/stock.dart';
 import 'package:annai_store/core/db/threads/thread_compant.dart';
-import 'package:annai_store/models/unit/new_unit.dart';
 import 'package:annai_store/models/unit/unit.dart';
-import 'package:annai_store/utils/encrypt.dart';
 import 'package:annai_store/utils/file/file.dart';
 import 'package:annai_store/utils/folder/folder.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:localstorage/localstorage.dart';
 
 class Database {
@@ -35,8 +29,6 @@ class Database {
     FileUtility.getDBFileName(),
     FolderUtility.getDBFolderLocation(),
   );
-  BoxCollection? boxCollection;
-  CollectionBox<NewUnitModel>? unitBox;
 
   static Database get instance => Database();
 
@@ -52,30 +44,10 @@ class Database {
       FileUtility.getDBFileName(),
       FolderUtility.getDBFolderLocation(),
     );
-    final key = await EncryptData.getDBKey();
-    boxCollection = await BoxCollection.open(
-      "${FileUtility.getAppsFileName()}_test",
-      {"units"},
-      // key: HiveAesCipher(key),
-      path: FolderUtility.getDBFolderLocation(),
-    );
-    log("boxCollection: $boxCollection");
-    unitBox = await boxCollection?.openBox<NewUnitModel>('units');
 
     // debugPrint("Storage : ${await _storage.getItem('units')}");
 
     // storage = _storage;
-  }
-
-  Future<void> migrateDBToHive() async {
-    await initialize();
-    final allUnits = getAllUnits();
-    await unitBox?.flush();
-    for (final unit in allUnits) {
-      log(unit.newUnitModel.symbol ?? "No Symbiol");
-      log("unitBox: ${unitBox?.name}");
-      await unitBox?.put(unit.id!, unit.newUnitModel);
-    }
   }
 
   void dispose() {
@@ -140,16 +112,10 @@ class Database {
     }
   }
 
-  Future<List<NewUnitModel>> getNewUnitModels() async {
-    await initialize();
-    final val = await unitBox?.getAllValues();
-    return val?.values.toList() ?? [];
-  }
-
   Future<void> addUnitToDb(UnitModel unitModel) async {
     final datas = [...getAllUnits(), unitModel];
     await updateUnitToDB(datas);
-    // unitBox?.put(unitModel!.id!, unitModel.newUnitModel);
+    // unitBox?.put(unitModel!.id!, unitModel.Unit);
   }
 
   Future<void> updateUnitToDB(List<UnitModel> unitModelList) async {

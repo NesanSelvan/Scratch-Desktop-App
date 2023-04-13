@@ -52,7 +52,7 @@ import 'package:validators/validators.dart';
 class Utility {
   Future<void> performActivityWhenAppOpens() async {
     if (await Directory(FolderUtility.getDBFolderLocation()).exists()) {
-      Process.run("attrib", ["+h ", FolderUtility.getDBFolderLocation()])
+      Process.run("attrib", ["+h ", "${FolderUtility.getDBFolderLocation()}\\"])
           .then((value) {});
     }
   }

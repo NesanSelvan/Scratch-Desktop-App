@@ -6,17 +6,17 @@ part of 'new_unit.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class NewUnitModelAdapter extends TypeAdapter<NewUnitModel> {
+class UnitAdapter extends TypeAdapter<Unit> {
   @override
   final int typeId = 0;
 
   @override
-  NewUnitModel read(BinaryReader reader) {
+  Unit read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return NewUnitModel(
+    return Unit(
       id: fields[0] as String,
       symbol: fields[1] as String?,
       formalName: fields[2] as String?,
@@ -27,7 +27,7 @@ class NewUnitModelAdapter extends TypeAdapter<NewUnitModel> {
   }
 
   @override
-  void write(BinaryWriter writer, NewUnitModel obj) {
+  void write(BinaryWriter writer, Unit obj) {
     writer
       ..writeByte(6)
       ..writeByte(0)
@@ -50,7 +50,7 @@ class NewUnitModelAdapter extends TypeAdapter<NewUnitModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is NewUnitModelAdapter &&
+      other is UnitAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

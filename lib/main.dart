@@ -3,13 +3,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/core/db/hive_db.dart';
 import 'package:annai_store/main_common.dart';
 import 'package:annai_store/models/unit/new_unit.dart';
 import 'package:annai_store/utils/file/file.dart';
-import 'package:annai_store/utils/folder/folder.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
@@ -18,7 +17,8 @@ Future<void> main() async {
   // handleRequests(server);
 
   await Hive.initFlutter();
-  Hive.registerAdapter(NewUnitModelAdapter());
+  Hive.registerAdapter(UnitAdapter());
+  AppHiveDB.instance.initialize();
 
   mainCommon();
 }

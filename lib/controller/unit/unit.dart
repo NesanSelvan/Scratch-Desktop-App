@@ -5,10 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../models/failure/failure.dart';
-import '../../models/unit/unit.dart';
-import '../../screens/add/product/product.dart';
-import '../home/home.dart';
+import 'package:annai_store/models/failure/failure.dart';
+import 'package:annai_store/models/unit/unit.dart';
+import 'package:annai_store/screens/add/product/product.dart';
+import 'package:annai_store/controller/home/home.dart';
 
 class UnitController extends GetxController {
   List<UnitModel> unitModelList = Database().getAllUnits();
