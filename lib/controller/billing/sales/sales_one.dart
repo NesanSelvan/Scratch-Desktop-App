@@ -34,8 +34,7 @@ class SalesBillingOneController extends GetxController {
   final rateController = TextEditingController();
   final discountController = TextEditingController();
   final noteController = TextEditingController();
-  TextEditingController invoiceNumberController =
-      TextEditingController();
+  TextEditingController invoiceNumberController = TextEditingController();
   final supplierRefController = TextEditingController();
   final orderDateController = TextEditingController();
   final despatchDocNoController = TextEditingController();

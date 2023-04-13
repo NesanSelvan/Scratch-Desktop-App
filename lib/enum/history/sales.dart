@@ -62,7 +62,8 @@ String getStrofAddEstimateHistoryEnum(EstimateHistoryEnum stimateHistoryEnum) {
 }
 
 enum PurchaseHistoryEnum {
-  Date,Images,
+  Date,
+  Images,
   BillNo,
   CompanyName,
   NoOfItem,

@@ -435,15 +435,17 @@ class Utility {
                         } else {
                           if (controller.selectedCustomer != null &&
                               controller.selectedCategory != null) {
-                            final data =
-                                await PDFGenerator.generateStatementByCustomer(
+                            final data = await PDFGenerator
+                                .generateStatementByCustomerBuffer(
                               controller.selectedCustomer!,
                               controller.selectedCategory!,
                               controller.startDate,
                               controller.endDate,
                             );
-                            debugPrint(data);
-                            PDFGenerator.openPdf(data);
+                            PDFGenerator.openBufferPdf(
+                              data,
+                              "statement_customer",
+                            );
                           }
                         }
                       },
@@ -1173,5 +1175,16 @@ class Utility {
 
   static String onlyDate(DateTime dateTime) {
     return DateFormat("dd/MM/yyyy").format(dateTime);
+  }
+
+  static String bufferToFile(Uint8List buffer, String filePath) {
+    final file = File(filePath);
+    try {
+      file.writeAsBytesSync(buffer);
+      return file.path;
+    } catch (e, s) {
+      print(s);
+      rethrow;
+    }
   }
 }

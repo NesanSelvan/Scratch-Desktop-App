@@ -91,19 +91,24 @@ class QuotationHistoryNotifier extends GetxController {
     QuotationModel quotationModel,
     HomeController homeController,
   ) async {
-    final data = await PDFGenerator.generateQuotation(quotationModel);
-    PDFGenerator.openPdf(data);
+    final data = await PDFGenerator.generateQuotationBuffer(quotationModel);
+    PDFGenerator.openBufferPdf(
+      data,
+      "quotation_${quotationModel.quotationNo.replaceAll(' / ', '-')}",
+    );
     // homeController.setCurrentSelectedWidget(PdfViewer(filePath: data));
-    debugPrint(data);
   }
 
   Future<void> viewThermal(
     QuotationModel billModel,
     HomeController homeController,
   ) async {
-    final data = await PDFGenerator.generateThermalBillForQuotation(billModel);
-    PDFGenerator.openPdf(data);
-    debugPrint(data);
+    final data =
+        await PDFGenerator.generateThermalBillForQuotationBuffer(billModel);
+    PDFGenerator.openBufferPdf(
+      data,
+      "quotation_${billModel.quotationNo.replaceAll(' / ', '-')}",
+    );
   }
 
   Future<void> updateDateOfPurchaseBill(

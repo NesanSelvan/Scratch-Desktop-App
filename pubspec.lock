@@ -286,12 +286,11 @@ packages:
   excel:
     dependency: "direct main"
     description:
-      path: "."
-      ref: null-safety
-      resolved-ref: "83db6cf0324a589248438a5e86f2b93417c9636a"
-      url: "https://github.com/justkawal/excel.git"
-    source: git
-    version: "2.0.0-null-safety-4"
+      name: excel
+      sha256: f6a76fff6ac14f48fd44a6528e72705965e02cbc593e00427ab1d9a9f5d3bffa
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -304,10 +303,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: a38574032c5f1dd06c4aee541789906c12ccaab8ba01446e800d9c5b79c4a978
+      sha256: "13a6ccf6a459a125b3fcdb6ec73bd5ff90822e071207c663bfd1f70062d51d18"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "1.2.1"
   file:
     dependency: transitive
     description:
@@ -316,6 +315,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      sha256: "704259669b5e9cb24e15c11cfcf02caf5f20d30901b3916d60b6d1c2d647035f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.6.1"
   filepicker_windows:
     dependency: "direct main"
     description:
@@ -393,6 +400,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: c224ac897bed083dabf11f238dd11a239809b446740be0c2044608c50029ffdf
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.9"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -776,10 +791,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_windows
-      sha256: "642ddf65fde5404f83267e8459ddb4556316d3ee6d511ed193357e25caa3632d"
+      sha256: a34ecd7fb548f8e57321fd8e50d865d266941b54e6c3b7758cf8f37c24116905
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.4"
+    version: "2.0.7"
   pdf:
     dependency: "direct main"
     description:
@@ -973,34 +988,82 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_barcodes
-      sha256: e25805cf95e6f8c33809d9bfa23c3904cd992da887198c8c95164b7c4d281173
+      sha256: "4257ac0bc89476f75e8463841bfd3226dfef7d8e89af1d3fe8ad875df3fc67f0"
       url: "https://pub.dev"
     source: hosted
-    version: "19.4.56"
+    version: "20.4.54"
   syncfusion_flutter_charts:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_charts
-      sha256: "0fba2a6a949308f6c2779195e8439f2c60064ad1b022abe8997f47b09e09fb6b"
+      sha256: "0222ac9d8cb6c671f014effe9bd5c0aef35eadb16471355345ba87cc0ac007b3"
       url: "https://pub.dev"
     source: hosted
-    version: "19.4.56"
+    version: "20.4.54"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "9be1bb9bbdb42823439a18da71484f1964c14dbe1c255ab1b931932b12fa96e8"
+      sha256: "3979f0b1c5a97422cadae52d476c21fa3e0fb671ef51de6cae1d646d8b99fe1f"
       url: "https://pub.dev"
     source: hosted
-    version: "19.4.56"
+    version: "20.4.54"
   syncfusion_flutter_datepicker:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datepicker
-      sha256: ff428c4e2ebd753c2f8f3b2aa60e96e014c9ca2653ce7007c7a603e560973f34
+      sha256: e4d4794d54f3a315046031d431a27e0d7350544b1bef0bcd1d2acf58f940dd37
       url: "https://pub.dev"
     source: hosted
-    version: "19.4.56"
+    version: "20.4.54"
+  syncfusion_flutter_pdf:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_pdf
+      sha256: cebcafc60d52d52e0789c18b6332c2bd378f0a6cca006fe0373293bcc6a66e6d
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.54"
+  syncfusion_flutter_pdfviewer:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_pdfviewer
+      sha256: "797a704efd843a606150d3d6317d5f2191173c334a5e5056b7f37855a8093af3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.54"
+  syncfusion_pdfviewer_macos:
+    dependency: transitive
+    description:
+      name: syncfusion_pdfviewer_macos
+      sha256: "6f2a9cdfc80aff8a13caba8d36527b3d68f5cb3530a7f2b29d269fbcff745afd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.54"
+  syncfusion_pdfviewer_platform_interface:
+    dependency: transitive
+    description:
+      name: syncfusion_pdfviewer_platform_interface
+      sha256: "646230861e103d33173a4909a184a00b2aa5a01819d38b05ccbf99da51be9314"
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.54"
+  syncfusion_pdfviewer_web:
+    dependency: transitive
+    description:
+      name: syncfusion_pdfviewer_web
+      sha256: ba0b72766f445ae171a5363df20abd50be0c1bc4576044df6afba3377a419de1
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.54"
+  syncfusion_pdfviewer_windows:
+    dependency: transitive
+    description:
+      name: syncfusion_pdfviewer_windows
+      sha256: "4cc6c92c211636550c4beb998f2db8f76d4f20eccbc8160730f2add0c8e23411"
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.54"
   term_glyph:
     dependency: transitive
     description:
@@ -1142,10 +1205,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "6b75ac2ddd42f5c226fdaf4498a2b04071c06f1f2b8f7ab1c3f77cc7f2285ff1"
+      sha256: c0e3a4f7be7dae51d8f152230b86627e3397c1ba8c3fa58e63d44a9f3edc9cef
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.0"
+    version: "2.6.1"
   window_manager:
     dependency: "direct main"
     description:

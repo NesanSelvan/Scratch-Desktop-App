@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Annai Store"
-#define MyAppVersion "25.7"
+#define MyAppVersion "25.8"
 #define MyAppPublisher "Agnel Selvan"
 #define MyAppURL "http://agnelselvan.me"
 #define MyAppExeName "annai_store.exe"

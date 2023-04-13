@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import '../../enum/application.dart';
+import 'package:annai_store/enum/application.dart';
+import 'package:file_picker/file_picker.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class FolderUtility {
@@ -20,5 +21,9 @@ class FolderUtility {
 
   static void createDirIfNotExists(String newFolderPath) {
     Directory(newFolderPath).createSync();
+  }
+
+  static Future<String?> getFolderDirectoryPath() async {
+    return FilePicker.platform.getDirectoryPath();
   }
 }

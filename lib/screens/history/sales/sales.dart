@@ -24,7 +24,7 @@ import 'package:get/get.dart';
 import 'package:validators/validators.dart';
 
 class SalesHistory extends StatefulWidget {
-  const SalesHistory({Key? key}) : super(key: key);
+  const SalesHistory({super.key});
 
   @override
   _SalesHistoryState createState() => _SalesHistoryState();
@@ -86,178 +86,174 @@ class _SalesHistoryState extends State<SalesHistory> {
         body: GetBuilder<SalesHistoryNotifier>(
           builder: (controller) {
             return FullWidthHeightContainer(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    Container(
-                      height: CustomScreenUtility(context).height * 0.1,
-                      child: const HeaderText(
-                        header: "Sales History Management",
+              child: ListView(
+                children: [
+                  Container(
+                    height: CustomScreenUtility(context).height * 0.1,
+                    child: const HeaderText(
+                      header: "Sales History Management",
+                    ),
+                  ),
+                  // CustomButton(
+                  //     icon: Icons.delete,
+                  //     text: "Delete All",
+                  //     onTap: () {
+                  //       salesHistoryNotifier.clearAllBills();
+                  //     }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const CustomText("Start"),
+                          DateTimeInkWell(
+                            onTap: () async {
+                              final dateTime = await showDatePickerDialog(
+                                context,
+                                initialDate: controller.startDateTime,
+                              );
+                              controller.setPickedStartDateTime(dateTime);
+                            },
+                            dateTime: controller.startDateTime,
+                          ),
+                        ],
                       ),
-                    ),
-                    // CustomButton(
-                    //     icon: Icons.delete,
-                    //     text: "Delete All",
-                    //     onTap: () {
-                    //       salesHistoryNotifier.clearAllBills();
-                    //     }),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const CustomText("Start"),
-                            DateTimeInkWell(
-                              onTap: () async {
-                                final dateTime = await showDatePickerDialog(
-                                  context,
-                                  initialDate: controller.startDateTime,
-                                );
-                                controller.setPickedStartDateTime(dateTime);
-                              },
-                              dateTime: controller.startDateTime,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const CustomText("End"),
-                            DateTimeInkWell(
-                              onTap: () async {
-                                final dateTime = await showDatePickerDialog(
-                                  context,
-                                  initialDate: controller.endDateTime,
-                                );
-                                controller.setPickedEndDateTime(dateTime);
-                              },
-                              dateTime: controller.endDateTime,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 140,
-                          child: CustomTextField(
-                            controller: controller.searchController,
-                            label: "Search By Customer and Bill",
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const CustomText("End"),
+                          DateTimeInkWell(
+                            onTap: () async {
+                              final dateTime = await showDatePickerDialog(
+                                context,
+                                initialDate: controller.endDateTime,
+                              );
+                              controller.setPickedEndDateTime(dateTime);
+                            },
+                            dateTime: controller.endDateTime,
                           ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 140,
+                        child: CustomTextField(
+                          controller: controller.searchController,
+                          label: "Search By Customer and Bill",
                         ),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        CustomButton(
-                          buttonColor: Colors.green[400],
-                          icon: Icons.search,
-                          text: "Search",
-                          onTap: () {
-                            controller.search();
-                          },
-                        ),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        CustomButton(
-                          buttonColor: Colors.yellow[600],
-                          icon: Icons.search,
-                          text: "Show all",
-                          onTap: () {
-                            controller.performInit();
-                          },
-                        ),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        Container(
-                          width: CustomScreenUtility(context).width /
-                                  SalesHistoryEnum.values.length -
-                              10,
-                          alignment: Alignment.centerLeft,
-                          // color: Colors.red,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Row(
-                              children: [
-                                Checkbox(
-                                  value: isA4,
-                                  onChanged: (bool? val) {
-                                    if (val != null) {
-                                      setState(() {
-                                        isA4 = val;
-                                      });
-                                    }
-                                  },
-                                ),
-                                const CustomText("F4.A4")
-                              ],
-                            ),
-                          ),
-                        ),
-                        // CustomTextButton(
-                        //   "Fix Bill No",
-                        //   onPressed: () {
-                        //     controller.fixBillNo();
-                        //   },
-                        // ),
-                        // CustomTextButton(
-                        //   "Clear Given Amount",
-                        //   backgoundColor: Colors.red,
-                        //   textColor: Colors.white,
-                        //   onPressed: () {
-                        //     controller.clearGivenAmount();
-                        //   },
-                        // ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          alignment: Alignment.centerLeft,
-                          width: CustomScreenUtility(context).width,
-                          child: Column(
+                      ),
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      CustomButton(
+                        buttonColor: Colors.green[400],
+                        icon: Icons.search,
+                        text: "Search",
+                        onTap: () {
+                          controller.search();
+                        },
+                      ),
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      CustomButton(
+                        buttonColor: Colors.yellow[600],
+                        icon: Icons.search,
+                        text: "Show all",
+                        onTap: () {
+                          controller.performInit();
+                        },
+                      ),
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      Container(
+                        width: CustomScreenUtility(context).width /
+                                SalesHistoryEnum.values.length -
+                            10,
+                        alignment: Alignment.centerLeft,
+                        // color: Colors.red,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
                             children: [
-                              Container(
-                                padding: const EdgeInsets.all(5),
-                                color: kLightPrimaryColor,
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: SalesHistoryEnum.values
-                                        .map(
-                                          (e) => CustomTableHeaderElement(
-                                            width: CustomScreenUtility(context)
-                                                    .width /
-                                                SalesHistoryEnum.values.length,
-                                            text:
-                                                getStrofAddSalesHistoryEnum(e),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
+                              Checkbox(
+                                value: isA4,
+                                onChanged: (bool? val) {
+                                  if (val != null) {
+                                    setState(() {
+                                      isA4 = val;
+                                    });
+                                  }
+                                },
                               ),
-                              if (salesHistoryNotifier.billsList == null)
-                                const CustomText("No Bills to display")
-                              else if (salesHistoryNotifier.billsList!.isEmpty)
-                                const CustomText("No Bills to display")
-                              else
-                                Column(
-                                  children: salesHistoryNotifier.billsList!
-                                      .map((e) => buildInkWell(e))
-                                      .toList(),
-                                )
+                              const CustomText("F4.A4")
                             ],
                           ),
                         ),
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                      // CustomTextButton(
+                      //   "Fix Bill No",
+                      //   onPressed: () {
+                      //     controller.fixBillNo();
+                      //   },
+                      // ),
+                      // CustomTextButton(
+                      //   "Clear Given Amount",
+                      //   backgoundColor: Colors.red,
+                      //   textColor: Colors.white,
+                      //   onPressed: () {
+                      //     controller.clearGivenAmount();
+                      //   },
+                      // ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        alignment: Alignment.centerLeft,
+                        width: CustomScreenUtility(context).width,
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(5),
+                              color: kLightPrimaryColor,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: SalesHistoryEnum.values
+                                      .map(
+                                        (e) => CustomTableHeaderElement(
+                                          width: CustomScreenUtility(context)
+                                                  .width /
+                                              SalesHistoryEnum.values.length,
+                                          text: getStrofAddSalesHistoryEnum(e),
+                                        ),
+                                      )
+                                      .toList(),
+                                ),
+                              ),
+                            ),
+                            if (salesHistoryNotifier.billsList == null)
+                              const CustomText("No Bills to display")
+                            else if (salesHistoryNotifier.billsList!.isEmpty)
+                              const CustomText("No Bills to display")
+                            else
+                              Column(
+                                children: salesHistoryNotifier.billsList!
+                                    .map((e) => buildInkWell(e))
+                                    .toList(),
+                              )
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             );
           },
@@ -291,147 +287,150 @@ class _SalesHistoryState extends State<SalesHistory> {
               salesHistoryNotifier.selectedBillModel?.billNo == billModel.billNo
                   ? Colors.grey[300]
                   : Colors.white,
-          child: Row(
-            children: [
-              CustomTableElement(
-                width: CustomScreenUtility(context).width /
-                    SalesHistoryEnum.values.length,
-                text: Utility.onlyDate(billModel.dateTime),
-              ),
-              CustomTableElement(
-                width: CustomScreenUtility(context).width /
-                    SalesHistoryEnum.values.length,
-                text: "",
-              ),
-              CustomTableElement(
-                width: CustomScreenUtility(context).width /
-                    SalesHistoryEnum.values.length,
-                text: billModel.billNo,
-              ),
-              CustomTableElement(
-                width: CustomScreenUtility(context).width /
-                    SalesHistoryEnum.values.length,
-                text: billModel.customerModel.name,
-              ),
-              CustomTableElement(
-                width: CustomScreenUtility(context).width /
-                    SalesHistoryEnum.values.length,
-                text: billModel.billNo == "2865 / 2022 - 2023"
-                    ? billModel.price.toStringAsFixed(2)
-                    : billModel.price.round().toStringAsFixed(2),
-              ),
-              CustomTableElement(
-                width: CustomScreenUtility(context).width /
-                    (SalesHistoryEnum.values.length + 2),
-                text: (billModel.price - billModel.givenAmount!)
-                    .round()
-                    .toStringAsFixed(2),
-              ),
-              Container(
-                width: CustomScreenUtility(context).width /
-                        SalesHistoryEnum.values.length -
-                    30,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        // if (billModel.isA4Printed ?? false)
-                        //   Container()
-                        // else
-                        //   InkWell(
-                        //     onTap: () async {
-                        //       await salesDB.deleteBill(billModel);
-                        //       salesHistoryNotifier.performInit();
-                        //     },
-                        //     child: Column(
-                        //       children: [
-                        //         CustomIcon(
-                        //           Icons.delete,
-                        //           color: Colors.red[400],
-                        //           size: 16,
-                        //         ),
-                        //         CustomText(
-                        //           "Delete",
-                        //           size: 8,
-                        //           color: Colors.grey[600],
-                        //         )
-                        //       ],
-                        //     ),
-                        //   ),
-                        InkWell(
-                          onTap: () async {
-                            if (isA4) {
-                              await salesHistoryNotifier.viewBill(
-                                billModel,
-                                homeController,
-                                UPIDetails(billModel.price).toStr(),
-                              );
-                            } else {
-                              await salesHistoryNotifier.viewThermal(
-                                billModel,
-                                homeController,
-                                UPIDetails(billModel.price).toStr(),
-                              );
-                            }
-                          },
-                          child: Column(
-                            children: [
-                              CustomIcon(
-                                Icons.remove_red_eye,
-                                color: Colors.red[400],
-                                size: 16,
-                              ),
-                              CustomText(
-                                "F1.View",
-                                size: 8,
-                                color: Colors.grey[600],
-                              )
-                            ],
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                CustomTableElement(
+                  width: CustomScreenUtility(context).width /
+                      SalesHistoryEnum.values.length,
+                  text: Utility.onlyDate(billModel.dateTime),
+                ),
+                CustomTableElement(
+                  width: CustomScreenUtility(context).width /
+                      SalesHistoryEnum.values.length,
+                  text: "",
+                ),
+                CustomTableElement(
+                  width: CustomScreenUtility(context).width /
+                      SalesHistoryEnum.values.length,
+                  text: billModel.billNo,
+                ),
+                CustomTableElement(
+                  width: CustomScreenUtility(context).width /
+                      SalesHistoryEnum.values.length,
+                  text: billModel.customerModel.name,
+                ),
+                CustomTableElement(
+                  width: CustomScreenUtility(context).width /
+                      SalesHistoryEnum.values.length,
+                  text: billModel.billNo == "2865 / 2022 - 2023"
+                      ? billModel.price.toStringAsFixed(2)
+                      : billModel.price.round().toStringAsFixed(2),
+                ),
+                CustomTableElement(
+                  width: CustomScreenUtility(context).width /
+                      (SalesHistoryEnum.values.length + 2),
+                  text: (billModel.price - billModel.givenAmount!)
+                      .round()
+                      .toStringAsFixed(2),
+                ),
+                Container(
+                  width: CustomScreenUtility(context).width /
+                          SalesHistoryEnum.values.length -
+                      30,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          // if (billModel.isA4Printed ?? false)
+                          //   Container()
+                          // else
+                          //   InkWell(
+                          //     onTap: () async {
+                          //       await salesDB.deleteBill(billModel);
+                          //       salesHistoryNotifier.performInit();
+                          //     },
+                          //     child: Column(
+                          //       children: [
+                          //         CustomIcon(
+                          //           Icons.delete,
+                          //           color: Colors.red[400],
+                          //           size: 16,
+                          //         ),
+                          //         CustomText(
+                          //           "Delete",
+                          //           size: 8,
+                          //           color: Colors.grey[600],
+                          //         )
+                          //       ],
+                          //     ),
+                          //   ),
+                          InkWell(
+                            onTap: () async {
+                              if (isA4) {
+                                await salesHistoryNotifier.viewBill(
+                                  billModel,
+                                  homeController,
+                                  UPIDetails(billModel.price).toStr(),
+                                );
+                              } else {
+                                await salesHistoryNotifier.viewThermal(
+                                  billModel,
+                                  homeController,
+                                  UPIDetails(billModel.price).toStr(),
+                                );
+                              }
+                            },
+                            child: Column(
+                              children: [
+                                CustomIcon(
+                                  Icons.remove_red_eye,
+                                  color: Colors.red[400],
+                                  size: 16,
+                                ),
+                                CustomText(
+                                  "F1.View",
+                                  size: 8,
+                                  color: Colors.grey[600],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        InkWell(
-                          onTap: () async {
-                            if (isA4) {
-                              final data = await PDFGenerator.generateBill(
-                                billModel,
-                                UPIDetails(billModel.price).toStr(),
-                              );
-                              final file = File(data);
-                              await PrinterUtility.normalPrint(file);
-                            } else {
-                              final data = await PDFGenerator
-                                  .generateThermalBillForSales(
-                                billModel,
-                                UPIDetails(billModel.price).toStr(),
-                              );
-                              final file = File(data);
-                              await PrinterUtility.thermalPrint(file);
-                            }
-                          },
-                          child: Column(
-                            children: [
-                              CustomIcon(
-                                Icons.print,
-                                size: 16,
-                                color: Colors.green[400],
-                              ),
-                              CustomText(
-                                "F2.Print",
-                                size: 8,
-                                color: Colors.grey[600],
-                              )
-                            ],
+                          const SizedBox(width: 10),
+                          InkWell(
+                            onTap: () async {
+                              if (isA4) {
+                                final data = await PDFGenerator.generateBill(
+                                  billModel,
+                                  UPIDetails(billModel.price).toStr(),
+                                );
+                                final file = File(data);
+                                await PrinterUtility.normalPrint(file);
+                              } else {
+                                final data = await PDFGenerator
+                                    .generateThermalBillForSales(
+                                  billModel,
+                                  UPIDetails(billModel.price).toStr(),
+                                );
+                                final file = File(data);
+                                await PrinterUtility.thermalPrint(file);
+                              }
+                            },
+                            child: Column(
+                              children: [
+                                CustomIcon(
+                                  Icons.print,
+                                  size: 16,
+                                  color: Colors.green[400],
+                                ),
+                                CustomText(
+                                  "F2.Print",
+                                  size: 8,
+                                  color: Colors.grey[600],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

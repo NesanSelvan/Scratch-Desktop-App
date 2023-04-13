@@ -70,7 +70,7 @@ class GenerateExcelSheetData {
     return "${folderPath.path}/${fileName}_${date.day}-${date.month}_${date.hour}-${date.minute}.xlsx";
   }
 
-  Future<void> generateStockStatement() async {
+  Future<Excel> generateStockStatement() async {
     print("EXCEL For Stock...");
     final basicCalculation = BasicCalculation();
     final excel = Excel.createExcel();
@@ -195,15 +195,28 @@ class GenerateExcelSheetData {
       indexByString: "F$currentPointer",
       value: totalNetValue,
     );
-
-    final datas = excel.encode();
-    if (datas != null) {
-      final path = await getExcelFilePath("stock");
-      await saveToExcelFile(path, datas);
-    }
+    return excel;
+    return excel;
+    // final datas = excel.encode();
+    // if (datas != null) {
+    //   final path = await getExcelFilePath("stock");
+    //   await saveToExcelFileAndOpen(path, datas);
+    // }
   }
 
-  Future<void> saveToExcelFile(String path, List<int> datas) async {
+  static Future<void> saveToExcelFile(
+    String path,
+    List<int> datas,
+  ) async {
+    File(path)
+      ..createSync(recursive: true)
+      ..writeAsBytesSync(datas);
+  }
+
+  static Future<void> saveToExcelFileAndOpen(
+    String path,
+    List<int> datas,
+  ) async {
     File(path)
       ..createSync(recursive: true)
       ..writeAsBytesSync(datas);
@@ -222,7 +235,7 @@ class GenerateExcelSheetData {
     }
   }
 
-  Future<void> generateReceiptStatement(
+  Future<Excel> generateReceiptStatement(
     DateTime startDate,
     DateTime endDate,
   ) async {
@@ -331,10 +344,11 @@ class GenerateExcelSheetData {
       value: totalAdvanceAmount,
     );
 
+    return excel;
     final datas = excel.encode();
     if (datas != null) {
       final path = await getExcelFilePath("receipt");
-      await saveToExcelFile(path, datas);
+      await saveToExcelFileAndOpen(path, datas);
       // File(path)
       //   ..createSync(recursive: true)
       //   ..writeAsBytesSync(datas);
@@ -351,7 +365,7 @@ class GenerateExcelSheetData {
     }
   }
 
-  Future<void> generatePaymentStatement(
+  Future<Excel> generatePaymentStatement(
     DateTime startDate,
     DateTime endDate,
   ) async {
@@ -405,18 +419,18 @@ class GenerateExcelSheetData {
     int currentPointer = 6;
     for (final receipt in payments) {
       CompanyModel? companyModel;
-      final _purchase = purchaseDB.getPurchaseModelById(receipt.purchaseId);
+      final purchase = purchaseDB.getPurchaseModelById(receipt.purchaseId);
       if (receipt.purchaseModel == null) {
-        if (_purchase != null) {
-          companyModel = _purchase.companyModel;
+        if (purchase != null) {
+          companyModel = purchase.companyModel;
         }
       } else {
         companyModel = receipt.purchaseModel!.companyModel;
       }
       String purchaseBillNo = "";
       if (receipt.purchaseModel == null) {
-        if (_purchase != null) {
-          purchaseBillNo = _purchase.billNo;
+        if (purchase != null) {
+          purchaseBillNo = purchase.billNo;
         } else {
           purchaseBillNo = "Purchase Bill might be deleted";
         }
@@ -472,10 +486,11 @@ class GenerateExcelSheetData {
       value: totalGivenAmount,
     );
 
+    return excel;
     final datas = excel.encode();
     if (datas != null) {
       final path = await getExcelFilePath("payment");
-      await saveToExcelFile(path, datas);
+      await saveToExcelFileAndOpen(path, datas);
       // File(path)
       //   ..createSync(recursive: true)
       //   ..writeAsBytesSync(datas);
@@ -492,7 +507,7 @@ class GenerateExcelSheetData {
     }
   }
 
-  Future<void> generateSalesStatement(
+  Future<Excel> generateSalesStatement(
     DateTime startDate,
     DateTime endDate,
   ) async {
@@ -647,15 +662,10 @@ class GenerateExcelSheetData {
         sheetObject.cell(CellIndex.indexByString("H${currentPoint + 1}"));
     taxableTotalCell.value = totalTaxableValue;
     taxableTotalCell.cellStyle = CellStyle(bold: true);
-
-    final datas = excel.encode();
-    if (datas != null) {
-      final path = await getExcelFilePath("sales");
-      await saveToExcelFile(path, datas);
-    }
+    return excel;
   }
 
-  Future<void> generateSalesByHSNCodeStatement(
+  Future<Excel> generateSalesByHSNCodeStatement(
     DateTime startDate,
     DateTime endDate,
     String hsnCode,
@@ -814,14 +824,15 @@ class GenerateExcelSheetData {
     taxableTotalCell.value = totalTaxableValue;
     taxableTotalCell.cellStyle = CellStyle(bold: true);
 
+    return excel;
     final datas = excel.encode();
     if (datas != null) {
       final path = await getExcelFilePath("sales");
-      await saveToExcelFile(path, datas);
+      await saveToExcelFileAndOpen(path, datas);
     }
   }
 
-  Future<void> generatePurchaseStatement(
+  Future<Excel> generatePurchaseStatement(
     DateTime startDate,
     DateTime endDate,
     CompanyModel? companyModel,
@@ -979,10 +990,11 @@ class GenerateExcelSheetData {
     taxableTotalCell.value = totalTaxableValue;
     taxableTotalCell.cellStyle = CellStyle(bold: true);
 
+    return excel;
     final datas = excel.encode();
     if (datas != null) {
       final path = await getExcelFilePath("purchase");
-      await saveToExcelFile(path, datas);
+      await saveToExcelFileAndOpen(path, datas);
       // File(path)
       //   ..createSync(recursive: true)
       //   ..writeAsBytesSync(datas);
@@ -999,7 +1011,7 @@ class GenerateExcelSheetData {
     }
   }
 
-  Future<void> generateSalesStatementByCustomer(
+  Future<Excel> generateSalesStatementByCustomer(
     DateTime startDate,
     DateTime endDate,
     CustomerModel customerModel,
@@ -1156,10 +1168,11 @@ class GenerateExcelSheetData {
     taxableTotalCell.value = totalTaxableValue;
     taxableTotalCell.cellStyle = CellStyle(bold: true);
 
+    return excel;
     final datas = excel.encode();
     if (datas != null) {
       final path = await getExcelFilePath("sales");
-      await saveToExcelFile(path, datas);
+      await saveToExcelFileAndOpen(path, datas);
       // File(path)
       //   ..createSync(recursive: true)
       //   ..writeAsBytesSync(datas);
@@ -1176,7 +1189,7 @@ class GenerateExcelSheetData {
     }
   }
 
-  Future<void> generateSalesStatementByHSNCode(
+  Future<Excel> generateSalesStatementByHSNCode(
     DateTime startDate,
     DateTime endDate,
     CategoryModel categoryModel,
@@ -1333,10 +1346,11 @@ class GenerateExcelSheetData {
     taxableTotalCell.value = totalTaxableValue;
     taxableTotalCell.cellStyle = CellStyle(bold: true);
 
+    return excel;
     final datas = excel.encode();
     if (datas != null) {
       final path = await getExcelFilePath("sales");
-      await saveToExcelFile(path, datas);
+      await saveToExcelFileAndOpen(path, datas);
       // File(path)
       //   ..createSync(recursive: true)
       //   ..writeAsBytesSync(datas);

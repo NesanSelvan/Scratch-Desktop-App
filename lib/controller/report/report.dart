@@ -111,13 +111,16 @@ class ReportController extends GetxController {
   ) async {
     final pdfGenerator = PDFGenerator();
     if (_selectedCustomer != null) {
-      final path = await pdfGenerator.generateCustomerReport(
+      final path = await pdfGenerator.generateCustomerReportBuffer(
         startDate,
         endDate,
         _selectedCustomer!,
         previousAmountManually: double.tryParse(previousAmountController.text),
       );
-      PDFGenerator.openPdf(path);
+      PDFGenerator.openBufferPdf(
+        path,
+        "customer_report",
+      );
     }
   }
 }

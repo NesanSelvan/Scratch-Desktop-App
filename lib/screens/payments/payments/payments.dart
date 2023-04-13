@@ -26,7 +26,7 @@ import 'package:validators/validators.dart';
 
 // ignore: must_be_immutable
 class PaymentScreen extends StatelessWidget {
-  PaymentScreen({Key? key}) : super(key: key);
+  PaymentScreen({super.key});
   final FocusNode _focusNode = FocusNode();
 
   PaymentController paymentController = Get.put(PaymentController());
@@ -589,6 +589,10 @@ class PaymentScreen extends StatelessWidget {
                                                         .spaceAround,
                                                 children: [
                                                   InkWell(
+                                                    onTap: () {
+                                                      controller
+                                                          .printPayment(e);
+                                                    },
                                                     child: CustomIcon(
                                                       Icons.print,
                                                       color: Colors.blue[400],
@@ -598,11 +602,13 @@ class PaymentScreen extends StatelessWidget {
                                                     onTap: () async {
                                                       final path =
                                                           await PDFGenerator
-                                                              .generateA5PaymentModel(
+                                                              .generateA5PaymentModelBuffer(
                                                         e,
                                                       );
-                                                      PDFGenerator.openPdf(
+                                                      PDFGenerator
+                                                          .openBufferPdf(
                                                         path,
+                                                        "payment_${e.paymentNo.replaceAll(' / ', '-')}",
                                                       );
                                                     },
                                                     child: CustomIcon(

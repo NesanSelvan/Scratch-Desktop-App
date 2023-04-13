@@ -1,18 +1,17 @@
 import 'dart:io';
 
+import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/models/bill/bill.dart';
+import 'package:annai_store/models/customer/customer.dart';
+import 'package:annai_store/models/receipts/receipt.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/printer/printer.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart';
-
-import '../../../models/bill/bill.dart';
-import '../../../models/customer/customer.dart';
-import '../../../models/receipts/receipt.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../../utils/printer/printer.dart';
-import '../../billing/sales/sales.dart';
 
 class ReceiptController extends GetxController {
   // final receiptDB = Database().receiptDB;
@@ -317,15 +316,17 @@ class ReceiptController extends GetxController {
 
   Future viewReceipt(ReceiptModel e) async {
     if (isA5) {
-      final data = await PDFGenerator.generateA5Receipt(e);
-      debugPrint(data);
-      PDFGenerator.openPdf(data);
-      debugPrint(data);
+      final data = await PDFGenerator.generateA5ReceiptBuffer(e);
+      PDFGenerator.openBufferPdf(
+        data,
+        "receipt_${e.receiptNo.replaceAll(' / ', '-')}",
+      );
     } else {
-      final data = await PDFGenerator.generateThermalReceipt(e);
-      debugPrint(data);
-      PDFGenerator.openPdf(data);
-      debugPrint(data);
+      final data = await PDFGenerator.generateThermalReceiptBuffer(e);
+      PDFGenerator.openBufferPdf(
+        data,
+        "receipt_${e.receiptNo.replaceAll(' / ', '-')}",
+      );
     }
   }
 
@@ -337,7 +338,7 @@ class ReceiptController extends GetxController {
       final data = await PDFGenerator.generateThermalReceipt(receiptModel);
 
       // PDFGenerator.openPdf(data);
-      // debugPrint(data);
+      //
       PrinterUtility.thermalPrint(File(data));
     }
   }

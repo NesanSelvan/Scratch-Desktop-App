@@ -1,4 +1,18 @@
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/payments/voucher/voucher.dart';
 import 'package:annai_store/core/constants/constants.dart';
+import 'package:annai_store/enum/payments/receipt.dart';
+import 'package:annai_store/models/persons/employee/employee.dart';
+import 'package:annai_store/screens/billing/sales/sales.dart';
+import 'package:annai_store/utils/null/null.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/utility.dart';
+import 'package:annai_store/widgets/custom_button.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/custom_typeahead.dart';
+import 'package:annai_store/widgets/full_container.dart';
+import 'package:annai_store/widgets/header_text.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:custom/custom_text.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
@@ -6,23 +20,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:validators/validators.dart';
 
-import '../../../controller/billing/sales/sales.dart';
-import '../../../controller/payments/voucher/voucher.dart';
-import '../../../enum/payments/receipt.dart';
-import '../../../models/persons/employee/employee.dart';
-import '../../../utils/null/null.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../../utils/utility.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_table.dart';
-import '../../../widgets/custom_typeahead.dart';
-import '../../../widgets/full_container.dart';
-import '../../../widgets/header_text.dart';
-import '../../../widgets/text_field.dart';
-import '../../billing/sales/sales.dart';
-
 class VoucherScreen extends StatefulWidget {
-  const VoucherScreen({Key? key}) : super(key: key);
+  const VoucherScreen({super.key});
 
   @override
   State<VoucherScreen> createState() => _VoucherScreenState();
@@ -516,11 +515,13 @@ class _VoucherScreenState extends State<VoucherScreen> {
                                                     onTap: () async {
                                                       final path =
                                                           await PDFGenerator
-                                                              .generateA5Voucher(
+                                                              .generateA5VoucherBuffer(
                                                         e,
                                                       );
-                                                      PDFGenerator.openPdf(
+                                                      PDFGenerator
+                                                          .openBufferPdf(
                                                         path,
+                                                        "voucher_${e.voucherNo.replaceAll(' / ', '-')}",
                                                       );
                                                     },
                                                     child: Icon(

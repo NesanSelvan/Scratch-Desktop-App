@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/core/constants/calculations/payments/payment.dart';
 import 'package:annai_store/core/constants/constants.dart';
@@ -6,6 +8,8 @@ import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/payment/payment.dart';
 import 'package:annai_store/models/purchase/purchase.dart';
 import 'package:annai_store/utils/keyboard/keyboard.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
+import 'package:annai_store/utils/printer/printer.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -97,11 +101,11 @@ class PaymentController extends GetxController {
     _selectedCompanyModel = billModel;
     if (_selectedCompanyModel != null) {
       companyController.text = "${_selectedCompanyModel?.name}";
-      final _pendingAmount = purchaseDB
+      final pendingAmount = purchaseDB
           .getPendingAmountByCompany(_selectedCompanyModel!.id)
           .toStringAsFixed(2);
-      print("_pendingAmount: $_pendingAmount");
-      companyPendingAmountController.text = _pendingAmount;
+      print("_pendingAmount: $pendingAmount");
+      companyPendingAmountController.text = pendingAmount;
     } else {
       companyController.text = "";
       companyPendingAmountController.text = "0";
@@ -303,6 +307,11 @@ class PaymentController extends GetxController {
     //     ),
     //   );
     // }
+  }
+
+  Future<void> printPayment(PaymentModel e) async {
+    final data = await PDFGenerator.generateA5PaymentModel(e);
+    await PrinterUtility.normalA5Print(File(data));
   }
 
   // Future<void> deleteReceipt(ReceiptModel paymentModel) async {

@@ -37,10 +37,8 @@ dependencies:
     git:
       url: https://github.com/AgnelSelvan/custom_packages_flutter.git
       path: environments
-  excel:
-    git:
-      url: https://github.com/justkawal/excel.git
-      ref: null-safety
+  excel: ^2.1.0
+  file_picker:
   filepicker_windows: ^2.0.2
   flutter:
     sdk: flutter
@@ -65,9 +63,10 @@ dependencies:
   pdf: ^3.4.2
   printing: ^5.2.1
   screenshot: ^1.2.3
-  syncfusion_flutter_barcodes: ^19.4.42
+  syncfusion_flutter_barcodes: null
   syncfusion_flutter_charts: null
   syncfusion_flutter_datepicker: null
+  syncfusion_flutter_pdfviewer: null
   uuid: ^3.0.4
   validators:
     git:

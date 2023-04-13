@@ -1,5 +1,6 @@
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/enum/statement.dart';
+import 'package:annai_store/features/viewer/excel/excel.dart';
 import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/customer/customer.dart';
@@ -128,14 +129,40 @@ class StatementController extends GetxController {
       case StatementEnum.Sales:
         if (salesStatementBy == SalesStatementBy.customer) {
           if (isAllCustomer) {
-            await excelSheetData.generateSalesStatement(_startDate, _endDate);
+            final excel = await excelSheetData.generateSalesStatement(
+              _startDate,
+              _endDate,
+            );
+            if (context.mounted) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ExcelViewer(
+                    excel: excel,
+                    fileName: "Sales",
+                  ),
+                ),
+              );
+            }
           } else {
             if (_selectedCustomer != null) {
-              await excelSheetData.generateSalesStatementByCustomer(
+              final excel =
+                  await excelSheetData.generateSalesStatementByCustomer(
                 _startDate,
                 _endDate,
                 _selectedCustomer!,
               );
+              if (context.mounted) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ExcelViewer(
+                      excel: excel,
+                      fileName: "Sales",
+                    ),
+                  ),
+                );
+              }
             } else {
               CustomUtilies.customFailureSnackBar(
                 "Error",
@@ -146,14 +173,40 @@ class StatementController extends GetxController {
         } else {
           // generateSalesByHSNCodeStatement
           if (isAllHSNCode) {
-            await excelSheetData.generateSalesStatement(_startDate, _endDate);
+            final excel = await excelSheetData.generateSalesStatement(
+              _startDate,
+              _endDate,
+            );
+            if (context.mounted) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ExcelViewer(
+                    excel: excel,
+                    fileName: "Sales",
+                  ),
+                ),
+              );
+            }
           } else {
             if (_selectedCategory != null) {
-              await excelSheetData.generateSalesByHSNCodeStatement(
+              final excel =
+                  await excelSheetData.generateSalesByHSNCodeStatement(
                 _startDate,
                 _endDate,
                 (_selectedCategory?.hsnCode ?? '').toString(),
               );
+              if (context.mounted) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ExcelViewer(
+                      excel: excel,
+                      fileName: "Sales",
+                    ),
+                  ),
+                );
+              }
             } else {
               CustomUtilies.customFailureSnackBar(
                 "Error",
@@ -164,28 +217,85 @@ class StatementController extends GetxController {
         }
         break;
       case StatementEnum.Stock:
-        await excelSheetData.generateStockStatement();
+        final excel = await excelSheetData.generateStockStatement();
+        if (context.mounted) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ExcelViewer(
+                excel: excel,
+                fileName: "Stock",
+              ),
+            ),
+          );
+        }
         break;
       case StatementEnum.Receipt:
-        await excelSheetData.generateReceiptStatement(_startDate, _endDate);
+        final excel =
+            await excelSheetData.generateReceiptStatement(_startDate, _endDate);
+        if (context.mounted) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ExcelViewer(
+                excel: excel,
+                fileName: "Receipt",
+              ),
+            ),
+          );
+        }
         break;
       case StatementEnum.Payment:
-        await excelSheetData.generatePaymentStatement(_startDate, _endDate);
+        final excel =
+            await excelSheetData.generatePaymentStatement(_startDate, _endDate);
+        if (context.mounted) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ExcelViewer(
+                excel: excel,
+                fileName: "Payment",
+              ),
+            ),
+          );
+        }
         break;
       case StatementEnum.Purchase:
         if (isAllCompany) {
-          await excelSheetData.generatePurchaseStatement(
+          final excel = await excelSheetData.generatePurchaseStatement(
             _startDate,
             _endDate,
             null,
           );
+          if (context.mounted) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ExcelViewer(
+                  excel: excel,
+                  fileName: "Purchase",
+                ),
+              ),
+            );
+          }
         } else {
           if (_selectedCompany != null) {
-            await excelSheetData.generatePurchaseStatement(
+            final excel = await excelSheetData.generatePurchaseStatement(
               _startDate,
               _endDate,
               _selectedCompany,
             );
+            if (context.mounted) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ExcelViewer(
+                    excel: excel,
+                    fileName: "Puchase",
+                  ),
+                ),
+              );
+            }
           } else {
             CustomUtilies.customFailureSnackBar(
               "Error",

@@ -263,18 +263,19 @@ class EstimateHistoryNotifier extends GetxController {
   }
 
   Future<void> viewEstimate(EstimateModel estimateModel) async {
-    final data = await PDFGenerator.generateEstimate(estimateModel);
-    PDFGenerator.openPdf(data);
+    final data = await PDFGenerator.generateEstimateBuffer(estimateModel);
+    PDFGenerator.openBufferPdf(data,
+        "estimate_${estimateModel.estimateNo.replaceAll('/', '-').replaceAll(" ", "-")}");
     // homeController.setCurrentSelectedWidget(PdfViewer(filePath: data));
     // CustomUtilies.navigatePage(
     //     context, PdfViewer(filePath: data));
-    debugPrint(data);
   }
 
   Future<void> viewThermal(EstimateModel billModel) async {
-    final data = await PDFGenerator.generateThermalBillForEstimate(billModel);
-    PDFGenerator.openPdf(data);
-    debugPrint(data);
+    final data =
+        await PDFGenerator.generateThermalBillForEstimateBuffer(billModel);
+    PDFGenerator.openBufferPdf(data,
+        "estimate_${billModel.estimateNo.replaceAll('/', '-').replaceAll(" ", "-")}");
   }
 
   Future<void> updateDateOfPurchaseBill(

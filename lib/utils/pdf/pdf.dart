@@ -15,6 +15,7 @@ import 'package:annai_store/enum/operation.dart';
 import 'package:annai_store/enum/payments/payment.dart';
 import 'package:annai_store/extensions/type.dart';
 import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
+import 'package:annai_store/features/viewer/pdf/screens/pdf_viewer.dart';
 import 'package:annai_store/models/bill/bill.dart';
 import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/customer/customer.dart';
@@ -27,7 +28,7 @@ import 'package:annai_store/models/report/customer.dart';
 import 'package:annai_store/models/sewing_service/sewing_service.dart';
 import 'package:annai_store/models/tax_cal/tax_cal.dart';
 import 'package:annai_store/models/voucher/voucher.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/utils/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/string_extensions.dart';
@@ -413,7 +414,9 @@ class PDFGenerator {
     }
   }
 
-  static Future<String> generateQuotation(QuotationModel billModel) async {
+  static Future<Uint8List> generateQuotationBuffer(
+    QuotationModel billModel,
+  ) async {
     final taxCalModel =
         QuoatationCalculations.getQuotationTaxCalModel(billModel);
     final pdf = pw.Document();
@@ -1096,18 +1099,22 @@ class PDFGenerator {
         },
       ),
     );
+    return pdf.save();
+  }
 
+  static Future<String> generateQuotation(QuotationModel billModel) async {
+    final buffer = await generateQuotationBuffer(billModel);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(buffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
     }
   }
 
-  static Future<String> generateOrder(OrderModel billModel) async {
+  static Future<Uint8List> generateOrderBuffer(OrderModel billModel) async {
     final taxCalModel = OrderCalculations().getOrderTaxCalModel(billModel);
     final pdf = pw.Document();
     pdf.addPage(
@@ -1764,18 +1771,22 @@ class PDFGenerator {
         },
       ),
     );
+    return pdf.save();
+  }
 
+  static Future<String> generateOrder(OrderModel billModel) async {
+    final buffer = await generateOrderBuffer(billModel);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(buffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
     }
   }
 
-  static Future<String> generateEstimate(EstimateModel billModel) async {
+  static Future<Uint8List> generateEstimateBuffer(EstimateModel billModel) {
     final taxCalModel =
         EstimateCalculations().getEstimateTaxCalModel(billModel);
     final pdf = pw.Document();
@@ -2456,11 +2467,16 @@ class PDFGenerator {
         },
       ),
     );
+    return pdf.save();
+  }
+
+  static Future<String> generateEstimate(EstimateModel billModel) async {
+    final pdfBuffer = await generateEstimateBuffer(billModel);
 
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(pdfBuffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
@@ -2727,7 +2743,7 @@ class PDFGenerator {
     return n.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "");
   }
 
-  static Future<String> generateBill(
+  static Future<Uint8List> generateBillBuffer(
     BillModel billModel,
     String? upiString,
   ) async {
@@ -3235,17 +3251,25 @@ class PDFGenerator {
         ),
       );
     }
+    return pdf.save();
+  }
+
+  static Future<String> generateBill(
+    BillModel billModel,
+    String? upiString,
+  ) async {
+    final buffer = await generateBillBuffer(billModel, upiString);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(buffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
     }
   }
 
-  static Future<String> generateThermalBillForSales(
+  static Future<Uint8List> generateThermalBillForSalesBuffer(
     BillModel billModel,
     String? upiString,
   ) async {
@@ -3341,10 +3365,20 @@ class PDFGenerator {
         },
       ),
     );
+
+    return pdf.save();
+  }
+
+  static Future<String> generateThermalBillForSales(
+    BillModel billModel,
+    String? upiString,
+  ) async {
+    final buffer =
+        await generateThermalBillForSalesBuffer(billModel, upiString);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(buffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
@@ -3584,7 +3618,7 @@ class PDFGenerator {
     }
   }
 
-  static Future<String> generateThermalBillForQuotation(
+  static Future<Uint8List> generateThermalBillForQuotationBuffer(
     QuotationModel billModel,
   ) async {
     final pdf = pw.Document();
@@ -3675,17 +3709,25 @@ class PDFGenerator {
         },
       ),
     );
+
+    return pdf.save();
+  }
+
+  static Future<String> generateThermalBillForQuotation(
+    QuotationModel billModel,
+  ) async {
+    final buffer = await generateThermalBillForQuotationBuffer(billModel);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(buffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
     }
   }
 
-  static Future<String> generateThermalBillForOrders(
+  static Future<Uint8List> generateThermalBillForOrdersBuffer(
     OrderModel billModel,
   ) async {
     final pdf = pw.Document();
@@ -3776,10 +3818,17 @@ class PDFGenerator {
         },
       ),
     );
+    return pdf.save();
+  }
+
+  static Future<String> generateThermalBillForOrders(
+    OrderModel billModel,
+  ) async {
+    final buffer = await generateThermalBillForOrdersBuffer(billModel);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(buffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
@@ -3898,7 +3947,7 @@ class PDFGenerator {
     }
   }
 
-  static Future<String> generateThermalBillForEstimate(
+  static Future<Uint8List> generateThermalBillForEstimateBuffer(
     EstimateModel billModel,
   ) async {
     final pdf = pw.Document();
@@ -3989,17 +4038,26 @@ class PDFGenerator {
         },
       ),
     );
+    return await pdf.save();
+  }
+
+  static Future<String> generateThermalBillForEstimate(
+    EstimateModel billModel,
+  ) async {
+    final pdfBuffer = await generateThermalBillForEstimateBuffer(billModel);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(pdfBuffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
     }
   }
 
-  static Future<String> generateA5Voucher(VoucherModel voucherModel) async {
+  static Future<Uint8List> generateA5VoucherBuffer(
+    VoucherModel voucherModel,
+  ) async {
     final pdf = pw.Document();
 
     final todayDateStr =
@@ -4183,18 +4241,22 @@ class PDFGenerator {
         },
       ),
     );
+    return pdf.save();
+  }
 
+  static Future<String> generateA5Voucher(VoucherModel voucherModel) async {
+    final buffer = await generateA5VoucherBuffer(voucherModel);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(buffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
     }
   }
 
-  static Future<String> generateA5PaymentModel(
+  static Future<Uint8List> generateA5PaymentModelBuffer(
     PaymentModel paymentModel,
   ) async {
     final pdf = pw.Document();
@@ -4384,17 +4446,26 @@ class PDFGenerator {
       ),
     );
 
+    return pdf.save();
+  }
+
+  static Future<String> generateA5PaymentModel(
+    PaymentModel paymentModel,
+  ) async {
+    final pdfBuffer = await generateA5PaymentModelBuffer(paymentModel);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(pdfBuffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
     }
   }
 
-  static Future<String> generateA5Receipt(ReceiptModel receiptModel) async {
+  static Future<Uint8List> generateA5ReceiptBuffer(
+    ReceiptModel receiptModel,
+  ) async {
     // const double inch = 72.0;
     // const double cm = inch / 2.54;
     // const double mm = cm / 10;
@@ -4586,17 +4657,22 @@ class PDFGenerator {
       ),
     );
 
+    return pdf.save();
+  }
+
+  static Future<String> generateA5Receipt(ReceiptModel receiptModel) async {
+    final buffer = await generateA5ReceiptBuffer(receiptModel);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(buffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
     }
   }
 
-  static Future<String> generateThermalReceipt(
+  static Future<Uint8List> generateThermalReceiptBuffer(
     ReceiptModel receiptModel,
   ) async {
     final pdf = pw.Document();
@@ -4721,30 +4797,57 @@ class PDFGenerator {
         },
       ),
     );
+    return pdf.save();
+  }
+
+  static Future<String> generateThermalReceipt(
+    ReceiptModel receiptModel,
+  ) async {
+    final buffer = await generateThermalReceiptBuffer(receiptModel);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(buffer);
       return file.path;
     } catch (e) {
       return 'textfieldError';
     }
   }
 
+  static void openBufferPdf(Uint8List buffer, String fileName) {
+    Navigator.push(
+      NavigationService.navigatorKey.currentContext!,
+      MaterialPageRoute(
+        builder: (context) => PdfViewer(
+          pdfBuffer: buffer,
+          fileName: fileName,
+        ),
+      ),
+    );
+  }
+
   static void openPdf(String pdfPath) {
     final chromePath = pathsDB.getChromePath();
     debugPrint("Chrome Path : $chromePath");
-
-    try {
-      Process.run(chromePath!, [pdfPath]).then((ProcessResult results) {
-        debugPrint("${results.stdout}");
-      });
-    } catch (e) {
-      CustomUtilies.customFailureSnackBar("Error", "Error in opening the pdf");
-    }
+    Navigator.push(
+      NavigationService.navigatorKey.currentContext!,
+      MaterialPageRoute(
+        builder: (context) => PdfViewer(
+          filePath: pdfPath,
+          fileName: pdfPath.split("/").last.split(".").first,
+        ),
+      ),
+    );
+    // try {
+    //   Process.run(chromePath!, [pdfPath]).then((ProcessResult results) {
+    //     debugPrint("${results.stdout}");
+    //   });
+    // } catch (e) {
+    //   CustomUtilies.customFailureSnackBar("Error", "Error in opening the pdf");
+    // }
   }
 
-  static Future<String> generateStatementByCustomer(
+  static Future<Uint8List> generateStatementByCustomerBuffer(
     CustomerModel customerModel,
     CategoryModel categoryModel,
     DateTime startDate,
@@ -4884,10 +4987,26 @@ class PDFGenerator {
         },
       ),
     );
+
+    return pdf.save();
+  }
+
+  static Future<String> generateStatementByCustomer(
+    CustomerModel customerModel,
+    CategoryModel categoryModel,
+    DateTime startDate,
+    DateTime endDate,
+  ) async {
+    final buffer = await generateStatementByCustomerBuffer(
+      customerModel,
+      categoryModel,
+      startDate,
+      endDate,
+    );
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(buffer);
       return file.path;
     } catch (e) {
       rethrow;
@@ -4939,7 +5058,7 @@ class PDFGenerator {
     );
   }
 
-  Future<String> generateCustomerReport(
+  Future<Uint8List> generateCustomerReportBuffer(
     DateTime startDate,
     DateTime endDate,
     CustomerModel customerModel, {
@@ -5154,10 +5273,21 @@ class PDFGenerator {
         },
       ),
     );
+    return pdf.save();
+  }
+
+  Future<String> generateCustomerReport(
+    DateTime startDate,
+    DateTime endDate,
+    CustomerModel customerModel, {
+    double? previousAmountManually,
+  }) async {
+    final buffer =
+        await generateCustomerReportBuffer(startDate, endDate, customerModel);
     final path = await getPDFFilePath();
     final file = File(path);
     try {
-      file.writeAsBytesSync(await pdf.save());
+      file.writeAsBytesSync(buffer);
       return file.path;
     } catch (e) {
       rethrow;

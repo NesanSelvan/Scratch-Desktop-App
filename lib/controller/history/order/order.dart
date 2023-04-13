@@ -1,9 +1,8 @@
+import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/models/orders/order.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
-import '../../../utils/pdf/pdf.dart';
-import '../../billing/sales/sales.dart';
 
 class OrderHistoryNotifier extends GetxController {
   // final orderDB = Database().orderDB;
@@ -88,17 +87,18 @@ class OrderHistoryNotifier extends GetxController {
   }
 
   Future<void> viewOrder(OrderModel orderModel) async {
-    final data = await PDFGenerator.generateOrder(orderModel);
-    PDFGenerator.openPdf(data);
+    final data = await PDFGenerator.generateOrderBuffer(orderModel);
+    PDFGenerator.openBufferPdf(data,
+        "order_${orderModel.orderNo.replaceAll('/', '-').replaceAll(" ", "-")}");
     // homeController.setCurrentSelectedWidget(PdfViewer(filePath: data));
     // CustomUtilies.navigatePage(
     //     context, PdfViewer(filePath: data));
-    debugPrint(data);
   }
 
   Future<void> viewThermal(OrderModel billModel) async {
-    final data = await PDFGenerator.generateThermalBillForOrders(billModel);
-    PDFGenerator.openPdf(data);
-    debugPrint(data);
+    final data =
+        await PDFGenerator.generateThermalBillForOrdersBuffer(billModel);
+    PDFGenerator.openBufferPdf(data,
+        "order_${billModel.orderNo.replaceAll('/', '-').replaceAll(" ", "-")}");
   }
 }

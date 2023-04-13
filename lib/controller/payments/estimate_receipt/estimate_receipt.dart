@@ -327,15 +327,19 @@ class EstimateReceiptController extends GetxController {
 
   Future viewReceipt(ReceiptModel e) async {
     if (isA5) {
-      final data = await PDFGenerator.generateA5Receipt(e);
-      debugPrint(data);
-      PDFGenerator.openPdf(data);
-      debugPrint(data);
+      final data = await PDFGenerator.generateA5ReceiptBuffer(e);
+
+      PDFGenerator.openBufferPdf(
+        data,
+        "receipt_${e.receiptNo.replaceAll('/', '-').replaceAll(" ", "-")}",
+      );
     } else {
-      final data = await PDFGenerator.generateThermalReceipt(e);
-      debugPrint(data);
-      PDFGenerator.openPdf(data);
-      debugPrint(data);
+      final data = await PDFGenerator.generateThermalReceiptBuffer(e);
+
+      PDFGenerator.openBufferPdf(
+        data,
+        "receipt_${e.receiptNo.replaceAll('/', '-').replaceAll(" ", "-")}",
+      );
     }
   }
 

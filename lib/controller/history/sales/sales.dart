@@ -1,16 +1,15 @@
 import 'dart:developer';
 
 import 'package:annai_store/controller/auth/login.dart';
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/home/home.dart';
 import 'package:annai_store/enum/person/person.dart';
+import 'package:annai_store/models/bill/bill.dart';
+import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:custom/ftn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
-import '../../../models/bill/bill.dart';
-import '../../../utils/pdf/pdf.dart';
-import '../../billing/sales/sales.dart';
-import '../../home/home.dart';
 
 class SalesHistoryNotifier extends GetxController {
   // final salesDB = Database().salesDB;
@@ -52,14 +51,19 @@ class SalesHistoryNotifier extends GetxController {
   Future<void> clearAllBills() async {
     final loginController = Get.put(LoginController());
     final empType = getPersonEnumFromStr(loginController.currentEmployee!.type);
-    await Utility.showDeleteionDialog("Sales Bill will get cleared",
-        onYesTap: () async {
-      if (empType == PersonEnum.SoftwareOwner)
-        await salesDB.clearAll();
-      else
-        CustomUtilies.customFailureSnackBar(
-            "You cannot delete", "Please contact the administrator");
-    });
+    await Utility.showDeleteionDialog(
+      "Sales Bill will get cleared",
+      onYesTap: () async {
+        if (empType == PersonEnum.SoftwareOwner) {
+          await salesDB.clearAll();
+        } else {
+          CustomUtilies.customFailureSnackBar(
+            "You cannot delete",
+            "Please contact the administrator",
+          );
+        }
+      },
+    );
   }
 
   BillModel? _selectedBillModel;
@@ -137,25 +141,37 @@ class SalesHistoryNotifier extends GetxController {
     allBill.where((element) => element.dateTime == startDateTime);
   }
 
-  Future<void> viewBill(BillModel billModel, HomeController homeController,
-      String? upiString) async {
-    final data = await PDFGenerator.generateBill(billModel, upiString);
-    debugPrint(data);
+  Future<void> viewBill(
+    BillModel billModel,
+    HomeController homeController,
+    String? upiString,
+  ) async {
+    final data = await PDFGenerator.generateBillBuffer(billModel, upiString);
+
     try {
-      PDFGenerator.openPdf(data);
+      PDFGenerator.openBufferPdf(
+        data,
+        "sales_${billModel.billNo.replaceAll(' / ', '-')}",
+      );
     } catch (e) {}
     // homeController.setCurrentSelectedWidget(PdfViewer(filePath: data));
-    debugPrint(data);
   }
 
-  Future<void> viewThermal(BillModel billModel, HomeController homeController,
-      String? upiString) async {
-    final data =
-        await PDFGenerator.generateThermalBillForSales(billModel, upiString);
-    PDFGenerator.openPdf(data);
+  Future<void> viewThermal(
+    BillModel billModel,
+    HomeController homeController,
+    String? upiString,
+  ) async {
+    final data = await PDFGenerator.generateThermalBillForSalesBuffer(
+      billModel,
+      upiString,
+    );
+    PDFGenerator.openBufferPdf(
+      data,
+      "sales_${billModel.billNo.replaceAll(' / ', '-')}",
+    );
     // homeController.setCurrentSelectedWidget(PdfViewer(filePath: data));
     // CustomUtilies.navigatePage(
     //     context, PdfViewer(filePath: data));
-    debugPrint(data);
   }
 }

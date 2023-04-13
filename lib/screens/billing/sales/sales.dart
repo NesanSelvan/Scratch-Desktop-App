@@ -22,7 +22,7 @@ import 'package:validators/validators.dart';
 
 class SalesScreen extends StatefulWidget {
   BillModel? billModel;
-  SalesScreen({Key? key, this.billModel}) : super(key: key);
+  SalesScreen({super.key, this.billModel});
 
   @override
   _SalesScreenState createState() => _SalesScreenState();
@@ -286,10 +286,10 @@ class _SalesScreenState extends State<SalesScreen> {
 
 class DateTimeInkWell extends StatelessWidget {
   const DateTimeInkWell({
-    Key? key,
+    super.key,
     required this.onTap,
     required this.dateTime,
-  }) : super(key: key);
+  });
   final VoidCallback onTap;
   final DateTime dateTime;
 
