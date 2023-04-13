@@ -5064,11 +5064,19 @@ class PDFGenerator {
     CustomerModel customerModel, {
     double? previousAmountManually,
   }) async {
-    final previousAmount = previousAmountManually ??
-        ReportCalculations.getPreviousBalance(
-          startDate,
-          customerModel.id,
-        );
+    if (previousAmountManually != null) {
+      await customerDB.updateCustomer(
+        customerModel.copyWith(openingBalance: previousAmountManually),
+      );
+    }
+    final previousAmount =
+        (previousAmountManually ?? customerModel.openingBalance) +
+            ReportCalculations.getPreviousBalance(
+              startDate,
+              customerModel.id,
+            );
+
+    log("customersReport: $previousAmountManually ${customerModel.openingBalance} $previousAmount");
     final bills = salesDB.getBillByDateAndCustomer(
       startDate,
       endDate,
@@ -5110,8 +5118,6 @@ class PDFGenerator {
     }
 
     customersReport.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-
-    log("customersReport: ${bills.length} ${receipts.length} ${customersReport.length} ${customerModel.name} ${receipts.length}");
 
     final pdf = pw.Document();
 
@@ -5321,7 +5327,7 @@ class PDFGenerator {
                   (key, value) => MapEntry(
                     key,
                     pw.Container(
-                      margin: const pw.EdgeInsets.symmetric(horizontal: 4),
+                      margin: const pw.EdgeInsets.only(left: 8, right: 2),
                       width: format.width / 4,
                       height: format.height,
                       child: pw.Column(
@@ -5352,17 +5358,17 @@ class PDFGenerator {
                               textStyle: const pw.TextStyle(
                                 fontSize: 6,
                               ),
+                              drawText: false,
                             ),
                           ),
-                          // pw.SizedBox(height: 2),
-                          // pw.Text(
-                          //   imagesBuffer[key].barcodeValue,
-                          //   style: pw.TextStyle(
-                          //     fontSize: 4,
-                          //     color: PdfColor.fromHex("#000000"),
-                          //   ),
-                          // ),
-                          pw.SizedBox(height: 4),
+                          pw.Text(
+                            imagesBuffer[key].barcodeValue,
+                            style: pw.TextStyle(
+                              fontSize: 4,
+                              color: PdfColor.fromHex("#000000"),
+                            ),
+                          ),
+                          pw.SizedBox(height: 2),
                           pw.Text(
                             "Rs. ${imagesBuffer[key].amount}",
                             style: pw.TextStyle(

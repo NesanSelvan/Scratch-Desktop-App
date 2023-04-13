@@ -18,6 +18,7 @@ abstract class CustomerModel with _$CustomerModel {
     String? gstin,
     @Default(0) double pendingAmount,
     DateTime? createdAt,
+    @Default(0) double openingBalance,
   }) = _CustomerModel;
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);

@@ -34,7 +34,8 @@ class _$CustomerModelTearOff {
       required int mobileNo,
       String? gstin,
       double pendingAmount = 0,
-      DateTime? createdAt}) {
+      DateTime? createdAt,
+      double openingBalance = 0}) {
     return _CustomerModel(
       id: id,
       name: name,
@@ -48,6 +49,7 @@ class _$CustomerModelTearOff {
       gstin: gstin,
       pendingAmount: pendingAmount,
       createdAt: createdAt,
+      openingBalance: openingBalance,
     );
   }
 
@@ -73,6 +75,7 @@ mixin _$CustomerModel {
   String? get gstin => throw _privateConstructorUsedError;
   double get pendingAmount => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  double get openingBalance => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -97,7 +100,8 @@ abstract class $CustomerModelCopyWith<$Res> {
       int mobileNo,
       String? gstin,
       double pendingAmount,
-      DateTime? createdAt});
+      DateTime? createdAt,
+      double openingBalance});
 }
 
 /// @nodoc
@@ -123,6 +127,7 @@ class _$CustomerModelCopyWithImpl<$Res>
     Object? gstin = freezed,
     Object? pendingAmount = freezed,
     Object? createdAt = freezed,
+    Object? openingBalance = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -173,6 +178,10 @@ class _$CustomerModelCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      openingBalance: openingBalance == freezed
+          ? _value.openingBalance
+          : openingBalance // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -196,7 +205,8 @@ abstract class _$CustomerModelCopyWith<$Res>
       int mobileNo,
       String? gstin,
       double pendingAmount,
-      DateTime? createdAt});
+      DateTime? createdAt,
+      double openingBalance});
 }
 
 /// @nodoc
@@ -224,6 +234,7 @@ class __$CustomerModelCopyWithImpl<$Res>
     Object? gstin = freezed,
     Object? pendingAmount = freezed,
     Object? createdAt = freezed,
+    Object? openingBalance = freezed,
   }) {
     return _then(_CustomerModel(
       id: id == freezed
@@ -274,6 +285,10 @@ class __$CustomerModelCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      openingBalance: openingBalance == freezed
+          ? _value.openingBalance
+          : openingBalance // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -293,7 +308,8 @@ class _$_CustomerModel implements _CustomerModel {
       required this.mobileNo,
       this.gstin,
       this.pendingAmount = 0,
-      this.createdAt});
+      this.createdAt,
+      this.openingBalance = 0});
 
   factory _$_CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$$_CustomerModelFromJson(json);
@@ -323,10 +339,13 @@ class _$_CustomerModel implements _CustomerModel {
   final double pendingAmount;
   @override
   final DateTime? createdAt;
+  @JsonKey()
+  @override
+  final double openingBalance;
 
   @override
   String toString() {
-    return 'CustomerModel(id: $id, name: $name, email: $email, address: $address, pincode: $pincode, state: $state, type: $type, isPending: $isPending, mobileNo: $mobileNo, gstin: $gstin, pendingAmount: $pendingAmount, createdAt: $createdAt)';
+    return 'CustomerModel(id: $id, name: $name, email: $email, address: $address, pincode: $pincode, state: $state, type: $type, isPending: $isPending, mobileNo: $mobileNo, gstin: $gstin, pendingAmount: $pendingAmount, createdAt: $createdAt, openingBalance: $openingBalance)';
   }
 
   @override
@@ -346,7 +365,9 @@ class _$_CustomerModel implements _CustomerModel {
             const DeepCollectionEquality().equals(other.gstin, gstin) &&
             const DeepCollectionEquality()
                 .equals(other.pendingAmount, pendingAmount) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt));
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality()
+                .equals(other.openingBalance, openingBalance));
   }
 
   @override
@@ -363,7 +384,8 @@ class _$_CustomerModel implements _CustomerModel {
       const DeepCollectionEquality().hash(mobileNo),
       const DeepCollectionEquality().hash(gstin),
       const DeepCollectionEquality().hash(pendingAmount),
-      const DeepCollectionEquality().hash(createdAt));
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(openingBalance));
 
   @JsonKey(ignore: true)
   @override
@@ -389,7 +411,8 @@ abstract class _CustomerModel implements CustomerModel {
       required int mobileNo,
       String? gstin,
       double pendingAmount,
-      DateTime? createdAt}) = _$_CustomerModel;
+      DateTime? createdAt,
+      double openingBalance}) = _$_CustomerModel;
 
   factory _CustomerModel.fromJson(Map<String, dynamic> json) =
       _$_CustomerModel.fromJson;
@@ -418,6 +441,8 @@ abstract class _CustomerModel implements CustomerModel {
   double get pendingAmount;
   @override
   DateTime? get createdAt;
+  @override
+  double get openingBalance;
   @override
   @JsonKey(ignore: true)
   _$CustomerModelCopyWith<_CustomerModel> get copyWith =>

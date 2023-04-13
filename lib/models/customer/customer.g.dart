@@ -22,6 +22,7 @@ _$_CustomerModel _$$_CustomerModelFromJson(Map<String, dynamic> json) =>
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
+      openingBalance: (json['openingBalance'] as num?)?.toDouble() ?? 0,
     );
 
 Map<String, dynamic> _$$_CustomerModelToJson(_$_CustomerModel instance) =>
@@ -38,4 +39,5 @@ Map<String, dynamic> _$$_CustomerModelToJson(_$_CustomerModel instance) =>
       'gstin': instance.gstin,
       'pendingAmount': instance.pendingAmount,
       'createdAt': instance.createdAt?.toIso8601String(),
+      'openingBalance': instance.openingBalance,
     };
