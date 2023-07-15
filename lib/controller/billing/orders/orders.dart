@@ -5,7 +5,8 @@ import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/models/orders/order.dart';
 import 'package:annai_store/models/sales/product/sales_product.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';

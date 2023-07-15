@@ -1,5 +1,6 @@
 import 'package:annai_store/models/product/product.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';

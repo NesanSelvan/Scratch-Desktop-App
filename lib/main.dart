@@ -7,7 +7,8 @@ import 'package:annai_store/core/db/hive_db.dart';
 import 'package:annai_store/main_common.dart';
 import 'package:annai_store/models/unit/new_unit.dart';
 import 'package:annai_store/utils/file/file.dart';
-import 'package:custom/ftn.dart';
+// import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -39,10 +40,10 @@ Future<void> createServer() async {
         final data = jsonDecode(content) as Map; /*3*/
         // var fileName = req.uri.pathSegments.last; /*4*/
         // await File(fileName).writeAsString(content, mode: FileMode.write);
-        CustomUtilies.customSuccessSnackBar(
-          "Success",
-          "Some Data has been received",
-        );
+        // CustomUtilies.customSuccessSnackBar(
+        //   "Success",
+        //   "Some Data has been received",
+        // );
         debugPrint("Data : $data");
         final File file = File(FileUtility.getFullDBFilePath());
         file.writeAsString("${data["fileData"]}");

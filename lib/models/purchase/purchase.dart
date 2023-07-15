@@ -22,6 +22,7 @@ class PurchaseModel with _$PurchaseModel {
     @Default(true) bool isTax,
     required double grandTotal,
     double? forwardingSales,
+    @Default(0) double forwardingSalesPercentage,
     required DateTime dateTime,
     String? note,
     List<String>? imagesPathList,

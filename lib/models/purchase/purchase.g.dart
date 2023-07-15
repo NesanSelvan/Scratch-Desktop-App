@@ -27,6 +27,8 @@ _$_PurchaseModel _$$_PurchaseModelFromJson(Map<String, dynamic> json) =>
       isTax: json['isTax'] as bool? ?? true,
       grandTotal: (json['grandTotal'] as num).toDouble(),
       forwardingSales: (json['forwardingSales'] as num?)?.toDouble(),
+      forwardingSalesPercentage:
+          (json['forwardingSalesPercentage'] as num?)?.toDouble() ?? 0,
       dateTime: DateTime.parse(json['dateTime'] as String),
       note: json['note'] as String?,
       imagesPathList: (json['imagesPathList'] as List<dynamic>?)
@@ -51,6 +53,7 @@ Map<String, dynamic> _$$_PurchaseModelToJson(_$_PurchaseModel instance) =>
       'isTax': instance.isTax,
       'grandTotal': instance.grandTotal,
       'forwardingSales': instance.forwardingSales,
+      'forwardingSalesPercentage': instance.forwardingSalesPercentage,
       'dateTime': instance.dateTime.toIso8601String(),
       'note': instance.note,
       'imagesPathList': instance.imagesPathList,

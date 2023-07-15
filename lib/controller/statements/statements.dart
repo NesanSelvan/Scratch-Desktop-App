@@ -6,7 +6,8 @@ import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/utils/datetime/datetime.dart';
 import 'package:annai_store/utils/excel/statement.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

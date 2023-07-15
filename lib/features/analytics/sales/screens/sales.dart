@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:annai_store/features/analytics/sales/cubit/sales_analytics_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -52,25 +50,27 @@ class _SalesAnalyticsScreenState extends State<SalesAnalyticsScreen> {
                         onPressed: () {
                           showDatePickerDialog(context);
                         },
-                        child: Text("Select Date Range"),
+                        child: const Text("Select Date Range"),
                       ),
                       DropdownButton<ChartSampleData>(
-                          hint: const Text("Select a category"),
-                          value: state.selectedChart,
-                          items: [...state.purchaseData, ...state.salesData]
-                              .map(
-                                (e) => DropdownMenuItem<ChartSampleData>(
-                                  value: e,
-                                  child: Text(
-                                      "${e.hsnAndAmount?.categoryModel.hsnCode ?? ''} (${e.hsnAndAmount?.categoryModel.category ?? ''})"),
+                        hint: const Text("Select a category"),
+                        value: state.selectedChart,
+                        items: [...state.purchaseData, ...state.salesData]
+                            .map(
+                              (e) => DropdownMenuItem<ChartSampleData>(
+                                value: e,
+                                child: Text(
+                                  "${e.hsnAndAmount?.categoryModel.hsnCode ?? ''} (${e.hsnAndAmount?.categoryModel.category ?? ''})",
                                 ),
-                              )
-                              .toList(),
-                          onChanged: (val) {
-                            context
-                                .read<SalesAnalyticsCubit>()
-                                .updateSelectedChart(val);
-                          })
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (val) {
+                          context
+                              .read<SalesAnalyticsCubit>()
+                              .updateSelectedChart(val);
+                        },
+                      )
                     ],
                   ),
                   Row(
@@ -80,24 +80,26 @@ class _SalesAnalyticsScreenState extends State<SalesAnalyticsScreen> {
                         height: MediaQuery.of(context).size.height * 0.7,
                         width: MediaQuery.of(context).size.width * 0.8,
                         child: state.salesData.isEmpty
-                            ? SizedBox()
+                            ? const SizedBox()
                             : _buildDefaultColumnChart(
                                 state.selectedChart == null
                                     ? state.salesData
                                     : [
                                         ...state.salesData
-                                            .where((element) =>
-                                                (element
-                                                        .hsnAndAmount
-                                                        ?.categoryModel
-                                                        .hsnCode ??
-                                                    true) ==
-                                                (state
-                                                        .selectedChart!
-                                                        .hsnAndAmount
-                                                        ?.categoryModel
-                                                        .hsnCode ??
-                                                    true))
+                                            .where(
+                                              (element) =>
+                                                  (element
+                                                          .hsnAndAmount
+                                                          ?.categoryModel
+                                                          .hsnCode ??
+                                                      true) ==
+                                                  (state
+                                                          .selectedChart!
+                                                          .hsnAndAmount
+                                                          ?.categoryModel
+                                                          .hsnCode ??
+                                                      true),
+                                            )
                                             .toList()
                                       ],
                                 "Sales from ${state.pickedDateRange?.startDate == null ? 'No Start Date Selected' : DateFormat('dd MMM, yyyy').format(state.pickedDateRange!.startDate!)} to ${state.endDate == null ? 'No End Date Selected' : DateFormat('dd MMM, yyyy').format(state.endDate!)}",
@@ -107,16 +109,15 @@ class _SalesAnalyticsScreenState extends State<SalesAnalyticsScreen> {
                       RichText(
                         text: TextSpan(
                           children: [
-                            TextSpan(
+                            const TextSpan(
                               text: "Sales Total Amount: ",
                               style: TextStyle(
                                 color: Colors.black,
                               ),
                             ),
                             TextSpan(
-                              text: "₹ " +
-                                  (state.totalSalesAmount ?? '0').toString(),
-                              style: TextStyle(
+                              text: "₹ ${state.totalSalesAmount ?? '0'}",
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -133,24 +134,26 @@ class _SalesAnalyticsScreenState extends State<SalesAnalyticsScreen> {
                         height: MediaQuery.of(context).size.height * 0.7,
                         width: MediaQuery.of(context).size.width * 0.8,
                         child: state.salesData.isEmpty
-                            ? SizedBox()
+                            ? const SizedBox()
                             : _buildDefaultColumnChart(
                                 state.selectedChart == null
                                     ? state.purchaseData
                                     : [
                                         ...state.purchaseData
-                                            .where((element) =>
-                                                (element
-                                                        .hsnAndAmount
-                                                        ?.categoryModel
-                                                        .hsnCode ??
-                                                    true) ==
-                                                (state
-                                                        .selectedChart!
-                                                        .hsnAndAmount
-                                                        ?.categoryModel
-                                                        .hsnCode ??
-                                                    true))
+                                            .where(
+                                              (element) =>
+                                                  (element
+                                                          .hsnAndAmount
+                                                          ?.categoryModel
+                                                          .hsnCode ??
+                                                      true) ==
+                                                  (state
+                                                          .selectedChart!
+                                                          .hsnAndAmount
+                                                          ?.categoryModel
+                                                          .hsnCode ??
+                                                      true),
+                                            )
                                             .toList()
                                       ],
                                 "Purchase from ${state.startDate == null ? 'No Start Date Selected' : DateFormat('dd MMM, yyyy').format(state.startDate!)} to ${state.endDate == null ? 'No End Date Selected' : DateFormat('dd MMM, yyyy').format(state.endDate!)}",
@@ -160,16 +163,15 @@ class _SalesAnalyticsScreenState extends State<SalesAnalyticsScreen> {
                       RichText(
                         text: TextSpan(
                           children: [
-                            TextSpan(
+                            const TextSpan(
                               text: "Puchase Total Amount: ",
                               style: TextStyle(
                                 color: Colors.black,
                               ),
                             ),
                             TextSpan(
-                              text: "₹ " +
-                                  (state.totalPurchaseAmount ?? '0').toString(),
-                              style: TextStyle(
+                              text: "₹ ${state.totalPurchaseAmount ?? '0'}",
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -191,49 +193,52 @@ class _SalesAnalyticsScreenState extends State<SalesAnalyticsScreen> {
   Future<void> showDatePickerDialog(BuildContext context) {
     String? value;
     return showDialog(
-        context: context,
-        builder: (context) {
-          return StatefulBuilder(
-            builder: (context, setState) {
-              return SimpleDialog(
-                title: Text("Select Date Range"),
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: SfDateRangePicker(
-                      view: DateRangePickerView.month,
-                      monthViewSettings: DateRangePickerMonthViewSettings(
-                        firstDayOfWeek: 1,
-                      ),
-                      selectionMode: DateRangePickerSelectionMode.range,
-                      onSelectionChanged: (val) {
-                        if (val.value is PickerDateRange) {
-                          context
-                              .read<SalesAnalyticsCubit>()
-                              .updateDate(val.value as PickerDateRange);
-                        }
-                      },
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return SimpleDialog(
+              title: const Text("Select Date Range"),
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: SfDateRangePicker(
+                    monthViewSettings: const DateRangePickerMonthViewSettings(
+                      firstDayOfWeek: 1,
                     ),
+                    selectionMode: DateRangePickerSelectionMode.range,
+                    onSelectionChanged: (val) {
+                      if (val.value is PickerDateRange) {
+                        context
+                            .read<SalesAnalyticsCubit>()
+                            .updateDate(val.value as PickerDateRange);
+                      }
+                    },
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        context.read<SalesAnalyticsCubit>().generateSalesData();
-                        Navigator.of(context).pop();
-                      },
-                      child: Text("Generate"),
-                    ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      context.read<SalesAnalyticsCubit>().generateSalesData();
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Generate"),
                   ),
-                ],
-              );
-            },
-          );
-        });
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
-  Widget _buildDefaultColumnChart(List<ChartSampleData> datas, String title,
-      TooltipBehavior tooltipBehavior) {
+  Widget _buildDefaultColumnChart(
+    List<ChartSampleData> datas,
+    String title,
+    TooltipBehavior tooltipBehavior,
+  ) {
     return SizedBox(
       child: SfCartesianChart(
         zoomPanBehavior: ZoomPanBehavior(
@@ -250,10 +255,11 @@ class _SalesAnalyticsScreenState extends State<SalesAnalyticsScreen> {
           labelRotation: 90,
         ),
         primaryYAxis: NumericAxis(
-            axisLine: const AxisLine(width: 0),
-            title: AxisTitle(text: "Amount in Rs"),
-            labelFormat: '₹ {value}',
-            majorTickLines: const MajorTickLines(size: 0)),
+          axisLine: const AxisLine(width: 0),
+          title: AxisTitle(text: "Amount in Rs"),
+          labelFormat: '₹ {value}',
+          majorTickLines: const MajorTickLines(size: 0),
+        ),
         series: _getDefaultColumnSeries(datas),
         tooltipBehavior: tooltipBehavior,
       ),
@@ -262,7 +268,8 @@ class _SalesAnalyticsScreenState extends State<SalesAnalyticsScreen> {
 
   /// Get default column series
   List<ColumnSeries<ChartSampleData, String>> _getDefaultColumnSeries(
-      List<ChartSampleData> allData) {
+    List<ChartSampleData> allData,
+  ) {
     return <ColumnSeries<ChartSampleData, String>>[
       ColumnSeries<ChartSampleData, String>(
         dataSource: allData,
@@ -270,7 +277,9 @@ class _SalesAnalyticsScreenState extends State<SalesAnalyticsScreen> {
         pointColorMapper: (ChartSampleData data, _) => data.pointColor,
         yValueMapper: (ChartSampleData sales, _) => sales.y,
         dataLabelSettings: const DataLabelSettings(
-            isVisible: true, textStyle: TextStyle(fontSize: 10)),
+          isVisible: true,
+          textStyle: TextStyle(fontSize: 10),
+        ),
       )
     ];
   }
@@ -279,22 +288,23 @@ class _SalesAnalyticsScreenState extends State<SalesAnalyticsScreen> {
 ///Chart sample data
 class ChartSampleData {
   /// Holds the datapoint values like x, y, etc.,
-  ChartSampleData(
-      {this.x,
-      this.hsnAndAmount,
-      this.y,
-      this.xValue,
-      this.yValue,
-      this.secondSeriesYValue,
-      this.thirdSeriesYValue,
-      this.pointColor,
-      this.size,
-      this.text,
-      this.open,
-      this.close,
-      this.low,
-      this.high,
-      this.volume});
+  ChartSampleData({
+    this.x,
+    this.hsnAndAmount,
+    this.y,
+    this.xValue,
+    this.yValue,
+    this.secondSeriesYValue,
+    this.thirdSeriesYValue,
+    this.pointColor,
+    this.size,
+    this.text,
+    this.open,
+    this.close,
+    this.low,
+    this.high,
+    this.volume,
+  });
 
   final HSNAndAmount? hsnAndAmount;
 

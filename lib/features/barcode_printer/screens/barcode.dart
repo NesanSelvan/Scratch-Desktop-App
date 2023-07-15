@@ -1,7 +1,7 @@
 import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
 import 'package:annai_store/utils/printer/printer.dart';
-import 'package:custom/custom_text.dart';
+import 'package:annai_store/widgets/cusom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';

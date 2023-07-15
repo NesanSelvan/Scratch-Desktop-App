@@ -3,7 +3,8 @@ import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/enum/printer/printer.dart';
 import 'package:annai_store/models/estimate/estimate.dart';
 import 'package:annai_store/utils/pdf/pdf.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';

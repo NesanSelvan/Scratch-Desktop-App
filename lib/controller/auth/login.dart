@@ -4,7 +4,8 @@ import 'package:annai_store/enum/application.dart';
 import 'package:annai_store/enum/person/person.dart';
 import 'package:annai_store/models/persons/employee/employee.dart';
 import 'package:annai_store/screens/home/home.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

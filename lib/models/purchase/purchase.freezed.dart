@@ -36,6 +36,7 @@ class _$PurchaseModelTearOff {
       bool isTax = true,
       required double grandTotal,
       double? forwardingSales,
+      double forwardingSalesPercentage = 0,
       required DateTime dateTime,
       String? note,
       List<String>? imagesPathList,
@@ -55,6 +56,7 @@ class _$PurchaseModelTearOff {
       isTax: isTax,
       grandTotal: grandTotal,
       forwardingSales: forwardingSales,
+      forwardingSalesPercentage: forwardingSalesPercentage,
       dateTime: dateTime,
       note: note,
       imagesPathList: imagesPathList,
@@ -87,6 +89,7 @@ mixin _$PurchaseModel {
   bool get isTax => throw _privateConstructorUsedError;
   double get grandTotal => throw _privateConstructorUsedError;
   double? get forwardingSales => throw _privateConstructorUsedError;
+  double get forwardingSalesPercentage => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   List<String>? get imagesPathList => throw _privateConstructorUsedError;
@@ -118,6 +121,7 @@ abstract class $PurchaseModelCopyWith<$Res> {
       bool isTax,
       double grandTotal,
       double? forwardingSales,
+      double forwardingSalesPercentage,
       DateTime dateTime,
       String? note,
       List<String>? imagesPathList,
@@ -151,6 +155,7 @@ class _$PurchaseModelCopyWithImpl<$Res>
     Object? isTax = freezed,
     Object? grandTotal = freezed,
     Object? forwardingSales = freezed,
+    Object? forwardingSalesPercentage = freezed,
     Object? dateTime = freezed,
     Object? note = freezed,
     Object? imagesPathList = freezed,
@@ -210,6 +215,10 @@ class _$PurchaseModelCopyWithImpl<$Res>
           ? _value.forwardingSales
           : forwardingSales // ignore: cast_nullable_to_non_nullable
               as double?,
+      forwardingSalesPercentage: forwardingSalesPercentage == freezed
+          ? _value.forwardingSalesPercentage
+          : forwardingSalesPercentage // ignore: cast_nullable_to_non_nullable
+              as double,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -262,6 +271,7 @@ abstract class _$PurchaseModelCopyWith<$Res>
       bool isTax,
       double grandTotal,
       double? forwardingSales,
+      double forwardingSalesPercentage,
       DateTime dateTime,
       String? note,
       List<String>? imagesPathList,
@@ -298,6 +308,7 @@ class __$PurchaseModelCopyWithImpl<$Res>
     Object? isTax = freezed,
     Object? grandTotal = freezed,
     Object? forwardingSales = freezed,
+    Object? forwardingSalesPercentage = freezed,
     Object? dateTime = freezed,
     Object? note = freezed,
     Object? imagesPathList = freezed,
@@ -357,6 +368,10 @@ class __$PurchaseModelCopyWithImpl<$Res>
           ? _value.forwardingSales
           : forwardingSales // ignore: cast_nullable_to_non_nullable
               as double?,
+      forwardingSalesPercentage: forwardingSalesPercentage == freezed
+          ? _value.forwardingSalesPercentage
+          : forwardingSalesPercentage // ignore: cast_nullable_to_non_nullable
+              as double,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -399,6 +414,7 @@ class _$_PurchaseModel implements _PurchaseModel {
       this.isTax = true,
       required this.grandTotal,
       this.forwardingSales,
+      this.forwardingSalesPercentage = 0,
       required this.dateTime,
       this.note,
       this.imagesPathList,
@@ -436,6 +452,9 @@ class _$_PurchaseModel implements _PurchaseModel {
   final double grandTotal;
   @override
   final double? forwardingSales;
+  @JsonKey()
+  @override
+  final double forwardingSalesPercentage;
   @override
   final DateTime dateTime;
   @override
@@ -449,7 +468,7 @@ class _$_PurchaseModel implements _PurchaseModel {
 
   @override
   String toString() {
-    return 'PurchaseModel(id: $id, billNo: $billNo, companyModel: $companyModel, isNormalPurchaseBill: $isNormalPurchaseBill, lorryFright: $lorryFright, lorryFrightTax: $lorryFrightTax, lorryFrightTotal: $lorryFrightTotal, overallDiscount: $overallDiscount, productList: $productList, paymentsIdList: $paymentsIdList, isTax: $isTax, grandTotal: $grandTotal, forwardingSales: $forwardingSales, dateTime: $dateTime, note: $note, imagesPathList: $imagesPathList, tcsSales: $tcsSales, createdAt: $createdAt)';
+    return 'PurchaseModel(id: $id, billNo: $billNo, companyModel: $companyModel, isNormalPurchaseBill: $isNormalPurchaseBill, lorryFright: $lorryFright, lorryFrightTax: $lorryFrightTax, lorryFrightTotal: $lorryFrightTotal, overallDiscount: $overallDiscount, productList: $productList, paymentsIdList: $paymentsIdList, isTax: $isTax, grandTotal: $grandTotal, forwardingSales: $forwardingSales, forwardingSalesPercentage: $forwardingSalesPercentage, dateTime: $dateTime, note: $note, imagesPathList: $imagesPathList, tcsSales: $tcsSales, createdAt: $createdAt)';
   }
 
   @override
@@ -480,6 +499,8 @@ class _$_PurchaseModel implements _PurchaseModel {
                 .equals(other.grandTotal, grandTotal) &&
             const DeepCollectionEquality()
                 .equals(other.forwardingSales, forwardingSales) &&
+            const DeepCollectionEquality().equals(
+                other.forwardingSalesPercentage, forwardingSalesPercentage) &&
             const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
             const DeepCollectionEquality().equals(other.note, note) &&
             const DeepCollectionEquality()
@@ -489,26 +510,28 @@ class _$_PurchaseModel implements _PurchaseModel {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(billNo),
-      const DeepCollectionEquality().hash(companyModel),
-      const DeepCollectionEquality().hash(isNormalPurchaseBill),
-      const DeepCollectionEquality().hash(lorryFright),
-      const DeepCollectionEquality().hash(lorryFrightTax),
-      const DeepCollectionEquality().hash(lorryFrightTotal),
-      const DeepCollectionEquality().hash(overallDiscount),
-      const DeepCollectionEquality().hash(productList),
-      const DeepCollectionEquality().hash(paymentsIdList),
-      const DeepCollectionEquality().hash(isTax),
-      const DeepCollectionEquality().hash(grandTotal),
-      const DeepCollectionEquality().hash(forwardingSales),
-      const DeepCollectionEquality().hash(dateTime),
-      const DeepCollectionEquality().hash(note),
-      const DeepCollectionEquality().hash(imagesPathList),
-      const DeepCollectionEquality().hash(tcsSales),
-      const DeepCollectionEquality().hash(createdAt));
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(id),
+        const DeepCollectionEquality().hash(billNo),
+        const DeepCollectionEquality().hash(companyModel),
+        const DeepCollectionEquality().hash(isNormalPurchaseBill),
+        const DeepCollectionEquality().hash(lorryFright),
+        const DeepCollectionEquality().hash(lorryFrightTax),
+        const DeepCollectionEquality().hash(lorryFrightTotal),
+        const DeepCollectionEquality().hash(overallDiscount),
+        const DeepCollectionEquality().hash(productList),
+        const DeepCollectionEquality().hash(paymentsIdList),
+        const DeepCollectionEquality().hash(isTax),
+        const DeepCollectionEquality().hash(grandTotal),
+        const DeepCollectionEquality().hash(forwardingSales),
+        const DeepCollectionEquality().hash(forwardingSalesPercentage),
+        const DeepCollectionEquality().hash(dateTime),
+        const DeepCollectionEquality().hash(note),
+        const DeepCollectionEquality().hash(imagesPathList),
+        const DeepCollectionEquality().hash(tcsSales),
+        const DeepCollectionEquality().hash(createdAt)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -536,6 +559,7 @@ abstract class _PurchaseModel implements PurchaseModel {
       bool isTax,
       required double grandTotal,
       double? forwardingSales,
+      double forwardingSalesPercentage,
       required DateTime dateTime,
       String? note,
       List<String>? imagesPathList,
@@ -571,6 +595,8 @@ abstract class _PurchaseModel implements PurchaseModel {
   double get grandTotal;
   @override
   double? get forwardingSales;
+  @override
+  double get forwardingSalesPercentage;
   @override
   DateTime get dateTime;
   @override

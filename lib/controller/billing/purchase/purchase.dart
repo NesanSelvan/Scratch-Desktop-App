@@ -12,7 +12,8 @@ import 'package:annai_store/models/stocks/stock.dart';
 import 'package:annai_store/utils/image/image.dart';
 import 'package:annai_store/utils/keyboard/keyboard.dart';
 import 'package:annai_store/utils/null/null.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
@@ -30,6 +31,7 @@ class PurchaseController extends GetxController {
 
   final totalAmountController = TextEditingController(text: "0");
   final forwardingSalesController = TextEditingController(text: "0");
+  final forwardingSalesPercentage = TextEditingController(text: "0");
   final tcsSalesController = TextEditingController(text: "0");
   final taxController = TextEditingController(text: "0");
   final taxableValueController = TextEditingController(text: "0");
@@ -512,6 +514,7 @@ class PurchaseController extends GetxController {
         await ImageUtilities.moveImagesToSafeDir(_imagesList);
 
     final purchaseModel = PurchaseModel(
+      forwardingSalesPercentage: forwardingSalesP,
       id: _billModel == null ? const Uuid().v4() : _billModel!.id,
       productList: purchaseProductModelList,
       dateTime: pickedDateTime,
@@ -586,16 +589,22 @@ class PurchaseController extends GetxController {
       grandTotal += item.totalAmount;
       tax = item.tax;
     }
-    grandTotal += forwardingSales;
-    grandTotal += grandTotal * tcsSalesAmount;
+    log("grandTotal: $grandTotal");
     final discount = double.tryParse(overallDiscountController.text) ?? 0;
-    if (overallDiscountPercentage) {
-      final taxableValue = getTotalPurchaseProductModel.taxableValue;
-      grandTotal = taxableValue - (taxableValue * (discount / 100));
-      grandTotal += (grandTotal * (tax / 100));
-    } else {
-      grandTotal -= discount;
+    if (discount != 0) {
+      if (overallDiscountPercentage) {
+        final taxableValue = getTotalPurchaseProductModel.taxableValue;
+        grandTotal = taxableValue - (taxableValue * (discount / 100));
+        grandTotal += grandTotal * (tax / 100);
+        log("grandTotal if: $grandTotal $discount $taxableValue");
+      } else {
+        grandTotal -= discount;
+        log("grandTotal else: $grandTotal");
+      }
     }
+    grandTotal += totalFS;
+    grandTotal += grandTotal * tcsSalesAmount;
+    log("grandTotal: $grandTotal $totalFS  $tcsSalesAmount");
     grandTotal = double.parse(grandTotal.toStringAsFixed(2));
     update();
   }
@@ -615,6 +624,10 @@ class PurchaseController extends GetxController {
 
   double get forwardingSales =>
       double.tryParse(forwardingSalesController.text) ?? 0;
+  double get forwardingSalesP =>
+      double.tryParse(forwardingSalesPercentage.text) ?? 0;
+  double get totalFS =>
+      forwardingSales + (forwardingSales * (forwardingSalesP / 100));
 
   double get tcsSales => double.tryParse(tcsSalesController.text) ?? 0;
   double get tcsSalesAmount =>

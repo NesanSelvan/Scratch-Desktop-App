@@ -1,5 +1,5 @@
 // import 'package:annai_store/core/db/db.dart';
-// import 'package:custom/custom_text.dart';
+// import 'package:annai_store/widgets/cusom_text.dart';
 // import 'package:flutter/material.dart';
 
 // class TestingScreen extends StatelessWidget {

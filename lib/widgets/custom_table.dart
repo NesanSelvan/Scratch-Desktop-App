@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:annai_store/screens/viewer/image_viewer.dart';
-import 'package:custom/custom_text.dart';
+import 'package:annai_store/widgets/cusom_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomTableElement extends StatelessWidget {

@@ -3,7 +3,8 @@ import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/person/person.dart';
 import 'package:annai_store/models/threads/company/thread_company.dart';
 import 'package:annai_store/utils/utility.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

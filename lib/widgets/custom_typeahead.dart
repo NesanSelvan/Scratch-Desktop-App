@@ -12,7 +12,7 @@ import 'package:annai_store/models/unit/unit.dart';
 import 'package:annai_store/utils/search/search.dart';
 import 'package:annai_store/widgets/custom_keyboard.dart';
 import 'package:annai_store/widgets/text_field.dart';
-import 'package:custom/custom_text.dart';
+import 'package:annai_store/widgets/cusom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';

@@ -2735,6 +2735,7 @@ class PDFGenerator {
             ),
           ],
         ),
+     
       ],
     );
   }
@@ -3217,7 +3218,8 @@ class PDFGenerator {
             if (billHeight <= maxBillHeight)
               pw.Column(
                 children: [
-                  _getFotterTaxColumn(billModel, taxCalModel),
+                  _getFotterTaxColumn(billModel, taxCalModel,
+                  dynamicHeight: true,),
                   bankCont,
                 ],
               )

@@ -5,7 +5,8 @@ import 'package:annai_store/models/failure/failure.dart';
 import 'package:annai_store/models/price/price.dart';
 import 'package:annai_store/models/product/product.dart';
 import 'package:annai_store/utils/utility.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

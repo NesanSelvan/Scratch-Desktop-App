@@ -16,7 +16,8 @@ import 'package:annai_store/models/unit/unit.dart';
 import 'package:annai_store/utils/keyboard/keyboard.dart';
 import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:annai_store/utils/printer/printer.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';

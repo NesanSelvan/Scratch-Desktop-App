@@ -15,7 +15,8 @@ import 'package:annai_store/screens/billing/sales/components/sales_two.dart';
 import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:annai_store/utils/printer/printer.dart';
 import 'package:annai_store/utils/upi.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';

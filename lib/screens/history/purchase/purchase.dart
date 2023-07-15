@@ -12,8 +12,9 @@ import 'package:annai_store/widgets/custom_table.dart';
 import 'package:annai_store/widgets/full_container.dart';
 import 'package:annai_store/widgets/header_text.dart';
 import 'package:annai_store/widgets/print_optn.dart';
-import 'package:custom/custom_text.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/widgets/cusom_text.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -530,8 +531,12 @@ class _PurchaseHistoryState extends State<PurchaseHistory> {
             Text("TCS & Sales ${billModel.tcsSales}%"),
           const SizedBox(height: 10),
           if (billModel.forwardingSales != null &&
-              billModel.forwardingSales != 0)
+              billModel.forwardingSales != 0) ...[
             Text("Forwarding Sales ${billModel.forwardingSales}"),
+            Text(
+              "Forwarding Sales Percentage ${billModel.forwardingSalesPercentage} %",
+            ),
+          ],
           const SizedBox(height: 20),
           Text(
             "Total ${billModel.grandTotal + (billModel.overallDiscount ?? 0)}",

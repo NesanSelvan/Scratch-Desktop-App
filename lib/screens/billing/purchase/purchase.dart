@@ -24,8 +24,9 @@ import 'package:annai_store/widgets/custom_typeahead.dart';
 import 'package:annai_store/widgets/full_container.dart';
 import 'package:annai_store/widgets/header_text.dart';
 import 'package:annai_store/widgets/text_field.dart';
-import 'package:custom/custom_text.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/widgets/cusom_text.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,6 +68,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
   final totalAmountNode = FocusNode();
   final forwardingSalesNode = FocusNode();
+  final forwardingSalesPNode = FocusNode();
   final tcsSalesNode = FocusNode();
 
   final discountNode = FocusNode();
@@ -802,6 +804,18 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                       onEditingComplete: () {
                                         controller.calculateAmounts();
                                         controller.calculateGrandTotal();
+                                        forwardingSalesPNode.requestFocus();
+                                      },
+                                    ),
+                                    const SizedBox(height: 20),
+                                    CustomTextField(
+                                      focusNode: forwardingSalesPNode,
+                                      controller:
+                                          controller.forwardingSalesPercentage,
+                                      label: "Forwarding Sales Percentage",
+                                      onEditingComplete: () {
+                                        controller.calculateAmounts();
+                                        controller.calculateGrandTotal();
                                         controller.productNode.requestFocus();
                                       },
                                     ),
@@ -1028,7 +1042,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                                     }
                                                   },
                                                 ),
-                                                Text(
+                                                const Text(
                                                   "Is Percentage",
                                                   style: TextStyle(
                                                     fontSize: 8,
@@ -1096,12 +1110,17 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                                             ),
                                           )
                                           .toList(),
+                                      Divider(
+                                        color: Colors.grey[300]!,
+                                      ),
                                       buildTotalSummary(
                                         controller.getTotalPurchaseProductModel,
                                       ),
                                       if (controller.forwardingSales != 0)
                                         forwardingSales(
+                                          controller.totalFS,
                                           controller.forwardingSales,
+                                          controller.forwardingSalesP,
                                         ),
                                       if (controller.tcsSales != 0)
                                         tcsSales(
@@ -1297,7 +1316,11 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
     );
   }
 
-  Widget forwardingSales(double totalAmount) {
+  Widget forwardingSales(
+    double totalAmount,
+    double forwardingSales,
+    double percentage,
+  ) {
     return Container(
       child: Row(
         children: [
@@ -1347,13 +1370,13 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
             width: CustomScreenUtility(context).width *
                 0.8 /
                 PurchaseBillingEnum.values.length,
-            text: "",
+            text: forwardingSales.toString(),
           ),
           CustomTableElement(
             width: CustomScreenUtility(context).width *
                 0.8 /
                 PurchaseBillingEnum.values.length,
-            text: "",
+            text: percentage.toString(),
           ),
           CustomTableElement(
             width: CustomScreenUtility(context).width *

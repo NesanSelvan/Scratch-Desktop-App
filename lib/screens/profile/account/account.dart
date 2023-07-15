@@ -9,8 +9,9 @@ import 'package:annai_store/screens/auth/login.dart';
 import 'package:annai_store/utils/sales_end/sales_end.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:annai_store/widgets/text_field.dart';
-import 'package:custom/custom_text.dart';
-import 'package:custom/ftn.dart';
+import 'package:annai_store/widgets/cusom_text.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

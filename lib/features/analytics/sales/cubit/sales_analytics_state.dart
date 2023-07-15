@@ -35,7 +35,7 @@ class SalesAnalyticsState {
 
   double? get totalPurchaseAmount {
     double sum = 0;
-    for (final sale in salesData) {
+    for (final sale in purchaseData) {
       sum += sale.hsnAndAmount?.amount ?? 0;
     }
     return sum;
