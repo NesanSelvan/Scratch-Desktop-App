@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'purchase_product.dart';
 
@@ -12,50 +12,11 @@ part of 'purchase_product.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 PurchaseProductModel _$PurchaseProductModelFromJson(Map<String, dynamic> json) {
   return _PurchaseProductModel.fromJson(json);
 }
-
-/// @nodoc
-class _$PurchaseProductModelTearOff {
-  const _$PurchaseProductModelTearOff();
-
-  _PurchaseProductModel call(
-      {required String id,
-      required CategoryModel categoryModel,
-      required ProductModel productModel,
-      required double qty,
-      required double rate,
-      required double amount,
-      required double discount,
-      required double lorryFright,
-      required double tax,
-      required double taxableValue,
-      required double totalAmount}) {
-    return _PurchaseProductModel(
-      id: id,
-      categoryModel: categoryModel,
-      productModel: productModel,
-      qty: qty,
-      rate: rate,
-      amount: amount,
-      discount: discount,
-      lorryFright: lorryFright,
-      tax: tax,
-      taxableValue: taxableValue,
-      totalAmount: totalAmount,
-    );
-  }
-
-  PurchaseProductModel fromJson(Map<String, Object?> json) {
-    return PurchaseProductModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $PurchaseProductModel = _$PurchaseProductModelTearOff();
 
 /// @nodoc
 mixin _$PurchaseProductModel {
@@ -81,7 +42,8 @@ mixin _$PurchaseProductModel {
 abstract class $PurchaseProductModelCopyWith<$Res> {
   factory $PurchaseProductModelCopyWith(PurchaseProductModel value,
           $Res Function(PurchaseProductModel) then) =
-      _$PurchaseProductModelCopyWithImpl<$Res>;
+      _$PurchaseProductModelCopyWithImpl<$Res, PurchaseProductModel>;
+  @useResult
   $Res call(
       {String id,
       CategoryModel categoryModel,
@@ -100,98 +62,104 @@ abstract class $PurchaseProductModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PurchaseProductModelCopyWithImpl<$Res>
+class _$PurchaseProductModelCopyWithImpl<$Res,
+        $Val extends PurchaseProductModel>
     implements $PurchaseProductModelCopyWith<$Res> {
   _$PurchaseProductModelCopyWithImpl(this._value, this._then);
 
-  final PurchaseProductModel _value;
   // ignore: unused_field
-  final $Res Function(PurchaseProductModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? categoryModel = freezed,
-    Object? productModel = freezed,
-    Object? qty = freezed,
-    Object? rate = freezed,
-    Object? amount = freezed,
-    Object? discount = freezed,
-    Object? lorryFright = freezed,
-    Object? tax = freezed,
-    Object? taxableValue = freezed,
-    Object? totalAmount = freezed,
+    Object? id = null,
+    Object? categoryModel = null,
+    Object? productModel = null,
+    Object? qty = null,
+    Object? rate = null,
+    Object? amount = null,
+    Object? discount = null,
+    Object? lorryFright = null,
+    Object? tax = null,
+    Object? taxableValue = null,
+    Object? totalAmount = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryModel: categoryModel == freezed
+      categoryModel: null == categoryModel
           ? _value.categoryModel
           : categoryModel // ignore: cast_nullable_to_non_nullable
               as CategoryModel,
-      productModel: productModel == freezed
+      productModel: null == productModel
           ? _value.productModel
           : productModel // ignore: cast_nullable_to_non_nullable
               as ProductModel,
-      qty: qty == freezed
+      qty: null == qty
           ? _value.qty
           : qty // ignore: cast_nullable_to_non_nullable
               as double,
-      rate: rate == freezed
+      rate: null == rate
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
               as double,
-      amount: amount == freezed
+      amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as double,
-      discount: discount == freezed
+      discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
               as double,
-      lorryFright: lorryFright == freezed
+      lorryFright: null == lorryFright
           ? _value.lorryFright
           : lorryFright // ignore: cast_nullable_to_non_nullable
               as double,
-      tax: tax == freezed
+      tax: null == tax
           ? _value.tax
           : tax // ignore: cast_nullable_to_non_nullable
               as double,
-      taxableValue: taxableValue == freezed
+      taxableValue: null == taxableValue
           ? _value.taxableValue
           : taxableValue // ignore: cast_nullable_to_non_nullable
               as double,
-      totalAmount: totalAmount == freezed
+      totalAmount: null == totalAmount
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
               as double,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CategoryModelCopyWith<$Res> get categoryModel {
     return $CategoryModelCopyWith<$Res>(_value.categoryModel, (value) {
-      return _then(_value.copyWith(categoryModel: value));
+      return _then(_value.copyWith(categoryModel: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ProductModelCopyWith<$Res> get productModel {
     return $ProductModelCopyWith<$Res>(_value.productModel, (value) {
-      return _then(_value.copyWith(productModel: value));
+      return _then(_value.copyWith(productModel: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$PurchaseProductModelCopyWith<$Res>
+abstract class _$$PurchaseProductModelImplCopyWith<$Res>
     implements $PurchaseProductModelCopyWith<$Res> {
-  factory _$PurchaseProductModelCopyWith(_PurchaseProductModel value,
-          $Res Function(_PurchaseProductModel) then) =
-      __$PurchaseProductModelCopyWithImpl<$Res>;
+  factory _$$PurchaseProductModelImplCopyWith(_$PurchaseProductModelImpl value,
+          $Res Function(_$PurchaseProductModelImpl) then) =
+      __$$PurchaseProductModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       CategoryModel categoryModel,
@@ -212,72 +180,70 @@ abstract class _$PurchaseProductModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$PurchaseProductModelCopyWithImpl<$Res>
-    extends _$PurchaseProductModelCopyWithImpl<$Res>
-    implements _$PurchaseProductModelCopyWith<$Res> {
-  __$PurchaseProductModelCopyWithImpl(
-      _PurchaseProductModel _value, $Res Function(_PurchaseProductModel) _then)
-      : super(_value, (v) => _then(v as _PurchaseProductModel));
+class __$$PurchaseProductModelImplCopyWithImpl<$Res>
+    extends _$PurchaseProductModelCopyWithImpl<$Res, _$PurchaseProductModelImpl>
+    implements _$$PurchaseProductModelImplCopyWith<$Res> {
+  __$$PurchaseProductModelImplCopyWithImpl(_$PurchaseProductModelImpl _value,
+      $Res Function(_$PurchaseProductModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _PurchaseProductModel get _value => super._value as _PurchaseProductModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? categoryModel = freezed,
-    Object? productModel = freezed,
-    Object? qty = freezed,
-    Object? rate = freezed,
-    Object? amount = freezed,
-    Object? discount = freezed,
-    Object? lorryFright = freezed,
-    Object? tax = freezed,
-    Object? taxableValue = freezed,
-    Object? totalAmount = freezed,
+    Object? id = null,
+    Object? categoryModel = null,
+    Object? productModel = null,
+    Object? qty = null,
+    Object? rate = null,
+    Object? amount = null,
+    Object? discount = null,
+    Object? lorryFright = null,
+    Object? tax = null,
+    Object? taxableValue = null,
+    Object? totalAmount = null,
   }) {
-    return _then(_PurchaseProductModel(
-      id: id == freezed
+    return _then(_$PurchaseProductModelImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryModel: categoryModel == freezed
+      categoryModel: null == categoryModel
           ? _value.categoryModel
           : categoryModel // ignore: cast_nullable_to_non_nullable
               as CategoryModel,
-      productModel: productModel == freezed
+      productModel: null == productModel
           ? _value.productModel
           : productModel // ignore: cast_nullable_to_non_nullable
               as ProductModel,
-      qty: qty == freezed
+      qty: null == qty
           ? _value.qty
           : qty // ignore: cast_nullable_to_non_nullable
               as double,
-      rate: rate == freezed
+      rate: null == rate
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
               as double,
-      amount: amount == freezed
+      amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as double,
-      discount: discount == freezed
+      discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
               as double,
-      lorryFright: lorryFright == freezed
+      lorryFright: null == lorryFright
           ? _value.lorryFright
           : lorryFright // ignore: cast_nullable_to_non_nullable
               as double,
-      tax: tax == freezed
+      tax: null == tax
           ? _value.tax
           : tax // ignore: cast_nullable_to_non_nullable
               as double,
-      taxableValue: taxableValue == freezed
+      taxableValue: null == taxableValue
           ? _value.taxableValue
           : taxableValue // ignore: cast_nullable_to_non_nullable
               as double,
-      totalAmount: totalAmount == freezed
+      totalAmount: null == totalAmount
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
               as double,
@@ -288,8 +254,8 @@ class __$PurchaseProductModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_PurchaseProductModel implements _PurchaseProductModel {
-  _$_PurchaseProductModel(
+class _$PurchaseProductModelImpl implements _PurchaseProductModel {
+  _$PurchaseProductModelImpl(
       {required this.id,
       required this.categoryModel,
       required this.productModel,
@@ -302,8 +268,8 @@ class _$_PurchaseProductModel implements _PurchaseProductModel {
       required this.taxableValue,
       required this.totalAmount});
 
-  factory _$_PurchaseProductModel.fromJson(Map<String, dynamic> json) =>
-      _$$_PurchaseProductModelFromJson(json);
+  factory _$PurchaseProductModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PurchaseProductModelImplFromJson(json);
 
   @override
   final String id;
@@ -337,68 +303,63 @@ class _$_PurchaseProductModel implements _PurchaseProductModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PurchaseProductModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality()
-                .equals(other.categoryModel, categoryModel) &&
-            const DeepCollectionEquality()
-                .equals(other.productModel, productModel) &&
-            const DeepCollectionEquality().equals(other.qty, qty) &&
-            const DeepCollectionEquality().equals(other.rate, rate) &&
-            const DeepCollectionEquality().equals(other.amount, amount) &&
-            const DeepCollectionEquality().equals(other.discount, discount) &&
-            const DeepCollectionEquality()
-                .equals(other.lorryFright, lorryFright) &&
-            const DeepCollectionEquality().equals(other.tax, tax) &&
-            const DeepCollectionEquality()
-                .equals(other.taxableValue, taxableValue) &&
-            const DeepCollectionEquality()
-                .equals(other.totalAmount, totalAmount));
+            other is _$PurchaseProductModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.categoryModel, categoryModel) ||
+                other.categoryModel == categoryModel) &&
+            (identical(other.productModel, productModel) ||
+                other.productModel == productModel) &&
+            (identical(other.qty, qty) || other.qty == qty) &&
+            (identical(other.rate, rate) || other.rate == rate) &&
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
+            (identical(other.lorryFright, lorryFright) ||
+                other.lorryFright == lorryFright) &&
+            (identical(other.tax, tax) || other.tax == tax) &&
+            (identical(other.taxableValue, taxableValue) ||
+                other.taxableValue == taxableValue) &&
+            (identical(other.totalAmount, totalAmount) ||
+                other.totalAmount == totalAmount));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(categoryModel),
-      const DeepCollectionEquality().hash(productModel),
-      const DeepCollectionEquality().hash(qty),
-      const DeepCollectionEquality().hash(rate),
-      const DeepCollectionEquality().hash(amount),
-      const DeepCollectionEquality().hash(discount),
-      const DeepCollectionEquality().hash(lorryFright),
-      const DeepCollectionEquality().hash(tax),
-      const DeepCollectionEquality().hash(taxableValue),
-      const DeepCollectionEquality().hash(totalAmount));
 
   @JsonKey(ignore: true)
   @override
-  _$PurchaseProductModelCopyWith<_PurchaseProductModel> get copyWith =>
-      __$PurchaseProductModelCopyWithImpl<_PurchaseProductModel>(
-          this, _$identity);
+  int get hashCode => Object.hash(runtimeType, id, categoryModel, productModel,
+      qty, rate, amount, discount, lorryFright, tax, taxableValue, totalAmount);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PurchaseProductModelImplCopyWith<_$PurchaseProductModelImpl>
+      get copyWith =>
+          __$$PurchaseProductModelImplCopyWithImpl<_$PurchaseProductModelImpl>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PurchaseProductModelToJson(this);
+    return _$$PurchaseProductModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _PurchaseProductModel implements PurchaseProductModel {
   factory _PurchaseProductModel(
-      {required String id,
-      required CategoryModel categoryModel,
-      required ProductModel productModel,
-      required double qty,
-      required double rate,
-      required double amount,
-      required double discount,
-      required double lorryFright,
-      required double tax,
-      required double taxableValue,
-      required double totalAmount}) = _$_PurchaseProductModel;
+      {required final String id,
+      required final CategoryModel categoryModel,
+      required final ProductModel productModel,
+      required final double qty,
+      required final double rate,
+      required final double amount,
+      required final double discount,
+      required final double lorryFright,
+      required final double tax,
+      required final double taxableValue,
+      required final double totalAmount}) = _$PurchaseProductModelImpl;
 
   factory _PurchaseProductModel.fromJson(Map<String, dynamic> json) =
-      _$_PurchaseProductModel.fromJson;
+      _$PurchaseProductModelImpl.fromJson;
 
   @override
   String get id;
@@ -424,6 +385,6 @@ abstract class _PurchaseProductModel implements PurchaseProductModel {
   double get totalAmount;
   @override
   @JsonKey(ignore: true)
-  _$PurchaseProductModelCopyWith<_PurchaseProductModel> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$PurchaseProductModelImplCopyWith<_$PurchaseProductModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

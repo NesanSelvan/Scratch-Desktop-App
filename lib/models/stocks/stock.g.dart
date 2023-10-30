@@ -6,8 +6,8 @@ part of 'stock.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_StockModel _$$_StockModelFromJson(Map<String, dynamic> json) =>
-    _$_StockModel(
+_$StockModelImpl _$$StockModelImplFromJson(Map<String, dynamic> json) =>
+    _$StockModelImpl(
       json['id'] as String,
       json['productId'] as String,
       json['productCode'] as String,
@@ -15,7 +15,7 @@ _$_StockModel _$$_StockModelFromJson(Map<String, dynamic> json) =>
       DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_StockModelToJson(_$_StockModel instance) =>
+Map<String, dynamic> _$$StockModelImplToJson(_$StockModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'productId': instance.productId,

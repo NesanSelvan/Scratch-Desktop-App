@@ -225,6 +225,7 @@ class QuotationController extends GetxController {
             double.tryParse(rateController.text) ?? 0,
           ),
           discountPer: discount,
+          qtyMathEqn: qtyController.text,
         );
         debugPrint('qtyController $salesProductModel');
         salesProductModelList.add(salesProductModel);
@@ -240,6 +241,7 @@ class QuotationController extends GetxController {
             double.tryParse(rateController.text) ?? 0,
           ),
           discountPer: discount,
+          qtyMathEqn: qtyController.text,
         );
         debugPrint('qtyController $salesProductModel');
         salesProductModelList[index] = salesProductModel;

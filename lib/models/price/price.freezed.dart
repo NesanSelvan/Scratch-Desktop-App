@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'price.dart';
 
@@ -12,48 +12,11 @@ part of 'price.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 PriceModel _$PriceModelFromJson(Map<String, dynamic> json) {
   return _PriceModel.fromJson(json);
 }
-
-/// @nodoc
-class _$PriceModelTearOff {
-  const _$PriceModelTearOff();
-
-  _PriceModel call(
-      {required String id,
-      String? code,
-      String? barcodeCode,
-      required UnitModel unitModel,
-      double? purchasePrice,
-      required double mrp,
-      required double unitQty,
-      required double retail,
-      required double wholesale,
-      required DateTime createdAt}) {
-    return _PriceModel(
-      id: id,
-      code: code,
-      barcodeCode: barcodeCode,
-      unitModel: unitModel,
-      purchasePrice: purchasePrice,
-      mrp: mrp,
-      unitQty: unitQty,
-      retail: retail,
-      wholesale: wholesale,
-      createdAt: createdAt,
-    );
-  }
-
-  PriceModel fromJson(Map<String, Object?> json) {
-    return PriceModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $PriceModel = _$PriceModelTearOff();
 
 /// @nodoc
 mixin _$PriceModel {
@@ -78,7 +41,8 @@ mixin _$PriceModel {
 abstract class $PriceModelCopyWith<$Res> {
   factory $PriceModelCopyWith(
           PriceModel value, $Res Function(PriceModel) then) =
-      _$PriceModelCopyWithImpl<$Res>;
+      _$PriceModelCopyWithImpl<$Res, PriceModel>;
+  @useResult
   $Res call(
       {String id,
       String? code,
@@ -95,84 +59,90 @@ abstract class $PriceModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PriceModelCopyWithImpl<$Res> implements $PriceModelCopyWith<$Res> {
+class _$PriceModelCopyWithImpl<$Res, $Val extends PriceModel>
+    implements $PriceModelCopyWith<$Res> {
   _$PriceModelCopyWithImpl(this._value, this._then);
 
-  final PriceModel _value;
   // ignore: unused_field
-  final $Res Function(PriceModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? code = freezed,
     Object? barcodeCode = freezed,
-    Object? unitModel = freezed,
+    Object? unitModel = null,
     Object? purchasePrice = freezed,
-    Object? mrp = freezed,
-    Object? unitQty = freezed,
-    Object? retail = freezed,
-    Object? wholesale = freezed,
-    Object? createdAt = freezed,
+    Object? mrp = null,
+    Object? unitQty = null,
+    Object? retail = null,
+    Object? wholesale = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      barcodeCode: barcodeCode == freezed
+      barcodeCode: freezed == barcodeCode
           ? _value.barcodeCode
           : barcodeCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      unitModel: unitModel == freezed
+      unitModel: null == unitModel
           ? _value.unitModel
           : unitModel // ignore: cast_nullable_to_non_nullable
               as UnitModel,
-      purchasePrice: purchasePrice == freezed
+      purchasePrice: freezed == purchasePrice
           ? _value.purchasePrice
           : purchasePrice // ignore: cast_nullable_to_non_nullable
               as double?,
-      mrp: mrp == freezed
+      mrp: null == mrp
           ? _value.mrp
           : mrp // ignore: cast_nullable_to_non_nullable
               as double,
-      unitQty: unitQty == freezed
+      unitQty: null == unitQty
           ? _value.unitQty
           : unitQty // ignore: cast_nullable_to_non_nullable
               as double,
-      retail: retail == freezed
+      retail: null == retail
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
               as double,
-      wholesale: wholesale == freezed
+      wholesale: null == wholesale
           ? _value.wholesale
           : wholesale // ignore: cast_nullable_to_non_nullable
               as double,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $UnitModelCopyWith<$Res> get unitModel {
     return $UnitModelCopyWith<$Res>(_value.unitModel, (value) {
-      return _then(_value.copyWith(unitModel: value));
+      return _then(_value.copyWith(unitModel: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$PriceModelCopyWith<$Res> implements $PriceModelCopyWith<$Res> {
-  factory _$PriceModelCopyWith(
-          _PriceModel value, $Res Function(_PriceModel) then) =
-      __$PriceModelCopyWithImpl<$Res>;
+abstract class _$$PriceModelImplCopyWith<$Res>
+    implements $PriceModelCopyWith<$Res> {
+  factory _$$PriceModelImplCopyWith(
+          _$PriceModelImpl value, $Res Function(_$PriceModelImpl) then) =
+      __$$PriceModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String? code,
@@ -190,66 +160,65 @@ abstract class _$PriceModelCopyWith<$Res> implements $PriceModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$PriceModelCopyWithImpl<$Res> extends _$PriceModelCopyWithImpl<$Res>
-    implements _$PriceModelCopyWith<$Res> {
-  __$PriceModelCopyWithImpl(
-      _PriceModel _value, $Res Function(_PriceModel) _then)
-      : super(_value, (v) => _then(v as _PriceModel));
+class __$$PriceModelImplCopyWithImpl<$Res>
+    extends _$PriceModelCopyWithImpl<$Res, _$PriceModelImpl>
+    implements _$$PriceModelImplCopyWith<$Res> {
+  __$$PriceModelImplCopyWithImpl(
+      _$PriceModelImpl _value, $Res Function(_$PriceModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _PriceModel get _value => super._value as _PriceModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? code = freezed,
     Object? barcodeCode = freezed,
-    Object? unitModel = freezed,
+    Object? unitModel = null,
     Object? purchasePrice = freezed,
-    Object? mrp = freezed,
-    Object? unitQty = freezed,
-    Object? retail = freezed,
-    Object? wholesale = freezed,
-    Object? createdAt = freezed,
+    Object? mrp = null,
+    Object? unitQty = null,
+    Object? retail = null,
+    Object? wholesale = null,
+    Object? createdAt = null,
   }) {
-    return _then(_PriceModel(
-      id: id == freezed
+    return _then(_$PriceModelImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      barcodeCode: barcodeCode == freezed
+      barcodeCode: freezed == barcodeCode
           ? _value.barcodeCode
           : barcodeCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      unitModel: unitModel == freezed
+      unitModel: null == unitModel
           ? _value.unitModel
           : unitModel // ignore: cast_nullable_to_non_nullable
               as UnitModel,
-      purchasePrice: purchasePrice == freezed
+      purchasePrice: freezed == purchasePrice
           ? _value.purchasePrice
           : purchasePrice // ignore: cast_nullable_to_non_nullable
               as double?,
-      mrp: mrp == freezed
+      mrp: null == mrp
           ? _value.mrp
           : mrp // ignore: cast_nullable_to_non_nullable
               as double,
-      unitQty: unitQty == freezed
+      unitQty: null == unitQty
           ? _value.unitQty
           : unitQty // ignore: cast_nullable_to_non_nullable
               as double,
-      retail: retail == freezed
+      retail: null == retail
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
               as double,
-      wholesale: wholesale == freezed
+      wholesale: null == wholesale
           ? _value.wholesale
           : wholesale // ignore: cast_nullable_to_non_nullable
               as double,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -260,8 +229,8 @@ class __$PriceModelCopyWithImpl<$Res> extends _$PriceModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_PriceModel implements _PriceModel {
-  _$_PriceModel(
+class _$PriceModelImpl implements _PriceModel {
+  _$PriceModelImpl(
       {required this.id,
       this.code,
       this.barcodeCode,
@@ -273,8 +242,8 @@ class _$_PriceModel implements _PriceModel {
       required this.wholesale,
       required this.createdAt});
 
-  factory _$_PriceModel.fromJson(Map<String, dynamic> json) =>
-      _$$_PriceModelFromJson(json);
+  factory _$PriceModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PriceModelImplFromJson(json);
 
   @override
   final String id;
@@ -306,61 +275,58 @@ class _$_PriceModel implements _PriceModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PriceModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.code, code) &&
-            const DeepCollectionEquality()
-                .equals(other.barcodeCode, barcodeCode) &&
-            const DeepCollectionEquality().equals(other.unitModel, unitModel) &&
-            const DeepCollectionEquality()
-                .equals(other.purchasePrice, purchasePrice) &&
-            const DeepCollectionEquality().equals(other.mrp, mrp) &&
-            const DeepCollectionEquality().equals(other.unitQty, unitQty) &&
-            const DeepCollectionEquality().equals(other.retail, retail) &&
-            const DeepCollectionEquality().equals(other.wholesale, wholesale) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt));
+            other is _$PriceModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.barcodeCode, barcodeCode) ||
+                other.barcodeCode == barcodeCode) &&
+            (identical(other.unitModel, unitModel) ||
+                other.unitModel == unitModel) &&
+            (identical(other.purchasePrice, purchasePrice) ||
+                other.purchasePrice == purchasePrice) &&
+            (identical(other.mrp, mrp) || other.mrp == mrp) &&
+            (identical(other.unitQty, unitQty) || other.unitQty == unitQty) &&
+            (identical(other.retail, retail) || other.retail == retail) &&
+            (identical(other.wholesale, wholesale) ||
+                other.wholesale == wholesale) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(code),
-      const DeepCollectionEquality().hash(barcodeCode),
-      const DeepCollectionEquality().hash(unitModel),
-      const DeepCollectionEquality().hash(purchasePrice),
-      const DeepCollectionEquality().hash(mrp),
-      const DeepCollectionEquality().hash(unitQty),
-      const DeepCollectionEquality().hash(retail),
-      const DeepCollectionEquality().hash(wholesale),
-      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
-  _$PriceModelCopyWith<_PriceModel> get copyWith =>
-      __$PriceModelCopyWithImpl<_PriceModel>(this, _$identity);
+  int get hashCode => Object.hash(runtimeType, id, code, barcodeCode, unitModel,
+      purchasePrice, mrp, unitQty, retail, wholesale, createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PriceModelImplCopyWith<_$PriceModelImpl> get copyWith =>
+      __$$PriceModelImplCopyWithImpl<_$PriceModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PriceModelToJson(this);
+    return _$$PriceModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _PriceModel implements PriceModel {
   factory _PriceModel(
-      {required String id,
-      String? code,
-      String? barcodeCode,
-      required UnitModel unitModel,
-      double? purchasePrice,
-      required double mrp,
-      required double unitQty,
-      required double retail,
-      required double wholesale,
-      required DateTime createdAt}) = _$_PriceModel;
+      {required final String id,
+      final String? code,
+      final String? barcodeCode,
+      required final UnitModel unitModel,
+      final double? purchasePrice,
+      required final double mrp,
+      required final double unitQty,
+      required final double retail,
+      required final double wholesale,
+      required final DateTime createdAt}) = _$PriceModelImpl;
 
   factory _PriceModel.fromJson(Map<String, dynamic> json) =
-      _$_PriceModel.fromJson;
+      _$PriceModelImpl.fromJson;
 
   @override
   String get id;
@@ -384,6 +350,6 @@ abstract class _PriceModel implements PriceModel {
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$PriceModelCopyWith<_PriceModel> get copyWith =>
+  _$$PriceModelImplCopyWith<_$PriceModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

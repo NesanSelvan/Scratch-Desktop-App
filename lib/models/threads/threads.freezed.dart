@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'threads.dart';
 
@@ -12,34 +12,11 @@ part of 'threads.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ThreadsModel _$ThreadsModelFromJson(Map<String, dynamic> json) {
   return _ThreadsModel.fromJson(json);
 }
-
-/// @nodoc
-class _$ThreadsModelTearOff {
-  const _$ThreadsModelTearOff();
-
-  _ThreadsModel call(
-      {required String number,
-      required int stock,
-      required DateTime createdAt}) {
-    return _ThreadsModel(
-      number: number,
-      stock: stock,
-      createdAt: createdAt,
-    );
-  }
-
-  ThreadsModel fromJson(Map<String, Object?> json) {
-    return ThreadsModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ThreadsModel = _$ThreadsModelTearOff();
 
 /// @nodoc
 mixin _$ThreadsModel {
@@ -57,77 +34,81 @@ mixin _$ThreadsModel {
 abstract class $ThreadsModelCopyWith<$Res> {
   factory $ThreadsModelCopyWith(
           ThreadsModel value, $Res Function(ThreadsModel) then) =
-      _$ThreadsModelCopyWithImpl<$Res>;
+      _$ThreadsModelCopyWithImpl<$Res, ThreadsModel>;
+  @useResult
   $Res call({String number, int stock, DateTime createdAt});
 }
 
 /// @nodoc
-class _$ThreadsModelCopyWithImpl<$Res> implements $ThreadsModelCopyWith<$Res> {
+class _$ThreadsModelCopyWithImpl<$Res, $Val extends ThreadsModel>
+    implements $ThreadsModelCopyWith<$Res> {
   _$ThreadsModelCopyWithImpl(this._value, this._then);
 
-  final ThreadsModel _value;
   // ignore: unused_field
-  final $Res Function(ThreadsModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? number = freezed,
-    Object? stock = freezed,
-    Object? createdAt = freezed,
+    Object? number = null,
+    Object? stock = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      number: number == freezed
+      number: null == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as String,
-      stock: stock == freezed
+      stock: null == stock
           ? _value.stock
           : stock // ignore: cast_nullable_to_non_nullable
               as int,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$ThreadsModelCopyWith<$Res>
+abstract class _$$ThreadsModelImplCopyWith<$Res>
     implements $ThreadsModelCopyWith<$Res> {
-  factory _$ThreadsModelCopyWith(
-          _ThreadsModel value, $Res Function(_ThreadsModel) then) =
-      __$ThreadsModelCopyWithImpl<$Res>;
+  factory _$$ThreadsModelImplCopyWith(
+          _$ThreadsModelImpl value, $Res Function(_$ThreadsModelImpl) then) =
+      __$$ThreadsModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String number, int stock, DateTime createdAt});
 }
 
 /// @nodoc
-class __$ThreadsModelCopyWithImpl<$Res> extends _$ThreadsModelCopyWithImpl<$Res>
-    implements _$ThreadsModelCopyWith<$Res> {
-  __$ThreadsModelCopyWithImpl(
-      _ThreadsModel _value, $Res Function(_ThreadsModel) _then)
-      : super(_value, (v) => _then(v as _ThreadsModel));
+class __$$ThreadsModelImplCopyWithImpl<$Res>
+    extends _$ThreadsModelCopyWithImpl<$Res, _$ThreadsModelImpl>
+    implements _$$ThreadsModelImplCopyWith<$Res> {
+  __$$ThreadsModelImplCopyWithImpl(
+      _$ThreadsModelImpl _value, $Res Function(_$ThreadsModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _ThreadsModel get _value => super._value as _ThreadsModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? number = freezed,
-    Object? stock = freezed,
-    Object? createdAt = freezed,
+    Object? number = null,
+    Object? stock = null,
+    Object? createdAt = null,
   }) {
-    return _then(_ThreadsModel(
-      number: number == freezed
+    return _then(_$ThreadsModelImpl(
+      number: null == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as String,
-      stock: stock == freezed
+      stock: null == stock
           ? _value.stock
           : stock // ignore: cast_nullable_to_non_nullable
               as int,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -138,12 +119,12 @@ class __$ThreadsModelCopyWithImpl<$Res> extends _$ThreadsModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_ThreadsModel implements _ThreadsModel {
-  _$_ThreadsModel(
+class _$ThreadsModelImpl implements _ThreadsModel {
+  _$ThreadsModelImpl(
       {required this.number, required this.stock, required this.createdAt});
 
-  factory _$_ThreadsModel.fromJson(Map<String, dynamic> json) =>
-      _$$_ThreadsModelFromJson(json);
+  factory _$ThreadsModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ThreadsModelImplFromJson(json);
 
   @override
   final String number;
@@ -161,38 +142,39 @@ class _$_ThreadsModel implements _ThreadsModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ThreadsModel &&
-            const DeepCollectionEquality().equals(other.number, number) &&
-            const DeepCollectionEquality().equals(other.stock, stock) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt));
+            other is _$ThreadsModelImpl &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.stock, stock) || other.stock == stock) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(number),
-      const DeepCollectionEquality().hash(stock),
-      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
-  _$ThreadsModelCopyWith<_ThreadsModel> get copyWith =>
-      __$ThreadsModelCopyWithImpl<_ThreadsModel>(this, _$identity);
+  int get hashCode => Object.hash(runtimeType, number, stock, createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ThreadsModelImplCopyWith<_$ThreadsModelImpl> get copyWith =>
+      __$$ThreadsModelImplCopyWithImpl<_$ThreadsModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ThreadsModelToJson(this);
+    return _$$ThreadsModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _ThreadsModel implements ThreadsModel {
   factory _ThreadsModel(
-      {required String number,
-      required int stock,
-      required DateTime createdAt}) = _$_ThreadsModel;
+      {required final String number,
+      required final int stock,
+      required final DateTime createdAt}) = _$ThreadsModelImpl;
 
   factory _ThreadsModel.fromJson(Map<String, dynamic> json) =
-      _$_ThreadsModel.fromJson;
+      _$ThreadsModelImpl.fromJson;
 
   @override
   String get number;
@@ -202,6 +184,6 @@ abstract class _ThreadsModel implements ThreadsModel {
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$ThreadsModelCopyWith<_ThreadsModel> get copyWith =>
+  _$$ThreadsModelImplCopyWith<_$ThreadsModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

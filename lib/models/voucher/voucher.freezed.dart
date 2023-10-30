@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'voucher.dart';
 
@@ -12,46 +12,11 @@ part of 'voucher.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 VoucherModel _$VoucherModelFromJson(Map<String, dynamic> json) {
   return _VoucherModel.fromJson(json);
 }
-
-/// @nodoc
-class _$VoucherModelTearOff {
-  const _$VoucherModelTearOff();
-
-  _VoucherModel call(
-      {required String id,
-      required String voucherNo,
-      required double givenAmount,
-      required String paymentMethod,
-      required String description,
-      required EmployeeModel givenTo,
-      required String paymentId,
-      bool isAdvance = false,
-      required DateTime createdAt}) {
-    return _VoucherModel(
-      id: id,
-      voucherNo: voucherNo,
-      givenAmount: givenAmount,
-      paymentMethod: paymentMethod,
-      description: description,
-      givenTo: givenTo,
-      paymentId: paymentId,
-      isAdvance: isAdvance,
-      createdAt: createdAt,
-    );
-  }
-
-  VoucherModel fromJson(Map<String, Object?> json) {
-    return VoucherModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $VoucherModel = _$VoucherModelTearOff();
 
 /// @nodoc
 mixin _$VoucherModel {
@@ -75,7 +40,8 @@ mixin _$VoucherModel {
 abstract class $VoucherModelCopyWith<$Res> {
   factory $VoucherModelCopyWith(
           VoucherModel value, $Res Function(VoucherModel) then) =
-      _$VoucherModelCopyWithImpl<$Res>;
+      _$VoucherModelCopyWithImpl<$Res, VoucherModel>;
+  @useResult
   $Res call(
       {String id,
       String voucherNo,
@@ -91,80 +57,85 @@ abstract class $VoucherModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$VoucherModelCopyWithImpl<$Res> implements $VoucherModelCopyWith<$Res> {
+class _$VoucherModelCopyWithImpl<$Res, $Val extends VoucherModel>
+    implements $VoucherModelCopyWith<$Res> {
   _$VoucherModelCopyWithImpl(this._value, this._then);
 
-  final VoucherModel _value;
   // ignore: unused_field
-  final $Res Function(VoucherModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? voucherNo = freezed,
-    Object? givenAmount = freezed,
-    Object? paymentMethod = freezed,
-    Object? description = freezed,
-    Object? givenTo = freezed,
-    Object? paymentId = freezed,
-    Object? isAdvance = freezed,
-    Object? createdAt = freezed,
+    Object? id = null,
+    Object? voucherNo = null,
+    Object? givenAmount = null,
+    Object? paymentMethod = null,
+    Object? description = null,
+    Object? givenTo = null,
+    Object? paymentId = null,
+    Object? isAdvance = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      voucherNo: voucherNo == freezed
+      voucherNo: null == voucherNo
           ? _value.voucherNo
           : voucherNo // ignore: cast_nullable_to_non_nullable
               as String,
-      givenAmount: givenAmount == freezed
+      givenAmount: null == givenAmount
           ? _value.givenAmount
           : givenAmount // ignore: cast_nullable_to_non_nullable
               as double,
-      paymentMethod: paymentMethod == freezed
+      paymentMethod: null == paymentMethod
           ? _value.paymentMethod
           : paymentMethod // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      givenTo: givenTo == freezed
+      givenTo: null == givenTo
           ? _value.givenTo
           : givenTo // ignore: cast_nullable_to_non_nullable
               as EmployeeModel,
-      paymentId: paymentId == freezed
+      paymentId: null == paymentId
           ? _value.paymentId
           : paymentId // ignore: cast_nullable_to_non_nullable
               as String,
-      isAdvance: isAdvance == freezed
+      isAdvance: null == isAdvance
           ? _value.isAdvance
           : isAdvance // ignore: cast_nullable_to_non_nullable
               as bool,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $EmployeeModelCopyWith<$Res> get givenTo {
     return $EmployeeModelCopyWith<$Res>(_value.givenTo, (value) {
-      return _then(_value.copyWith(givenTo: value));
+      return _then(_value.copyWith(givenTo: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$VoucherModelCopyWith<$Res>
+abstract class _$$VoucherModelImplCopyWith<$Res>
     implements $VoucherModelCopyWith<$Res> {
-  factory _$VoucherModelCopyWith(
-          _VoucherModel value, $Res Function(_VoucherModel) then) =
-      __$VoucherModelCopyWithImpl<$Res>;
+  factory _$$VoucherModelImplCopyWith(
+          _$VoucherModelImpl value, $Res Function(_$VoucherModelImpl) then) =
+      __$$VoucherModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String voucherNo,
@@ -181,61 +152,60 @@ abstract class _$VoucherModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$VoucherModelCopyWithImpl<$Res> extends _$VoucherModelCopyWithImpl<$Res>
-    implements _$VoucherModelCopyWith<$Res> {
-  __$VoucherModelCopyWithImpl(
-      _VoucherModel _value, $Res Function(_VoucherModel) _then)
-      : super(_value, (v) => _then(v as _VoucherModel));
+class __$$VoucherModelImplCopyWithImpl<$Res>
+    extends _$VoucherModelCopyWithImpl<$Res, _$VoucherModelImpl>
+    implements _$$VoucherModelImplCopyWith<$Res> {
+  __$$VoucherModelImplCopyWithImpl(
+      _$VoucherModelImpl _value, $Res Function(_$VoucherModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _VoucherModel get _value => super._value as _VoucherModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? voucherNo = freezed,
-    Object? givenAmount = freezed,
-    Object? paymentMethod = freezed,
-    Object? description = freezed,
-    Object? givenTo = freezed,
-    Object? paymentId = freezed,
-    Object? isAdvance = freezed,
-    Object? createdAt = freezed,
+    Object? id = null,
+    Object? voucherNo = null,
+    Object? givenAmount = null,
+    Object? paymentMethod = null,
+    Object? description = null,
+    Object? givenTo = null,
+    Object? paymentId = null,
+    Object? isAdvance = null,
+    Object? createdAt = null,
   }) {
-    return _then(_VoucherModel(
-      id: id == freezed
+    return _then(_$VoucherModelImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      voucherNo: voucherNo == freezed
+      voucherNo: null == voucherNo
           ? _value.voucherNo
           : voucherNo // ignore: cast_nullable_to_non_nullable
               as String,
-      givenAmount: givenAmount == freezed
+      givenAmount: null == givenAmount
           ? _value.givenAmount
           : givenAmount // ignore: cast_nullable_to_non_nullable
               as double,
-      paymentMethod: paymentMethod == freezed
+      paymentMethod: null == paymentMethod
           ? _value.paymentMethod
           : paymentMethod // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      givenTo: givenTo == freezed
+      givenTo: null == givenTo
           ? _value.givenTo
           : givenTo // ignore: cast_nullable_to_non_nullable
               as EmployeeModel,
-      paymentId: paymentId == freezed
+      paymentId: null == paymentId
           ? _value.paymentId
           : paymentId // ignore: cast_nullable_to_non_nullable
               as String,
-      isAdvance: isAdvance == freezed
+      isAdvance: null == isAdvance
           ? _value.isAdvance
           : isAdvance // ignore: cast_nullable_to_non_nullable
               as bool,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -246,8 +216,8 @@ class __$VoucherModelCopyWithImpl<$Res> extends _$VoucherModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_VoucherModel implements _VoucherModel {
-  const _$_VoucherModel(
+class _$VoucherModelImpl implements _VoucherModel {
+  const _$VoucherModelImpl(
       {required this.id,
       required this.voucherNo,
       required this.givenAmount,
@@ -258,8 +228,8 @@ class _$_VoucherModel implements _VoucherModel {
       this.isAdvance = false,
       required this.createdAt});
 
-  factory _$_VoucherModel.fromJson(Map<String, dynamic> json) =>
-      _$$_VoucherModelFromJson(json);
+  factory _$VoucherModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$VoucherModelImplFromJson(json);
 
   @override
   final String id;
@@ -275,8 +245,8 @@ class _$_VoucherModel implements _VoucherModel {
   final EmployeeModel givenTo;
   @override
   final String paymentId;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool isAdvance;
   @override
   final DateTime createdAt;
@@ -290,59 +260,58 @@ class _$_VoucherModel implements _VoucherModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _VoucherModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.voucherNo, voucherNo) &&
-            const DeepCollectionEquality()
-                .equals(other.givenAmount, givenAmount) &&
-            const DeepCollectionEquality()
-                .equals(other.paymentMethod, paymentMethod) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.givenTo, givenTo) &&
-            const DeepCollectionEquality().equals(other.paymentId, paymentId) &&
-            const DeepCollectionEquality().equals(other.isAdvance, isAdvance) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt));
+            other is _$VoucherModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.voucherNo, voucherNo) ||
+                other.voucherNo == voucherNo) &&
+            (identical(other.givenAmount, givenAmount) ||
+                other.givenAmount == givenAmount) &&
+            (identical(other.paymentMethod, paymentMethod) ||
+                other.paymentMethod == paymentMethod) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.givenTo, givenTo) || other.givenTo == givenTo) &&
+            (identical(other.paymentId, paymentId) ||
+                other.paymentId == paymentId) &&
+            (identical(other.isAdvance, isAdvance) ||
+                other.isAdvance == isAdvance) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(voucherNo),
-      const DeepCollectionEquality().hash(givenAmount),
-      const DeepCollectionEquality().hash(paymentMethod),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(givenTo),
-      const DeepCollectionEquality().hash(paymentId),
-      const DeepCollectionEquality().hash(isAdvance),
-      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
-  _$VoucherModelCopyWith<_VoucherModel> get copyWith =>
-      __$VoucherModelCopyWithImpl<_VoucherModel>(this, _$identity);
+  int get hashCode => Object.hash(runtimeType, id, voucherNo, givenAmount,
+      paymentMethod, description, givenTo, paymentId, isAdvance, createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VoucherModelImplCopyWith<_$VoucherModelImpl> get copyWith =>
+      __$$VoucherModelImplCopyWithImpl<_$VoucherModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VoucherModelToJson(this);
+    return _$$VoucherModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _VoucherModel implements VoucherModel {
   const factory _VoucherModel(
-      {required String id,
-      required String voucherNo,
-      required double givenAmount,
-      required String paymentMethod,
-      required String description,
-      required EmployeeModel givenTo,
-      required String paymentId,
-      bool isAdvance,
-      required DateTime createdAt}) = _$_VoucherModel;
+      {required final String id,
+      required final String voucherNo,
+      required final double givenAmount,
+      required final String paymentMethod,
+      required final String description,
+      required final EmployeeModel givenTo,
+      required final String paymentId,
+      final bool isAdvance,
+      required final DateTime createdAt}) = _$VoucherModelImpl;
 
   factory _VoucherModel.fromJson(Map<String, dynamic> json) =
-      _$_VoucherModel.fromJson;
+      _$VoucherModelImpl.fromJson;
 
   @override
   String get id;
@@ -364,6 +333,6 @@ abstract class _VoucherModel implements VoucherModel {
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$VoucherModelCopyWith<_VoucherModel> get copyWith =>
+  _$$VoucherModelImplCopyWith<_$VoucherModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

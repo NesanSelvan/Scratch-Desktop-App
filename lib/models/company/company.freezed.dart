@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'company.dart';
 
@@ -12,56 +12,11 @@ part of 'company.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 CompanyModel _$CompanyModelFromJson(Map<String, dynamic> json) {
   return _CompanyModel.fromJson(json);
 }
-
-/// @nodoc
-class _$CompanyModelTearOff {
-  const _$CompanyModelTearOff();
-
-  _CompanyModel call(
-      {required String id,
-      required String name,
-      required String address,
-      int? companyNo,
-      String? email = "",
-      String? website = "",
-      String? licNO = "",
-      String? placeOfDispatch = "",
-      String? pan = "",
-      required String mobileNoList,
-      String? gstin = "",
-      String? bankId = "",
-      bool? isNormalPurchaseBill = true,
-      required DateTime createdAt}) {
-    return _CompanyModel(
-      id: id,
-      name: name,
-      address: address,
-      companyNo: companyNo,
-      email: email,
-      website: website,
-      licNO: licNO,
-      placeOfDispatch: placeOfDispatch,
-      pan: pan,
-      mobileNoList: mobileNoList,
-      gstin: gstin,
-      bankId: bankId,
-      isNormalPurchaseBill: isNormalPurchaseBill,
-      createdAt: createdAt,
-    );
-  }
-
-  CompanyModel fromJson(Map<String, Object?> json) {
-    return CompanyModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $CompanyModel = _$CompanyModelTearOff();
 
 /// @nodoc
 mixin _$CompanyModel {
@@ -90,7 +45,8 @@ mixin _$CompanyModel {
 abstract class $CompanyModelCopyWith<$Res> {
   factory $CompanyModelCopyWith(
           CompanyModel value, $Res Function(CompanyModel) then) =
-      _$CompanyModelCopyWithImpl<$Res>;
+      _$CompanyModelCopyWithImpl<$Res, CompanyModel>;
+  @useResult
   $Res call(
       {String id,
       String name,
@@ -109,98 +65,102 @@ abstract class $CompanyModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CompanyModelCopyWithImpl<$Res> implements $CompanyModelCopyWith<$Res> {
+class _$CompanyModelCopyWithImpl<$Res, $Val extends CompanyModel>
+    implements $CompanyModelCopyWith<$Res> {
   _$CompanyModelCopyWithImpl(this._value, this._then);
 
-  final CompanyModel _value;
   // ignore: unused_field
-  final $Res Function(CompanyModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? address = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? address = null,
     Object? companyNo = freezed,
     Object? email = freezed,
     Object? website = freezed,
     Object? licNO = freezed,
     Object? placeOfDispatch = freezed,
     Object? pan = freezed,
-    Object? mobileNoList = freezed,
+    Object? mobileNoList = null,
     Object? gstin = freezed,
     Object? bankId = freezed,
     Object? isNormalPurchaseBill = freezed,
-    Object? createdAt = freezed,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      address: address == freezed
+      address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
-      companyNo: companyNo == freezed
+      companyNo: freezed == companyNo
           ? _value.companyNo
           : companyNo // ignore: cast_nullable_to_non_nullable
               as int?,
-      email: email == freezed
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      website: website == freezed
+      website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
               as String?,
-      licNO: licNO == freezed
+      licNO: freezed == licNO
           ? _value.licNO
           : licNO // ignore: cast_nullable_to_non_nullable
               as String?,
-      placeOfDispatch: placeOfDispatch == freezed
+      placeOfDispatch: freezed == placeOfDispatch
           ? _value.placeOfDispatch
           : placeOfDispatch // ignore: cast_nullable_to_non_nullable
               as String?,
-      pan: pan == freezed
+      pan: freezed == pan
           ? _value.pan
           : pan // ignore: cast_nullable_to_non_nullable
               as String?,
-      mobileNoList: mobileNoList == freezed
+      mobileNoList: null == mobileNoList
           ? _value.mobileNoList
           : mobileNoList // ignore: cast_nullable_to_non_nullable
               as String,
-      gstin: gstin == freezed
+      gstin: freezed == gstin
           ? _value.gstin
           : gstin // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankId: bankId == freezed
+      bankId: freezed == bankId
           ? _value.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
               as String?,
-      isNormalPurchaseBill: isNormalPurchaseBill == freezed
+      isNormalPurchaseBill: freezed == isNormalPurchaseBill
           ? _value.isNormalPurchaseBill
           : isNormalPurchaseBill // ignore: cast_nullable_to_non_nullable
               as bool?,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$CompanyModelCopyWith<$Res>
+abstract class _$$CompanyModelImplCopyWith<$Res>
     implements $CompanyModelCopyWith<$Res> {
-  factory _$CompanyModelCopyWith(
-          _CompanyModel value, $Res Function(_CompanyModel) then) =
-      __$CompanyModelCopyWithImpl<$Res>;
+  factory _$$CompanyModelImplCopyWith(
+          _$CompanyModelImpl value, $Res Function(_$CompanyModelImpl) then) =
+      __$$CompanyModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String name,
@@ -219,86 +179,85 @@ abstract class _$CompanyModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$CompanyModelCopyWithImpl<$Res> extends _$CompanyModelCopyWithImpl<$Res>
-    implements _$CompanyModelCopyWith<$Res> {
-  __$CompanyModelCopyWithImpl(
-      _CompanyModel _value, $Res Function(_CompanyModel) _then)
-      : super(_value, (v) => _then(v as _CompanyModel));
+class __$$CompanyModelImplCopyWithImpl<$Res>
+    extends _$CompanyModelCopyWithImpl<$Res, _$CompanyModelImpl>
+    implements _$$CompanyModelImplCopyWith<$Res> {
+  __$$CompanyModelImplCopyWithImpl(
+      _$CompanyModelImpl _value, $Res Function(_$CompanyModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _CompanyModel get _value => super._value as _CompanyModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? address = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? address = null,
     Object? companyNo = freezed,
     Object? email = freezed,
     Object? website = freezed,
     Object? licNO = freezed,
     Object? placeOfDispatch = freezed,
     Object? pan = freezed,
-    Object? mobileNoList = freezed,
+    Object? mobileNoList = null,
     Object? gstin = freezed,
     Object? bankId = freezed,
     Object? isNormalPurchaseBill = freezed,
-    Object? createdAt = freezed,
+    Object? createdAt = null,
   }) {
-    return _then(_CompanyModel(
-      id: id == freezed
+    return _then(_$CompanyModelImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      address: address == freezed
+      address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
-      companyNo: companyNo == freezed
+      companyNo: freezed == companyNo
           ? _value.companyNo
           : companyNo // ignore: cast_nullable_to_non_nullable
               as int?,
-      email: email == freezed
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      website: website == freezed
+      website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
               as String?,
-      licNO: licNO == freezed
+      licNO: freezed == licNO
           ? _value.licNO
           : licNO // ignore: cast_nullable_to_non_nullable
               as String?,
-      placeOfDispatch: placeOfDispatch == freezed
+      placeOfDispatch: freezed == placeOfDispatch
           ? _value.placeOfDispatch
           : placeOfDispatch // ignore: cast_nullable_to_non_nullable
               as String?,
-      pan: pan == freezed
+      pan: freezed == pan
           ? _value.pan
           : pan // ignore: cast_nullable_to_non_nullable
               as String?,
-      mobileNoList: mobileNoList == freezed
+      mobileNoList: null == mobileNoList
           ? _value.mobileNoList
           : mobileNoList // ignore: cast_nullable_to_non_nullable
               as String,
-      gstin: gstin == freezed
+      gstin: freezed == gstin
           ? _value.gstin
           : gstin // ignore: cast_nullable_to_non_nullable
               as String?,
-      bankId: bankId == freezed
+      bankId: freezed == bankId
           ? _value.bankId
           : bankId // ignore: cast_nullable_to_non_nullable
               as String?,
-      isNormalPurchaseBill: isNormalPurchaseBill == freezed
+      isNormalPurchaseBill: freezed == isNormalPurchaseBill
           ? _value.isNormalPurchaseBill
           : isNormalPurchaseBill // ignore: cast_nullable_to_non_nullable
               as bool?,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -309,8 +268,8 @@ class __$CompanyModelCopyWithImpl<$Res> extends _$CompanyModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_CompanyModel implements _CompanyModel {
-  const _$_CompanyModel(
+class _$CompanyModelImpl implements _CompanyModel {
+  const _$CompanyModelImpl(
       {required this.id,
       required this.name,
       required this.address,
@@ -326,8 +285,8 @@ class _$_CompanyModel implements _CompanyModel {
       this.isNormalPurchaseBill = true,
       required this.createdAt});
 
-  factory _$_CompanyModel.fromJson(Map<String, dynamic> json) =>
-      _$$_CompanyModelFromJson(json);
+  factory _$CompanyModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CompanyModelImplFromJson(json);
 
   @override
   final String id;
@@ -337,31 +296,31 @@ class _$_CompanyModel implements _CompanyModel {
   final String address;
   @override
   final int? companyNo;
-  @JsonKey()
   @override
+  @JsonKey()
   final String? email;
-  @JsonKey()
   @override
+  @JsonKey()
   final String? website;
-  @JsonKey()
   @override
+  @JsonKey()
   final String? licNO;
-  @JsonKey()
   @override
+  @JsonKey()
   final String? placeOfDispatch;
-  @JsonKey()
   @override
+  @JsonKey()
   final String? pan;
   @override
   final String mobileNoList;
-  @JsonKey()
   @override
+  @JsonKey()
   final String? gstin;
-  @JsonKey()
   @override
+  @JsonKey()
   final String? bankId;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool? isNormalPurchaseBill;
   @override
   final DateTime createdAt;
@@ -375,74 +334,80 @@ class _$_CompanyModel implements _CompanyModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CompanyModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.address, address) &&
-            const DeepCollectionEquality().equals(other.companyNo, companyNo) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.website, website) &&
-            const DeepCollectionEquality().equals(other.licNO, licNO) &&
-            const DeepCollectionEquality()
-                .equals(other.placeOfDispatch, placeOfDispatch) &&
-            const DeepCollectionEquality().equals(other.pan, pan) &&
-            const DeepCollectionEquality()
-                .equals(other.mobileNoList, mobileNoList) &&
-            const DeepCollectionEquality().equals(other.gstin, gstin) &&
-            const DeepCollectionEquality().equals(other.bankId, bankId) &&
-            const DeepCollectionEquality()
-                .equals(other.isNormalPurchaseBill, isNormalPurchaseBill) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt));
+            other is _$CompanyModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.companyNo, companyNo) ||
+                other.companyNo == companyNo) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.website, website) || other.website == website) &&
+            (identical(other.licNO, licNO) || other.licNO == licNO) &&
+            (identical(other.placeOfDispatch, placeOfDispatch) ||
+                other.placeOfDispatch == placeOfDispatch) &&
+            (identical(other.pan, pan) || other.pan == pan) &&
+            (identical(other.mobileNoList, mobileNoList) ||
+                other.mobileNoList == mobileNoList) &&
+            (identical(other.gstin, gstin) || other.gstin == gstin) &&
+            (identical(other.bankId, bankId) || other.bankId == bankId) &&
+            (identical(other.isNormalPurchaseBill, isNormalPurchaseBill) ||
+                other.isNormalPurchaseBill == isNormalPurchaseBill) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(address),
-      const DeepCollectionEquality().hash(companyNo),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(website),
-      const DeepCollectionEquality().hash(licNO),
-      const DeepCollectionEquality().hash(placeOfDispatch),
-      const DeepCollectionEquality().hash(pan),
-      const DeepCollectionEquality().hash(mobileNoList),
-      const DeepCollectionEquality().hash(gstin),
-      const DeepCollectionEquality().hash(bankId),
-      const DeepCollectionEquality().hash(isNormalPurchaseBill),
-      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
-  _$CompanyModelCopyWith<_CompanyModel> get copyWith =>
-      __$CompanyModelCopyWithImpl<_CompanyModel>(this, _$identity);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      address,
+      companyNo,
+      email,
+      website,
+      licNO,
+      placeOfDispatch,
+      pan,
+      mobileNoList,
+      gstin,
+      bankId,
+      isNormalPurchaseBill,
+      createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CompanyModelImplCopyWith<_$CompanyModelImpl> get copyWith =>
+      __$$CompanyModelImplCopyWithImpl<_$CompanyModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CompanyModelToJson(this);
+    return _$$CompanyModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _CompanyModel implements CompanyModel {
   const factory _CompanyModel(
-      {required String id,
-      required String name,
-      required String address,
-      int? companyNo,
-      String? email,
-      String? website,
-      String? licNO,
-      String? placeOfDispatch,
-      String? pan,
-      required String mobileNoList,
-      String? gstin,
-      String? bankId,
-      bool? isNormalPurchaseBill,
-      required DateTime createdAt}) = _$_CompanyModel;
+      {required final String id,
+      required final String name,
+      required final String address,
+      final int? companyNo,
+      final String? email,
+      final String? website,
+      final String? licNO,
+      final String? placeOfDispatch,
+      final String? pan,
+      required final String mobileNoList,
+      final String? gstin,
+      final String? bankId,
+      final bool? isNormalPurchaseBill,
+      required final DateTime createdAt}) = _$CompanyModelImpl;
 
   factory _CompanyModel.fromJson(Map<String, dynamic> json) =
-      _$_CompanyModel.fromJson;
+      _$CompanyModelImpl.fromJson;
 
   @override
   String get id;
@@ -474,6 +439,6 @@ abstract class _CompanyModel implements CompanyModel {
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$CompanyModelCopyWith<_CompanyModel> get copyWith =>
+  _$$CompanyModelImplCopyWith<_$CompanyModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

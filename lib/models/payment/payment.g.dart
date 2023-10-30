@@ -6,8 +6,8 @@ part of 'payment.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PaymentModel _$$_PaymentModelFromJson(Map<String, dynamic> json) =>
-    _$_PaymentModel(
+_$PaymentModelImpl _$$PaymentModelImplFromJson(Map<String, dynamic> json) =>
+    _$PaymentModelImpl(
       id: json['id'] as String,
       paymentNo: json['paymentNo'] as String,
       purchaseId: json['purchaseId'] as String,
@@ -25,7 +25,7 @@ _$_PaymentModel _$$_PaymentModelFromJson(Map<String, dynamic> json) =>
       note: json['note'] as String?,
     );
 
-Map<String, dynamic> _$$_PaymentModelToJson(_$_PaymentModel instance) =>
+Map<String, dynamic> _$$PaymentModelImplToJson(_$PaymentModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'paymentNo': instance.paymentNo,

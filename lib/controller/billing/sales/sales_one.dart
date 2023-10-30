@@ -7,6 +7,7 @@ import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/enum/printer/printer.dart';
+import 'package:annai_store/extensions/string.dart';
 import 'package:annai_store/models/bill/bill.dart';
 import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/models/price/price.dart';
@@ -20,6 +21,7 @@ import 'package:annai_store/utils/printer/printer.dart';
 import 'package:annai_store/utils/snackbar/snackbar.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:function_tree/function_tree.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:validators/validators.dart';
@@ -73,6 +75,15 @@ class SalesBillingOneController extends GetxController {
   set setBillModel(BillModel billModel) {
     _billModel = billModel;
     update();
+  }
+
+  double get qty {
+    try {
+      return qtyController.text.interpret().toDouble();
+    } catch (e) {
+      print("Error: $e");
+      return 0;
+    }
   }
 
   void onPriceModelArrowRight() {
@@ -261,23 +272,25 @@ class SalesBillingOneController extends GetxController {
           .getCategoryModelById(productModel.categoryId)
           .tax
           .toString();
-      final List<PriceModel> list = productModel.differentPriceList ?? [];
-      final unit = Database().getUnitModelById(productModel.unitId);
+      // ignore: prefer_final_locals
+      List<PriceModel> priceList = productModel.differentPriceList ?? [];
+      // ignore: prefer_final_locals
+      UnitModel? unit = Database().getUnitModelById(productModel.unitId);
       if (unit != null) {
-        list.add(
-          PriceModel(
-            id: const Uuid().v1(),
-            code: productModel.code,
-            unitModel: unit,
-            mrp: productModel.sellingPrice,
-            unitQty: double.parse("${productModel.unitQty}"),
-            retail: productModel.retail,
-            wholesale: productModel.wholesale,
-            createdAt: DateTime.now(),
-          ),
+        final priceModel = PriceModel(
+          id: const Uuid().v1(),
+          code: productModel.code,
+          unitModel: unit,
+          mrp: productModel.sellingPrice,
+          unitQty: double.parse("${productModel.unitQty}"),
+          retail: productModel.retail,
+          wholesale: productModel.wholesale,
+          createdAt: DateTime.now(),
         );
+        priceList = [...priceList, priceModel];
       }
-      _selectedProductModel = productModel.copyWith(differentPriceList: list);
+      _selectedProductModel =
+          productModel.copyWith(differentPriceList: priceList);
       if (productModel.differentPriceList!.isNotEmpty) {
         for (final item in productModel.differentPriceList ?? <PriceModel>[]) {
           debugPrint("Price Item : $item");
@@ -319,7 +332,7 @@ class SalesBillingOneController extends GetxController {
   void onDiscountChange(String val) {
     try {
       final double discount = val == "" ? 0 : double.parse(val);
-      final qty = double.parse(qtyController.text);
+      // final qty = double.parse(qtyController.text);
       final rate = double.parse(rateController.text);
       final price = getPrice(qty, rate);
       final salesProductModel = SalesProductModel(
@@ -331,6 +344,7 @@ class SalesBillingOneController extends GetxController {
         price: price,
         rate: rate,
         discountPer: discount,
+        qtyMathEqn: qtyController.text,
       );
       debugPrint("Sales: $salesProductModel");
       final amount = getTotalAmount(salesProductModel, selectedCustomerModel);
@@ -349,6 +363,23 @@ class SalesBillingOneController extends GetxController {
     }
   }
 
+  void _addSalesProduct(double rate, double discount) {
+    final salesProductModel = SalesProductModel(
+      categoryModel:
+          categoryDB.getCategoryModelById(_selectedProductModel!.categoryId),
+      productModel: _selectedProductModel,
+      priceModel: selectedPriceModel,
+      qty: qty,
+      rate: rate,
+      price: getPrice(qty, rate),
+      discountPer: discount,
+      qtyMathEqn: qtyController.text,
+    );
+    debugPrint('qtyController $salesProductModel');
+    salesProductModelList = [...salesProductModelList, salesProductModel];
+    // salesProductModelList.add(salesProductModel);
+  }
+
   void addSelectedSalesProductModel() {
     if (selectedCustomerModel == null) {
       CustomUtilies.customFailureSnackBar(
@@ -357,16 +388,8 @@ class SalesBillingOneController extends GetxController {
       );
       return;
     }
-
-    print("Sales Price : ${_selectedProductModel!.sellingPrice}");
-    for (final item in salesProductModelList) {
-      print("Sales Price : ${item.price! / item.qty!}");
-    }
     try {
-      debugPrint(
-        'qtyController.text ${categoryDB.getCategoryModelById(_selectedProductModel!.categoryId)}',
-      );
-      final qty = double.parse(qtyController.text);
+      // final qty = double.parse(qtyController.text);
       final rate = double.parse(rateController.text);
       double discount = 0;
       try {
@@ -379,51 +402,41 @@ class SalesBillingOneController extends GetxController {
             (element) =>
                 element.productModel!.id == _selectedProductModel!.id &&
                 element.priceModel?.unitModel.id ==
-                    selectedPriceModel?.unitModel.id &&
-                _selectedProductModel!.sellingPrice ==
-                    (element.price! / element.qty!),
+                    selectedPriceModel?.unitModel.id,
           )
           .toList();
 
-      if (matchedData.isEmpty) {
-        // final salesProductModel = SalesProductModel(
-        //     categoryModel: categoryDB
-        //         .getCategoryModelById(_selectedProductModel!.categoryId),
-        //     productModel: _selectedProductModel,
-        //     qty: qty,
-        //     price: getPrice(
-        //         qty,
-        //         getPriceByCustomer(
-        //             _selectedProductModel!, selectedCustomerModel)),
-        //     discountPer: discount);
-        final salesProductModel = SalesProductModel(
-          categoryModel: categoryDB
-              .getCategoryModelById(_selectedProductModel!.categoryId),
-          productModel: _selectedProductModel,
-          priceModel: selectedPriceModel,
-          qty: qty,
-          rate: rate,
-          price: getPrice(qty, rate),
-          discountPer: discount,
-        );
-        debugPrint('qtyController $salesProductModel');
-        salesProductModelList.add(salesProductModel);
+      if (matchedData.isEmpty || qtyController.text.containsOperators) {
+        _addSalesProduct(rate, discount);
       } else {
-        final index = salesProductModelList.indexOf(matchedData[0]);
+        final finalMatchData = matchedData
+            .where((element) => !element.qtyMathEqn.containsOperators)
+            .toList();
+        if (finalMatchData.isEmpty) {
+          _addSalesProduct(rate, discount);
+        } else {
+          final index = salesProductModelList.indexOf(finalMatchData[0]);
 
-        final salesProductModel = SalesProductModel(
-          categoryModel: categoryDB
-              .getCategoryModelById(_selectedProductModel!.categoryId),
-          productModel: _selectedProductModel,
-          qty: salesProductModelList[index].qty! + qty,
-          rate: rate,
-          priceModel: selectedPriceModel,
-          price: getPrice(qty, rate),
-          discountPer: discount,
-        );
+          final prevSalesData = salesProductModelList[index];
+          print("ELSE ${prevSalesData.qty} ${prevSalesData.qtyMathEqn}");
+          if (prevSalesData.qtyMathEqn.containsOperators) {
+            _addSalesProduct(rate, discount);
+          } else {
+            final salesProductModel = SalesProductModel(
+              categoryModel: categoryDB
+                  .getCategoryModelById(_selectedProductModel!.categoryId),
+              productModel: _selectedProductModel,
+              qty: prevSalesData.qty! + qty,
+              rate: rate,
+              priceModel: selectedPriceModel,
+              price: getPrice(qty, rate),
+              discountPer: discount,
+              qtyMathEqn: qtyController.text,
+            );
 
-        debugPrint('qtyController $salesProductModel');
-        salesProductModelList[index] = salesProductModel;
+            salesProductModelList[index] = salesProductModel;
+          }
+        }
       }
       addSelectedProductModel = null;
       productController.clear();
@@ -440,6 +453,8 @@ class SalesBillingOneController extends GetxController {
   }
 
   void updateTextFieldOnSalesProductSelected() {
+    print(selectedSalesProductModel!.qtyMathEqn);
+    // return;
     if (selectedSalesProductModel != null) {
       _selectedProductModel = selectedSalesProductModel?.productModel;
       setSelectedPriceModel = selectedSalesProductModel?.priceModel;
@@ -447,7 +462,7 @@ class SalesBillingOneController extends GetxController {
       discountController.text = selectedSalesProductModel?.discountPer == null
           ? ""
           : "${selectedSalesProductModel?.discountPer}";
-      qtyController.text = "${selectedSalesProductModel!.qty ?? 1}";
+      qtyController.text = "${selectedSalesProductModel!.qtyMathEqn ?? 0}";
     }
   }
 
@@ -458,6 +473,8 @@ class SalesBillingOneController extends GetxController {
   }
 
   void keyboardSelectProductModel(KeyboardEventEnum keyboardEventEnum) {
+    print(keyboardEventEnum);
+    // return;
     final text = productController.text;
     addSelectedProductModel = KeyboardUtilities.keyboardSelectProductModel(
       text,

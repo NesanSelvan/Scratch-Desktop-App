@@ -1,4 +1,5 @@
 import 'package:annai_store/models/price/price.dart';
+import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'product.freezed.dart';
@@ -30,6 +31,13 @@ abstract class ProductModel with _$ProductModel {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);
+
+  @override
+  bool operator ==(dynamic other) {
+    return other is _$ProductModel &&
+        (const DeepCollectionEquality().equals(other.id, id)) &&
+        (const DeepCollectionEquality().equals(other.categoryId, categoryId));
+  }
 }
 
 List<Map<String, dynamic>> getProductListJson(List<ProductModel> list) {

@@ -6,13 +6,13 @@ part of 'borrow.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_BorrowModel _$$_BorrowModelFromJson(Map<String, dynamic> json) =>
-    _$_BorrowModel(
+_$BorrowModelImpl _$$BorrowModelImplFromJson(Map<String, dynamic> json) =>
+    _$BorrowModelImpl(
       json['id'] as String,
       json['billId'] as String,
     );
 
-Map<String, dynamic> _$$_BorrowModelToJson(_$_BorrowModel instance) =>
+Map<String, dynamic> _$$BorrowModelImplToJson(_$BorrowModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'billId': instance.billId,

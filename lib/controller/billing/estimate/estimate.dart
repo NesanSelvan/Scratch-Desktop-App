@@ -224,6 +224,7 @@ class EstimateController extends GetxController {
           productModel: selectedProductModel,
           qty: qty,
           rate: double.tryParse(rateController.text) ?? 0,
+          qtyMathEqn: qtyController.text,
           price: getPrice(
             qty,
             getPriceByCustomer(
@@ -242,6 +243,7 @@ class EstimateController extends GetxController {
               categoryDB.getCategoryModelById(selectedProductModel!.categoryId),
           productModel: selectedProductModel,
           qty: matchedData[0].qty! + qty,
+          qtyMathEqn: qtyController.text,
           price: getPrice(
             qty,
             getPriceByCustomer(

@@ -327,6 +327,7 @@ class SalesBillingThreeController extends GetxController {
         price: price,
         rate: rate,
         discountPer: discount,
+        qtyMathEqn: qtyController.text,
       );
       debugPrint("Sales: $salesProductModel");
       final amount = getTotalAmount(salesProductModel, selectedCustomerModel);
@@ -397,6 +398,7 @@ class SalesBillingThreeController extends GetxController {
               .getCategoryModelById(_selectedProductModel!.categoryId),
           productModel: _selectedProductModel,
           priceModel: selectedPriceModel,
+          qtyMathEqn: qtyController.text,
           qty: qty,
           rate: rate,
           price: getPrice(qty, rate),
@@ -414,6 +416,7 @@ class SalesBillingThreeController extends GetxController {
           qty: salesProductModelList[index].qty! + qty,
           rate: rate,
           priceModel: selectedPriceModel,
+          qtyMathEqn: qtyController.text,
           price: getPrice(qty, rate),
           discountPer: discount,
         );

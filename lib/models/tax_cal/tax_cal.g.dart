@@ -6,8 +6,8 @@ part of 'tax_cal.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TaxCalModel _$$_TaxCalModelFromJson(Map<String, dynamic> json) =>
-    _$_TaxCalModel(
+_$TaxCalModelImpl _$$TaxCalModelImplFromJson(Map<String, dynamic> json) =>
+    _$TaxCalModelImpl(
       hsnCode: json['hsnCode'] as int,
       taxableVal: (json['taxableVal'] as num).toDouble(),
       tax: (json['tax'] as num).toDouble(),
@@ -16,7 +16,7 @@ _$_TaxCalModel _$$_TaxCalModelFromJson(Map<String, dynamic> json) =>
       totalTaxAmount: (json['totalTaxAmount'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$$_TaxCalModelToJson(_$_TaxCalModel instance) =>
+Map<String, dynamic> _$$TaxCalModelImplToJson(_$TaxCalModelImpl instance) =>
     <String, dynamic>{
       'hsnCode': instance.hsnCode,
       'taxableVal': instance.taxableVal,

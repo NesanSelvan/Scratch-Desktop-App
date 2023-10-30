@@ -6,9 +6,9 @@ part of 'purchase_product.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PurchaseProductModel _$$_PurchaseProductModelFromJson(
+_$PurchaseProductModelImpl _$$PurchaseProductModelImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PurchaseProductModel(
+    _$PurchaseProductModelImpl(
       id: json['id'] as String,
       categoryModel:
           CategoryModel.fromJson(json['categoryModel'] as Map<String, dynamic>),
@@ -24,8 +24,8 @@ _$_PurchaseProductModel _$$_PurchaseProductModelFromJson(
       totalAmount: (json['totalAmount'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$$_PurchaseProductModelToJson(
-        _$_PurchaseProductModel instance) =>
+Map<String, dynamic> _$$PurchaseProductModelImplToJson(
+        _$PurchaseProductModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'categoryModel': instance.categoryModel.toJson(),

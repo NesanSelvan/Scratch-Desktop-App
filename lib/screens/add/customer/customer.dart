@@ -277,13 +277,13 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                                         controller.clearTextField();
                                         controller
                                             .setSelectedCustomerModel(null);
-                                        final pdf = await rootBundle.load(
-                                          'assets/pdf/Agnel-Selvan.pdf',
-                                        );
-                                        await Printing.layoutPdf(
-                                          onLayout: (_) =>
-                                              pdf.buffer.asUint8List(),
-                                        );
+                                        // final pdf = await rootBundle.load(
+                                        //   'assets/pdf/Agnel-Selvan.pdf',
+                                        // );
+                                        // await Printing.layoutPdf(
+                                        //   onLayout: (_) =>
+                                        //       pdf.buffer.asUint8List(),
+                                        // );
                                       },
                                       onDelete: controller.deleteCustomer,
                                       onUpdate: controller.updateCustomer,

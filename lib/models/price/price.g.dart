@@ -6,8 +6,8 @@ part of 'price.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PriceModel _$$_PriceModelFromJson(Map<String, dynamic> json) =>
-    _$_PriceModel(
+_$PriceModelImpl _$$PriceModelImplFromJson(Map<String, dynamic> json) =>
+    _$PriceModelImpl(
       id: json['id'] as String,
       code: json['code'] as String?,
       barcodeCode: json['barcodeCode'] as String?,
@@ -20,7 +20,7 @@ _$_PriceModel _$$_PriceModelFromJson(Map<String, dynamic> json) =>
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_PriceModelToJson(_$_PriceModel instance) =>
+Map<String, dynamic> _$$PriceModelImplToJson(_$PriceModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'code': instance.code,

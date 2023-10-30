@@ -13,6 +13,7 @@ import 'package:annai_store/core/constants/calculations/report.dart';
 import 'package:annai_store/enum/application.dart';
 import 'package:annai_store/enum/operation.dart';
 import 'package:annai_store/enum/payments/payment.dart';
+import 'package:annai_store/extensions/string.dart';
 import 'package:annai_store/extensions/type.dart';
 import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
 import 'package:annai_store/features/viewer/pdf/screens/pdf_viewer.dart';
@@ -103,6 +104,10 @@ class PDFGenerator {
 
   static pw.Text vSmallText(String text) {
     return pw.Text(text, style: const pw.TextStyle(fontSize: 8));
+  }
+
+  static pw.Text vvSmallText(String text) {
+    return pw.Text(text, style: const pw.TextStyle(fontSize: 6));
   }
 
   static pw.Text smallBoldText(String text) {
@@ -2735,7 +2740,6 @@ class PDFGenerator {
             ),
           ],
         ),
-     
       ],
     );
   }
@@ -2997,7 +3001,17 @@ class PDFGenerator {
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         ...billModel.productList!
-                            .map((e) => smallText(e.productModel!.productName))
+                            .map((e) => pw.Row(
+                                    mainAxisAlignment:
+                                        pw.MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        pw.CrossAxisAlignment.start,
+                                    children: [
+                                      smallText(e.productModel!.productName),
+                                      if (e.qtyMathEqn.containsOperators)
+                                        vSmallText(
+                                            ' ( ${e.qtyMathEqn ?? ''} )'),
+                                    ]))
                             .toList(),
                         pw.SizedBox(height: 30),
                         if (billModel.customerModel.state == "Tamil Nadu")
@@ -3218,8 +3232,11 @@ class PDFGenerator {
             if (billHeight <= maxBillHeight)
               pw.Column(
                 children: [
-                  _getFotterTaxColumn(billModel, taxCalModel,
-                  dynamicHeight: true,),
+                  _getFotterTaxColumn(
+                    billModel,
+                    taxCalModel,
+                    dynamicHeight: true,
+                  ),
                   bankCont,
                 ],
               )
@@ -3866,7 +3883,15 @@ class PDFGenerator {
           .map(
             (e) => pw.TableRow(
               children: [
-                normalText(e.productModel!.productName),
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.start,
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    smallText(e.productModel!.productName),
+                    if (e.qtyMathEqn.containsOperators)
+                      vSmallText(' ( ${e.qtyMathEqn ?? ''} )'),
+                  ],
+                ),
                 normalText("${e.qty}"),
                 normalText(
                   "${EstimateCalculations.getTaxThermalEstimateBillRate(e, billModel)}",
@@ -3932,7 +3957,15 @@ class PDFGenerator {
           .map(
             (e) => pw.TableRow(
               children: [
-                normalText(e.productModel!.productName),
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.start,
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    smallText(e.productModel!.productName),
+                    if (e.qtyMathEqn.containsOperators)
+                      vSmallText(' ( ${e.qtyMathEqn ?? ''} )'),
+                  ],
+                ),
                 normalText("${e.qty}"),
                 normalText(
                   "${SalesCalculation.getTaxThermalBillRate(e, billModel)}",

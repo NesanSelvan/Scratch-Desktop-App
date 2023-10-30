@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'paid.dart';
 
@@ -12,30 +12,11 @@ part of 'paid.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 PaidModel _$PaidModelFromJson(Map<String, dynamic> json) {
   return _PaidModel.fromJson(json);
 }
-
-/// @nodoc
-class _$PaidModelTearOff {
-  const _$PaidModelTearOff();
-
-  _PaidModel call(String id, String billId) {
-    return _PaidModel(
-      id,
-      billId,
-    );
-  }
-
-  PaidModel fromJson(Map<String, Object?> json) {
-    return PaidModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $PaidModel = _$PaidModelTearOff();
 
 /// @nodoc
 mixin _$PaidModel {
@@ -51,65 +32,71 @@ mixin _$PaidModel {
 /// @nodoc
 abstract class $PaidModelCopyWith<$Res> {
   factory $PaidModelCopyWith(PaidModel value, $Res Function(PaidModel) then) =
-      _$PaidModelCopyWithImpl<$Res>;
+      _$PaidModelCopyWithImpl<$Res, PaidModel>;
+  @useResult
   $Res call({String id, String billId});
 }
 
 /// @nodoc
-class _$PaidModelCopyWithImpl<$Res> implements $PaidModelCopyWith<$Res> {
+class _$PaidModelCopyWithImpl<$Res, $Val extends PaidModel>
+    implements $PaidModelCopyWith<$Res> {
   _$PaidModelCopyWithImpl(this._value, this._then);
 
-  final PaidModel _value;
   // ignore: unused_field
-  final $Res Function(PaidModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? billId = freezed,
+    Object? id = null,
+    Object? billId = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      billId: billId == freezed
+      billId: null == billId
           ? _value.billId
           : billId // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$PaidModelCopyWith<$Res> implements $PaidModelCopyWith<$Res> {
-  factory _$PaidModelCopyWith(
-          _PaidModel value, $Res Function(_PaidModel) then) =
-      __$PaidModelCopyWithImpl<$Res>;
+abstract class _$$PaidModelImplCopyWith<$Res>
+    implements $PaidModelCopyWith<$Res> {
+  factory _$$PaidModelImplCopyWith(
+          _$PaidModelImpl value, $Res Function(_$PaidModelImpl) then) =
+      __$$PaidModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id, String billId});
 }
 
 /// @nodoc
-class __$PaidModelCopyWithImpl<$Res> extends _$PaidModelCopyWithImpl<$Res>
-    implements _$PaidModelCopyWith<$Res> {
-  __$PaidModelCopyWithImpl(_PaidModel _value, $Res Function(_PaidModel) _then)
-      : super(_value, (v) => _then(v as _PaidModel));
+class __$$PaidModelImplCopyWithImpl<$Res>
+    extends _$PaidModelCopyWithImpl<$Res, _$PaidModelImpl>
+    implements _$$PaidModelImplCopyWith<$Res> {
+  __$$PaidModelImplCopyWithImpl(
+      _$PaidModelImpl _value, $Res Function(_$PaidModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _PaidModel get _value => super._value as _PaidModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? billId = freezed,
+    Object? id = null,
+    Object? billId = null,
   }) {
-    return _then(_PaidModel(
-      id == freezed
+    return _then(_$PaidModelImpl(
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      billId == freezed
+      null == billId
           ? _value.billId
           : billId // ignore: cast_nullable_to_non_nullable
               as String,
@@ -119,11 +106,11 @@ class __$PaidModelCopyWithImpl<$Res> extends _$PaidModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PaidModel implements _PaidModel {
-  const _$_PaidModel(this.id, this.billId);
+class _$PaidModelImpl implements _PaidModel {
+  const _$PaidModelImpl(this.id, this.billId);
 
-  factory _$_PaidModel.fromJson(Map<String, dynamic> json) =>
-      _$$_PaidModelFromJson(json);
+  factory _$PaidModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PaidModelImplFromJson(json);
 
   @override
   final String id;
@@ -139,33 +126,35 @@ class _$_PaidModel implements _PaidModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PaidModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.billId, billId));
+            other is _$PaidModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.billId, billId) || other.billId == billId));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(billId));
 
   @JsonKey(ignore: true)
   @override
-  _$PaidModelCopyWith<_PaidModel> get copyWith =>
-      __$PaidModelCopyWithImpl<_PaidModel>(this, _$identity);
+  int get hashCode => Object.hash(runtimeType, id, billId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PaidModelImplCopyWith<_$PaidModelImpl> get copyWith =>
+      __$$PaidModelImplCopyWithImpl<_$PaidModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PaidModelToJson(this);
+    return _$$PaidModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _PaidModel implements PaidModel {
-  const factory _PaidModel(String id, String billId) = _$_PaidModel;
+  const factory _PaidModel(final String id, final String billId) =
+      _$PaidModelImpl;
 
   factory _PaidModel.fromJson(Map<String, dynamic> json) =
-      _$_PaidModel.fromJson;
+      _$PaidModelImpl.fromJson;
 
   @override
   String get id;
@@ -173,6 +162,6 @@ abstract class _PaidModel implements PaidModel {
   String get billId;
   @override
   @JsonKey(ignore: true)
-  _$PaidModelCopyWith<_PaidModel> get copyWith =>
+  _$$PaidModelImplCopyWith<_$PaidModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

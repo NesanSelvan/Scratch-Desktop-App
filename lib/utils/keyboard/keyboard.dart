@@ -170,16 +170,23 @@ class KeyboardUtilities {
       productsList,
       isSpecialSearch: isSpecialSearch,
     );
+    print("productList: ${productList.length}");
 
     /**
      * If the Selected Prdouct Model is Empty
      */
     if (keyboardEventEnum == KeyboardEventEnum.ArrowDown) {
       if (selectedProductModel == null) {
-        return productList[0];
+        return productList.elementAt(0);
       } else {
-        if (productList.contains(selectedProductModel)) {
-          final index = productList.indexOf(selectedProductModel);
+        ProductModel? existingItem;
+        try {
+          existingItem = productList.firstWhere(
+            (itemToCheck) => itemToCheck.id == selectedProductModel.id,
+          );
+        } catch (e) {}
+        if (existingItem != null) {
+          final index = productList.indexOf(existingItem);
           if (index + 1 == productList.length) {
             return productList[0];
           } else {
@@ -193,8 +200,14 @@ class KeyboardUtilities {
       if (selectedProductModel == null) {
         return productList.last;
       } else {
-        if (productList.contains(selectedProductModel)) {
-          final index = productList.indexOf(selectedProductModel);
+        ProductModel? existingItem;
+        try {
+          existingItem = productList.firstWhere(
+            (itemToCheck) => itemToCheck.id == selectedProductModel.id,
+          );
+        } catch (e) {}
+        if (existingItem != null) {
+          final index = productList.indexOf(existingItem);
           if (index - 1 < 0) {
             return productList.last;
           } else {

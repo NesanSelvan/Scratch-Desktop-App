@@ -6,15 +6,15 @@ part of 'paths.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PathsModel _$$_PathsModelFromJson(Map<String, dynamic> json) =>
-    _$_PathsModel(
+_$PathsModelImpl _$$PathsModelImplFromJson(Map<String, dynamic> json) =>
+    _$PathsModelImpl(
       id: json['id'] as String,
       name: json['name'] as String,
       path: json['path'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_PathsModelToJson(_$_PathsModel instance) =>
+Map<String, dynamic> _$$PathsModelImplToJson(_$PathsModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

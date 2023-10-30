@@ -323,6 +323,7 @@ class SalesBillingTwoController extends GetxController {
             categoryDB.getCategoryModelById(selectedProductModel!.categoryId),
         productModel: selectedProductModel,
         priceModel: selectedPriceModel,
+        qtyMathEqn: qtyController.text,
         qty: qty,
         price: price,
         rate: rate,
@@ -398,6 +399,7 @@ class SalesBillingTwoController extends GetxController {
           productModel: _selectedProductModel,
           priceModel: selectedPriceModel,
           qty: qty,
+          qtyMathEqn: qtyController.text,
           rate: rate,
           price: getPrice(qty, rate),
           discountPer: discount,
@@ -414,6 +416,7 @@ class SalesBillingTwoController extends GetxController {
           qty: salesProductModelList[index].qty! + qty,
           rate: rate,
           priceModel: selectedPriceModel,
+          qtyMathEqn: qtyController.text,
           price: getPrice(qty, rate),
           discountPer: discount,
         );

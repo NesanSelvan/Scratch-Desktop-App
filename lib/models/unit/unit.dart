@@ -17,6 +17,14 @@ abstract class UnitModel with _$UnitModel {
 
   factory UnitModel.fromJson(Map<String, dynamic> json) =>
       _$UnitModelFromJson(json);
+
+  @override
+  String toString() => """
+        id: $id,
+        symbol: $symbol,
+        formalName: $formalName,
+        unitNo: $unitNo,
+      """;
 }
 
 extension Extra on UnitModel {

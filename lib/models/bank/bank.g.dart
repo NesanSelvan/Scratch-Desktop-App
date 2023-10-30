@@ -6,7 +6,8 @@ part of 'bank.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_BankModel _$$_BankModelFromJson(Map<String, dynamic> json) => _$_BankModel(
+_$BankModelImpl _$$BankModelImplFromJson(Map<String, dynamic> json) =>
+    _$BankModelImpl(
       id: json['id'] as String,
       accountNo: json['accountNo'] as String,
       bankHolderName: json['bankHolderName'] as String,
@@ -16,7 +17,7 @@ _$_BankModel _$$_BankModelFromJson(Map<String, dynamic> json) => _$_BankModel(
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_BankModelToJson(_$_BankModel instance) =>
+Map<String, dynamic> _$$BankModelImplToJson(_$BankModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'accountNo': instance.accountNo,

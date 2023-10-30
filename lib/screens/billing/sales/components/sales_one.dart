@@ -453,7 +453,6 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                           salesBillingOneController
                                               .productController
                                               .text = suggestion.productName;
-                                          debugPrint('Selected $suggestion');
                                           controller.priceModelFocusNode
                                               .requestFocus();
                                           // Navigator.of(context).push(MaterialPageRoute(
@@ -732,7 +731,11 @@ class _SalesScreen1State extends State<SalesScreen1> {
                               focusNode: controller.qtyNode,
                               controller: controller.qtyController,
                               label: "Enter Quantity",
+                              onChange: (val) {
+                                controller.update();
+                              },
                             ),
+                            Text("Qty: ${controller.qty}"),
                             const SizedBox(height: 20),
                             CustomTFWithKeyboard(
                               keyboardNode: controller.discountKeyboardNode,

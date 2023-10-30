@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'payment.dart';
 
@@ -12,48 +12,11 @@ part of 'payment.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 PaymentModel _$PaymentModelFromJson(Map<String, dynamic> json) {
   return _PaymentModel.fromJson(json);
 }
-
-/// @nodoc
-class _$PaymentModelTearOff {
-  const _$PaymentModelTearOff();
-
-  _PaymentModel call(
-      {required String id,
-      required String paymentNo,
-      required String purchaseId,
-      required double givenAmount,
-      required String paymentMethod,
-      required String paymentID,
-      required DateTime createdAt,
-      PurchaseModel? purchaseModel,
-      CompanyModel? companyModel,
-      String? note}) {
-    return _PaymentModel(
-      id: id,
-      paymentNo: paymentNo,
-      purchaseId: purchaseId,
-      givenAmount: givenAmount,
-      paymentMethod: paymentMethod,
-      paymentID: paymentID,
-      createdAt: createdAt,
-      purchaseModel: purchaseModel,
-      companyModel: companyModel,
-      note: note,
-    );
-  }
-
-  PaymentModel fromJson(Map<String, Object?> json) {
-    return PaymentModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $PaymentModel = _$PaymentModelTearOff();
 
 /// @nodoc
 mixin _$PaymentModel {
@@ -78,7 +41,8 @@ mixin _$PaymentModel {
 abstract class $PaymentModelCopyWith<$Res> {
   factory $PaymentModelCopyWith(
           PaymentModel value, $Res Function(PaymentModel) then) =
-      _$PaymentModelCopyWithImpl<$Res>;
+      _$PaymentModelCopyWithImpl<$Res, PaymentModel>;
+  @useResult
   $Res call(
       {String id,
       String paymentNo,
@@ -96,100 +60,106 @@ abstract class $PaymentModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PaymentModelCopyWithImpl<$Res> implements $PaymentModelCopyWith<$Res> {
+class _$PaymentModelCopyWithImpl<$Res, $Val extends PaymentModel>
+    implements $PaymentModelCopyWith<$Res> {
   _$PaymentModelCopyWithImpl(this._value, this._then);
 
-  final PaymentModel _value;
   // ignore: unused_field
-  final $Res Function(PaymentModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? paymentNo = freezed,
-    Object? purchaseId = freezed,
-    Object? givenAmount = freezed,
-    Object? paymentMethod = freezed,
-    Object? paymentID = freezed,
-    Object? createdAt = freezed,
+    Object? id = null,
+    Object? paymentNo = null,
+    Object? purchaseId = null,
+    Object? givenAmount = null,
+    Object? paymentMethod = null,
+    Object? paymentID = null,
+    Object? createdAt = null,
     Object? purchaseModel = freezed,
     Object? companyModel = freezed,
     Object? note = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      paymentNo: paymentNo == freezed
+      paymentNo: null == paymentNo
           ? _value.paymentNo
           : paymentNo // ignore: cast_nullable_to_non_nullable
               as String,
-      purchaseId: purchaseId == freezed
+      purchaseId: null == purchaseId
           ? _value.purchaseId
           : purchaseId // ignore: cast_nullable_to_non_nullable
               as String,
-      givenAmount: givenAmount == freezed
+      givenAmount: null == givenAmount
           ? _value.givenAmount
           : givenAmount // ignore: cast_nullable_to_non_nullable
               as double,
-      paymentMethod: paymentMethod == freezed
+      paymentMethod: null == paymentMethod
           ? _value.paymentMethod
           : paymentMethod // ignore: cast_nullable_to_non_nullable
               as String,
-      paymentID: paymentID == freezed
+      paymentID: null == paymentID
           ? _value.paymentID
           : paymentID // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      purchaseModel: purchaseModel == freezed
+      purchaseModel: freezed == purchaseModel
           ? _value.purchaseModel
           : purchaseModel // ignore: cast_nullable_to_non_nullable
               as PurchaseModel?,
-      companyModel: companyModel == freezed
+      companyModel: freezed == companyModel
           ? _value.companyModel
           : companyModel // ignore: cast_nullable_to_non_nullable
               as CompanyModel?,
-      note: note == freezed
+      note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PurchaseModelCopyWith<$Res>? get purchaseModel {
     if (_value.purchaseModel == null) {
       return null;
     }
 
     return $PurchaseModelCopyWith<$Res>(_value.purchaseModel!, (value) {
-      return _then(_value.copyWith(purchaseModel: value));
+      return _then(_value.copyWith(purchaseModel: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CompanyModelCopyWith<$Res>? get companyModel {
     if (_value.companyModel == null) {
       return null;
     }
 
     return $CompanyModelCopyWith<$Res>(_value.companyModel!, (value) {
-      return _then(_value.copyWith(companyModel: value));
+      return _then(_value.copyWith(companyModel: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$PaymentModelCopyWith<$Res>
+abstract class _$$PaymentModelImplCopyWith<$Res>
     implements $PaymentModelCopyWith<$Res> {
-  factory _$PaymentModelCopyWith(
-          _PaymentModel value, $Res Function(_PaymentModel) then) =
-      __$PaymentModelCopyWithImpl<$Res>;
+  factory _$$PaymentModelImplCopyWith(
+          _$PaymentModelImpl value, $Res Function(_$PaymentModelImpl) then) =
+      __$$PaymentModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String paymentNo,
@@ -209,66 +179,65 @@ abstract class _$PaymentModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$PaymentModelCopyWithImpl<$Res> extends _$PaymentModelCopyWithImpl<$Res>
-    implements _$PaymentModelCopyWith<$Res> {
-  __$PaymentModelCopyWithImpl(
-      _PaymentModel _value, $Res Function(_PaymentModel) _then)
-      : super(_value, (v) => _then(v as _PaymentModel));
+class __$$PaymentModelImplCopyWithImpl<$Res>
+    extends _$PaymentModelCopyWithImpl<$Res, _$PaymentModelImpl>
+    implements _$$PaymentModelImplCopyWith<$Res> {
+  __$$PaymentModelImplCopyWithImpl(
+      _$PaymentModelImpl _value, $Res Function(_$PaymentModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _PaymentModel get _value => super._value as _PaymentModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? paymentNo = freezed,
-    Object? purchaseId = freezed,
-    Object? givenAmount = freezed,
-    Object? paymentMethod = freezed,
-    Object? paymentID = freezed,
-    Object? createdAt = freezed,
+    Object? id = null,
+    Object? paymentNo = null,
+    Object? purchaseId = null,
+    Object? givenAmount = null,
+    Object? paymentMethod = null,
+    Object? paymentID = null,
+    Object? createdAt = null,
     Object? purchaseModel = freezed,
     Object? companyModel = freezed,
     Object? note = freezed,
   }) {
-    return _then(_PaymentModel(
-      id: id == freezed
+    return _then(_$PaymentModelImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      paymentNo: paymentNo == freezed
+      paymentNo: null == paymentNo
           ? _value.paymentNo
           : paymentNo // ignore: cast_nullable_to_non_nullable
               as String,
-      purchaseId: purchaseId == freezed
+      purchaseId: null == purchaseId
           ? _value.purchaseId
           : purchaseId // ignore: cast_nullable_to_non_nullable
               as String,
-      givenAmount: givenAmount == freezed
+      givenAmount: null == givenAmount
           ? _value.givenAmount
           : givenAmount // ignore: cast_nullable_to_non_nullable
               as double,
-      paymentMethod: paymentMethod == freezed
+      paymentMethod: null == paymentMethod
           ? _value.paymentMethod
           : paymentMethod // ignore: cast_nullable_to_non_nullable
               as String,
-      paymentID: paymentID == freezed
+      paymentID: null == paymentID
           ? _value.paymentID
           : paymentID // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      purchaseModel: purchaseModel == freezed
+      purchaseModel: freezed == purchaseModel
           ? _value.purchaseModel
           : purchaseModel // ignore: cast_nullable_to_non_nullable
               as PurchaseModel?,
-      companyModel: companyModel == freezed
+      companyModel: freezed == companyModel
           ? _value.companyModel
           : companyModel // ignore: cast_nullable_to_non_nullable
               as CompanyModel?,
-      note: note == freezed
+      note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -279,8 +248,8 @@ class __$PaymentModelCopyWithImpl<$Res> extends _$PaymentModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_PaymentModel implements _PaymentModel {
-  _$_PaymentModel(
+class _$PaymentModelImpl implements _PaymentModel {
+  _$PaymentModelImpl(
       {required this.id,
       required this.paymentNo,
       required this.purchaseId,
@@ -292,8 +261,8 @@ class _$_PaymentModel implements _PaymentModel {
       this.companyModel,
       this.note});
 
-  factory _$_PaymentModel.fromJson(Map<String, dynamic> json) =>
-      _$$_PaymentModelFromJson(json);
+  factory _$PaymentModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PaymentModelImplFromJson(json);
 
   @override
   final String id;
@@ -325,64 +294,71 @@ class _$_PaymentModel implements _PaymentModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PaymentModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.paymentNo, paymentNo) &&
-            const DeepCollectionEquality()
-                .equals(other.purchaseId, purchaseId) &&
-            const DeepCollectionEquality()
-                .equals(other.givenAmount, givenAmount) &&
-            const DeepCollectionEquality()
-                .equals(other.paymentMethod, paymentMethod) &&
-            const DeepCollectionEquality().equals(other.paymentID, paymentID) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            const DeepCollectionEquality()
-                .equals(other.purchaseModel, purchaseModel) &&
-            const DeepCollectionEquality()
-                .equals(other.companyModel, companyModel) &&
-            const DeepCollectionEquality().equals(other.note, note));
+            other is _$PaymentModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.paymentNo, paymentNo) ||
+                other.paymentNo == paymentNo) &&
+            (identical(other.purchaseId, purchaseId) ||
+                other.purchaseId == purchaseId) &&
+            (identical(other.givenAmount, givenAmount) ||
+                other.givenAmount == givenAmount) &&
+            (identical(other.paymentMethod, paymentMethod) ||
+                other.paymentMethod == paymentMethod) &&
+            (identical(other.paymentID, paymentID) ||
+                other.paymentID == paymentID) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.purchaseModel, purchaseModel) ||
+                other.purchaseModel == purchaseModel) &&
+            (identical(other.companyModel, companyModel) ||
+                other.companyModel == companyModel) &&
+            (identical(other.note, note) || other.note == note));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(paymentNo),
-      const DeepCollectionEquality().hash(purchaseId),
-      const DeepCollectionEquality().hash(givenAmount),
-      const DeepCollectionEquality().hash(paymentMethod),
-      const DeepCollectionEquality().hash(paymentID),
-      const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(purchaseModel),
-      const DeepCollectionEquality().hash(companyModel),
-      const DeepCollectionEquality().hash(note));
 
   @JsonKey(ignore: true)
   @override
-  _$PaymentModelCopyWith<_PaymentModel> get copyWith =>
-      __$PaymentModelCopyWithImpl<_PaymentModel>(this, _$identity);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      paymentNo,
+      purchaseId,
+      givenAmount,
+      paymentMethod,
+      paymentID,
+      createdAt,
+      purchaseModel,
+      companyModel,
+      note);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PaymentModelImplCopyWith<_$PaymentModelImpl> get copyWith =>
+      __$$PaymentModelImplCopyWithImpl<_$PaymentModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PaymentModelToJson(this);
+    return _$$PaymentModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _PaymentModel implements PaymentModel {
   factory _PaymentModel(
-      {required String id,
-      required String paymentNo,
-      required String purchaseId,
-      required double givenAmount,
-      required String paymentMethod,
-      required String paymentID,
-      required DateTime createdAt,
-      PurchaseModel? purchaseModel,
-      CompanyModel? companyModel,
-      String? note}) = _$_PaymentModel;
+      {required final String id,
+      required final String paymentNo,
+      required final String purchaseId,
+      required final double givenAmount,
+      required final String paymentMethod,
+      required final String paymentID,
+      required final DateTime createdAt,
+      final PurchaseModel? purchaseModel,
+      final CompanyModel? companyModel,
+      final String? note}) = _$PaymentModelImpl;
 
   factory _PaymentModel.fromJson(Map<String, dynamic> json) =
-      _$_PaymentModel.fromJson;
+      _$PaymentModelImpl.fromJson;
 
   @override
   String get id;
@@ -406,6 +382,6 @@ abstract class _PaymentModel implements PaymentModel {
   String? get note;
   @override
   @JsonKey(ignore: true)
-  _$PaymentModelCopyWith<_PaymentModel> get copyWith =>
+  _$$PaymentModelImplCopyWith<_$PaymentModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

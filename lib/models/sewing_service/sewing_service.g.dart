@@ -6,8 +6,8 @@ part of 'sewing_service.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SewingService _$$_SewingServiceFromJson(Map<String, dynamic> json) =>
-    _$_SewingService(
+_$SewingServiceImpl _$$SewingServiceImplFromJson(Map<String, dynamic> json) =>
+    _$SewingServiceImpl(
       id: json['id'] as String,
       billNo: json['billNo'] as String,
       customerModel: json['customerModel'] == null
@@ -17,7 +17,7 @@ _$_SewingService _$$_SewingServiceFromJson(Map<String, dynamic> json) =>
       dateTime: DateTime.parse(json['dateTime'] as String),
     );
 
-Map<String, dynamic> _$$_SewingServiceToJson(_$_SewingService instance) =>
+Map<String, dynamic> _$$SewingServiceImplToJson(_$SewingServiceImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'billNo': instance.billNo,

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'tax_cal.dart';
 
@@ -12,40 +12,11 @@ part of 'tax_cal.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 TaxCalModel _$TaxCalModelFromJson(Map<String, dynamic> json) {
   return _TaxCalModel.fromJson(json);
 }
-
-/// @nodoc
-class _$TaxCalModelTearOff {
-  const _$TaxCalModelTearOff();
-
-  _TaxCalModel call(
-      {required int hsnCode,
-      required double taxableVal,
-      required double tax,
-      required double amount,
-      required double rate,
-      required double totalTaxAmount}) {
-    return _TaxCalModel(
-      hsnCode: hsnCode,
-      taxableVal: taxableVal,
-      tax: tax,
-      amount: amount,
-      rate: rate,
-      totalTaxAmount: totalTaxAmount,
-    );
-  }
-
-  TaxCalModel fromJson(Map<String, Object?> json) {
-    return TaxCalModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $TaxCalModel = _$TaxCalModelTearOff();
 
 /// @nodoc
 mixin _$TaxCalModel {
@@ -66,7 +37,8 @@ mixin _$TaxCalModel {
 abstract class $TaxCalModelCopyWith<$Res> {
   factory $TaxCalModelCopyWith(
           TaxCalModel value, $Res Function(TaxCalModel) then) =
-      _$TaxCalModelCopyWithImpl<$Res>;
+      _$TaxCalModelCopyWithImpl<$Res, TaxCalModel>;
+  @useResult
   $Res call(
       {int hsnCode,
       double taxableVal,
@@ -77,58 +49,62 @@ abstract class $TaxCalModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TaxCalModelCopyWithImpl<$Res> implements $TaxCalModelCopyWith<$Res> {
+class _$TaxCalModelCopyWithImpl<$Res, $Val extends TaxCalModel>
+    implements $TaxCalModelCopyWith<$Res> {
   _$TaxCalModelCopyWithImpl(this._value, this._then);
 
-  final TaxCalModel _value;
   // ignore: unused_field
-  final $Res Function(TaxCalModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hsnCode = freezed,
-    Object? taxableVal = freezed,
-    Object? tax = freezed,
-    Object? amount = freezed,
-    Object? rate = freezed,
-    Object? totalTaxAmount = freezed,
+    Object? hsnCode = null,
+    Object? taxableVal = null,
+    Object? tax = null,
+    Object? amount = null,
+    Object? rate = null,
+    Object? totalTaxAmount = null,
   }) {
     return _then(_value.copyWith(
-      hsnCode: hsnCode == freezed
+      hsnCode: null == hsnCode
           ? _value.hsnCode
           : hsnCode // ignore: cast_nullable_to_non_nullable
               as int,
-      taxableVal: taxableVal == freezed
+      taxableVal: null == taxableVal
           ? _value.taxableVal
           : taxableVal // ignore: cast_nullable_to_non_nullable
               as double,
-      tax: tax == freezed
+      tax: null == tax
           ? _value.tax
           : tax // ignore: cast_nullable_to_non_nullable
               as double,
-      amount: amount == freezed
+      amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as double,
-      rate: rate == freezed
+      rate: null == rate
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
               as double,
-      totalTaxAmount: totalTaxAmount == freezed
+      totalTaxAmount: null == totalTaxAmount
           ? _value.totalTaxAmount
           : totalTaxAmount // ignore: cast_nullable_to_non_nullable
               as double,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$TaxCalModelCopyWith<$Res>
+abstract class _$$TaxCalModelImplCopyWith<$Res>
     implements $TaxCalModelCopyWith<$Res> {
-  factory _$TaxCalModelCopyWith(
-          _TaxCalModel value, $Res Function(_TaxCalModel) then) =
-      __$TaxCalModelCopyWithImpl<$Res>;
+  factory _$$TaxCalModelImplCopyWith(
+          _$TaxCalModelImpl value, $Res Function(_$TaxCalModelImpl) then) =
+      __$$TaxCalModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int hsnCode,
       double taxableVal,
@@ -139,46 +115,45 @@ abstract class _$TaxCalModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$TaxCalModelCopyWithImpl<$Res> extends _$TaxCalModelCopyWithImpl<$Res>
-    implements _$TaxCalModelCopyWith<$Res> {
-  __$TaxCalModelCopyWithImpl(
-      _TaxCalModel _value, $Res Function(_TaxCalModel) _then)
-      : super(_value, (v) => _then(v as _TaxCalModel));
+class __$$TaxCalModelImplCopyWithImpl<$Res>
+    extends _$TaxCalModelCopyWithImpl<$Res, _$TaxCalModelImpl>
+    implements _$$TaxCalModelImplCopyWith<$Res> {
+  __$$TaxCalModelImplCopyWithImpl(
+      _$TaxCalModelImpl _value, $Res Function(_$TaxCalModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _TaxCalModel get _value => super._value as _TaxCalModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hsnCode = freezed,
-    Object? taxableVal = freezed,
-    Object? tax = freezed,
-    Object? amount = freezed,
-    Object? rate = freezed,
-    Object? totalTaxAmount = freezed,
+    Object? hsnCode = null,
+    Object? taxableVal = null,
+    Object? tax = null,
+    Object? amount = null,
+    Object? rate = null,
+    Object? totalTaxAmount = null,
   }) {
-    return _then(_TaxCalModel(
-      hsnCode: hsnCode == freezed
+    return _then(_$TaxCalModelImpl(
+      hsnCode: null == hsnCode
           ? _value.hsnCode
           : hsnCode // ignore: cast_nullable_to_non_nullable
               as int,
-      taxableVal: taxableVal == freezed
+      taxableVal: null == taxableVal
           ? _value.taxableVal
           : taxableVal // ignore: cast_nullable_to_non_nullable
               as double,
-      tax: tax == freezed
+      tax: null == tax
           ? _value.tax
           : tax // ignore: cast_nullable_to_non_nullable
               as double,
-      amount: amount == freezed
+      amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as double,
-      rate: rate == freezed
+      rate: null == rate
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
               as double,
-      totalTaxAmount: totalTaxAmount == freezed
+      totalTaxAmount: null == totalTaxAmount
           ? _value.totalTaxAmount
           : totalTaxAmount // ignore: cast_nullable_to_non_nullable
               as double,
@@ -188,8 +163,8 @@ class __$TaxCalModelCopyWithImpl<$Res> extends _$TaxCalModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TaxCalModel implements _TaxCalModel {
-  _$_TaxCalModel(
+class _$TaxCalModelImpl implements _TaxCalModel {
+  _$TaxCalModelImpl(
       {required this.hsnCode,
       required this.taxableVal,
       required this.tax,
@@ -197,8 +172,8 @@ class _$_TaxCalModel implements _TaxCalModel {
       required this.rate,
       required this.totalTaxAmount});
 
-  factory _$_TaxCalModel.fromJson(Map<String, dynamic> json) =>
-      _$$_TaxCalModelFromJson(json);
+  factory _$TaxCalModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TaxCalModelImplFromJson(json);
 
   @override
   final int hsnCode;
@@ -222,49 +197,47 @@ class _$_TaxCalModel implements _TaxCalModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TaxCalModel &&
-            const DeepCollectionEquality().equals(other.hsnCode, hsnCode) &&
-            const DeepCollectionEquality()
-                .equals(other.taxableVal, taxableVal) &&
-            const DeepCollectionEquality().equals(other.tax, tax) &&
-            const DeepCollectionEquality().equals(other.amount, amount) &&
-            const DeepCollectionEquality().equals(other.rate, rate) &&
-            const DeepCollectionEquality()
-                .equals(other.totalTaxAmount, totalTaxAmount));
+            other is _$TaxCalModelImpl &&
+            (identical(other.hsnCode, hsnCode) || other.hsnCode == hsnCode) &&
+            (identical(other.taxableVal, taxableVal) ||
+                other.taxableVal == taxableVal) &&
+            (identical(other.tax, tax) || other.tax == tax) &&
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.rate, rate) || other.rate == rate) &&
+            (identical(other.totalTaxAmount, totalTaxAmount) ||
+                other.totalTaxAmount == totalTaxAmount));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(hsnCode),
-      const DeepCollectionEquality().hash(taxableVal),
-      const DeepCollectionEquality().hash(tax),
-      const DeepCollectionEquality().hash(amount),
-      const DeepCollectionEquality().hash(rate),
-      const DeepCollectionEquality().hash(totalTaxAmount));
 
   @JsonKey(ignore: true)
   @override
-  _$TaxCalModelCopyWith<_TaxCalModel> get copyWith =>
-      __$TaxCalModelCopyWithImpl<_TaxCalModel>(this, _$identity);
+  int get hashCode => Object.hash(
+      runtimeType, hsnCode, taxableVal, tax, amount, rate, totalTaxAmount);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TaxCalModelImplCopyWith<_$TaxCalModelImpl> get copyWith =>
+      __$$TaxCalModelImplCopyWithImpl<_$TaxCalModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TaxCalModelToJson(this);
+    return _$$TaxCalModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _TaxCalModel implements TaxCalModel {
   factory _TaxCalModel(
-      {required int hsnCode,
-      required double taxableVal,
-      required double tax,
-      required double amount,
-      required double rate,
-      required double totalTaxAmount}) = _$_TaxCalModel;
+      {required final int hsnCode,
+      required final double taxableVal,
+      required final double tax,
+      required final double amount,
+      required final double rate,
+      required final double totalTaxAmount}) = _$TaxCalModelImpl;
 
   factory _TaxCalModel.fromJson(Map<String, dynamic> json) =
-      _$_TaxCalModel.fromJson;
+      _$TaxCalModelImpl.fromJson;
 
   @override
   int get hsnCode;
@@ -280,6 +253,6 @@ abstract class _TaxCalModel implements TaxCalModel {
   double get totalTaxAmount;
   @override
   @JsonKey(ignore: true)
-  _$TaxCalModelCopyWith<_TaxCalModel> get copyWith =>
+  _$$TaxCalModelImplCopyWith<_$TaxCalModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

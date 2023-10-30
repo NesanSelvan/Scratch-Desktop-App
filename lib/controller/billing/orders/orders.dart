@@ -226,6 +226,7 @@ class OrdersController extends GetxController {
               categoryDB.getCategoryModelById(selectedProductModel!.categoryId),
           productModel: selectedProductModel,
           qty: qty,
+          qtyMathEqn: qtyController.text,
           rate: double.tryParse(rateController.text) ?? 0,
           price: getPrice(
             qty,
@@ -245,6 +246,7 @@ class OrdersController extends GetxController {
               categoryDB.getCategoryModelById(selectedProductModel!.categoryId),
           productModel: selectedProductModel,
           qty: matchedData[0].qty! + qty,
+          qtyMathEqn: qtyController.text,
           price: getPrice(
             qty,
             getPriceByCustomer(

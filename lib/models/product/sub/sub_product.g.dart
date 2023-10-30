@@ -6,8 +6,9 @@ part of 'sub_product.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SubProductModel _$$_SubProductModelFromJson(Map<String, dynamic> json) =>
-    _$_SubProductModel(
+_$SubProductModelImpl _$$SubProductModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$SubProductModelImpl(
       id: json['id'] as String,
       productModel:
           ProductModel.fromJson(json['productModel'] as Map<String, dynamic>),
@@ -19,7 +20,8 @@ _$_SubProductModel _$$_SubProductModelFromJson(Map<String, dynamic> json) =>
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_SubProductModelToJson(_$_SubProductModel instance) =>
+Map<String, dynamic> _$$SubProductModelImplToJson(
+        _$SubProductModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'productModel': instance.productModel.toJson(),

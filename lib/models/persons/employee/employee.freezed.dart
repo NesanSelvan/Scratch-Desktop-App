@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'employee.dart';
 
@@ -12,48 +12,11 @@ part of 'employee.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 EmployeeModel _$EmployeeModelFromJson(Map<String, dynamic> json) {
   return _EmployeeModel.fromJson(json);
 }
-
-/// @nodoc
-class _$EmployeeModelTearOff {
-  const _$EmployeeModelTearOff();
-
-  _EmployeeModel call(
-      {required String id,
-      required String name,
-      required String email,
-      required String address,
-      required int pincode,
-      required String state,
-      required String type,
-      required int mobileNo,
-      required String password,
-      DateTime? createdAt}) {
-    return _EmployeeModel(
-      id: id,
-      name: name,
-      email: email,
-      address: address,
-      pincode: pincode,
-      state: state,
-      type: type,
-      mobileNo: mobileNo,
-      password: password,
-      createdAt: createdAt,
-    );
-  }
-
-  EmployeeModel fromJson(Map<String, Object?> json) {
-    return EmployeeModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $EmployeeModel = _$EmployeeModelTearOff();
 
 /// @nodoc
 mixin _$EmployeeModel {
@@ -78,7 +41,8 @@ mixin _$EmployeeModel {
 abstract class $EmployeeModelCopyWith<$Res> {
   factory $EmployeeModelCopyWith(
           EmployeeModel value, $Res Function(EmployeeModel) then) =
-      _$EmployeeModelCopyWithImpl<$Res>;
+      _$EmployeeModelCopyWithImpl<$Res, EmployeeModel>;
+  @useResult
   $Res call(
       {String id,
       String name,
@@ -93,79 +57,82 @@ abstract class $EmployeeModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EmployeeModelCopyWithImpl<$Res>
+class _$EmployeeModelCopyWithImpl<$Res, $Val extends EmployeeModel>
     implements $EmployeeModelCopyWith<$Res> {
   _$EmployeeModelCopyWithImpl(this._value, this._then);
 
-  final EmployeeModel _value;
   // ignore: unused_field
-  final $Res Function(EmployeeModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? email = freezed,
-    Object? address = freezed,
-    Object? pincode = freezed,
-    Object? state = freezed,
-    Object? type = freezed,
-    Object? mobileNo = freezed,
-    Object? password = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? email = null,
+    Object? address = null,
+    Object? pincode = null,
+    Object? state = null,
+    Object? type = null,
+    Object? mobileNo = null,
+    Object? password = null,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      address: address == freezed
+      address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
-      pincode: pincode == freezed
+      pincode: null == pincode
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
               as int,
-      state: state == freezed
+      state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      mobileNo: mobileNo == freezed
+      mobileNo: null == mobileNo
           ? _value.mobileNo
           : mobileNo // ignore: cast_nullable_to_non_nullable
               as int,
-      password: password == freezed
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: createdAt == freezed
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$EmployeeModelCopyWith<$Res>
+abstract class _$$EmployeeModelImplCopyWith<$Res>
     implements $EmployeeModelCopyWith<$Res> {
-  factory _$EmployeeModelCopyWith(
-          _EmployeeModel value, $Res Function(_EmployeeModel) then) =
-      __$EmployeeModelCopyWithImpl<$Res>;
+  factory _$$EmployeeModelImplCopyWith(
+          _$EmployeeModelImpl value, $Res Function(_$EmployeeModelImpl) then) =
+      __$$EmployeeModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String name,
@@ -180,67 +147,65 @@ abstract class _$EmployeeModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$EmployeeModelCopyWithImpl<$Res>
-    extends _$EmployeeModelCopyWithImpl<$Res>
-    implements _$EmployeeModelCopyWith<$Res> {
-  __$EmployeeModelCopyWithImpl(
-      _EmployeeModel _value, $Res Function(_EmployeeModel) _then)
-      : super(_value, (v) => _then(v as _EmployeeModel));
+class __$$EmployeeModelImplCopyWithImpl<$Res>
+    extends _$EmployeeModelCopyWithImpl<$Res, _$EmployeeModelImpl>
+    implements _$$EmployeeModelImplCopyWith<$Res> {
+  __$$EmployeeModelImplCopyWithImpl(
+      _$EmployeeModelImpl _value, $Res Function(_$EmployeeModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _EmployeeModel get _value => super._value as _EmployeeModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? email = freezed,
-    Object? address = freezed,
-    Object? pincode = freezed,
-    Object? state = freezed,
-    Object? type = freezed,
-    Object? mobileNo = freezed,
-    Object? password = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? email = null,
+    Object? address = null,
+    Object? pincode = null,
+    Object? state = null,
+    Object? type = null,
+    Object? mobileNo = null,
+    Object? password = null,
     Object? createdAt = freezed,
   }) {
-    return _then(_EmployeeModel(
-      id: id == freezed
+    return _then(_$EmployeeModelImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      address: address == freezed
+      address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
-      pincode: pincode == freezed
+      pincode: null == pincode
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
               as int,
-      state: state == freezed
+      state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      mobileNo: mobileNo == freezed
+      mobileNo: null == mobileNo
           ? _value.mobileNo
           : mobileNo // ignore: cast_nullable_to_non_nullable
               as int,
-      password: password == freezed
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: createdAt == freezed
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
@@ -250,8 +215,8 @@ class __$EmployeeModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_EmployeeModel implements _EmployeeModel {
-  const _$_EmployeeModel(
+class _$EmployeeModelImpl implements _EmployeeModel {
+  const _$EmployeeModelImpl(
       {required this.id,
       required this.name,
       required this.email,
@@ -263,8 +228,8 @@ class _$_EmployeeModel implements _EmployeeModel {
       required this.password,
       this.createdAt});
 
-  factory _$_EmployeeModel.fromJson(Map<String, dynamic> json) =>
-      _$$_EmployeeModelFromJson(json);
+  factory _$EmployeeModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EmployeeModelImplFromJson(json);
 
   @override
   final String id;
@@ -296,59 +261,56 @@ class _$_EmployeeModel implements _EmployeeModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _EmployeeModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.address, address) &&
-            const DeepCollectionEquality().equals(other.pincode, pincode) &&
-            const DeepCollectionEquality().equals(other.state, state) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.mobileNo, mobileNo) &&
-            const DeepCollectionEquality().equals(other.password, password) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt));
+            other is _$EmployeeModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.pincode, pincode) || other.pincode == pincode) &&
+            (identical(other.state, state) || other.state == state) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.mobileNo, mobileNo) ||
+                other.mobileNo == mobileNo) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(address),
-      const DeepCollectionEquality().hash(pincode),
-      const DeepCollectionEquality().hash(state),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(mobileNo),
-      const DeepCollectionEquality().hash(password),
-      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
-  _$EmployeeModelCopyWith<_EmployeeModel> get copyWith =>
-      __$EmployeeModelCopyWithImpl<_EmployeeModel>(this, _$identity);
+  int get hashCode => Object.hash(runtimeType, id, name, email, address,
+      pincode, state, type, mobileNo, password, createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EmployeeModelImplCopyWith<_$EmployeeModelImpl> get copyWith =>
+      __$$EmployeeModelImplCopyWithImpl<_$EmployeeModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_EmployeeModelToJson(this);
+    return _$$EmployeeModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _EmployeeModel implements EmployeeModel {
   const factory _EmployeeModel(
-      {required String id,
-      required String name,
-      required String email,
-      required String address,
-      required int pincode,
-      required String state,
-      required String type,
-      required int mobileNo,
-      required String password,
-      DateTime? createdAt}) = _$_EmployeeModel;
+      {required final String id,
+      required final String name,
+      required final String email,
+      required final String address,
+      required final int pincode,
+      required final String state,
+      required final String type,
+      required final int mobileNo,
+      required final String password,
+      final DateTime? createdAt}) = _$EmployeeModelImpl;
 
   factory _EmployeeModel.fromJson(Map<String, dynamic> json) =
-      _$_EmployeeModel.fromJson;
+      _$EmployeeModelImpl.fromJson;
 
   @override
   String get id;
@@ -372,6 +334,6 @@ abstract class _EmployeeModel implements EmployeeModel {
   DateTime? get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$EmployeeModelCopyWith<_EmployeeModel> get copyWith =>
+  _$$EmployeeModelImplCopyWith<_$EmployeeModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

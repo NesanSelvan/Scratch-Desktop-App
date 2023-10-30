@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'borrow.dart';
 
@@ -12,30 +12,11 @@ part of 'borrow.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 BorrowModel _$BorrowModelFromJson(Map<String, dynamic> json) {
   return _BorrowModel.fromJson(json);
 }
-
-/// @nodoc
-class _$BorrowModelTearOff {
-  const _$BorrowModelTearOff();
-
-  _BorrowModel call(String id, String billId) {
-    return _BorrowModel(
-      id,
-      billId,
-    );
-  }
-
-  BorrowModel fromJson(Map<String, Object?> json) {
-    return BorrowModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $BorrowModel = _$BorrowModelTearOff();
 
 /// @nodoc
 mixin _$BorrowModel {
@@ -52,67 +33,71 @@ mixin _$BorrowModel {
 abstract class $BorrowModelCopyWith<$Res> {
   factory $BorrowModelCopyWith(
           BorrowModel value, $Res Function(BorrowModel) then) =
-      _$BorrowModelCopyWithImpl<$Res>;
+      _$BorrowModelCopyWithImpl<$Res, BorrowModel>;
+  @useResult
   $Res call({String id, String billId});
 }
 
 /// @nodoc
-class _$BorrowModelCopyWithImpl<$Res> implements $BorrowModelCopyWith<$Res> {
+class _$BorrowModelCopyWithImpl<$Res, $Val extends BorrowModel>
+    implements $BorrowModelCopyWith<$Res> {
   _$BorrowModelCopyWithImpl(this._value, this._then);
 
-  final BorrowModel _value;
   // ignore: unused_field
-  final $Res Function(BorrowModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? billId = freezed,
+    Object? id = null,
+    Object? billId = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      billId: billId == freezed
+      billId: null == billId
           ? _value.billId
           : billId // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$BorrowModelCopyWith<$Res>
+abstract class _$$BorrowModelImplCopyWith<$Res>
     implements $BorrowModelCopyWith<$Res> {
-  factory _$BorrowModelCopyWith(
-          _BorrowModel value, $Res Function(_BorrowModel) then) =
-      __$BorrowModelCopyWithImpl<$Res>;
+  factory _$$BorrowModelImplCopyWith(
+          _$BorrowModelImpl value, $Res Function(_$BorrowModelImpl) then) =
+      __$$BorrowModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id, String billId});
 }
 
 /// @nodoc
-class __$BorrowModelCopyWithImpl<$Res> extends _$BorrowModelCopyWithImpl<$Res>
-    implements _$BorrowModelCopyWith<$Res> {
-  __$BorrowModelCopyWithImpl(
-      _BorrowModel _value, $Res Function(_BorrowModel) _then)
-      : super(_value, (v) => _then(v as _BorrowModel));
+class __$$BorrowModelImplCopyWithImpl<$Res>
+    extends _$BorrowModelCopyWithImpl<$Res, _$BorrowModelImpl>
+    implements _$$BorrowModelImplCopyWith<$Res> {
+  __$$BorrowModelImplCopyWithImpl(
+      _$BorrowModelImpl _value, $Res Function(_$BorrowModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _BorrowModel get _value => super._value as _BorrowModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? billId = freezed,
+    Object? id = null,
+    Object? billId = null,
   }) {
-    return _then(_BorrowModel(
-      id == freezed
+    return _then(_$BorrowModelImpl(
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      billId == freezed
+      null == billId
           ? _value.billId
           : billId // ignore: cast_nullable_to_non_nullable
               as String,
@@ -122,11 +107,11 @@ class __$BorrowModelCopyWithImpl<$Res> extends _$BorrowModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_BorrowModel implements _BorrowModel {
-  const _$_BorrowModel(this.id, this.billId);
+class _$BorrowModelImpl implements _BorrowModel {
+  const _$BorrowModelImpl(this.id, this.billId);
 
-  factory _$_BorrowModel.fromJson(Map<String, dynamic> json) =>
-      _$$_BorrowModelFromJson(json);
+  factory _$BorrowModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BorrowModelImplFromJson(json);
 
   @override
   final String id;
@@ -142,33 +127,35 @@ class _$_BorrowModel implements _BorrowModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _BorrowModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.billId, billId));
+            other is _$BorrowModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.billId, billId) || other.billId == billId));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(billId));
 
   @JsonKey(ignore: true)
   @override
-  _$BorrowModelCopyWith<_BorrowModel> get copyWith =>
-      __$BorrowModelCopyWithImpl<_BorrowModel>(this, _$identity);
+  int get hashCode => Object.hash(runtimeType, id, billId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BorrowModelImplCopyWith<_$BorrowModelImpl> get copyWith =>
+      __$$BorrowModelImplCopyWithImpl<_$BorrowModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BorrowModelToJson(this);
+    return _$$BorrowModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _BorrowModel implements BorrowModel {
-  const factory _BorrowModel(String id, String billId) = _$_BorrowModel;
+  const factory _BorrowModel(final String id, final String billId) =
+      _$BorrowModelImpl;
 
   factory _BorrowModel.fromJson(Map<String, dynamic> json) =
-      _$_BorrowModel.fromJson;
+      _$BorrowModelImpl.fromJson;
 
   @override
   String get id;
@@ -176,6 +163,6 @@ abstract class _BorrowModel implements BorrowModel {
   String get billId;
   @override
   @JsonKey(ignore: true)
-  _$BorrowModelCopyWith<_BorrowModel> get copyWith =>
+  _$$BorrowModelImplCopyWith<_$BorrowModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

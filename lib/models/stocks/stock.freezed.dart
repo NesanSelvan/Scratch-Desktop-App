@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'stock.dart';
 
@@ -12,34 +12,11 @@ part of 'stock.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 StockModel _$StockModelFromJson(Map<String, dynamic> json) {
   return _StockModel.fromJson(json);
 }
-
-/// @nodoc
-class _$StockModelTearOff {
-  const _$StockModelTearOff();
-
-  _StockModel call(String id, String productId, String productCode, double qty,
-      DateTime createdAt) {
-    return _StockModel(
-      id,
-      productId,
-      productCode,
-      qty,
-      createdAt,
-    );
-  }
-
-  StockModel fromJson(Map<String, Object?> json) {
-    return StockModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $StockModel = _$StockModelTearOff();
 
 /// @nodoc
 mixin _$StockModel {
@@ -59,7 +36,8 @@ mixin _$StockModel {
 abstract class $StockModelCopyWith<$Res> {
   factory $StockModelCopyWith(
           StockModel value, $Res Function(StockModel) then) =
-      _$StockModelCopyWithImpl<$Res>;
+      _$StockModelCopyWithImpl<$Res, StockModel>;
+  @useResult
   $Res call(
       {String id,
       String productId,
@@ -69,52 +47,57 @@ abstract class $StockModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StockModelCopyWithImpl<$Res> implements $StockModelCopyWith<$Res> {
+class _$StockModelCopyWithImpl<$Res, $Val extends StockModel>
+    implements $StockModelCopyWith<$Res> {
   _$StockModelCopyWithImpl(this._value, this._then);
 
-  final StockModel _value;
   // ignore: unused_field
-  final $Res Function(StockModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? productId = freezed,
-    Object? productCode = freezed,
-    Object? qty = freezed,
-    Object? createdAt = freezed,
+    Object? id = null,
+    Object? productId = null,
+    Object? productCode = null,
+    Object? qty = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productId: productId == freezed
+      productId: null == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
               as String,
-      productCode: productCode == freezed
+      productCode: null == productCode
           ? _value.productCode
           : productCode // ignore: cast_nullable_to_non_nullable
               as String,
-      qty: qty == freezed
+      qty: null == qty
           ? _value.qty
           : qty // ignore: cast_nullable_to_non_nullable
               as double,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$StockModelCopyWith<$Res> implements $StockModelCopyWith<$Res> {
-  factory _$StockModelCopyWith(
-          _StockModel value, $Res Function(_StockModel) then) =
-      __$StockModelCopyWithImpl<$Res>;
+abstract class _$$StockModelImplCopyWith<$Res>
+    implements $StockModelCopyWith<$Res> {
+  factory _$$StockModelImplCopyWith(
+          _$StockModelImpl value, $Res Function(_$StockModelImpl) then) =
+      __$$StockModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String productId,
@@ -124,41 +107,40 @@ abstract class _$StockModelCopyWith<$Res> implements $StockModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$StockModelCopyWithImpl<$Res> extends _$StockModelCopyWithImpl<$Res>
-    implements _$StockModelCopyWith<$Res> {
-  __$StockModelCopyWithImpl(
-      _StockModel _value, $Res Function(_StockModel) _then)
-      : super(_value, (v) => _then(v as _StockModel));
+class __$$StockModelImplCopyWithImpl<$Res>
+    extends _$StockModelCopyWithImpl<$Res, _$StockModelImpl>
+    implements _$$StockModelImplCopyWith<$Res> {
+  __$$StockModelImplCopyWithImpl(
+      _$StockModelImpl _value, $Res Function(_$StockModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _StockModel get _value => super._value as _StockModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? productId = freezed,
-    Object? productCode = freezed,
-    Object? qty = freezed,
-    Object? createdAt = freezed,
+    Object? id = null,
+    Object? productId = null,
+    Object? productCode = null,
+    Object? qty = null,
+    Object? createdAt = null,
   }) {
-    return _then(_StockModel(
-      id == freezed
+    return _then(_$StockModelImpl(
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productId == freezed
+      null == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
               as String,
-      productCode == freezed
+      null == productCode
           ? _value.productCode
           : productCode // ignore: cast_nullable_to_non_nullable
               as String,
-      qty == freezed
+      null == qty
           ? _value.qty
           : qty // ignore: cast_nullable_to_non_nullable
               as double,
-      createdAt == freezed
+      null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -168,12 +150,12 @@ class __$StockModelCopyWithImpl<$Res> extends _$StockModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_StockModel implements _StockModel {
-  const _$_StockModel(
+class _$StockModelImpl implements _StockModel {
+  const _$StockModelImpl(
       this.id, this.productId, this.productCode, this.qty, this.createdAt);
 
-  factory _$_StockModel.fromJson(Map<String, dynamic> json) =>
-      _$$_StockModelFromJson(json);
+  factory _$StockModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$StockModelImplFromJson(json);
 
   @override
   final String id;
@@ -195,41 +177,46 @@ class _$_StockModel implements _StockModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _StockModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.productId, productId) &&
-            const DeepCollectionEquality()
-                .equals(other.productCode, productCode) &&
-            const DeepCollectionEquality().equals(other.qty, qty) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt));
+            other is _$StockModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.productId, productId) ||
+                other.productId == productId) &&
+            (identical(other.productCode, productCode) ||
+                other.productCode == productCode) &&
+            (identical(other.qty, qty) || other.qty == qty) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(productId),
-      const DeepCollectionEquality().hash(productCode),
-      const DeepCollectionEquality().hash(qty),
-      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
-  _$StockModelCopyWith<_StockModel> get copyWith =>
-      __$StockModelCopyWithImpl<_StockModel>(this, _$identity);
+  int get hashCode =>
+      Object.hash(runtimeType, id, productId, productCode, qty, createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StockModelImplCopyWith<_$StockModelImpl> get copyWith =>
+      __$$StockModelImplCopyWithImpl<_$StockModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_StockModelToJson(this);
+    return _$$StockModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _StockModel implements StockModel {
-  const factory _StockModel(String id, String productId, String productCode,
-      double qty, DateTime createdAt) = _$_StockModel;
+  const factory _StockModel(
+      final String id,
+      final String productId,
+      final String productCode,
+      final double qty,
+      final DateTime createdAt) = _$StockModelImpl;
 
   factory _StockModel.fromJson(Map<String, dynamic> json) =
-      _$_StockModel.fromJson;
+      _$StockModelImpl.fromJson;
 
   @override
   String get id;
@@ -243,6 +230,6 @@ abstract class _StockModel implements StockModel {
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$StockModelCopyWith<_StockModel> get copyWith =>
+  _$$StockModelImplCopyWith<_$StockModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

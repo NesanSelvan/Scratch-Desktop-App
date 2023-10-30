@@ -6,9 +6,9 @@ part of 'thread_company.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ThreadCompanyModel _$$_ThreadCompanyModelFromJson(
+_$ThreadCompanyModelImpl _$$ThreadCompanyModelImplFromJson(
         Map<String, dynamic> json) =>
-    _$_ThreadCompanyModel(
+    _$ThreadCompanyModelImpl(
       id: json['id'] as String,
       companyModel:
           CompanyModel.fromJson(json['companyModel'] as Map<String, dynamic>),
@@ -17,8 +17,8 @@ _$_ThreadCompanyModel _$$_ThreadCompanyModelFromJson(
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_ThreadCompanyModelToJson(
-        _$_ThreadCompanyModel instance) =>
+Map<String, dynamic> _$$ThreadCompanyModelImplToJson(
+        _$ThreadCompanyModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'companyModel': instance.companyModel.toJson(),

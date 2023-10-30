@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'order.dart';
 
@@ -12,46 +12,11 @@ part of 'order.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 OrderModel _$OrderModelFromJson(Map<String, dynamic> json) {
   return _OrderModel.fromJson(json);
 }
-
-/// @nodoc
-class _$OrderModelTearOff {
-  const _$OrderModelTearOff();
-
-  _OrderModel call(
-      {@JsonKey(name: "id") required String id,
-      required String orderNo,
-      bool isTax = true,
-      required double price,
-      required List<SalesProductModel> productList,
-      required CustomerModel customerModel,
-      required DateTime dateTime,
-      String? note,
-      required DateTime createdAt}) {
-    return _OrderModel(
-      id: id,
-      orderNo: orderNo,
-      isTax: isTax,
-      price: price,
-      productList: productList,
-      customerModel: customerModel,
-      dateTime: dateTime,
-      note: note,
-      createdAt: createdAt,
-    );
-  }
-
-  OrderModel fromJson(Map<String, Object?> json) {
-    return OrderModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $OrderModel = _$OrderModelTearOff();
 
 /// @nodoc
 mixin _$OrderModel {
@@ -76,7 +41,8 @@ mixin _$OrderModel {
 abstract class $OrderModelCopyWith<$Res> {
   factory $OrderModelCopyWith(
           OrderModel value, $Res Function(OrderModel) then) =
-      _$OrderModelCopyWithImpl<$Res>;
+      _$OrderModelCopyWithImpl<$Res, OrderModel>;
+  @useResult
   $Res call(
       {@JsonKey(name: "id") String id,
       String orderNo,
@@ -92,79 +58,85 @@ abstract class $OrderModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$OrderModelCopyWithImpl<$Res> implements $OrderModelCopyWith<$Res> {
+class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
+    implements $OrderModelCopyWith<$Res> {
   _$OrderModelCopyWithImpl(this._value, this._then);
 
-  final OrderModel _value;
   // ignore: unused_field
-  final $Res Function(OrderModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? orderNo = freezed,
-    Object? isTax = freezed,
-    Object? price = freezed,
-    Object? productList = freezed,
-    Object? customerModel = freezed,
-    Object? dateTime = freezed,
+    Object? id = null,
+    Object? orderNo = null,
+    Object? isTax = null,
+    Object? price = null,
+    Object? productList = null,
+    Object? customerModel = null,
+    Object? dateTime = null,
     Object? note = freezed,
-    Object? createdAt = freezed,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      orderNo: orderNo == freezed
+      orderNo: null == orderNo
           ? _value.orderNo
           : orderNo // ignore: cast_nullable_to_non_nullable
               as String,
-      isTax: isTax == freezed
+      isTax: null == isTax
           ? _value.isTax
           : isTax // ignore: cast_nullable_to_non_nullable
               as bool,
-      price: price == freezed
+      price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
-      productList: productList == freezed
+      productList: null == productList
           ? _value.productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<SalesProductModel>,
-      customerModel: customerModel == freezed
+      customerModel: null == customerModel
           ? _value.customerModel
           : customerModel // ignore: cast_nullable_to_non_nullable
               as CustomerModel,
-      dateTime: dateTime == freezed
+      dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      note: note == freezed
+      note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CustomerModelCopyWith<$Res> get customerModel {
     return $CustomerModelCopyWith<$Res>(_value.customerModel, (value) {
-      return _then(_value.copyWith(customerModel: value));
+      return _then(_value.copyWith(customerModel: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$OrderModelCopyWith<$Res> implements $OrderModelCopyWith<$Res> {
-  factory _$OrderModelCopyWith(
-          _OrderModel value, $Res Function(_OrderModel) then) =
-      __$OrderModelCopyWithImpl<$Res>;
+abstract class _$$OrderModelImplCopyWith<$Res>
+    implements $OrderModelCopyWith<$Res> {
+  factory _$$OrderModelImplCopyWith(
+          _$OrderModelImpl value, $Res Function(_$OrderModelImpl) then) =
+      __$$OrderModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: "id") String id,
       String orderNo,
@@ -181,61 +153,60 @@ abstract class _$OrderModelCopyWith<$Res> implements $OrderModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$OrderModelCopyWithImpl<$Res> extends _$OrderModelCopyWithImpl<$Res>
-    implements _$OrderModelCopyWith<$Res> {
-  __$OrderModelCopyWithImpl(
-      _OrderModel _value, $Res Function(_OrderModel) _then)
-      : super(_value, (v) => _then(v as _OrderModel));
+class __$$OrderModelImplCopyWithImpl<$Res>
+    extends _$OrderModelCopyWithImpl<$Res, _$OrderModelImpl>
+    implements _$$OrderModelImplCopyWith<$Res> {
+  __$$OrderModelImplCopyWithImpl(
+      _$OrderModelImpl _value, $Res Function(_$OrderModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _OrderModel get _value => super._value as _OrderModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? orderNo = freezed,
-    Object? isTax = freezed,
-    Object? price = freezed,
-    Object? productList = freezed,
-    Object? customerModel = freezed,
-    Object? dateTime = freezed,
+    Object? id = null,
+    Object? orderNo = null,
+    Object? isTax = null,
+    Object? price = null,
+    Object? productList = null,
+    Object? customerModel = null,
+    Object? dateTime = null,
     Object? note = freezed,
-    Object? createdAt = freezed,
+    Object? createdAt = null,
   }) {
-    return _then(_OrderModel(
-      id: id == freezed
+    return _then(_$OrderModelImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      orderNo: orderNo == freezed
+      orderNo: null == orderNo
           ? _value.orderNo
           : orderNo // ignore: cast_nullable_to_non_nullable
               as String,
-      isTax: isTax == freezed
+      isTax: null == isTax
           ? _value.isTax
           : isTax // ignore: cast_nullable_to_non_nullable
               as bool,
-      price: price == freezed
+      price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
-      productList: productList == freezed
-          ? _value.productList
+      productList: null == productList
+          ? _value._productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<SalesProductModel>,
-      customerModel: customerModel == freezed
+      customerModel: null == customerModel
           ? _value.customerModel
           : customerModel // ignore: cast_nullable_to_non_nullable
               as CustomerModel,
-      dateTime: dateTime == freezed
+      dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      note: note == freezed
+      note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -246,33 +217,40 @@ class __$OrderModelCopyWithImpl<$Res> extends _$OrderModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_OrderModel implements _OrderModel {
-  const _$_OrderModel(
+class _$OrderModelImpl implements _OrderModel {
+  const _$OrderModelImpl(
       {@JsonKey(name: "id") required this.id,
       required this.orderNo,
       this.isTax = true,
       required this.price,
-      required this.productList,
+      required final List<SalesProductModel> productList,
       required this.customerModel,
       required this.dateTime,
       this.note,
-      required this.createdAt});
+      required this.createdAt})
+      : _productList = productList;
 
-  factory _$_OrderModel.fromJson(Map<String, dynamic> json) =>
-      _$$_OrderModelFromJson(json);
+  factory _$OrderModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OrderModelImplFromJson(json);
 
   @override
   @JsonKey(name: "id")
   final String id;
   @override
   final String orderNo;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool isTax;
   @override
   final double price;
+  final List<SalesProductModel> _productList;
   @override
-  final List<SalesProductModel> productList;
+  List<SalesProductModel> get productList {
+    if (_productList is EqualUnmodifiableListView) return _productList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_productList);
+  }
+
   @override
   final CustomerModel customerModel;
   @override
@@ -291,58 +269,64 @@ class _$_OrderModel implements _OrderModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _OrderModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.orderNo, orderNo) &&
-            const DeepCollectionEquality().equals(other.isTax, isTax) &&
-            const DeepCollectionEquality().equals(other.price, price) &&
+            other is _$OrderModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.orderNo, orderNo) || other.orderNo == orderNo) &&
+            (identical(other.isTax, isTax) || other.isTax == isTax) &&
+            (identical(other.price, price) || other.price == price) &&
             const DeepCollectionEquality()
-                .equals(other.productList, productList) &&
-            const DeepCollectionEquality()
-                .equals(other.customerModel, customerModel) &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
-            const DeepCollectionEquality().equals(other.note, note) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt));
+                .equals(other._productList, _productList) &&
+            (identical(other.customerModel, customerModel) ||
+                other.customerModel == customerModel) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime) &&
+            (identical(other.note, note) || other.note == note) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(orderNo),
-      const DeepCollectionEquality().hash(isTax),
-      const DeepCollectionEquality().hash(price),
-      const DeepCollectionEquality().hash(productList),
-      const DeepCollectionEquality().hash(customerModel),
-      const DeepCollectionEquality().hash(dateTime),
-      const DeepCollectionEquality().hash(note),
-      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
-  _$OrderModelCopyWith<_OrderModel> get copyWith =>
-      __$OrderModelCopyWithImpl<_OrderModel>(this, _$identity);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      orderNo,
+      isTax,
+      price,
+      const DeepCollectionEquality().hash(_productList),
+      customerModel,
+      dateTime,
+      note,
+      createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OrderModelImplCopyWith<_$OrderModelImpl> get copyWith =>
+      __$$OrderModelImplCopyWithImpl<_$OrderModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_OrderModelToJson(this);
+    return _$$OrderModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _OrderModel implements OrderModel {
   const factory _OrderModel(
-      {@JsonKey(name: "id") required String id,
-      required String orderNo,
-      bool isTax,
-      required double price,
-      required List<SalesProductModel> productList,
-      required CustomerModel customerModel,
-      required DateTime dateTime,
-      String? note,
-      required DateTime createdAt}) = _$_OrderModel;
+      {@JsonKey(name: "id") required final String id,
+      required final String orderNo,
+      final bool isTax,
+      required final double price,
+      required final List<SalesProductModel> productList,
+      required final CustomerModel customerModel,
+      required final DateTime dateTime,
+      final String? note,
+      required final DateTime createdAt}) = _$OrderModelImpl;
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
-      _$_OrderModel.fromJson;
+      _$OrderModelImpl.fromJson;
 
   @override
   @JsonKey(name: "id")
@@ -365,6 +349,6 @@ abstract class _OrderModel implements OrderModel {
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$OrderModelCopyWith<_OrderModel> get copyWith =>
+  _$$OrderModelImplCopyWith<_$OrderModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

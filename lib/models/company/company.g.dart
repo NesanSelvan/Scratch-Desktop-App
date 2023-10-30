@@ -6,8 +6,8 @@ part of 'company.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CompanyModel _$$_CompanyModelFromJson(Map<String, dynamic> json) =>
-    _$_CompanyModel(
+_$CompanyModelImpl _$$CompanyModelImplFromJson(Map<String, dynamic> json) =>
+    _$CompanyModelImpl(
       id: json['id'] as String,
       name: json['name'] as String,
       address: json['address'] as String,
@@ -24,7 +24,7 @@ _$_CompanyModel _$$_CompanyModelFromJson(Map<String, dynamic> json) =>
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_CompanyModelToJson(_$_CompanyModel instance) =>
+Map<String, dynamic> _$$CompanyModelImplToJson(_$CompanyModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

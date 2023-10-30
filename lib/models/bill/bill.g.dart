@@ -6,7 +6,8 @@ part of 'bill.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_BillModel _$$_BillModelFromJson(Map<String, dynamic> json) => _$_BillModel(
+_$BillModelImpl _$$BillModelImplFromJson(Map<String, dynamic> json) =>
+    _$BillModelImpl(
       id: json['id'] as String,
       billNo: json['billNo'] as String,
       borrowId: json['borrowId'] as String?,
@@ -34,7 +35,7 @@ _$_BillModel _$$_BillModelFromJson(Map<String, dynamic> json) => _$_BillModel(
       isA4Printed: json['isA4Printed'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$_BillModelToJson(_$_BillModel instance) =>
+Map<String, dynamic> _$$BillModelImplToJson(_$BillModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'billNo': instance.billNo,

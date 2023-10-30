@@ -6,8 +6,8 @@ part of 'estimate.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_EstimateModel _$$_EstimateModelFromJson(Map<String, dynamic> json) =>
-    _$_EstimateModel(
+_$EstimateModelImpl _$$EstimateModelImplFromJson(Map<String, dynamic> json) =>
+    _$EstimateModelImpl(
       id: json['id'] as String,
       estimateNo: json['estimateNo'] as String,
       billId: json['billId'] as String? ?? "",
@@ -24,7 +24,7 @@ _$_EstimateModel _$$_EstimateModelFromJson(Map<String, dynamic> json) =>
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_EstimateModelToJson(_$_EstimateModel instance) =>
+Map<String, dynamic> _$$EstimateModelImplToJson(_$EstimateModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'estimateNo': instance.estimateNo,

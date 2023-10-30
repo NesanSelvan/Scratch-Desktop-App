@@ -38,8 +38,10 @@ class CopyDB {
     debugPrint("Category From COPYDB: $bank");
     final List<BankModel> bankList = [];
     if (bank != null) {
-      for (final item in bank) {
-        bankList.add(BankModel.fromJson(item as Map<String, dynamic>));
+      if (bank is List) {
+        for (final item in bank) {
+          bankList.add(BankModel.fromJson(item as Map<String, dynamic>));
+        }
       }
     }
     await bankDB.updateBankToDB(bankList);
@@ -49,9 +51,10 @@ class CopyDB {
     debugPrint("Category From COPYDB: $sales");
     final List<BillModel> billList = [];
     if (sales != null) {
-      for (final item in sales) {
-        billList.add(BillModel.fromJson(item as Map<String, dynamic>));
-      }
+      if (sales is List)
+        for (final item in sales) {
+          billList.add(BillModel.fromJson(item as Map<String, dynamic>));
+        }
     }
     await salesDB.updateBillToDB(billList);
 
@@ -60,9 +63,11 @@ class CopyDB {
     debugPrint("Category From COPYDB: $estimate");
     final List<EstimateModel> estimateList = [];
     if (estimate != null) {
-      for (final item in estimate) {
-        estimateList.add(EstimateModel.fromJson(item as Map<String, dynamic>));
-      }
+      if (estimate is List)
+        for (final item in estimate) {
+          estimateList
+              .add(EstimateModel.fromJson(item as Map<String, dynamic>));
+        }
     }
     await estimateDB.updateEstimateToDB(estimateList);
 
@@ -71,9 +76,10 @@ class CopyDB {
     debugPrint("Category From COPYDB: $orders");
     final List<OrderModel> orderList = [];
     if (orders != null) {
-      for (final item in orders) {
-        orderList.add(OrderModel.fromJson(item as Map<String, dynamic>));
-      }
+      if (orders is List)
+        for (final item in orders) {
+          orderList.add(OrderModel.fromJson(item as Map<String, dynamic>));
+        }
     }
     await orderDB.updateOrderToDB(orderList);
 
@@ -82,9 +88,11 @@ class CopyDB {
     debugPrint("Category From COPYDB: $purchase");
     final List<PurchaseModel> purchaseList = [];
     if (purchase != null) {
-      for (final item in purchase) {
-        purchaseList.add(PurchaseModel.fromJson(item as Map<String, dynamic>));
-      }
+      if (purchase is List)
+        for (final item in purchase) {
+          purchaseList
+              .add(PurchaseModel.fromJson(item as Map<String, dynamic>));
+        }
     }
     await purchaseDB.updatePurchaseToDB(purchaseList);
 
@@ -93,10 +101,11 @@ class CopyDB {
     debugPrint("Category From COPYDB: $quotation");
     final List<QuotationModel> quotationList = [];
     if (quotation != null) {
-      for (final item in quotation) {
-        quotationList
-            .add(QuotationModel.fromJson(item as Map<String, dynamic>));
-      }
+      if (quotation is List)
+        for (final item in quotation) {
+          quotationList
+              .add(QuotationModel.fromJson(item as Map<String, dynamic>));
+        }
     }
     await quotationDB.updateQuotationToDB(quotationList);
 
@@ -105,9 +114,10 @@ class CopyDB {
     debugPrint("company From COPYDB: $company");
     final List<CompanyModel> companyList = [];
     if (company != null) {
-      for (final item in company) {
-        companyList.add(CompanyModel.fromJson(item as Map<String, dynamic>));
-      }
+      if (company is List)
+        for (final item in company) {
+          companyList.add(CompanyModel.fromJson(item as Map<String, dynamic>));
+        }
     }
     await companyDB.updateCompanyToDB(companyList);
 
@@ -116,9 +126,10 @@ class CopyDB {
     debugPrint("customers From COPYDB: $customers");
     final List<CustomerModel> custList = [];
     if (customers != null) {
-      for (final item in customers) {
-        custList.add(CustomerModel.fromJson(item as Map<String, dynamic>));
-      }
+      if (customers is List)
+        for (final item in customers) {
+          custList.add(CustomerModel.fromJson(item as Map<String, dynamic>));
+        }
     }
     await customerDB.updateCustomerToDB(custList);
 
@@ -127,9 +138,10 @@ class CopyDB {
     debugPrint("employees From COPYDB: $employees");
     final List<EmployeeModel> empList = [];
     if (employees != null) {
-      for (final item in employees) {
-        empList.add(EmployeeModel.fromJson(item as Map<String, dynamic>));
-      }
+      if (employees is List)
+        for (final item in employees) {
+          empList.add(EmployeeModel.fromJson(item as Map<String, dynamic>));
+        }
     }
     await employeeDB.updateEmployeeToDB(empList);
 
@@ -138,9 +150,10 @@ class CopyDB {
     debugPrint("payments From COPYDB: $payments");
     final List<PaymentModel> payList = [];
     if (payments != null) {
-      for (final item in payments) {
-        payList.add(PaymentModel.fromJson(item as Map<String, dynamic>));
-      }
+      if (payments is List)
+        for (final item in payments) {
+          payList.add(PaymentModel.fromJson(item as Map<String, dynamic>));
+        }
     }
     await paymentDB.updatePaymentToDB(payList);
 
@@ -149,9 +162,10 @@ class CopyDB {
     debugPrint("products From COPYDB: $products");
     final List<ProductModel> productList = [];
     if (products != null) {
-      for (final item in products) {
-        productList.add(ProductModel.fromJson(item as Map<String, dynamic>));
-      }
+      if (products is List)
+        for (final item in products) {
+          productList.add(ProductModel.fromJson(item as Map<String, dynamic>));
+        }
     }
     await productDB.updateProductToDB(productList);
 
@@ -160,9 +174,10 @@ class CopyDB {
     debugPrint("stocks From COPYDB: $stocks");
     final List<StockModel> stockList = [];
     if (stocks != null) {
-      for (final item in stocks) {
-        stockList.add(StockModel.fromJson(item as Map<String, dynamic>));
-      }
+      if (stocks is List)
+        for (final item in stocks) {
+          stockList.add(StockModel.fromJson(item as Map<String, dynamic>));
+        }
     }
     await stocksDB.updateStockToDB(stockList);
   }

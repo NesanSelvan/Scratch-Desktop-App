@@ -6,8 +6,8 @@ part of 'quotations.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_QuotationModel _$$_QuotationModelFromJson(Map<String, dynamic> json) =>
-    _$_QuotationModel(
+_$QuotationModelImpl _$$QuotationModelImplFromJson(Map<String, dynamic> json) =>
+    _$QuotationModelImpl(
       id: json['id'] as String,
       quotationNo: json['quotationNo'] as String,
       isTax: json['isTax'] as bool? ?? true,
@@ -22,7 +22,8 @@ _$_QuotationModel _$$_QuotationModelFromJson(Map<String, dynamic> json) =>
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_QuotationModelToJson(_$_QuotationModel instance) =>
+Map<String, dynamic> _$$QuotationModelImplToJson(
+        _$QuotationModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'quotationNo': instance.quotationNo,

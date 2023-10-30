@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'customer.dart';
 
@@ -12,54 +12,11 @@ part of 'customer.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) {
   return _CustomerModel.fromJson(json);
 }
-
-/// @nodoc
-class _$CustomerModelTearOff {
-  const _$CustomerModelTearOff();
-
-  _CustomerModel call(
-      {required String id,
-      required String name,
-      String? email,
-      required String address,
-      required int pincode,
-      required String state,
-      required String type,
-      required bool isPending,
-      required int mobileNo,
-      String? gstin,
-      double pendingAmount = 0,
-      DateTime? createdAt,
-      double openingBalance = 0}) {
-    return _CustomerModel(
-      id: id,
-      name: name,
-      email: email,
-      address: address,
-      pincode: pincode,
-      state: state,
-      type: type,
-      isPending: isPending,
-      mobileNo: mobileNo,
-      gstin: gstin,
-      pendingAmount: pendingAmount,
-      createdAt: createdAt,
-      openingBalance: openingBalance,
-    );
-  }
-
-  CustomerModel fromJson(Map<String, Object?> json) {
-    return CustomerModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $CustomerModel = _$CustomerModelTearOff();
 
 /// @nodoc
 mixin _$CustomerModel {
@@ -87,7 +44,8 @@ mixin _$CustomerModel {
 abstract class $CustomerModelCopyWith<$Res> {
   factory $CustomerModelCopyWith(
           CustomerModel value, $Res Function(CustomerModel) then) =
-      _$CustomerModelCopyWithImpl<$Res>;
+      _$CustomerModelCopyWithImpl<$Res, CustomerModel>;
+  @useResult
   $Res call(
       {String id,
       String name,
@@ -105,94 +63,97 @@ abstract class $CustomerModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CustomerModelCopyWithImpl<$Res>
+class _$CustomerModelCopyWithImpl<$Res, $Val extends CustomerModel>
     implements $CustomerModelCopyWith<$Res> {
   _$CustomerModelCopyWithImpl(this._value, this._then);
 
-  final CustomerModel _value;
   // ignore: unused_field
-  final $Res Function(CustomerModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
     Object? email = freezed,
-    Object? address = freezed,
-    Object? pincode = freezed,
-    Object? state = freezed,
-    Object? type = freezed,
-    Object? isPending = freezed,
-    Object? mobileNo = freezed,
+    Object? address = null,
+    Object? pincode = null,
+    Object? state = null,
+    Object? type = null,
+    Object? isPending = null,
+    Object? mobileNo = null,
     Object? gstin = freezed,
-    Object? pendingAmount = freezed,
+    Object? pendingAmount = null,
     Object? createdAt = freezed,
-    Object? openingBalance = freezed,
+    Object? openingBalance = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      address: address == freezed
+      address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
-      pincode: pincode == freezed
+      pincode: null == pincode
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
               as int,
-      state: state == freezed
+      state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      isPending: isPending == freezed
+      isPending: null == isPending
           ? _value.isPending
           : isPending // ignore: cast_nullable_to_non_nullable
               as bool,
-      mobileNo: mobileNo == freezed
+      mobileNo: null == mobileNo
           ? _value.mobileNo
           : mobileNo // ignore: cast_nullable_to_non_nullable
               as int,
-      gstin: gstin == freezed
+      gstin: freezed == gstin
           ? _value.gstin
           : gstin // ignore: cast_nullable_to_non_nullable
               as String?,
-      pendingAmount: pendingAmount == freezed
+      pendingAmount: null == pendingAmount
           ? _value.pendingAmount
           : pendingAmount // ignore: cast_nullable_to_non_nullable
               as double,
-      createdAt: createdAt == freezed
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      openingBalance: openingBalance == freezed
+      openingBalance: null == openingBalance
           ? _value.openingBalance
           : openingBalance // ignore: cast_nullable_to_non_nullable
               as double,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$CustomerModelCopyWith<$Res>
+abstract class _$$CustomerModelImplCopyWith<$Res>
     implements $CustomerModelCopyWith<$Res> {
-  factory _$CustomerModelCopyWith(
-          _CustomerModel value, $Res Function(_CustomerModel) then) =
-      __$CustomerModelCopyWithImpl<$Res>;
+  factory _$$CustomerModelImplCopyWith(
+          _$CustomerModelImpl value, $Res Function(_$CustomerModelImpl) then) =
+      __$$CustomerModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String name,
@@ -210,82 +171,80 @@ abstract class _$CustomerModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$CustomerModelCopyWithImpl<$Res>
-    extends _$CustomerModelCopyWithImpl<$Res>
-    implements _$CustomerModelCopyWith<$Res> {
-  __$CustomerModelCopyWithImpl(
-      _CustomerModel _value, $Res Function(_CustomerModel) _then)
-      : super(_value, (v) => _then(v as _CustomerModel));
+class __$$CustomerModelImplCopyWithImpl<$Res>
+    extends _$CustomerModelCopyWithImpl<$Res, _$CustomerModelImpl>
+    implements _$$CustomerModelImplCopyWith<$Res> {
+  __$$CustomerModelImplCopyWithImpl(
+      _$CustomerModelImpl _value, $Res Function(_$CustomerModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _CustomerModel get _value => super._value as _CustomerModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
     Object? email = freezed,
-    Object? address = freezed,
-    Object? pincode = freezed,
-    Object? state = freezed,
-    Object? type = freezed,
-    Object? isPending = freezed,
-    Object? mobileNo = freezed,
+    Object? address = null,
+    Object? pincode = null,
+    Object? state = null,
+    Object? type = null,
+    Object? isPending = null,
+    Object? mobileNo = null,
     Object? gstin = freezed,
-    Object? pendingAmount = freezed,
+    Object? pendingAmount = null,
     Object? createdAt = freezed,
-    Object? openingBalance = freezed,
+    Object? openingBalance = null,
   }) {
-    return _then(_CustomerModel(
-      id: id == freezed
+    return _then(_$CustomerModelImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      address: address == freezed
+      address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
-      pincode: pincode == freezed
+      pincode: null == pincode
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
               as int,
-      state: state == freezed
+      state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      isPending: isPending == freezed
+      isPending: null == isPending
           ? _value.isPending
           : isPending // ignore: cast_nullable_to_non_nullable
               as bool,
-      mobileNo: mobileNo == freezed
+      mobileNo: null == mobileNo
           ? _value.mobileNo
           : mobileNo // ignore: cast_nullable_to_non_nullable
               as int,
-      gstin: gstin == freezed
+      gstin: freezed == gstin
           ? _value.gstin
           : gstin // ignore: cast_nullable_to_non_nullable
               as String?,
-      pendingAmount: pendingAmount == freezed
+      pendingAmount: null == pendingAmount
           ? _value.pendingAmount
           : pendingAmount // ignore: cast_nullable_to_non_nullable
               as double,
-      createdAt: createdAt == freezed
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      openingBalance: openingBalance == freezed
+      openingBalance: null == openingBalance
           ? _value.openingBalance
           : openingBalance // ignore: cast_nullable_to_non_nullable
               as double,
@@ -295,8 +254,8 @@ class __$CustomerModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CustomerModel implements _CustomerModel {
-  const _$_CustomerModel(
+class _$CustomerModelImpl implements _CustomerModel {
+  const _$CustomerModelImpl(
       {required this.id,
       required this.name,
       this.email,
@@ -311,8 +270,8 @@ class _$_CustomerModel implements _CustomerModel {
       this.createdAt,
       this.openingBalance = 0});
 
-  factory _$_CustomerModel.fromJson(Map<String, dynamic> json) =>
-      _$$_CustomerModelFromJson(json);
+  factory _$CustomerModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CustomerModelImplFromJson(json);
 
   @override
   final String id;
@@ -334,13 +293,13 @@ class _$_CustomerModel implements _CustomerModel {
   final int mobileNo;
   @override
   final String? gstin;
-  @JsonKey()
   @override
+  @JsonKey()
   final double pendingAmount;
   @override
   final DateTime? createdAt;
-  @JsonKey()
   @override
+  @JsonKey()
   final double openingBalance;
 
   @override
@@ -352,70 +311,77 @@ class _$_CustomerModel implements _CustomerModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CustomerModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.address, address) &&
-            const DeepCollectionEquality().equals(other.pincode, pincode) &&
-            const DeepCollectionEquality().equals(other.state, state) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.isPending, isPending) &&
-            const DeepCollectionEquality().equals(other.mobileNo, mobileNo) &&
-            const DeepCollectionEquality().equals(other.gstin, gstin) &&
-            const DeepCollectionEquality()
-                .equals(other.pendingAmount, pendingAmount) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            const DeepCollectionEquality()
-                .equals(other.openingBalance, openingBalance));
+            other is _$CustomerModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.pincode, pincode) || other.pincode == pincode) &&
+            (identical(other.state, state) || other.state == state) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.isPending, isPending) ||
+                other.isPending == isPending) &&
+            (identical(other.mobileNo, mobileNo) ||
+                other.mobileNo == mobileNo) &&
+            (identical(other.gstin, gstin) || other.gstin == gstin) &&
+            (identical(other.pendingAmount, pendingAmount) ||
+                other.pendingAmount == pendingAmount) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.openingBalance, openingBalance) ||
+                other.openingBalance == openingBalance));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(address),
-      const DeepCollectionEquality().hash(pincode),
-      const DeepCollectionEquality().hash(state),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(isPending),
-      const DeepCollectionEquality().hash(mobileNo),
-      const DeepCollectionEquality().hash(gstin),
-      const DeepCollectionEquality().hash(pendingAmount),
-      const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(openingBalance));
 
   @JsonKey(ignore: true)
   @override
-  _$CustomerModelCopyWith<_CustomerModel> get copyWith =>
-      __$CustomerModelCopyWithImpl<_CustomerModel>(this, _$identity);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      email,
+      address,
+      pincode,
+      state,
+      type,
+      isPending,
+      mobileNo,
+      gstin,
+      pendingAmount,
+      createdAt,
+      openingBalance);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CustomerModelImplCopyWith<_$CustomerModelImpl> get copyWith =>
+      __$$CustomerModelImplCopyWithImpl<_$CustomerModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CustomerModelToJson(this);
+    return _$$CustomerModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _CustomerModel implements CustomerModel {
   const factory _CustomerModel(
-      {required String id,
-      required String name,
-      String? email,
-      required String address,
-      required int pincode,
-      required String state,
-      required String type,
-      required bool isPending,
-      required int mobileNo,
-      String? gstin,
-      double pendingAmount,
-      DateTime? createdAt,
-      double openingBalance}) = _$_CustomerModel;
+      {required final String id,
+      required final String name,
+      final String? email,
+      required final String address,
+      required final int pincode,
+      required final String state,
+      required final String type,
+      required final bool isPending,
+      required final int mobileNo,
+      final String? gstin,
+      final double pendingAmount,
+      final DateTime? createdAt,
+      final double openingBalance}) = _$CustomerModelImpl;
 
   factory _CustomerModel.fromJson(Map<String, dynamic> json) =
-      _$_CustomerModel.fromJson;
+      _$CustomerModelImpl.fromJson;
 
   @override
   String get id;
@@ -445,6 +411,6 @@ abstract class _CustomerModel implements CustomerModel {
   double get openingBalance;
   @override
   @JsonKey(ignore: true)
-  _$CustomerModelCopyWith<_CustomerModel> get copyWith =>
+  _$$CustomerModelImplCopyWith<_$CustomerModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

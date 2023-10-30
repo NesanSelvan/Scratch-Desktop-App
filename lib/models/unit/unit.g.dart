@@ -6,7 +6,8 @@ part of 'unit.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_UnitModel _$$_UnitModelFromJson(Map<String, dynamic> json) => _$_UnitModel(
+_$UnitModelImpl _$$UnitModelImplFromJson(Map<String, dynamic> json) =>
+    _$UnitModelImpl(
       json['id'] as String?,
       json['symbol'] as String?,
       json['formalName'] as String?,
@@ -16,7 +17,7 @@ _$_UnitModel _$$_UnitModelFromJson(Map<String, dynamic> json) => _$_UnitModel(
           : DateTime.parse(json['dateTime'] as String),
     );
 
-Map<String, dynamic> _$$_UnitModelToJson(_$_UnitModel instance) =>
+Map<String, dynamic> _$$UnitModelImplToJson(_$UnitModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'symbol': instance.symbol,

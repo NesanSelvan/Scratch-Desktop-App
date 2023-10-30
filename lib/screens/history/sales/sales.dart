@@ -72,7 +72,7 @@ class _SalesHistoryState extends State<SalesHistory> {
                 );
               } else if (data.logicalKey == LogicalKeyboardKey.f4) {
                 setState(() {
-                  isA4 = !isA4;
+                  isA4.value = !isA4.value;
                 });
               }
             }
@@ -181,16 +181,32 @@ class _SalesHistoryState extends State<SalesHistory> {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Row(
                             children: [
-                              Checkbox(
-                                value: isA4,
-                                onChanged: (bool? val) {
-                                  if (val != null) {
-                                    setState(() {
-                                      isA4 = val;
-                                    });
-                                  }
-                                },
-                              ),
+                              ValueListenableBuilder(
+                                  valueListenable: isA4,
+                                  builder: (context, value, _) {
+                                    return Checkbox(
+                                      value: value,
+                                      onChanged: (bool? val) {
+                                        if (val != null) {
+                                          isA4.value = val;
+                                        }
+                                      },
+                                    );
+                                  }),
+                              // ValueBuilder(
+                              //   builder: (context) {
+                              //     return Checkbox(
+                              //       value: isA4,
+                              //       onChanged: (bool? val) {
+                              //         if (val != null) {
+                              //           setState(() {
+                              //             isA4 = val;
+                              //           });
+                              //         }
+                              //       },
+                              //     );
+                              //   },
+                              // ),
                               const CustomText("F4.A4")
                             ],
                           ),
@@ -244,11 +260,22 @@ class _SalesHistoryState extends State<SalesHistory> {
                             else if (salesHistoryNotifier.billsList!.isEmpty)
                               const CustomText("No Bills to display")
                             else
-                              Column(
-                                children: salesHistoryNotifier.billsList!
-                                    .map((e) => buildInkWell(e))
-                                    .toList(),
-                              )
+                              FullWidthHeightContainer(
+                                child: ListView.builder(
+                                  itemCount:
+                                      salesHistoryNotifier.billsList!.length,
+                                  itemBuilder: (context, index) {
+                                    final bill =
+                                        salesHistoryNotifier.billsList![index];
+                                    return buildInkWell(bill);
+                                  },
+                                ),
+                              ),
+                            // Column(
+                            //   children: salesHistoryNotifier.billsList!
+                            //       .map((e) => buildInkWell(e))
+                            //       .toList(),
+                            // )
                           ],
                         ),
                       ),
@@ -263,7 +290,7 @@ class _SalesHistoryState extends State<SalesHistory> {
     );
   }
 
-  bool isA4 = false;
+  ValueNotifier<bool> isA4 = ValueNotifier(false);
   Widget buildInkWell(BillModel billModel) {
     return InkWell(
       onDoubleTap: () {
@@ -361,7 +388,7 @@ class _SalesHistoryState extends State<SalesHistory> {
                           //   ),
                           InkWell(
                             onTap: () async {
-                              if (isA4) {
+                              if (isA4.value) {
                                 await salesHistoryNotifier.viewBill(
                                   billModel,
                                   homeController,
@@ -393,7 +420,7 @@ class _SalesHistoryState extends State<SalesHistory> {
                           const SizedBox(width: 10),
                           InkWell(
                             onTap: () async {
-                              if (isA4) {
+                              if (isA4.value) {
                                 final data = await PDFGenerator.generateBill(
                                   billModel,
                                   UPIDetails(billModel.price).toStr(),

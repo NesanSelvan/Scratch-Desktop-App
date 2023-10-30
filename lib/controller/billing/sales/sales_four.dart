@@ -327,6 +327,7 @@ class SalesBillingFourController extends GetxController {
         price: price,
         rate: rate,
         discountPer: discount,
+        qtyMathEqn: qtyController.text,
       );
       debugPrint("Sales: $salesProductModel");
       final amount = getTotalAmount(salesProductModel, selectedCustomerModel);
@@ -400,6 +401,7 @@ class SalesBillingFourController extends GetxController {
           qty: qty,
           rate: rate,
           price: getPrice(qty, rate),
+          qtyMathEqn: qtyController.text,
           discountPer: discount,
         );
         debugPrint('qtyController $salesProductModel');
@@ -416,6 +418,7 @@ class SalesBillingFourController extends GetxController {
           priceModel: selectedPriceModel,
           price: getPrice(qty, rate),
           discountPer: discount,
+          qtyMathEqn: qtyController.text,
         );
 
         debugPrint('qtyController $salesProductModel');

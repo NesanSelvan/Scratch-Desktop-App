@@ -6,8 +6,8 @@ part of 'statement_by_hsn.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_StatementByHSN _$$_StatementByHSNFromJson(Map<String, dynamic> json) =>
-    _$_StatementByHSN(
+_$StatementByHSNImpl _$$StatementByHSNImplFromJson(Map<String, dynamic> json) =>
+    _$StatementByHSNImpl(
       json['id'] as String,
       BillModel.fromJson(json['billModel'] as Map<String, dynamic>),
       CategoryModel.fromJson(json['categoryModel'] as Map<String, dynamic>),
@@ -17,7 +17,8 @@ _$_StatementByHSN _$$_StatementByHSNFromJson(Map<String, dynamic> json) =>
       DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_StatementByHSNToJson(_$_StatementByHSN instance) =>
+Map<String, dynamic> _$$StatementByHSNImplToJson(
+        _$StatementByHSNImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'billModel': instance.billModel,

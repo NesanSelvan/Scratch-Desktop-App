@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'purchase.dart';
 
@@ -12,66 +12,11 @@ part of 'purchase.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 PurchaseModel _$PurchaseModelFromJson(Map<String, dynamic> json) {
   return _PurchaseModel.fromJson(json);
 }
-
-/// @nodoc
-class _$PurchaseModelTearOff {
-  const _$PurchaseModelTearOff();
-
-  _PurchaseModel call(
-      {required String id,
-      required String billNo,
-      required CompanyModel companyModel,
-      required bool? isNormalPurchaseBill,
-      required double? lorryFright,
-      required double? lorryFrightTax,
-      required double? lorryFrightTotal,
-      required double? overallDiscount,
-      required List<PurchaseProductModel> productList,
-      List<String> paymentsIdList = const [],
-      bool isTax = true,
-      required double grandTotal,
-      double? forwardingSales,
-      double forwardingSalesPercentage = 0,
-      required DateTime dateTime,
-      String? note,
-      List<String>? imagesPathList,
-      double? tcsSales,
-      required DateTime createdAt}) {
-    return _PurchaseModel(
-      id: id,
-      billNo: billNo,
-      companyModel: companyModel,
-      isNormalPurchaseBill: isNormalPurchaseBill,
-      lorryFright: lorryFright,
-      lorryFrightTax: lorryFrightTax,
-      lorryFrightTotal: lorryFrightTotal,
-      overallDiscount: overallDiscount,
-      productList: productList,
-      paymentsIdList: paymentsIdList,
-      isTax: isTax,
-      grandTotal: grandTotal,
-      forwardingSales: forwardingSales,
-      forwardingSalesPercentage: forwardingSalesPercentage,
-      dateTime: dateTime,
-      note: note,
-      imagesPathList: imagesPathList,
-      tcsSales: tcsSales,
-      createdAt: createdAt,
-    );
-  }
-
-  PurchaseModel fromJson(Map<String, Object?> json) {
-    return PurchaseModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $PurchaseModel = _$PurchaseModelTearOff();
 
 /// @nodoc
 mixin _$PurchaseModel {
@@ -106,7 +51,8 @@ mixin _$PurchaseModel {
 abstract class $PurchaseModelCopyWith<$Res> {
   factory $PurchaseModelCopyWith(
           PurchaseModel value, $Res Function(PurchaseModel) then) =
-      _$PurchaseModelCopyWithImpl<$Res>;
+      _$PurchaseModelCopyWithImpl<$Res, PurchaseModel>;
+  @useResult
   $Res call(
       {String id,
       String billNo,
@@ -132,131 +78,135 @@ abstract class $PurchaseModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PurchaseModelCopyWithImpl<$Res>
+class _$PurchaseModelCopyWithImpl<$Res, $Val extends PurchaseModel>
     implements $PurchaseModelCopyWith<$Res> {
   _$PurchaseModelCopyWithImpl(this._value, this._then);
 
-  final PurchaseModel _value;
   // ignore: unused_field
-  final $Res Function(PurchaseModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? billNo = freezed,
-    Object? companyModel = freezed,
+    Object? id = null,
+    Object? billNo = null,
+    Object? companyModel = null,
     Object? isNormalPurchaseBill = freezed,
     Object? lorryFright = freezed,
     Object? lorryFrightTax = freezed,
     Object? lorryFrightTotal = freezed,
     Object? overallDiscount = freezed,
-    Object? productList = freezed,
-    Object? paymentsIdList = freezed,
-    Object? isTax = freezed,
-    Object? grandTotal = freezed,
+    Object? productList = null,
+    Object? paymentsIdList = null,
+    Object? isTax = null,
+    Object? grandTotal = null,
     Object? forwardingSales = freezed,
-    Object? forwardingSalesPercentage = freezed,
-    Object? dateTime = freezed,
+    Object? forwardingSalesPercentage = null,
+    Object? dateTime = null,
     Object? note = freezed,
     Object? imagesPathList = freezed,
     Object? tcsSales = freezed,
-    Object? createdAt = freezed,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      billNo: billNo == freezed
+      billNo: null == billNo
           ? _value.billNo
           : billNo // ignore: cast_nullable_to_non_nullable
               as String,
-      companyModel: companyModel == freezed
+      companyModel: null == companyModel
           ? _value.companyModel
           : companyModel // ignore: cast_nullable_to_non_nullable
               as CompanyModel,
-      isNormalPurchaseBill: isNormalPurchaseBill == freezed
+      isNormalPurchaseBill: freezed == isNormalPurchaseBill
           ? _value.isNormalPurchaseBill
           : isNormalPurchaseBill // ignore: cast_nullable_to_non_nullable
               as bool?,
-      lorryFright: lorryFright == freezed
+      lorryFright: freezed == lorryFright
           ? _value.lorryFright
           : lorryFright // ignore: cast_nullable_to_non_nullable
               as double?,
-      lorryFrightTax: lorryFrightTax == freezed
+      lorryFrightTax: freezed == lorryFrightTax
           ? _value.lorryFrightTax
           : lorryFrightTax // ignore: cast_nullable_to_non_nullable
               as double?,
-      lorryFrightTotal: lorryFrightTotal == freezed
+      lorryFrightTotal: freezed == lorryFrightTotal
           ? _value.lorryFrightTotal
           : lorryFrightTotal // ignore: cast_nullable_to_non_nullable
               as double?,
-      overallDiscount: overallDiscount == freezed
+      overallDiscount: freezed == overallDiscount
           ? _value.overallDiscount
           : overallDiscount // ignore: cast_nullable_to_non_nullable
               as double?,
-      productList: productList == freezed
+      productList: null == productList
           ? _value.productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<PurchaseProductModel>,
-      paymentsIdList: paymentsIdList == freezed
+      paymentsIdList: null == paymentsIdList
           ? _value.paymentsIdList
           : paymentsIdList // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      isTax: isTax == freezed
+      isTax: null == isTax
           ? _value.isTax
           : isTax // ignore: cast_nullable_to_non_nullable
               as bool,
-      grandTotal: grandTotal == freezed
+      grandTotal: null == grandTotal
           ? _value.grandTotal
           : grandTotal // ignore: cast_nullable_to_non_nullable
               as double,
-      forwardingSales: forwardingSales == freezed
+      forwardingSales: freezed == forwardingSales
           ? _value.forwardingSales
           : forwardingSales // ignore: cast_nullable_to_non_nullable
               as double?,
-      forwardingSalesPercentage: forwardingSalesPercentage == freezed
+      forwardingSalesPercentage: null == forwardingSalesPercentage
           ? _value.forwardingSalesPercentage
           : forwardingSalesPercentage // ignore: cast_nullable_to_non_nullable
               as double,
-      dateTime: dateTime == freezed
+      dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      note: note == freezed
+      note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
-      imagesPathList: imagesPathList == freezed
+      imagesPathList: freezed == imagesPathList
           ? _value.imagesPathList
           : imagesPathList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      tcsSales: tcsSales == freezed
+      tcsSales: freezed == tcsSales
           ? _value.tcsSales
           : tcsSales // ignore: cast_nullable_to_non_nullable
               as double?,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CompanyModelCopyWith<$Res> get companyModel {
     return $CompanyModelCopyWith<$Res>(_value.companyModel, (value) {
-      return _then(_value.copyWith(companyModel: value));
+      return _then(_value.copyWith(companyModel: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$PurchaseModelCopyWith<$Res>
+abstract class _$$PurchaseModelImplCopyWith<$Res>
     implements $PurchaseModelCopyWith<$Res> {
-  factory _$PurchaseModelCopyWith(
-          _PurchaseModel value, $Res Function(_PurchaseModel) then) =
-      __$PurchaseModelCopyWithImpl<$Res>;
+  factory _$$PurchaseModelImplCopyWith(
+          _$PurchaseModelImpl value, $Res Function(_$PurchaseModelImpl) then) =
+      __$$PurchaseModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String billNo,
@@ -283,112 +233,110 @@ abstract class _$PurchaseModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$PurchaseModelCopyWithImpl<$Res>
-    extends _$PurchaseModelCopyWithImpl<$Res>
-    implements _$PurchaseModelCopyWith<$Res> {
-  __$PurchaseModelCopyWithImpl(
-      _PurchaseModel _value, $Res Function(_PurchaseModel) _then)
-      : super(_value, (v) => _then(v as _PurchaseModel));
+class __$$PurchaseModelImplCopyWithImpl<$Res>
+    extends _$PurchaseModelCopyWithImpl<$Res, _$PurchaseModelImpl>
+    implements _$$PurchaseModelImplCopyWith<$Res> {
+  __$$PurchaseModelImplCopyWithImpl(
+      _$PurchaseModelImpl _value, $Res Function(_$PurchaseModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _PurchaseModel get _value => super._value as _PurchaseModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? billNo = freezed,
-    Object? companyModel = freezed,
+    Object? id = null,
+    Object? billNo = null,
+    Object? companyModel = null,
     Object? isNormalPurchaseBill = freezed,
     Object? lorryFright = freezed,
     Object? lorryFrightTax = freezed,
     Object? lorryFrightTotal = freezed,
     Object? overallDiscount = freezed,
-    Object? productList = freezed,
-    Object? paymentsIdList = freezed,
-    Object? isTax = freezed,
-    Object? grandTotal = freezed,
+    Object? productList = null,
+    Object? paymentsIdList = null,
+    Object? isTax = null,
+    Object? grandTotal = null,
     Object? forwardingSales = freezed,
-    Object? forwardingSalesPercentage = freezed,
-    Object? dateTime = freezed,
+    Object? forwardingSalesPercentage = null,
+    Object? dateTime = null,
     Object? note = freezed,
     Object? imagesPathList = freezed,
     Object? tcsSales = freezed,
-    Object? createdAt = freezed,
+    Object? createdAt = null,
   }) {
-    return _then(_PurchaseModel(
-      id: id == freezed
+    return _then(_$PurchaseModelImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      billNo: billNo == freezed
+      billNo: null == billNo
           ? _value.billNo
           : billNo // ignore: cast_nullable_to_non_nullable
               as String,
-      companyModel: companyModel == freezed
+      companyModel: null == companyModel
           ? _value.companyModel
           : companyModel // ignore: cast_nullable_to_non_nullable
               as CompanyModel,
-      isNormalPurchaseBill: isNormalPurchaseBill == freezed
+      isNormalPurchaseBill: freezed == isNormalPurchaseBill
           ? _value.isNormalPurchaseBill
           : isNormalPurchaseBill // ignore: cast_nullable_to_non_nullable
               as bool?,
-      lorryFright: lorryFright == freezed
+      lorryFright: freezed == lorryFright
           ? _value.lorryFright
           : lorryFright // ignore: cast_nullable_to_non_nullable
               as double?,
-      lorryFrightTax: lorryFrightTax == freezed
+      lorryFrightTax: freezed == lorryFrightTax
           ? _value.lorryFrightTax
           : lorryFrightTax // ignore: cast_nullable_to_non_nullable
               as double?,
-      lorryFrightTotal: lorryFrightTotal == freezed
+      lorryFrightTotal: freezed == lorryFrightTotal
           ? _value.lorryFrightTotal
           : lorryFrightTotal // ignore: cast_nullable_to_non_nullable
               as double?,
-      overallDiscount: overallDiscount == freezed
+      overallDiscount: freezed == overallDiscount
           ? _value.overallDiscount
           : overallDiscount // ignore: cast_nullable_to_non_nullable
               as double?,
-      productList: productList == freezed
-          ? _value.productList
+      productList: null == productList
+          ? _value._productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<PurchaseProductModel>,
-      paymentsIdList: paymentsIdList == freezed
-          ? _value.paymentsIdList
+      paymentsIdList: null == paymentsIdList
+          ? _value._paymentsIdList
           : paymentsIdList // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      isTax: isTax == freezed
+      isTax: null == isTax
           ? _value.isTax
           : isTax // ignore: cast_nullable_to_non_nullable
               as bool,
-      grandTotal: grandTotal == freezed
+      grandTotal: null == grandTotal
           ? _value.grandTotal
           : grandTotal // ignore: cast_nullable_to_non_nullable
               as double,
-      forwardingSales: forwardingSales == freezed
+      forwardingSales: freezed == forwardingSales
           ? _value.forwardingSales
           : forwardingSales // ignore: cast_nullable_to_non_nullable
               as double?,
-      forwardingSalesPercentage: forwardingSalesPercentage == freezed
+      forwardingSalesPercentage: null == forwardingSalesPercentage
           ? _value.forwardingSalesPercentage
           : forwardingSalesPercentage // ignore: cast_nullable_to_non_nullable
               as double,
-      dateTime: dateTime == freezed
+      dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      note: note == freezed
+      note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
-      imagesPathList: imagesPathList == freezed
-          ? _value.imagesPathList
+      imagesPathList: freezed == imagesPathList
+          ? _value._imagesPathList
           : imagesPathList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      tcsSales: tcsSales == freezed
+      tcsSales: freezed == tcsSales
           ? _value.tcsSales
           : tcsSales // ignore: cast_nullable_to_non_nullable
               as double?,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -399,8 +347,8 @@ class __$PurchaseModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_PurchaseModel implements _PurchaseModel {
-  _$_PurchaseModel(
+class _$PurchaseModelImpl implements _PurchaseModel {
+  _$PurchaseModelImpl(
       {required this.id,
       required this.billNo,
       required this.companyModel,
@@ -409,20 +357,23 @@ class _$_PurchaseModel implements _PurchaseModel {
       required this.lorryFrightTax,
       required this.lorryFrightTotal,
       required this.overallDiscount,
-      required this.productList,
-      this.paymentsIdList = const [],
+      required final List<PurchaseProductModel> productList,
+      final List<String> paymentsIdList = const [],
       this.isTax = true,
       required this.grandTotal,
       this.forwardingSales,
       this.forwardingSalesPercentage = 0,
       required this.dateTime,
       this.note,
-      this.imagesPathList,
+      final List<String>? imagesPathList,
       this.tcsSales,
-      required this.createdAt});
+      required this.createdAt})
+      : _productList = productList,
+        _paymentsIdList = paymentsIdList,
+        _imagesPathList = imagesPathList;
 
-  factory _$_PurchaseModel.fromJson(Map<String, dynamic> json) =>
-      _$$_PurchaseModelFromJson(json);
+  factory _$PurchaseModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PurchaseModelImplFromJson(json);
 
   @override
   final String id;
@@ -440,27 +391,47 @@ class _$_PurchaseModel implements _PurchaseModel {
   final double? lorryFrightTotal;
   @override
   final double? overallDiscount;
+  final List<PurchaseProductModel> _productList;
   @override
-  final List<PurchaseProductModel> productList;
+  List<PurchaseProductModel> get productList {
+    if (_productList is EqualUnmodifiableListView) return _productList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_productList);
+  }
+
+  final List<String> _paymentsIdList;
+  @override
   @JsonKey()
+  List<String> get paymentsIdList {
+    if (_paymentsIdList is EqualUnmodifiableListView) return _paymentsIdList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_paymentsIdList);
+  }
+
   @override
-  final List<String> paymentsIdList;
   @JsonKey()
-  @override
   final bool isTax;
   @override
   final double grandTotal;
   @override
   final double? forwardingSales;
-  @JsonKey()
   @override
+  @JsonKey()
   final double forwardingSalesPercentage;
   @override
   final DateTime dateTime;
   @override
   final String? note;
+  final List<String>? _imagesPathList;
   @override
-  final List<String>? imagesPathList;
+  List<String>? get imagesPathList {
+    final value = _imagesPathList;
+    if (value == null) return null;
+    if (_imagesPathList is EqualUnmodifiableListView) return _imagesPathList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final double? tcsSales;
   @override
@@ -475,99 +446,107 @@ class _$_PurchaseModel implements _PurchaseModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PurchaseModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.billNo, billNo) &&
+            other is _$PurchaseModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.billNo, billNo) || other.billNo == billNo) &&
+            (identical(other.companyModel, companyModel) ||
+                other.companyModel == companyModel) &&
+            (identical(other.isNormalPurchaseBill, isNormalPurchaseBill) ||
+                other.isNormalPurchaseBill == isNormalPurchaseBill) &&
+            (identical(other.lorryFright, lorryFright) ||
+                other.lorryFright == lorryFright) &&
+            (identical(other.lorryFrightTax, lorryFrightTax) ||
+                other.lorryFrightTax == lorryFrightTax) &&
+            (identical(other.lorryFrightTotal, lorryFrightTotal) ||
+                other.lorryFrightTotal == lorryFrightTotal) &&
+            (identical(other.overallDiscount, overallDiscount) ||
+                other.overallDiscount == overallDiscount) &&
             const DeepCollectionEquality()
-                .equals(other.companyModel, companyModel) &&
+                .equals(other._productList, _productList) &&
             const DeepCollectionEquality()
-                .equals(other.isNormalPurchaseBill, isNormalPurchaseBill) &&
+                .equals(other._paymentsIdList, _paymentsIdList) &&
+            (identical(other.isTax, isTax) || other.isTax == isTax) &&
+            (identical(other.grandTotal, grandTotal) ||
+                other.grandTotal == grandTotal) &&
+            (identical(other.forwardingSales, forwardingSales) ||
+                other.forwardingSales == forwardingSales) &&
+            (identical(other.forwardingSalesPercentage,
+                    forwardingSalesPercentage) ||
+                other.forwardingSalesPercentage == forwardingSalesPercentage) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime) &&
+            (identical(other.note, note) || other.note == note) &&
             const DeepCollectionEquality()
-                .equals(other.lorryFright, lorryFright) &&
-            const DeepCollectionEquality()
-                .equals(other.lorryFrightTax, lorryFrightTax) &&
-            const DeepCollectionEquality()
-                .equals(other.lorryFrightTotal, lorryFrightTotal) &&
-            const DeepCollectionEquality()
-                .equals(other.overallDiscount, overallDiscount) &&
-            const DeepCollectionEquality()
-                .equals(other.productList, productList) &&
-            const DeepCollectionEquality()
-                .equals(other.paymentsIdList, paymentsIdList) &&
-            const DeepCollectionEquality().equals(other.isTax, isTax) &&
-            const DeepCollectionEquality()
-                .equals(other.grandTotal, grandTotal) &&
-            const DeepCollectionEquality()
-                .equals(other.forwardingSales, forwardingSales) &&
-            const DeepCollectionEquality().equals(
-                other.forwardingSalesPercentage, forwardingSalesPercentage) &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
-            const DeepCollectionEquality().equals(other.note, note) &&
-            const DeepCollectionEquality()
-                .equals(other.imagesPathList, imagesPathList) &&
-            const DeepCollectionEquality().equals(other.tcsSales, tcsSales) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt));
+                .equals(other._imagesPathList, _imagesPathList) &&
+            (identical(other.tcsSales, tcsSales) ||
+                other.tcsSales == tcsSales) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        const DeepCollectionEquality().hash(id),
-        const DeepCollectionEquality().hash(billNo),
-        const DeepCollectionEquality().hash(companyModel),
-        const DeepCollectionEquality().hash(isNormalPurchaseBill),
-        const DeepCollectionEquality().hash(lorryFright),
-        const DeepCollectionEquality().hash(lorryFrightTax),
-        const DeepCollectionEquality().hash(lorryFrightTotal),
-        const DeepCollectionEquality().hash(overallDiscount),
-        const DeepCollectionEquality().hash(productList),
-        const DeepCollectionEquality().hash(paymentsIdList),
-        const DeepCollectionEquality().hash(isTax),
-        const DeepCollectionEquality().hash(grandTotal),
-        const DeepCollectionEquality().hash(forwardingSales),
-        const DeepCollectionEquality().hash(forwardingSalesPercentage),
-        const DeepCollectionEquality().hash(dateTime),
-        const DeepCollectionEquality().hash(note),
-        const DeepCollectionEquality().hash(imagesPathList),
-        const DeepCollectionEquality().hash(tcsSales),
-        const DeepCollectionEquality().hash(createdAt)
+        id,
+        billNo,
+        companyModel,
+        isNormalPurchaseBill,
+        lorryFright,
+        lorryFrightTax,
+        lorryFrightTotal,
+        overallDiscount,
+        const DeepCollectionEquality().hash(_productList),
+        const DeepCollectionEquality().hash(_paymentsIdList),
+        isTax,
+        grandTotal,
+        forwardingSales,
+        forwardingSalesPercentage,
+        dateTime,
+        note,
+        const DeepCollectionEquality().hash(_imagesPathList),
+        tcsSales,
+        createdAt
       ]);
 
   @JsonKey(ignore: true)
   @override
-  _$PurchaseModelCopyWith<_PurchaseModel> get copyWith =>
-      __$PurchaseModelCopyWithImpl<_PurchaseModel>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$PurchaseModelImplCopyWith<_$PurchaseModelImpl> get copyWith =>
+      __$$PurchaseModelImplCopyWithImpl<_$PurchaseModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PurchaseModelToJson(this);
+    return _$$PurchaseModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _PurchaseModel implements PurchaseModel {
   factory _PurchaseModel(
-      {required String id,
-      required String billNo,
-      required CompanyModel companyModel,
-      required bool? isNormalPurchaseBill,
-      required double? lorryFright,
-      required double? lorryFrightTax,
-      required double? lorryFrightTotal,
-      required double? overallDiscount,
-      required List<PurchaseProductModel> productList,
-      List<String> paymentsIdList,
-      bool isTax,
-      required double grandTotal,
-      double? forwardingSales,
-      double forwardingSalesPercentage,
-      required DateTime dateTime,
-      String? note,
-      List<String>? imagesPathList,
-      double? tcsSales,
-      required DateTime createdAt}) = _$_PurchaseModel;
+      {required final String id,
+      required final String billNo,
+      required final CompanyModel companyModel,
+      required final bool? isNormalPurchaseBill,
+      required final double? lorryFright,
+      required final double? lorryFrightTax,
+      required final double? lorryFrightTotal,
+      required final double? overallDiscount,
+      required final List<PurchaseProductModel> productList,
+      final List<String> paymentsIdList,
+      final bool isTax,
+      required final double grandTotal,
+      final double? forwardingSales,
+      final double forwardingSalesPercentage,
+      required final DateTime dateTime,
+      final String? note,
+      final List<String>? imagesPathList,
+      final double? tcsSales,
+      required final DateTime createdAt}) = _$PurchaseModelImpl;
 
   factory _PurchaseModel.fromJson(Map<String, dynamic> json) =
-      _$_PurchaseModel.fromJson;
+      _$PurchaseModelImpl.fromJson;
 
   @override
   String get id;
@@ -609,6 +588,6 @@ abstract class _PurchaseModel implements PurchaseModel {
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$PurchaseModelCopyWith<_PurchaseModel> get copyWith =>
+  _$$PurchaseModelImplCopyWith<_$PurchaseModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

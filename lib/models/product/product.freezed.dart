@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'product.dart';
 
@@ -12,62 +12,11 @@ part of 'product.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ProductModel _$ProductModelFromJson(Map<String, dynamic> json) {
   return _ProductModel.fromJson(json);
 }
-
-/// @nodoc
-class _$ProductModelTearOff {
-  const _$ProductModelTearOff();
-
-  _ProductModel call(
-      {required String id,
-      required String code,
-      String? productNumber,
-      required String productName,
-      required String categoryId,
-      required String unitId,
-      int? unitQty = 0,
-      List<PriceModel>? differentPriceList = const [],
-      required double purchasePrice,
-      required double sellingPrice,
-      bool? isHidden = false,
-      required double wholesale,
-      required double retail,
-      bool? isPending = false,
-      String? companyId,
-      List<String>? imagesList,
-      required DateTime createdAt}) {
-    return _ProductModel(
-      id: id,
-      code: code,
-      productNumber: productNumber,
-      productName: productName,
-      categoryId: categoryId,
-      unitId: unitId,
-      unitQty: unitQty,
-      differentPriceList: differentPriceList,
-      purchasePrice: purchasePrice,
-      sellingPrice: sellingPrice,
-      isHidden: isHidden,
-      wholesale: wholesale,
-      retail: retail,
-      isPending: isPending,
-      companyId: companyId,
-      imagesList: imagesList,
-      createdAt: createdAt,
-    );
-  }
-
-  ProductModel fromJson(Map<String, Object?> json) {
-    return ProductModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ProductModel = _$ProductModelTearOff();
 
 /// @nodoc
 mixin _$ProductModel {
@@ -101,7 +50,8 @@ mixin _$ProductModel {
 abstract class $ProductModelCopyWith<$Res> {
   factory $ProductModelCopyWith(
           ProductModel value, $Res Function(ProductModel) then) =
-      _$ProductModelCopyWithImpl<$Res>;
+      _$ProductModelCopyWithImpl<$Res, ProductModel>;
+  @useResult
   $Res call(
       {String id,
       String code,
@@ -123,113 +73,117 @@ abstract class $ProductModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProductModelCopyWithImpl<$Res> implements $ProductModelCopyWith<$Res> {
+class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
+    implements $ProductModelCopyWith<$Res> {
   _$ProductModelCopyWithImpl(this._value, this._then);
 
-  final ProductModel _value;
   // ignore: unused_field
-  final $Res Function(ProductModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? code = freezed,
+    Object? id = null,
+    Object? code = null,
     Object? productNumber = freezed,
-    Object? productName = freezed,
-    Object? categoryId = freezed,
-    Object? unitId = freezed,
+    Object? productName = null,
+    Object? categoryId = null,
+    Object? unitId = null,
     Object? unitQty = freezed,
     Object? differentPriceList = freezed,
-    Object? purchasePrice = freezed,
-    Object? sellingPrice = freezed,
+    Object? purchasePrice = null,
+    Object? sellingPrice = null,
     Object? isHidden = freezed,
-    Object? wholesale = freezed,
-    Object? retail = freezed,
+    Object? wholesale = null,
+    Object? retail = null,
     Object? isPending = freezed,
     Object? companyId = freezed,
     Object? imagesList = freezed,
-    Object? createdAt = freezed,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      code: code == freezed
+      code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      productNumber: productNumber == freezed
+      productNumber: freezed == productNumber
           ? _value.productNumber
           : productNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      productName: productName == freezed
+      productName: null == productName
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryId: categoryId == freezed
+      categoryId: null == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
-      unitId: unitId == freezed
+      unitId: null == unitId
           ? _value.unitId
           : unitId // ignore: cast_nullable_to_non_nullable
               as String,
-      unitQty: unitQty == freezed
+      unitQty: freezed == unitQty
           ? _value.unitQty
           : unitQty // ignore: cast_nullable_to_non_nullable
               as int?,
-      differentPriceList: differentPriceList == freezed
+      differentPriceList: freezed == differentPriceList
           ? _value.differentPriceList
           : differentPriceList // ignore: cast_nullable_to_non_nullable
               as List<PriceModel>?,
-      purchasePrice: purchasePrice == freezed
+      purchasePrice: null == purchasePrice
           ? _value.purchasePrice
           : purchasePrice // ignore: cast_nullable_to_non_nullable
               as double,
-      sellingPrice: sellingPrice == freezed
+      sellingPrice: null == sellingPrice
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      isHidden: isHidden == freezed
+      isHidden: freezed == isHidden
           ? _value.isHidden
           : isHidden // ignore: cast_nullable_to_non_nullable
               as bool?,
-      wholesale: wholesale == freezed
+      wholesale: null == wholesale
           ? _value.wholesale
           : wholesale // ignore: cast_nullable_to_non_nullable
               as double,
-      retail: retail == freezed
+      retail: null == retail
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
               as double,
-      isPending: isPending == freezed
+      isPending: freezed == isPending
           ? _value.isPending
           : isPending // ignore: cast_nullable_to_non_nullable
               as bool?,
-      companyId: companyId == freezed
+      companyId: freezed == companyId
           ? _value.companyId
           : companyId // ignore: cast_nullable_to_non_nullable
               as String?,
-      imagesList: imagesList == freezed
+      imagesList: freezed == imagesList
           ? _value.imagesList
           : imagesList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$ProductModelCopyWith<$Res>
+abstract class _$$ProductModelImplCopyWith<$Res>
     implements $ProductModelCopyWith<$Res> {
-  factory _$ProductModelCopyWith(
-          _ProductModel value, $Res Function(_ProductModel) then) =
-      __$ProductModelCopyWithImpl<$Res>;
+  factory _$$ProductModelImplCopyWith(
+          _$ProductModelImpl value, $Res Function(_$ProductModelImpl) then) =
+      __$$ProductModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String code,
@@ -251,101 +205,100 @@ abstract class _$ProductModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ProductModelCopyWithImpl<$Res> extends _$ProductModelCopyWithImpl<$Res>
-    implements _$ProductModelCopyWith<$Res> {
-  __$ProductModelCopyWithImpl(
-      _ProductModel _value, $Res Function(_ProductModel) _then)
-      : super(_value, (v) => _then(v as _ProductModel));
+class __$$ProductModelImplCopyWithImpl<$Res>
+    extends _$ProductModelCopyWithImpl<$Res, _$ProductModelImpl>
+    implements _$$ProductModelImplCopyWith<$Res> {
+  __$$ProductModelImplCopyWithImpl(
+      _$ProductModelImpl _value, $Res Function(_$ProductModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _ProductModel get _value => super._value as _ProductModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? code = freezed,
+    Object? id = null,
+    Object? code = null,
     Object? productNumber = freezed,
-    Object? productName = freezed,
-    Object? categoryId = freezed,
-    Object? unitId = freezed,
+    Object? productName = null,
+    Object? categoryId = null,
+    Object? unitId = null,
     Object? unitQty = freezed,
     Object? differentPriceList = freezed,
-    Object? purchasePrice = freezed,
-    Object? sellingPrice = freezed,
+    Object? purchasePrice = null,
+    Object? sellingPrice = null,
     Object? isHidden = freezed,
-    Object? wholesale = freezed,
-    Object? retail = freezed,
+    Object? wholesale = null,
+    Object? retail = null,
     Object? isPending = freezed,
     Object? companyId = freezed,
     Object? imagesList = freezed,
-    Object? createdAt = freezed,
+    Object? createdAt = null,
   }) {
-    return _then(_ProductModel(
-      id: id == freezed
+    return _then(_$ProductModelImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      code: code == freezed
+      code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      productNumber: productNumber == freezed
+      productNumber: freezed == productNumber
           ? _value.productNumber
           : productNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      productName: productName == freezed
+      productName: null == productName
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryId: categoryId == freezed
+      categoryId: null == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
-      unitId: unitId == freezed
+      unitId: null == unitId
           ? _value.unitId
           : unitId // ignore: cast_nullable_to_non_nullable
               as String,
-      unitQty: unitQty == freezed
+      unitQty: freezed == unitQty
           ? _value.unitQty
           : unitQty // ignore: cast_nullable_to_non_nullable
               as int?,
-      differentPriceList: differentPriceList == freezed
-          ? _value.differentPriceList
+      differentPriceList: freezed == differentPriceList
+          ? _value._differentPriceList
           : differentPriceList // ignore: cast_nullable_to_non_nullable
               as List<PriceModel>?,
-      purchasePrice: purchasePrice == freezed
+      purchasePrice: null == purchasePrice
           ? _value.purchasePrice
           : purchasePrice // ignore: cast_nullable_to_non_nullable
               as double,
-      sellingPrice: sellingPrice == freezed
+      sellingPrice: null == sellingPrice
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      isHidden: isHidden == freezed
+      isHidden: freezed == isHidden
           ? _value.isHidden
           : isHidden // ignore: cast_nullable_to_non_nullable
               as bool?,
-      wholesale: wholesale == freezed
+      wholesale: null == wholesale
           ? _value.wholesale
           : wholesale // ignore: cast_nullable_to_non_nullable
               as double,
-      retail: retail == freezed
+      retail: null == retail
           ? _value.retail
           : retail // ignore: cast_nullable_to_non_nullable
               as double,
-      isPending: isPending == freezed
+      isPending: freezed == isPending
           ? _value.isPending
           : isPending // ignore: cast_nullable_to_non_nullable
               as bool?,
-      companyId: companyId == freezed
+      companyId: freezed == companyId
           ? _value.companyId
           : companyId // ignore: cast_nullable_to_non_nullable
               as String?,
-      imagesList: imagesList == freezed
-          ? _value.imagesList
+      imagesList: freezed == imagesList
+          ? _value._imagesList
           : imagesList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -356,8 +309,8 @@ class __$ProductModelCopyWithImpl<$Res> extends _$ProductModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_ProductModel implements _ProductModel {
-  const _$_ProductModel(
+class _$ProductModelImpl implements _ProductModel {
+  const _$ProductModelImpl(
       {required this.id,
       required this.code,
       this.productNumber,
@@ -365,7 +318,7 @@ class _$_ProductModel implements _ProductModel {
       required this.categoryId,
       required this.unitId,
       this.unitQty = 0,
-      this.differentPriceList = const [],
+      final List<PriceModel>? differentPriceList = const [],
       required this.purchasePrice,
       required this.sellingPrice,
       this.isHidden = false,
@@ -373,11 +326,13 @@ class _$_ProductModel implements _ProductModel {
       required this.retail,
       this.isPending = false,
       this.companyId,
-      this.imagesList,
-      required this.createdAt});
+      final List<String>? imagesList,
+      required this.createdAt})
+      : _differentPriceList = differentPriceList,
+        _imagesList = imagesList;
 
-  factory _$_ProductModel.fromJson(Map<String, dynamic> json) =>
-      _$$_ProductModelFromJson(json);
+  factory _$ProductModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProductModelImplFromJson(json);
 
   @override
   final String id;
@@ -385,36 +340,54 @@ class _$_ProductModel implements _ProductModel {
   final String code;
   @override
   final String? productNumber;
-  @override // String? barcodeCode,
+// String? barcodeCode,
+  @override
   final String productName;
   @override
   final String categoryId;
   @override
   final String unitId;
-  @JsonKey()
   @override
+  @JsonKey()
   final int? unitQty;
-  @JsonKey()
+  final List<PriceModel>? _differentPriceList;
   @override
-  final List<PriceModel>? differentPriceList;
+  @JsonKey()
+  List<PriceModel>? get differentPriceList {
+    final value = _differentPriceList;
+    if (value == null) return null;
+    if (_differentPriceList is EqualUnmodifiableListView)
+      return _differentPriceList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final double purchasePrice;
   @override
   final double sellingPrice;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool? isHidden;
   @override
   final double wholesale;
   @override
   final double retail;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool? isPending;
   @override
   final String? companyId;
+  final List<String>? _imagesList;
   @override
-  final List<String>? imagesList;
+  List<String>? get imagesList {
+    final value = _imagesList;
+    if (value == null) return null;
+    if (_imagesList is EqualUnmodifiableListView) return _imagesList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final DateTime createdAt;
 
@@ -427,87 +400,96 @@ class _$_ProductModel implements _ProductModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ProductModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.code, code) &&
+            other is _$ProductModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.productNumber, productNumber) ||
+                other.productNumber == productNumber) &&
+            (identical(other.productName, productName) ||
+                other.productName == productName) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId) &&
+            (identical(other.unitId, unitId) || other.unitId == unitId) &&
+            (identical(other.unitQty, unitQty) || other.unitQty == unitQty) &&
             const DeepCollectionEquality()
-                .equals(other.productNumber, productNumber) &&
+                .equals(other._differentPriceList, _differentPriceList) &&
+            (identical(other.purchasePrice, purchasePrice) ||
+                other.purchasePrice == purchasePrice) &&
+            (identical(other.sellingPrice, sellingPrice) ||
+                other.sellingPrice == sellingPrice) &&
+            (identical(other.isHidden, isHidden) ||
+                other.isHidden == isHidden) &&
+            (identical(other.wholesale, wholesale) ||
+                other.wholesale == wholesale) &&
+            (identical(other.retail, retail) || other.retail == retail) &&
+            (identical(other.isPending, isPending) ||
+                other.isPending == isPending) &&
+            (identical(other.companyId, companyId) ||
+                other.companyId == companyId) &&
             const DeepCollectionEquality()
-                .equals(other.productName, productName) &&
-            const DeepCollectionEquality()
-                .equals(other.categoryId, categoryId) &&
-            const DeepCollectionEquality().equals(other.unitId, unitId) &&
-            const DeepCollectionEquality().equals(other.unitQty, unitQty) &&
-            const DeepCollectionEquality()
-                .equals(other.differentPriceList, differentPriceList) &&
-            const DeepCollectionEquality()
-                .equals(other.purchasePrice, purchasePrice) &&
-            const DeepCollectionEquality()
-                .equals(other.sellingPrice, sellingPrice) &&
-            const DeepCollectionEquality().equals(other.isHidden, isHidden) &&
-            const DeepCollectionEquality().equals(other.wholesale, wholesale) &&
-            const DeepCollectionEquality().equals(other.retail, retail) &&
-            const DeepCollectionEquality().equals(other.isPending, isPending) &&
-            const DeepCollectionEquality().equals(other.companyId, companyId) &&
-            const DeepCollectionEquality()
-                .equals(other.imagesList, imagesList) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt));
+                .equals(other._imagesList, _imagesList) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(code),
-      const DeepCollectionEquality().hash(productNumber),
-      const DeepCollectionEquality().hash(productName),
-      const DeepCollectionEquality().hash(categoryId),
-      const DeepCollectionEquality().hash(unitId),
-      const DeepCollectionEquality().hash(unitQty),
-      const DeepCollectionEquality().hash(differentPriceList),
-      const DeepCollectionEquality().hash(purchasePrice),
-      const DeepCollectionEquality().hash(sellingPrice),
-      const DeepCollectionEquality().hash(isHidden),
-      const DeepCollectionEquality().hash(wholesale),
-      const DeepCollectionEquality().hash(retail),
-      const DeepCollectionEquality().hash(isPending),
-      const DeepCollectionEquality().hash(companyId),
-      const DeepCollectionEquality().hash(imagesList),
-      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
-  _$ProductModelCopyWith<_ProductModel> get copyWith =>
-      __$ProductModelCopyWithImpl<_ProductModel>(this, _$identity);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      code,
+      productNumber,
+      productName,
+      categoryId,
+      unitId,
+      unitQty,
+      const DeepCollectionEquality().hash(_differentPriceList),
+      purchasePrice,
+      sellingPrice,
+      isHidden,
+      wholesale,
+      retail,
+      isPending,
+      companyId,
+      const DeepCollectionEquality().hash(_imagesList),
+      createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProductModelImplCopyWith<_$ProductModelImpl> get copyWith =>
+      __$$ProductModelImplCopyWithImpl<_$ProductModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ProductModelToJson(this);
+    return _$$ProductModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _ProductModel implements ProductModel {
   const factory _ProductModel(
-      {required String id,
-      required String code,
-      String? productNumber,
-      required String productName,
-      required String categoryId,
-      required String unitId,
-      int? unitQty,
-      List<PriceModel>? differentPriceList,
-      required double purchasePrice,
-      required double sellingPrice,
-      bool? isHidden,
-      required double wholesale,
-      required double retail,
-      bool? isPending,
-      String? companyId,
-      List<String>? imagesList,
-      required DateTime createdAt}) = _$_ProductModel;
+      {required final String id,
+      required final String code,
+      final String? productNumber,
+      required final String productName,
+      required final String categoryId,
+      required final String unitId,
+      final int? unitQty,
+      final List<PriceModel>? differentPriceList,
+      required final double purchasePrice,
+      required final double sellingPrice,
+      final bool? isHidden,
+      required final double wholesale,
+      required final double retail,
+      final bool? isPending,
+      final String? companyId,
+      final List<String>? imagesList,
+      required final DateTime createdAt}) = _$ProductModelImpl;
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
-      _$_ProductModel.fromJson;
+      _$ProductModelImpl.fromJson;
 
   @override
   String get id;
@@ -545,6 +527,6 @@ abstract class _ProductModel implements ProductModel {
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$ProductModelCopyWith<_ProductModel> get copyWith =>
+  _$$ProductModelImplCopyWith<_$ProductModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

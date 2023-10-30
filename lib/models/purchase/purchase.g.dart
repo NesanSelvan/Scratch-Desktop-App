@@ -6,8 +6,8 @@ part of 'purchase.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PurchaseModel _$$_PurchaseModelFromJson(Map<String, dynamic> json) =>
-    _$_PurchaseModel(
+_$PurchaseModelImpl _$$PurchaseModelImplFromJson(Map<String, dynamic> json) =>
+    _$PurchaseModelImpl(
       id: json['id'] as String,
       billNo: json['billNo'] as String,
       companyModel:
@@ -38,7 +38,7 @@ _$_PurchaseModel _$$_PurchaseModelFromJson(Map<String, dynamic> json) =>
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_PurchaseModelToJson(_$_PurchaseModel instance) =>
+Map<String, dynamic> _$$PurchaseModelImplToJson(_$PurchaseModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'billNo': instance.billNo,

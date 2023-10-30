@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'sub_product.dart';
 
@@ -12,36 +12,11 @@ part of 'sub_product.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 SubProductModel _$SubProductModelFromJson(Map<String, dynamic> json) {
   return _SubProductModel.fromJson(json);
 }
-
-/// @nodoc
-class _$SubProductModelTearOff {
-  const _$SubProductModelTearOff();
-
-  _SubProductModel call(
-      {required String id,
-      required ProductModel productModel,
-      List<SubProductDetailsModel> subProducts = const [],
-      required DateTime createdAt}) {
-    return _SubProductModel(
-      id: id,
-      productModel: productModel,
-      subProducts: subProducts,
-      createdAt: createdAt,
-    );
-  }
-
-  SubProductModel fromJson(Map<String, Object?> json) {
-    return SubProductModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $SubProductModel = _$SubProductModelTearOff();
 
 /// @nodoc
 mixin _$SubProductModel {
@@ -61,7 +36,8 @@ mixin _$SubProductModel {
 abstract class $SubProductModelCopyWith<$Res> {
   factory $SubProductModelCopyWith(
           SubProductModel value, $Res Function(SubProductModel) then) =
-      _$SubProductModelCopyWithImpl<$Res>;
+      _$SubProductModelCopyWithImpl<$Res, SubProductModel>;
+  @useResult
   $Res call(
       {String id,
       ProductModel productModel,
@@ -72,56 +48,60 @@ abstract class $SubProductModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SubProductModelCopyWithImpl<$Res>
+class _$SubProductModelCopyWithImpl<$Res, $Val extends SubProductModel>
     implements $SubProductModelCopyWith<$Res> {
   _$SubProductModelCopyWithImpl(this._value, this._then);
 
-  final SubProductModel _value;
   // ignore: unused_field
-  final $Res Function(SubProductModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? productModel = freezed,
-    Object? subProducts = freezed,
-    Object? createdAt = freezed,
+    Object? id = null,
+    Object? productModel = null,
+    Object? subProducts = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productModel: productModel == freezed
+      productModel: null == productModel
           ? _value.productModel
           : productModel // ignore: cast_nullable_to_non_nullable
               as ProductModel,
-      subProducts: subProducts == freezed
+      subProducts: null == subProducts
           ? _value.subProducts
           : subProducts // ignore: cast_nullable_to_non_nullable
               as List<SubProductDetailsModel>,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ProductModelCopyWith<$Res> get productModel {
     return $ProductModelCopyWith<$Res>(_value.productModel, (value) {
-      return _then(_value.copyWith(productModel: value));
+      return _then(_value.copyWith(productModel: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$SubProductModelCopyWith<$Res>
+abstract class _$$SubProductModelImplCopyWith<$Res>
     implements $SubProductModelCopyWith<$Res> {
-  factory _$SubProductModelCopyWith(
-          _SubProductModel value, $Res Function(_SubProductModel) then) =
-      __$SubProductModelCopyWithImpl<$Res>;
+  factory _$$SubProductModelImplCopyWith(_$SubProductModelImpl value,
+          $Res Function(_$SubProductModelImpl) then) =
+      __$$SubProductModelImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       ProductModel productModel,
@@ -133,37 +113,35 @@ abstract class _$SubProductModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SubProductModelCopyWithImpl<$Res>
-    extends _$SubProductModelCopyWithImpl<$Res>
-    implements _$SubProductModelCopyWith<$Res> {
-  __$SubProductModelCopyWithImpl(
-      _SubProductModel _value, $Res Function(_SubProductModel) _then)
-      : super(_value, (v) => _then(v as _SubProductModel));
+class __$$SubProductModelImplCopyWithImpl<$Res>
+    extends _$SubProductModelCopyWithImpl<$Res, _$SubProductModelImpl>
+    implements _$$SubProductModelImplCopyWith<$Res> {
+  __$$SubProductModelImplCopyWithImpl(
+      _$SubProductModelImpl _value, $Res Function(_$SubProductModelImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _SubProductModel get _value => super._value as _SubProductModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? productModel = freezed,
-    Object? subProducts = freezed,
-    Object? createdAt = freezed,
+    Object? id = null,
+    Object? productModel = null,
+    Object? subProducts = null,
+    Object? createdAt = null,
   }) {
-    return _then(_SubProductModel(
-      id: id == freezed
+    return _then(_$SubProductModelImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      productModel: productModel == freezed
+      productModel: null == productModel
           ? _value.productModel
           : productModel // ignore: cast_nullable_to_non_nullable
               as ProductModel,
-      subProducts: subProducts == freezed
-          ? _value.subProducts
+      subProducts: null == subProducts
+          ? _value._subProducts
           : subProducts // ignore: cast_nullable_to_non_nullable
               as List<SubProductDetailsModel>,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -174,23 +152,30 @@ class __$SubProductModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_SubProductModel implements _SubProductModel {
-  const _$_SubProductModel(
+class _$SubProductModelImpl implements _SubProductModel {
+  const _$SubProductModelImpl(
       {required this.id,
       required this.productModel,
-      this.subProducts = const [],
-      required this.createdAt});
+      final List<SubProductDetailsModel> subProducts = const [],
+      required this.createdAt})
+      : _subProducts = subProducts;
 
-  factory _$_SubProductModel.fromJson(Map<String, dynamic> json) =>
-      _$$_SubProductModelFromJson(json);
+  factory _$SubProductModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SubProductModelImplFromJson(json);
 
   @override
   final String id;
   @override
   final ProductModel productModel;
-  @JsonKey()
+  final List<SubProductDetailsModel> _subProducts;
   @override
-  final List<SubProductDetailsModel> subProducts;
+  @JsonKey()
+  List<SubProductDetailsModel> get subProducts {
+    if (_subProducts is EqualUnmodifiableListView) return _subProducts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_subProducts);
+  }
+
   @override
   final DateTime createdAt;
 
@@ -203,43 +188,45 @@ class _$_SubProductModel implements _SubProductModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SubProductModel &&
-            const DeepCollectionEquality().equals(other.id, id) &&
+            other is _$SubProductModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.productModel, productModel) ||
+                other.productModel == productModel) &&
             const DeepCollectionEquality()
-                .equals(other.productModel, productModel) &&
-            const DeepCollectionEquality()
-                .equals(other.subProducts, subProducts) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt));
+                .equals(other._subProducts, _subProducts) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(productModel),
-      const DeepCollectionEquality().hash(subProducts),
-      const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
   @override
-  _$SubProductModelCopyWith<_SubProductModel> get copyWith =>
-      __$SubProductModelCopyWithImpl<_SubProductModel>(this, _$identity);
+  int get hashCode => Object.hash(runtimeType, id, productModel,
+      const DeepCollectionEquality().hash(_subProducts), createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SubProductModelImplCopyWith<_$SubProductModelImpl> get copyWith =>
+      __$$SubProductModelImplCopyWithImpl<_$SubProductModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SubProductModelToJson(this);
+    return _$$SubProductModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _SubProductModel implements SubProductModel {
   const factory _SubProductModel(
-      {required String id,
-      required ProductModel productModel,
-      List<SubProductDetailsModel> subProducts,
-      required DateTime createdAt}) = _$_SubProductModel;
+      {required final String id,
+      required final ProductModel productModel,
+      final List<SubProductDetailsModel> subProducts,
+      required final DateTime createdAt}) = _$SubProductModelImpl;
 
   factory _SubProductModel.fromJson(Map<String, dynamic> json) =
-      _$_SubProductModel.fromJson;
+      _$SubProductModelImpl.fromJson;
 
   @override
   String get id;
@@ -251,6 +238,6 @@ abstract class _SubProductModel implements SubProductModel {
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$SubProductModelCopyWith<_SubProductModel> get copyWith =>
+  _$$SubProductModelImplCopyWith<_$SubProductModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

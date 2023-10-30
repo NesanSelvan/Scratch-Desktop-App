@@ -245,12 +245,12 @@ class _AddCustomerScreenState extends State<AddEmployeeScreen> {
                                     onClear: () async {
                                       controller.clearTextField();
                                       controller.setSelectedEmployeeModel(null);
-                                      final pdf = await rootBundle
-                                          .load('assets/pdf/Agnel-Selvan.pdf');
-                                      await Printing.layoutPdf(
-                                        onLayout: (_) =>
-                                            pdf.buffer.asUint8List(),
-                                      );
+                                      // final pdf = await rootBundle
+                                      //     .load('assets/pdf/Agnel-Selvan.pdf');
+                                      // await Printing.layoutPdf(
+                                      //   onLayout: (_) =>
+                                      //       pdf.buffer.asUint8List(),
+                                      // );
                                     },
                                     onDelete: controller.deleteEmployee,
                                     onUpdate: controller.updateEmployee,

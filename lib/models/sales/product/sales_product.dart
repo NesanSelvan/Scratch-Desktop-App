@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:validators/validators.dart';
 
 import '../../category/category.dart';
@@ -21,7 +22,7 @@ import '../../product/product.dart';
 //       _$SalesProductModelFromJson(json);
 // }
 
-class SalesProductModel {
+class SalesProductModel extends Equatable {
   CategoryModel? categoryModel;
   ProductModel? productModel;
   double? rate;
@@ -29,14 +30,17 @@ class SalesProductModel {
   double? price;
   double? discountPer;
   PriceModel? priceModel;
-  SalesProductModel(
-      {this.categoryModel,
-      this.discountPer,
-      this.rate,
-      this.price,
-      this.productModel,
-      this.priceModel,
-      this.qty});
+  String? qtyMathEqn;
+  SalesProductModel({
+    this.categoryModel,
+    this.discountPer,
+    this.rate,
+    this.price,
+    this.productModel,
+    this.priceModel,
+    this.qty,
+    required this.qtyMathEqn,
+  });
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     json['categoryModel'] = categoryModel!.toJson();
@@ -45,6 +49,7 @@ class SalesProductModel {
     json['rate'] = rate;
     json['price'] = price;
     json['discountPer'] = discountPer;
+    json['qtyMathEqn'] = qtyMathEqn;
     json['priceModel'] = priceModel?.toJson();
     return json;
   }
@@ -66,5 +71,9 @@ class SalesProductModel {
     }
     price = validateDoubleData("${json['price']}");
     discountPer = validateDoubleData("${json['discountPer']}");
+    qtyMathEqn = json["qtyMathEqn"] as String?;
   }
+
+  @override
+  List<Object?> get props => [productModel?.productName, qtyMathEqn, qty];
 }

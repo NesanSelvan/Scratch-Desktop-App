@@ -6,15 +6,17 @@ part of 'sub_category.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SubCategoryModel _$$_SubCategoryModelFromJson(Map<String, dynamic> json) =>
-    _$_SubCategoryModel(
+_$SubCategoryModelImpl _$$SubCategoryModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$SubCategoryModelImpl(
       json['id'] as String?,
       json['hsnCode'] as int?,
       json['subCategoryName'] as String?,
       DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_SubCategoryModelToJson(_$_SubCategoryModel instance) =>
+Map<String, dynamic> _$$SubCategoryModelImplToJson(
+        _$SubCategoryModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'hsnCode': instance.hsnCode,
