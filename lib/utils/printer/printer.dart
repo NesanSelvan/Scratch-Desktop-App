@@ -201,14 +201,14 @@ class PrinterUtility {
           },
           format: barcodePdfFormat,
         );
-        final path = await PDFGenerator.getPDFFilePath(count: i);
-        final file = File(path);
-        try {
-          file.writeAsBytesSync(pdfData);
-          PDFGenerator.openPdf(file.path);
-        } catch (e) {
-          rethrow;
-        }
+        // final path = await PDFGenerator.getPDFFilePath(count: i);
+        // final file = File(path);
+        // try {
+        //   file.writeAsBytesSync(pdfData);
+        //   PDFGenerator.openPdf(file.path);
+        // } catch (e) {
+        //   rethrow;
+        // }
       }
 
       // if (val) {
