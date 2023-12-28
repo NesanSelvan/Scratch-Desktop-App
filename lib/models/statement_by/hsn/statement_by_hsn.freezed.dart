@@ -21,12 +21,19 @@ StatementByHSN _$StatementByHSNFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$StatementByHSN {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   BillModel get billModel => throw _privateConstructorUsedError;
+  set billModel(BillModel value) => throw _privateConstructorUsedError;
   CategoryModel get categoryModel => throw _privateConstructorUsedError;
+  set categoryModel(CategoryModel value) => throw _privateConstructorUsedError;
   double get amount => throw _privateConstructorUsedError;
+  set amount(double value) => throw _privateConstructorUsedError;
   double get tax => throw _privateConstructorUsedError;
+  set tax(double value) => throw _privateConstructorUsedError;
   double get taxableValue => throw _privateConstructorUsedError;
+  set taxableValue(double value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -201,54 +208,31 @@ class __$$StatementByHSNImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$StatementByHSNImpl implements _StatementByHSN {
-  const _$StatementByHSNImpl(this.id, this.billModel, this.categoryModel,
-      this.amount, this.tax, this.taxableValue, this.createdAt);
+  _$StatementByHSNImpl(this.id, this.billModel, this.categoryModel, this.amount,
+      this.tax, this.taxableValue, this.createdAt);
 
   factory _$StatementByHSNImpl.fromJson(Map<String, dynamic> json) =>
       _$$StatementByHSNImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final BillModel billModel;
+  BillModel billModel;
   @override
-  final CategoryModel categoryModel;
+  CategoryModel categoryModel;
   @override
-  final double amount;
+  double amount;
   @override
-  final double tax;
+  double tax;
   @override
-  final double taxableValue;
+  double taxableValue;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'StatementByHSN(id: $id, billModel: $billModel, categoryModel: $categoryModel, amount: $amount, tax: $tax, taxableValue: $taxableValue, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$StatementByHSNImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.billModel, billModel) ||
-                other.billModel == billModel) &&
-            (identical(other.categoryModel, categoryModel) ||
-                other.categoryModel == categoryModel) &&
-            (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.tax, tax) || other.tax == tax) &&
-            (identical(other.taxableValue, taxableValue) ||
-                other.taxableValue == taxableValue) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, billModel, categoryModel,
-      amount, tax, taxableValue, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -266,32 +250,39 @@ class _$StatementByHSNImpl implements _StatementByHSN {
 }
 
 abstract class _StatementByHSN implements StatementByHSN {
-  const factory _StatementByHSN(
-      final String id,
-      final BillModel billModel,
-      final CategoryModel categoryModel,
-      final double amount,
-      final double tax,
-      final double taxableValue,
-      final DateTime createdAt) = _$StatementByHSNImpl;
+  factory _StatementByHSN(
+      String id,
+      BillModel billModel,
+      CategoryModel categoryModel,
+      double amount,
+      double tax,
+      double taxableValue,
+      DateTime createdAt) = _$StatementByHSNImpl;
 
   factory _StatementByHSN.fromJson(Map<String, dynamic> json) =
       _$StatementByHSNImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   BillModel get billModel;
+  set billModel(BillModel value);
   @override
   CategoryModel get categoryModel;
+  set categoryModel(CategoryModel value);
   @override
   double get amount;
+  set amount(double value);
   @override
   double get tax;
+  set tax(double value);
   @override
   double get taxableValue;
+  set taxableValue(double value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$StatementByHSNImplCopyWith<_$StatementByHSNImpl> get copyWith =>

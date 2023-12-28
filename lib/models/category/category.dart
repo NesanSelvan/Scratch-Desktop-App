@@ -3,9 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'category.freezed.dart';
 part 'category.g.dart';
 
-@freezed
+@unfreezed
 abstract class CategoryModel with _$CategoryModel {
-  const factory CategoryModel({
+  factory CategoryModel({
     required String id,
     String? catSymbol,
     required int hsnCode,

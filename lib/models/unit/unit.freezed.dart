@@ -21,10 +21,15 @@ UnitModel _$UnitModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UnitModel {
   String? get id => throw _privateConstructorUsedError;
+  set id(String? value) => throw _privateConstructorUsedError;
   String? get symbol => throw _privateConstructorUsedError;
+  set symbol(String? value) => throw _privateConstructorUsedError;
   String? get formalName => throw _privateConstructorUsedError;
+  set formalName(String? value) => throw _privateConstructorUsedError;
   int? get unitNo => throw _privateConstructorUsedError;
+  set unitNo(int? value) => throw _privateConstructorUsedError;
   DateTime? get dateTime => throw _privateConstructorUsedError;
+  set dateTime(DateTime? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -148,48 +153,25 @@ class __$$UnitModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$UnitModelImpl implements _UnitModel {
-  const _$UnitModelImpl(
+  _$UnitModelImpl(
       this.id, this.symbol, this.formalName, this.unitNo, this.dateTime);
 
   factory _$UnitModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UnitModelImplFromJson(json);
 
   @override
-  final String? id;
+  String? id;
   @override
-  final String? symbol;
+  String? symbol;
   @override
-  final String? formalName;
+  String? formalName;
   @override
-  final int? unitNo;
+  int? unitNo;
   @override
-  final DateTime? dateTime;
-
-  @override
-  String toString() {
-    return 'UnitModel(id: $id, symbol: $symbol, formalName: $formalName, unitNo: $unitNo, dateTime: $dateTime)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UnitModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.symbol, symbol) || other.symbol == symbol) &&
-            (identical(other.formalName, formalName) ||
-                other.formalName == formalName) &&
-            (identical(other.unitNo, unitNo) || other.unitNo == unitNo) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, symbol, formalName, unitNo, dateTime);
+  DateTime? dateTime;
 
   @JsonKey(ignore: true)
   @override
@@ -206,26 +188,27 @@ class _$UnitModelImpl implements _UnitModel {
 }
 
 abstract class _UnitModel implements UnitModel {
-  const factory _UnitModel(
-      final String? id,
-      final String? symbol,
-      final String? formalName,
-      final int? unitNo,
-      final DateTime? dateTime) = _$UnitModelImpl;
+  factory _UnitModel(String? id, String? symbol, String? formalName,
+      int? unitNo, DateTime? dateTime) = _$UnitModelImpl;
 
   factory _UnitModel.fromJson(Map<String, dynamic> json) =
       _$UnitModelImpl.fromJson;
 
   @override
   String? get id;
+  set id(String? value);
   @override
   String? get symbol;
+  set symbol(String? value);
   @override
   String? get formalName;
+  set formalName(String? value);
   @override
   int? get unitNo;
+  set unitNo(int? value);
   @override
   DateTime? get dateTime;
+  set dateTime(DateTime? value);
   @override
   @JsonKey(ignore: true)
   _$$UnitModelImplCopyWith<_$UnitModelImpl> get copyWith =>

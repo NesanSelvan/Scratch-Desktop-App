@@ -3,10 +3,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'sub_product_details.freezed.dart';
 part 'sub_product_details.g.dart';
 
-@freezed
+@unfreezed
 abstract class SubProductDetailsModel with _$SubProductDetailsModel {
   @JsonSerializable(explicitToJson: true)
-  const factory SubProductDetailsModel(
+  factory SubProductDetailsModel(
       {required String id,
       required String productNumber,
       @Default("") String name,

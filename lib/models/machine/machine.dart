@@ -3,9 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'machine.freezed.dart';
 part 'machine.g.dart';
 
-@freezed
+@unfreezed
 abstract class MachineModel with _$MachineModel {
-  const factory MachineModel(
+  factory MachineModel(
     String id,
     String machineName,
   ) = _MachineModel;

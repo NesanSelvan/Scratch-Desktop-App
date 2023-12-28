@@ -21,25 +21,46 @@ PurchaseModel _$PurchaseModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PurchaseModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get billNo => throw _privateConstructorUsedError;
+  set billNo(String value) => throw _privateConstructorUsedError;
   CompanyModel get companyModel => throw _privateConstructorUsedError;
+  set companyModel(CompanyModel value) => throw _privateConstructorUsedError;
   bool? get isNormalPurchaseBill => throw _privateConstructorUsedError;
+  set isNormalPurchaseBill(bool? value) => throw _privateConstructorUsedError;
   double? get lorryFright => throw _privateConstructorUsedError;
+  set lorryFright(double? value) => throw _privateConstructorUsedError;
   double? get lorryFrightTax => throw _privateConstructorUsedError;
+  set lorryFrightTax(double? value) => throw _privateConstructorUsedError;
   double? get lorryFrightTotal => throw _privateConstructorUsedError;
+  set lorryFrightTotal(double? value) => throw _privateConstructorUsedError;
   double? get overallDiscount => throw _privateConstructorUsedError;
+  set overallDiscount(double? value) => throw _privateConstructorUsedError;
   List<PurchaseProductModel> get productList =>
       throw _privateConstructorUsedError;
+  set productList(List<PurchaseProductModel> value) =>
+      throw _privateConstructorUsedError;
   List<String> get paymentsIdList => throw _privateConstructorUsedError;
+  set paymentsIdList(List<String> value) => throw _privateConstructorUsedError;
   bool get isTax => throw _privateConstructorUsedError;
+  set isTax(bool value) => throw _privateConstructorUsedError;
   double get grandTotal => throw _privateConstructorUsedError;
+  set grandTotal(double value) => throw _privateConstructorUsedError;
   double? get forwardingSales => throw _privateConstructorUsedError;
+  set forwardingSales(double? value) => throw _privateConstructorUsedError;
   double get forwardingSalesPercentage => throw _privateConstructorUsedError;
+  set forwardingSalesPercentage(double value) =>
+      throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
+  set dateTime(DateTime value) => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
+  set note(String? value) => throw _privateConstructorUsedError;
   List<String>? get imagesPathList => throw _privateConstructorUsedError;
+  set imagesPathList(List<String>? value) => throw _privateConstructorUsedError;
   double? get tcsSales => throw _privateConstructorUsedError;
+  set tcsSales(double? value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -297,11 +318,11 @@ class __$$PurchaseModelImplCopyWithImpl<$Res>
           : overallDiscount // ignore: cast_nullable_to_non_nullable
               as double?,
       productList: null == productList
-          ? _value._productList
+          ? _value.productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<PurchaseProductModel>,
       paymentsIdList: null == paymentsIdList
-          ? _value._paymentsIdList
+          ? _value.paymentsIdList
           : paymentsIdList // ignore: cast_nullable_to_non_nullable
               as List<String>,
       isTax: null == isTax
@@ -329,7 +350,7 @@ class __$$PurchaseModelImplCopyWithImpl<$Res>
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
       imagesPathList: freezed == imagesPathList
-          ? _value._imagesPathList
+          ? _value.imagesPathList
           : imagesPathList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
       tcsSales: freezed == tcsSales
@@ -357,157 +378,67 @@ class _$PurchaseModelImpl implements _PurchaseModel {
       required this.lorryFrightTax,
       required this.lorryFrightTotal,
       required this.overallDiscount,
-      required final List<PurchaseProductModel> productList,
-      final List<String> paymentsIdList = const [],
+      required this.productList,
+      this.paymentsIdList = const [],
       this.isTax = true,
       required this.grandTotal,
       this.forwardingSales,
       this.forwardingSalesPercentage = 0,
       required this.dateTime,
       this.note,
-      final List<String>? imagesPathList,
+      this.imagesPathList,
       this.tcsSales,
-      required this.createdAt})
-      : _productList = productList,
-        _paymentsIdList = paymentsIdList,
-        _imagesPathList = imagesPathList;
+      required this.createdAt});
 
   factory _$PurchaseModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PurchaseModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String billNo;
+  String billNo;
   @override
-  final CompanyModel companyModel;
+  CompanyModel companyModel;
   @override
-  final bool? isNormalPurchaseBill;
+  bool? isNormalPurchaseBill;
   @override
-  final double? lorryFright;
+  double? lorryFright;
   @override
-  final double? lorryFrightTax;
+  double? lorryFrightTax;
   @override
-  final double? lorryFrightTotal;
+  double? lorryFrightTotal;
   @override
-  final double? overallDiscount;
-  final List<PurchaseProductModel> _productList;
+  double? overallDiscount;
   @override
-  List<PurchaseProductModel> get productList {
-    if (_productList is EqualUnmodifiableListView) return _productList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_productList);
-  }
-
-  final List<String> _paymentsIdList;
+  List<PurchaseProductModel> productList;
   @override
   @JsonKey()
-  List<String> get paymentsIdList {
-    if (_paymentsIdList is EqualUnmodifiableListView) return _paymentsIdList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_paymentsIdList);
-  }
-
+  List<String> paymentsIdList;
   @override
   @JsonKey()
-  final bool isTax;
+  bool isTax;
   @override
-  final double grandTotal;
+  double grandTotal;
   @override
-  final double? forwardingSales;
+  double? forwardingSales;
   @override
   @JsonKey()
-  final double forwardingSalesPercentage;
+  double forwardingSalesPercentage;
   @override
-  final DateTime dateTime;
+  DateTime dateTime;
   @override
-  final String? note;
-  final List<String>? _imagesPathList;
+  String? note;
   @override
-  List<String>? get imagesPathList {
-    final value = _imagesPathList;
-    if (value == null) return null;
-    if (_imagesPathList is EqualUnmodifiableListView) return _imagesPathList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
+  List<String>? imagesPathList;
   @override
-  final double? tcsSales;
+  double? tcsSales;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'PurchaseModel(id: $id, billNo: $billNo, companyModel: $companyModel, isNormalPurchaseBill: $isNormalPurchaseBill, lorryFright: $lorryFright, lorryFrightTax: $lorryFrightTax, lorryFrightTotal: $lorryFrightTotal, overallDiscount: $overallDiscount, productList: $productList, paymentsIdList: $paymentsIdList, isTax: $isTax, grandTotal: $grandTotal, forwardingSales: $forwardingSales, forwardingSalesPercentage: $forwardingSalesPercentage, dateTime: $dateTime, note: $note, imagesPathList: $imagesPathList, tcsSales: $tcsSales, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PurchaseModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.billNo, billNo) || other.billNo == billNo) &&
-            (identical(other.companyModel, companyModel) ||
-                other.companyModel == companyModel) &&
-            (identical(other.isNormalPurchaseBill, isNormalPurchaseBill) ||
-                other.isNormalPurchaseBill == isNormalPurchaseBill) &&
-            (identical(other.lorryFright, lorryFright) ||
-                other.lorryFright == lorryFright) &&
-            (identical(other.lorryFrightTax, lorryFrightTax) ||
-                other.lorryFrightTax == lorryFrightTax) &&
-            (identical(other.lorryFrightTotal, lorryFrightTotal) ||
-                other.lorryFrightTotal == lorryFrightTotal) &&
-            (identical(other.overallDiscount, overallDiscount) ||
-                other.overallDiscount == overallDiscount) &&
-            const DeepCollectionEquality()
-                .equals(other._productList, _productList) &&
-            const DeepCollectionEquality()
-                .equals(other._paymentsIdList, _paymentsIdList) &&
-            (identical(other.isTax, isTax) || other.isTax == isTax) &&
-            (identical(other.grandTotal, grandTotal) ||
-                other.grandTotal == grandTotal) &&
-            (identical(other.forwardingSales, forwardingSales) ||
-                other.forwardingSales == forwardingSales) &&
-            (identical(other.forwardingSalesPercentage,
-                    forwardingSalesPercentage) ||
-                other.forwardingSalesPercentage == forwardingSalesPercentage) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime) &&
-            (identical(other.note, note) || other.note == note) &&
-            const DeepCollectionEquality()
-                .equals(other._imagesPathList, _imagesPathList) &&
-            (identical(other.tcsSales, tcsSales) ||
-                other.tcsSales == tcsSales) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        id,
-        billNo,
-        companyModel,
-        isNormalPurchaseBill,
-        lorryFright,
-        lorryFrightTax,
-        lorryFrightTotal,
-        overallDiscount,
-        const DeepCollectionEquality().hash(_productList),
-        const DeepCollectionEquality().hash(_paymentsIdList),
-        isTax,
-        grandTotal,
-        forwardingSales,
-        forwardingSalesPercentage,
-        dateTime,
-        note,
-        const DeepCollectionEquality().hash(_imagesPathList),
-        tcsSales,
-        createdAt
-      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -525,67 +456,86 @@ class _$PurchaseModelImpl implements _PurchaseModel {
 
 abstract class _PurchaseModel implements PurchaseModel {
   factory _PurchaseModel(
-      {required final String id,
-      required final String billNo,
-      required final CompanyModel companyModel,
-      required final bool? isNormalPurchaseBill,
-      required final double? lorryFright,
-      required final double? lorryFrightTax,
-      required final double? lorryFrightTotal,
-      required final double? overallDiscount,
-      required final List<PurchaseProductModel> productList,
-      final List<String> paymentsIdList,
-      final bool isTax,
-      required final double grandTotal,
-      final double? forwardingSales,
-      final double forwardingSalesPercentage,
-      required final DateTime dateTime,
-      final String? note,
-      final List<String>? imagesPathList,
-      final double? tcsSales,
-      required final DateTime createdAt}) = _$PurchaseModelImpl;
+      {required String id,
+      required String billNo,
+      required CompanyModel companyModel,
+      required bool? isNormalPurchaseBill,
+      required double? lorryFright,
+      required double? lorryFrightTax,
+      required double? lorryFrightTotal,
+      required double? overallDiscount,
+      required List<PurchaseProductModel> productList,
+      List<String> paymentsIdList,
+      bool isTax,
+      required double grandTotal,
+      double? forwardingSales,
+      double forwardingSalesPercentage,
+      required DateTime dateTime,
+      String? note,
+      List<String>? imagesPathList,
+      double? tcsSales,
+      required DateTime createdAt}) = _$PurchaseModelImpl;
 
   factory _PurchaseModel.fromJson(Map<String, dynamic> json) =
       _$PurchaseModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get billNo;
+  set billNo(String value);
   @override
   CompanyModel get companyModel;
+  set companyModel(CompanyModel value);
   @override
   bool? get isNormalPurchaseBill;
+  set isNormalPurchaseBill(bool? value);
   @override
   double? get lorryFright;
+  set lorryFright(double? value);
   @override
   double? get lorryFrightTax;
+  set lorryFrightTax(double? value);
   @override
   double? get lorryFrightTotal;
+  set lorryFrightTotal(double? value);
   @override
   double? get overallDiscount;
+  set overallDiscount(double? value);
   @override
   List<PurchaseProductModel> get productList;
+  set productList(List<PurchaseProductModel> value);
   @override
   List<String> get paymentsIdList;
+  set paymentsIdList(List<String> value);
   @override
   bool get isTax;
+  set isTax(bool value);
   @override
   double get grandTotal;
+  set grandTotal(double value);
   @override
   double? get forwardingSales;
+  set forwardingSales(double? value);
   @override
   double get forwardingSalesPercentage;
+  set forwardingSalesPercentage(double value);
   @override
   DateTime get dateTime;
+  set dateTime(DateTime value);
   @override
   String? get note;
+  set note(String? value);
   @override
   List<String>? get imagesPathList;
+  set imagesPathList(List<String>? value);
   @override
   double? get tcsSales;
+  set tcsSales(double? value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$PurchaseModelImplCopyWith<_$PurchaseModelImpl> get copyWith =>

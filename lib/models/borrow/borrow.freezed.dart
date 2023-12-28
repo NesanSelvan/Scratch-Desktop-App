@@ -21,7 +21,9 @@ BorrowModel _$BorrowModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BorrowModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get billId => throw _privateConstructorUsedError;
+  set billId(String value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -108,33 +110,20 @@ class __$$BorrowModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$BorrowModelImpl implements _BorrowModel {
-  const _$BorrowModelImpl(this.id, this.billId);
+  _$BorrowModelImpl(this.id, this.billId);
 
   factory _$BorrowModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$BorrowModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String billId;
+  String billId;
 
   @override
   String toString() {
     return 'BorrowModel(id: $id, billId: $billId)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BorrowModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.billId, billId) || other.billId == billId));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, billId);
 
   @JsonKey(ignore: true)
   @override
@@ -151,16 +140,17 @@ class _$BorrowModelImpl implements _BorrowModel {
 }
 
 abstract class _BorrowModel implements BorrowModel {
-  const factory _BorrowModel(final String id, final String billId) =
-      _$BorrowModelImpl;
+  factory _BorrowModel(String id, String billId) = _$BorrowModelImpl;
 
   factory _BorrowModel.fromJson(Map<String, dynamic> json) =
       _$BorrowModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get billId;
+  set billId(String value);
   @override
   @JsonKey(ignore: true)
   _$$BorrowModelImplCopyWith<_$BorrowModelImpl> get copyWith =>

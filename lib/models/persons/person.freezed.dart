@@ -21,14 +21,23 @@ PersonModel _$PersonModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PersonModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  set name(String value) => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  set email(String value) => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
+  set address(String value) => throw _privateConstructorUsedError;
   int get pincode => throw _privateConstructorUsedError;
+  set pincode(int value) => throw _privateConstructorUsedError;
   String get state => throw _privateConstructorUsedError;
+  set state(String value) => throw _privateConstructorUsedError;
   PersonEnum get type => throw _privateConstructorUsedError;
+  set type(PersonEnum value) => throw _privateConstructorUsedError;
   int get mobileNo => throw _privateConstructorUsedError;
+  set mobileNo(int value) => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -203,7 +212,7 @@ class __$$PersonModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PersonModelImpl implements _PersonModel {
-  const _$PersonModelImpl(
+  _$PersonModelImpl(
       {required this.id,
       required this.name,
       required this.email,
@@ -218,52 +227,29 @@ class _$PersonModelImpl implements _PersonModel {
       _$$PersonModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String name;
+  String name;
   @override
-  final String email;
+  String email;
   @override
-  final String address;
+  String address;
   @override
-  final int pincode;
+  int pincode;
   @override
-  final String state;
+  String state;
   @override
   @JsonKey()
-  final PersonEnum type;
+  PersonEnum type;
   @override
-  final int mobileNo;
+  int mobileNo;
   @override
-  final DateTime? createdAt;
+  DateTime? createdAt;
 
   @override
   String toString() {
     return 'PersonModel(id: $id, name: $name, email: $email, address: $address, pincode: $pincode, state: $state, type: $type, mobileNo: $mobileNo, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PersonModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.address, address) || other.address == address) &&
-            (identical(other.pincode, pincode) || other.pincode == pincode) &&
-            (identical(other.state, state) || other.state == state) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.mobileNo, mobileNo) ||
-                other.mobileNo == mobileNo) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name, email, address,
-      pincode, state, type, mobileNo, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -280,38 +266,47 @@ class _$PersonModelImpl implements _PersonModel {
 }
 
 abstract class _PersonModel implements PersonModel {
-  const factory _PersonModel(
-      {required final String id,
-      required final String name,
-      required final String email,
-      required final String address,
-      required final int pincode,
-      required final String state,
-      final PersonEnum type,
-      required final int mobileNo,
-      final DateTime? createdAt}) = _$PersonModelImpl;
+  factory _PersonModel(
+      {required String id,
+      required String name,
+      required String email,
+      required String address,
+      required int pincode,
+      required String state,
+      PersonEnum type,
+      required int mobileNo,
+      DateTime? createdAt}) = _$PersonModelImpl;
 
   factory _PersonModel.fromJson(Map<String, dynamic> json) =
       _$PersonModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get name;
+  set name(String value);
   @override
   String get email;
+  set email(String value);
   @override
   String get address;
+  set address(String value);
   @override
   int get pincode;
+  set pincode(int value);
   @override
   String get state;
+  set state(String value);
   @override
   PersonEnum get type;
+  set type(PersonEnum value);
   @override
   int get mobileNo;
+  set mobileNo(int value);
   @override
   DateTime? get createdAt;
+  set createdAt(DateTime? value);
   @override
   @JsonKey(ignore: true)
   _$$PersonModelImplCopyWith<_$PersonModelImpl> get copyWith =>

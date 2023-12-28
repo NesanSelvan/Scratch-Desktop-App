@@ -531,7 +531,7 @@ class _SalesScreen1State extends State<SalesScreen1> {
                                 controller.selectedProductModel!
                                     .differentPriceList!.isNotEmpty)
                               DropdownButton<PriceModel>(
-                                value: controller.selectedPriceModel,
+                                value: controller.selectedPriceModelForDropdown,
                                 focusNode: controller.priceModelFocusNode,
                                 onChanged: (PriceModel? val) {
                                   if (val != null) {

@@ -5,10 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'estimate.freezed.dart';
 part 'estimate.g.dart';
 
-@freezed
+@unfreezed
 abstract class EstimateModel with _$EstimateModel {
   @JsonSerializable(explicitToJson: true)
-  const factory EstimateModel({
+  factory EstimateModel({
     @JsonKey(name: "id") required String id,
     required String estimateNo,
     @Default("") String? billId,

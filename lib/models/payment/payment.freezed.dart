@@ -21,15 +21,25 @@ PaymentModel _$PaymentModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PaymentModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get paymentNo => throw _privateConstructorUsedError;
+  set paymentNo(String value) => throw _privateConstructorUsedError;
   String get purchaseId => throw _privateConstructorUsedError;
+  set purchaseId(String value) => throw _privateConstructorUsedError;
   double get givenAmount => throw _privateConstructorUsedError;
+  set givenAmount(double value) => throw _privateConstructorUsedError;
   String get paymentMethod => throw _privateConstructorUsedError;
+  set paymentMethod(String value) => throw _privateConstructorUsedError;
   String get paymentID => throw _privateConstructorUsedError;
+  set paymentID(String value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
   PurchaseModel? get purchaseModel => throw _privateConstructorUsedError;
+  set purchaseModel(PurchaseModel? value) => throw _privateConstructorUsedError;
   CompanyModel? get companyModel => throw _privateConstructorUsedError;
+  set companyModel(CompanyModel? value) => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
+  set note(String? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -265,70 +275,30 @@ class _$PaymentModelImpl implements _PaymentModel {
       _$$PaymentModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String paymentNo;
+  String paymentNo;
   @override
-  final String purchaseId;
+  String purchaseId;
   @override
-  final double givenAmount;
+  double givenAmount;
   @override
-  final String paymentMethod;
+  String paymentMethod;
   @override
-  final String paymentID;
+  String paymentID;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
   @override
-  final PurchaseModel? purchaseModel;
+  PurchaseModel? purchaseModel;
   @override
-  final CompanyModel? companyModel;
+  CompanyModel? companyModel;
   @override
-  final String? note;
+  String? note;
 
   @override
   String toString() {
     return 'PaymentModel(id: $id, paymentNo: $paymentNo, purchaseId: $purchaseId, givenAmount: $givenAmount, paymentMethod: $paymentMethod, paymentID: $paymentID, createdAt: $createdAt, purchaseModel: $purchaseModel, companyModel: $companyModel, note: $note)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaymentModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.paymentNo, paymentNo) ||
-                other.paymentNo == paymentNo) &&
-            (identical(other.purchaseId, purchaseId) ||
-                other.purchaseId == purchaseId) &&
-            (identical(other.givenAmount, givenAmount) ||
-                other.givenAmount == givenAmount) &&
-            (identical(other.paymentMethod, paymentMethod) ||
-                other.paymentMethod == paymentMethod) &&
-            (identical(other.paymentID, paymentID) ||
-                other.paymentID == paymentID) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.purchaseModel, purchaseModel) ||
-                other.purchaseModel == purchaseModel) &&
-            (identical(other.companyModel, companyModel) ||
-                other.companyModel == companyModel) &&
-            (identical(other.note, note) || other.note == note));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      paymentNo,
-      purchaseId,
-      givenAmount,
-      paymentMethod,
-      paymentID,
-      createdAt,
-      purchaseModel,
-      companyModel,
-      note);
 
   @JsonKey(ignore: true)
   @override
@@ -346,40 +316,50 @@ class _$PaymentModelImpl implements _PaymentModel {
 
 abstract class _PaymentModel implements PaymentModel {
   factory _PaymentModel(
-      {required final String id,
-      required final String paymentNo,
-      required final String purchaseId,
-      required final double givenAmount,
-      required final String paymentMethod,
-      required final String paymentID,
-      required final DateTime createdAt,
-      final PurchaseModel? purchaseModel,
-      final CompanyModel? companyModel,
-      final String? note}) = _$PaymentModelImpl;
+      {required String id,
+      required String paymentNo,
+      required String purchaseId,
+      required double givenAmount,
+      required String paymentMethod,
+      required String paymentID,
+      required DateTime createdAt,
+      PurchaseModel? purchaseModel,
+      CompanyModel? companyModel,
+      String? note}) = _$PaymentModelImpl;
 
   factory _PaymentModel.fromJson(Map<String, dynamic> json) =
       _$PaymentModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get paymentNo;
+  set paymentNo(String value);
   @override
   String get purchaseId;
+  set purchaseId(String value);
   @override
   double get givenAmount;
+  set givenAmount(double value);
   @override
   String get paymentMethod;
+  set paymentMethod(String value);
   @override
   String get paymentID;
+  set paymentID(String value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   PurchaseModel? get purchaseModel;
+  set purchaseModel(PurchaseModel? value);
   @override
   CompanyModel? get companyModel;
+  set companyModel(CompanyModel? value);
   @override
   String? get note;
+  set note(String? value);
   @override
   @JsonKey(ignore: true)
   _$$PaymentModelImplCopyWith<_$PaymentModelImpl> get copyWith =>

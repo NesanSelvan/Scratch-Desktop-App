@@ -21,16 +21,27 @@ PurchaseProductModel _$PurchaseProductModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PurchaseProductModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   CategoryModel get categoryModel => throw _privateConstructorUsedError;
+  set categoryModel(CategoryModel value) => throw _privateConstructorUsedError;
   ProductModel get productModel => throw _privateConstructorUsedError;
+  set productModel(ProductModel value) => throw _privateConstructorUsedError;
   double get qty => throw _privateConstructorUsedError;
+  set qty(double value) => throw _privateConstructorUsedError;
   double get rate => throw _privateConstructorUsedError;
+  set rate(double value) => throw _privateConstructorUsedError;
   double get amount => throw _privateConstructorUsedError;
+  set amount(double value) => throw _privateConstructorUsedError;
   double get discount => throw _privateConstructorUsedError;
+  set discount(double value) => throw _privateConstructorUsedError;
   double get lorryFright => throw _privateConstructorUsedError;
+  set lorryFright(double value) => throw _privateConstructorUsedError;
   double get tax => throw _privateConstructorUsedError;
+  set tax(double value) => throw _privateConstructorUsedError;
   double get taxableValue => throw _privateConstructorUsedError;
+  set taxableValue(double value) => throw _privateConstructorUsedError;
   double get totalAmount => throw _privateConstructorUsedError;
+  set totalAmount(double value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -272,61 +283,32 @@ class _$PurchaseProductModelImpl implements _PurchaseProductModel {
       _$$PurchaseProductModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final CategoryModel categoryModel;
+  CategoryModel categoryModel;
   @override
-  final ProductModel productModel;
+  ProductModel productModel;
   @override
-  final double qty;
+  double qty;
   @override
-  final double rate;
+  double rate;
   @override
-  final double amount;
+  double amount;
   @override
-  final double discount;
+  double discount;
   @override
-  final double lorryFright;
+  double lorryFright;
   @override
-  final double tax;
+  double tax;
   @override
-  final double taxableValue;
+  double taxableValue;
   @override
-  final double totalAmount;
+  double totalAmount;
 
   @override
   String toString() {
     return 'PurchaseProductModel(id: $id, categoryModel: $categoryModel, productModel: $productModel, qty: $qty, rate: $rate, amount: $amount, discount: $discount, lorryFright: $lorryFright, tax: $tax, taxableValue: $taxableValue, totalAmount: $totalAmount)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PurchaseProductModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.categoryModel, categoryModel) ||
-                other.categoryModel == categoryModel) &&
-            (identical(other.productModel, productModel) ||
-                other.productModel == productModel) &&
-            (identical(other.qty, qty) || other.qty == qty) &&
-            (identical(other.rate, rate) || other.rate == rate) &&
-            (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.discount, discount) ||
-                other.discount == discount) &&
-            (identical(other.lorryFright, lorryFright) ||
-                other.lorryFright == lorryFright) &&
-            (identical(other.tax, tax) || other.tax == tax) &&
-            (identical(other.taxableValue, taxableValue) ||
-                other.taxableValue == taxableValue) &&
-            (identical(other.totalAmount, totalAmount) ||
-                other.totalAmount == totalAmount));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, categoryModel, productModel,
-      qty, rate, amount, discount, lorryFright, tax, taxableValue, totalAmount);
 
   @JsonKey(ignore: true)
   @override
@@ -346,43 +328,54 @@ class _$PurchaseProductModelImpl implements _PurchaseProductModel {
 
 abstract class _PurchaseProductModel implements PurchaseProductModel {
   factory _PurchaseProductModel(
-      {required final String id,
-      required final CategoryModel categoryModel,
-      required final ProductModel productModel,
-      required final double qty,
-      required final double rate,
-      required final double amount,
-      required final double discount,
-      required final double lorryFright,
-      required final double tax,
-      required final double taxableValue,
-      required final double totalAmount}) = _$PurchaseProductModelImpl;
+      {required String id,
+      required CategoryModel categoryModel,
+      required ProductModel productModel,
+      required double qty,
+      required double rate,
+      required double amount,
+      required double discount,
+      required double lorryFright,
+      required double tax,
+      required double taxableValue,
+      required double totalAmount}) = _$PurchaseProductModelImpl;
 
   factory _PurchaseProductModel.fromJson(Map<String, dynamic> json) =
       _$PurchaseProductModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   CategoryModel get categoryModel;
+  set categoryModel(CategoryModel value);
   @override
   ProductModel get productModel;
+  set productModel(ProductModel value);
   @override
   double get qty;
+  set qty(double value);
   @override
   double get rate;
+  set rate(double value);
   @override
   double get amount;
+  set amount(double value);
   @override
   double get discount;
+  set discount(double value);
   @override
   double get lorryFright;
+  set lorryFright(double value);
   @override
   double get tax;
+  set tax(double value);
   @override
   double get taxableValue;
+  set taxableValue(double value);
   @override
   double get totalAmount;
+  set totalAmount(double value);
   @override
   @JsonKey(ignore: true)
   _$$PurchaseProductModelImplCopyWith<_$PurchaseProductModelImpl>

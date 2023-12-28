@@ -21,12 +21,19 @@ BankModel _$BankModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BankModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get accountNo => throw _privateConstructorUsedError;
+  set accountNo(String value) => throw _privateConstructorUsedError;
   String get bankHolderName => throw _privateConstructorUsedError;
+  set bankHolderName(String value) => throw _privateConstructorUsedError;
   String get ifscCode => throw _privateConstructorUsedError;
+  set ifscCode(String value) => throw _privateConstructorUsedError;
   String get bankName => throw _privateConstructorUsedError;
+  set bankName(String value) => throw _privateConstructorUsedError;
   String? get branch => throw _privateConstructorUsedError;
+  set branch(String? value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -190,49 +197,25 @@ class _$BankModelImpl implements _BankModel {
       _$$BankModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String accountNo;
+  String accountNo;
   @override
-  final String bankHolderName;
+  String bankHolderName;
   @override
-  final String ifscCode;
+  String ifscCode;
   @override
-  final String bankName;
+  String bankName;
   @override
   @JsonKey()
-  final String? branch;
+  String? branch;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'BankModel(id: $id, accountNo: $accountNo, bankHolderName: $bankHolderName, ifscCode: $ifscCode, bankName: $bankName, branch: $branch, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BankModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.accountNo, accountNo) ||
-                other.accountNo == accountNo) &&
-            (identical(other.bankHolderName, bankHolderName) ||
-                other.bankHolderName == bankHolderName) &&
-            (identical(other.ifscCode, ifscCode) ||
-                other.ifscCode == ifscCode) &&
-            (identical(other.bankName, bankName) ||
-                other.bankName == bankName) &&
-            (identical(other.branch, branch) || other.branch == branch) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, accountNo, bankHolderName,
-      ifscCode, bankName, branch, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -250,31 +233,38 @@ class _$BankModelImpl implements _BankModel {
 
 abstract class _BankModel implements BankModel {
   factory _BankModel(
-      {required final String id,
-      required final String accountNo,
-      required final String bankHolderName,
-      required final String ifscCode,
-      required final String bankName,
-      final String? branch,
-      required final DateTime createdAt}) = _$BankModelImpl;
+      {required String id,
+      required String accountNo,
+      required String bankHolderName,
+      required String ifscCode,
+      required String bankName,
+      String? branch,
+      required DateTime createdAt}) = _$BankModelImpl;
 
   factory _BankModel.fromJson(Map<String, dynamic> json) =
       _$BankModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get accountNo;
+  set accountNo(String value);
   @override
   String get bankHolderName;
+  set bankHolderName(String value);
   @override
   String get ifscCode;
+  set ifscCode(String value);
   @override
   String get bankName;
+  set bankName(String value);
   @override
   String? get branch;
+  set branch(String? value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$BankModelImplCopyWith<_$BankModelImpl> get copyWith =>

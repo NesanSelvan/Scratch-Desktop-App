@@ -5,9 +5,10 @@ import 'package:uuid/uuid.dart';
 part 'unit.freezed.dart';
 part 'unit.g.dart';
 
-@freezed
+@unfreezed
 abstract class UnitModel with _$UnitModel {
-  const factory UnitModel(
+  @JsonSerializable(explicitToJson: true)
+  factory UnitModel(
     String? id,
     String? symbol,
     String? formalName,

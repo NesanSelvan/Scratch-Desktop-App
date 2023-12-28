@@ -21,10 +21,15 @@ StockModel _$StockModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$StockModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get productId => throw _privateConstructorUsedError;
+  set productId(String value) => throw _privateConstructorUsedError;
   String get productCode => throw _privateConstructorUsedError;
+  set productCode(String value) => throw _privateConstructorUsedError;
   double get qty => throw _privateConstructorUsedError;
+  set qty(double value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -151,47 +156,27 @@ class __$$StockModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$StockModelImpl implements _StockModel {
-  const _$StockModelImpl(
+  _$StockModelImpl(
       this.id, this.productId, this.productCode, this.qty, this.createdAt);
 
   factory _$StockModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$StockModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String productId;
+  String productId;
   @override
-  final String productCode;
+  String productCode;
   @override
-  final double qty;
+  double qty;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'StockModel(id: $id, productId: $productId, productCode: $productCode, qty: $qty, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$StockModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.productCode, productCode) ||
-                other.productCode == productCode) &&
-            (identical(other.qty, qty) || other.qty == qty) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, productId, productCode, qty, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -208,26 +193,27 @@ class _$StockModelImpl implements _StockModel {
 }
 
 abstract class _StockModel implements StockModel {
-  const factory _StockModel(
-      final String id,
-      final String productId,
-      final String productCode,
-      final double qty,
-      final DateTime createdAt) = _$StockModelImpl;
+  factory _StockModel(String id, String productId, String productCode,
+      double qty, DateTime createdAt) = _$StockModelImpl;
 
   factory _StockModel.fromJson(Map<String, dynamic> json) =
       _$StockModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get productId;
+  set productId(String value);
   @override
   String get productCode;
+  set productCode(String value);
   @override
   double get qty;
+  set qty(double value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$StockModelImplCopyWith<_$StockModelImpl> get copyWith =>

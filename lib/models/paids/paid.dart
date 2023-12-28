@@ -3,9 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'paid.freezed.dart';
 part 'paid.g.dart';
 
-@freezed
+@unfreezed
 abstract class PaidModel with _$PaidModel {
-  const factory PaidModel(
+  factory PaidModel(
     String id,
     String billId,
   ) = _PaidModel;

@@ -21,18 +21,31 @@ ReceiptModel _$ReceiptModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ReceiptModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get receiptNo => throw _privateConstructorUsedError;
+  set receiptNo(String value) => throw _privateConstructorUsedError;
   String? get billNo => throw _privateConstructorUsedError;
+  set billNo(String? value) => throw _privateConstructorUsedError;
   double get givenAmount => throw _privateConstructorUsedError;
+  set givenAmount(double value) => throw _privateConstructorUsedError;
   double get pendingAmount => throw _privateConstructorUsedError;
+  set pendingAmount(double value) => throw _privateConstructorUsedError;
   double get advanceAmount => throw _privateConstructorUsedError;
+  set advanceAmount(double value) => throw _privateConstructorUsedError;
   String get paymentMethod => throw _privateConstructorUsedError;
+  set paymentMethod(String value) => throw _privateConstructorUsedError;
   String? get receivedFrom => throw _privateConstructorUsedError;
+  set receivedFrom(String? value) => throw _privateConstructorUsedError;
   String? get paymentFor => throw _privateConstructorUsedError;
+  set paymentFor(String? value) => throw _privateConstructorUsedError;
   CustomerModel get customerModel => throw _privateConstructorUsedError;
+  set customerModel(CustomerModel value) => throw _privateConstructorUsedError;
   String get paymentId => throw _privateConstructorUsedError;
+  set paymentId(String value) => throw _privateConstructorUsedError;
   bool get isAdvance => throw _privateConstructorUsedError;
+  set isAdvance(bool value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -269,7 +282,7 @@ class __$$ReceiptModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$ReceiptModelImpl implements _ReceiptModel {
-  const _$ReceiptModelImpl(
+  _$ReceiptModelImpl(
       {required this.id,
       required this.receiptNo,
       this.billNo,
@@ -288,87 +301,38 @@ class _$ReceiptModelImpl implements _ReceiptModel {
       _$$ReceiptModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String receiptNo;
+  String receiptNo;
   @override
-  final String? billNo;
+  String? billNo;
   @override
-  final double givenAmount;
+  double givenAmount;
   @override
-  final double pendingAmount;
-  @override
-  @JsonKey()
-  final double advanceAmount;
-  @override
-  final String paymentMethod;
-  @override
-  final String? receivedFrom;
-  @override
-  final String? paymentFor;
-  @override
-  final CustomerModel customerModel;
-  @override
-  final String paymentId;
+  double pendingAmount;
   @override
   @JsonKey()
-  final bool isAdvance;
+  double advanceAmount;
   @override
-  final DateTime createdAt;
+  String paymentMethod;
+  @override
+  String? receivedFrom;
+  @override
+  String? paymentFor;
+  @override
+  CustomerModel customerModel;
+  @override
+  String paymentId;
+  @override
+  @JsonKey()
+  bool isAdvance;
+  @override
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'ReceiptModel(id: $id, receiptNo: $receiptNo, billNo: $billNo, givenAmount: $givenAmount, pendingAmount: $pendingAmount, advanceAmount: $advanceAmount, paymentMethod: $paymentMethod, receivedFrom: $receivedFrom, paymentFor: $paymentFor, customerModel: $customerModel, paymentId: $paymentId, isAdvance: $isAdvance, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ReceiptModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.receiptNo, receiptNo) ||
-                other.receiptNo == receiptNo) &&
-            (identical(other.billNo, billNo) || other.billNo == billNo) &&
-            (identical(other.givenAmount, givenAmount) ||
-                other.givenAmount == givenAmount) &&
-            (identical(other.pendingAmount, pendingAmount) ||
-                other.pendingAmount == pendingAmount) &&
-            (identical(other.advanceAmount, advanceAmount) ||
-                other.advanceAmount == advanceAmount) &&
-            (identical(other.paymentMethod, paymentMethod) ||
-                other.paymentMethod == paymentMethod) &&
-            (identical(other.receivedFrom, receivedFrom) ||
-                other.receivedFrom == receivedFrom) &&
-            (identical(other.paymentFor, paymentFor) ||
-                other.paymentFor == paymentFor) &&
-            (identical(other.customerModel, customerModel) ||
-                other.customerModel == customerModel) &&
-            (identical(other.paymentId, paymentId) ||
-                other.paymentId == paymentId) &&
-            (identical(other.isAdvance, isAdvance) ||
-                other.isAdvance == isAdvance) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      receiptNo,
-      billNo,
-      givenAmount,
-      pendingAmount,
-      advanceAmount,
-      paymentMethod,
-      receivedFrom,
-      paymentFor,
-      customerModel,
-      paymentId,
-      isAdvance,
-      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -385,50 +349,63 @@ class _$ReceiptModelImpl implements _ReceiptModel {
 }
 
 abstract class _ReceiptModel implements ReceiptModel {
-  const factory _ReceiptModel(
-      {required final String id,
-      required final String receiptNo,
-      final String? billNo,
-      required final double givenAmount,
-      required final double pendingAmount,
-      final double advanceAmount,
-      required final String paymentMethod,
-      final String? receivedFrom,
-      final String? paymentFor,
-      required final CustomerModel customerModel,
-      required final String paymentId,
-      final bool isAdvance,
-      required final DateTime createdAt}) = _$ReceiptModelImpl;
+  factory _ReceiptModel(
+      {required String id,
+      required String receiptNo,
+      String? billNo,
+      required double givenAmount,
+      required double pendingAmount,
+      double advanceAmount,
+      required String paymentMethod,
+      String? receivedFrom,
+      String? paymentFor,
+      required CustomerModel customerModel,
+      required String paymentId,
+      bool isAdvance,
+      required DateTime createdAt}) = _$ReceiptModelImpl;
 
   factory _ReceiptModel.fromJson(Map<String, dynamic> json) =
       _$ReceiptModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get receiptNo;
+  set receiptNo(String value);
   @override
   String? get billNo;
+  set billNo(String? value);
   @override
   double get givenAmount;
+  set givenAmount(double value);
   @override
   double get pendingAmount;
+  set pendingAmount(double value);
   @override
   double get advanceAmount;
+  set advanceAmount(double value);
   @override
   String get paymentMethod;
+  set paymentMethod(String value);
   @override
   String? get receivedFrom;
+  set receivedFrom(String? value);
   @override
   String? get paymentFor;
+  set paymentFor(String? value);
   @override
   CustomerModel get customerModel;
+  set customerModel(CustomerModel value);
   @override
   String get paymentId;
+  set paymentId(String value);
   @override
   bool get isAdvance;
+  set isAdvance(bool value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$ReceiptModelImplCopyWith<_$ReceiptModelImpl> get copyWith =>

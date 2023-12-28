@@ -5,9 +5,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'statement_by_hsn.freezed.dart';
 part 'statement_by_hsn.g.dart';
 
-@freezed
+@unfreezed
 abstract class StatementByHSN with _$StatementByHSN {
-  const factory StatementByHSN(
+  factory StatementByHSN(
     String id,
     BillModel billModel,
     CategoryModel categoryModel,

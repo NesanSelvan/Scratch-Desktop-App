@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'paths.freezed.dart';
 part 'paths.g.dart';
 
-@freezed
+@unfreezed
 class PathsModel with _$PathsModel {
   @JsonSerializable(explicitToJson: true)
   factory PathsModel({

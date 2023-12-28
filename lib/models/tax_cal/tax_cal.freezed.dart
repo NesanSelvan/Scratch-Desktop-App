@@ -21,11 +21,17 @@ TaxCalModel _$TaxCalModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TaxCalModel {
   int get hsnCode => throw _privateConstructorUsedError;
+  set hsnCode(int value) => throw _privateConstructorUsedError;
   double get taxableVal => throw _privateConstructorUsedError;
+  set taxableVal(double value) => throw _privateConstructorUsedError;
   double get tax => throw _privateConstructorUsedError;
+  set tax(double value) => throw _privateConstructorUsedError;
   double get amount => throw _privateConstructorUsedError;
+  set amount(double value) => throw _privateConstructorUsedError;
   double get rate => throw _privateConstructorUsedError;
+  set rate(double value) => throw _privateConstructorUsedError;
   double get totalTaxAmount => throw _privateConstructorUsedError;
+  set totalTaxAmount(double value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -176,42 +182,22 @@ class _$TaxCalModelImpl implements _TaxCalModel {
       _$$TaxCalModelImplFromJson(json);
 
   @override
-  final int hsnCode;
+  int hsnCode;
   @override
-  final double taxableVal;
+  double taxableVal;
   @override
-  final double tax;
+  double tax;
   @override
-  final double amount;
+  double amount;
   @override
-  final double rate;
+  double rate;
   @override
-  final double totalTaxAmount;
+  double totalTaxAmount;
 
   @override
   String toString() {
     return 'TaxCalModel(hsnCode: $hsnCode, taxableVal: $taxableVal, tax: $tax, amount: $amount, rate: $rate, totalTaxAmount: $totalTaxAmount)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$TaxCalModelImpl &&
-            (identical(other.hsnCode, hsnCode) || other.hsnCode == hsnCode) &&
-            (identical(other.taxableVal, taxableVal) ||
-                other.taxableVal == taxableVal) &&
-            (identical(other.tax, tax) || other.tax == tax) &&
-            (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.rate, rate) || other.rate == rate) &&
-            (identical(other.totalTaxAmount, totalTaxAmount) ||
-                other.totalTaxAmount == totalTaxAmount));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, hsnCode, taxableVal, tax, amount, rate, totalTaxAmount);
 
   @JsonKey(ignore: true)
   @override
@@ -229,28 +215,34 @@ class _$TaxCalModelImpl implements _TaxCalModel {
 
 abstract class _TaxCalModel implements TaxCalModel {
   factory _TaxCalModel(
-      {required final int hsnCode,
-      required final double taxableVal,
-      required final double tax,
-      required final double amount,
-      required final double rate,
-      required final double totalTaxAmount}) = _$TaxCalModelImpl;
+      {required int hsnCode,
+      required double taxableVal,
+      required double tax,
+      required double amount,
+      required double rate,
+      required double totalTaxAmount}) = _$TaxCalModelImpl;
 
   factory _TaxCalModel.fromJson(Map<String, dynamic> json) =
       _$TaxCalModelImpl.fromJson;
 
   @override
   int get hsnCode;
+  set hsnCode(int value);
   @override
   double get taxableVal;
+  set taxableVal(double value);
   @override
   double get tax;
+  set tax(double value);
   @override
   double get amount;
+  set amount(double value);
   @override
   double get rate;
+  set rate(double value);
   @override
   double get totalTaxAmount;
+  set totalTaxAmount(double value);
   @override
   @JsonKey(ignore: true)
   _$$TaxCalModelImplCopyWith<_$TaxCalModelImpl> get copyWith =>

@@ -21,12 +21,19 @@ CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CategoryModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String? get catSymbol => throw _privateConstructorUsedError;
+  set catSymbol(String? value) => throw _privateConstructorUsedError;
   int get hsnCode => throw _privateConstructorUsedError;
+  set hsnCode(int value) => throw _privateConstructorUsedError;
   int? get categoryNo => throw _privateConstructorUsedError;
+  set categoryNo(int? value) => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
+  set category(String value) => throw _privateConstructorUsedError;
   double get tax => throw _privateConstructorUsedError;
+  set tax(double value) => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
+  set dateTime(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -177,7 +184,7 @@ class __$$CategoryModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CategoryModelImpl implements _CategoryModel {
-  const _$CategoryModelImpl(
+  _$CategoryModelImpl(
       {required this.id,
       this.catSymbol,
       required this.hsnCode,
@@ -190,47 +197,24 @@ class _$CategoryModelImpl implements _CategoryModel {
       _$$CategoryModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String? catSymbol;
+  String? catSymbol;
   @override
-  final int hsnCode;
+  int hsnCode;
   @override
-  final int? categoryNo;
+  int? categoryNo;
   @override
-  final String category;
+  String category;
   @override
-  final double tax;
+  double tax;
   @override
-  final DateTime dateTime;
+  DateTime dateTime;
 
   @override
   String toString() {
     return 'CategoryModel(id: $id, catSymbol: $catSymbol, hsnCode: $hsnCode, categoryNo: $categoryNo, category: $category, tax: $tax, dateTime: $dateTime)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CategoryModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.catSymbol, catSymbol) ||
-                other.catSymbol == catSymbol) &&
-            (identical(other.hsnCode, hsnCode) || other.hsnCode == hsnCode) &&
-            (identical(other.categoryNo, categoryNo) ||
-                other.categoryNo == categoryNo) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
-            (identical(other.tax, tax) || other.tax == tax) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, id, catSymbol, hsnCode, categoryNo, category, tax, dateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -247,32 +231,39 @@ class _$CategoryModelImpl implements _CategoryModel {
 }
 
 abstract class _CategoryModel implements CategoryModel {
-  const factory _CategoryModel(
-      {required final String id,
-      final String? catSymbol,
-      required final int hsnCode,
-      final int? categoryNo,
-      required final String category,
-      required final double tax,
-      required final DateTime dateTime}) = _$CategoryModelImpl;
+  factory _CategoryModel(
+      {required String id,
+      String? catSymbol,
+      required int hsnCode,
+      int? categoryNo,
+      required String category,
+      required double tax,
+      required DateTime dateTime}) = _$CategoryModelImpl;
 
   factory _CategoryModel.fromJson(Map<String, dynamic> json) =
       _$CategoryModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String? get catSymbol;
+  set catSymbol(String? value);
   @override
   int get hsnCode;
+  set hsnCode(int value);
   @override
   int? get categoryNo;
+  set categoryNo(int? value);
   @override
   String get category;
+  set category(String value);
   @override
   double get tax;
+  set tax(double value);
   @override
   DateTime get dateTime;
+  set dateTime(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$CategoryModelImplCopyWith<_$CategoryModelImpl> get copyWith =>

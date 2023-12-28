@@ -5,10 +5,10 @@ import '../customer/customer.dart';
 part 'receipt.freezed.dart';
 part 'receipt.g.dart';
 
-@freezed
+@unfreezed
 abstract class ReceiptModel with _$ReceiptModel {
   @JsonSerializable(explicitToJson: true)
-  const factory ReceiptModel(
+  factory ReceiptModel(
       {required String id,
       required String receiptNo,
       String? billNo,

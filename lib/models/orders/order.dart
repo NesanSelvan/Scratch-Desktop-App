@@ -5,10 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'order.freezed.dart';
 part 'order.g.dart';
 
-@freezed
+@unfreezed
 abstract class OrderModel with _$OrderModel {
   @JsonSerializable(explicitToJson: true)
-  const factory OrderModel({
+  factory OrderModel({
     @JsonKey(name: "id") required String id,
     required String orderNo,
     @Default(true) bool isTax,

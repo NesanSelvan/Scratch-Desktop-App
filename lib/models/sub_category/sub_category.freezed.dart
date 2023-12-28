@@ -21,9 +21,13 @@ SubCategoryModel _$SubCategoryModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SubCategoryModel {
   String? get id => throw _privateConstructorUsedError;
+  set id(String? value) => throw _privateConstructorUsedError;
   int? get hsnCode => throw _privateConstructorUsedError;
+  set hsnCode(int? value) => throw _privateConstructorUsedError;
   String? get subCategoryName => throw _privateConstructorUsedError;
+  set subCategoryName(String? value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -132,43 +136,25 @@ class __$$SubCategoryModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SubCategoryModelImpl implements _SubCategoryModel {
-  const _$SubCategoryModelImpl(
+  _$SubCategoryModelImpl(
       this.id, this.hsnCode, this.subCategoryName, this.createdAt);
 
   factory _$SubCategoryModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$SubCategoryModelImplFromJson(json);
 
   @override
-  final String? id;
+  String? id;
   @override
-  final int? hsnCode;
+  int? hsnCode;
   @override
-  final String? subCategoryName;
+  String? subCategoryName;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'SubCategoryModel(id: $id, hsnCode: $hsnCode, subCategoryName: $subCategoryName, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SubCategoryModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.hsnCode, hsnCode) || other.hsnCode == hsnCode) &&
-            (identical(other.subCategoryName, subCategoryName) ||
-                other.subCategoryName == subCategoryName) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, hsnCode, subCategoryName, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -186,23 +172,24 @@ class _$SubCategoryModelImpl implements _SubCategoryModel {
 }
 
 abstract class _SubCategoryModel implements SubCategoryModel {
-  const factory _SubCategoryModel(
-      final String? id,
-      final int? hsnCode,
-      final String? subCategoryName,
-      final DateTime createdAt) = _$SubCategoryModelImpl;
+  factory _SubCategoryModel(String? id, int? hsnCode, String? subCategoryName,
+      DateTime createdAt) = _$SubCategoryModelImpl;
 
   factory _SubCategoryModel.fromJson(Map<String, dynamic> json) =
       _$SubCategoryModelImpl.fromJson;
 
   @override
   String? get id;
+  set id(String? value);
   @override
   int? get hsnCode;
+  set hsnCode(int? value);
   @override
   String? get subCategoryName;
+  set subCategoryName(String? value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$SubCategoryModelImplCopyWith<_$SubCategoryModelImpl> get copyWith =>

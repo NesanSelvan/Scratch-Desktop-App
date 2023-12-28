@@ -21,9 +21,14 @@ ThreadCompanyModel _$ThreadCompanyModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ThreadCompanyModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   CompanyModel get companyModel => throw _privateConstructorUsedError;
+  set companyModel(CompanyModel value) => throw _privateConstructorUsedError;
   ThreadProductModel get threadProduct => throw _privateConstructorUsedError;
+  set threadProduct(ThreadProductModel value) =>
+      throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -173,37 +178,18 @@ class _$ThreadCompanyModelImpl implements _ThreadCompanyModel {
       _$$ThreadCompanyModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final CompanyModel companyModel;
+  CompanyModel companyModel;
   @override
-  final ThreadProductModel threadProduct;
+  ThreadProductModel threadProduct;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'ThreadCompanyModel(id: $id, companyModel: $companyModel, threadProduct: $threadProduct, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ThreadCompanyModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.companyModel, companyModel) ||
-                other.companyModel == companyModel) &&
-            (identical(other.threadProduct, threadProduct) ||
-                other.threadProduct == threadProduct) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, companyModel, threadProduct, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -222,22 +208,26 @@ class _$ThreadCompanyModelImpl implements _ThreadCompanyModel {
 
 abstract class _ThreadCompanyModel implements ThreadCompanyModel {
   factory _ThreadCompanyModel(
-      {required final String id,
-      required final CompanyModel companyModel,
-      required final ThreadProductModel threadProduct,
-      required final DateTime createdAt}) = _$ThreadCompanyModelImpl;
+      {required String id,
+      required CompanyModel companyModel,
+      required ThreadProductModel threadProduct,
+      required DateTime createdAt}) = _$ThreadCompanyModelImpl;
 
   factory _ThreadCompanyModel.fromJson(Map<String, dynamic> json) =
       _$ThreadCompanyModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   CompanyModel get companyModel;
+  set companyModel(CompanyModel value);
   @override
   ThreadProductModel get threadProduct;
+  set threadProduct(ThreadProductModel value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$ThreadCompanyModelImplCopyWith<_$ThreadCompanyModelImpl> get copyWith =>

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../unit/unit.dart';
@@ -5,7 +6,7 @@ import '../unit/unit.dart';
 part 'price.freezed.dart';
 part 'price.g.dart';
 
-@freezed
+@unfreezed
 class PriceModel with _$PriceModel {
   @JsonSerializable(explicitToJson: true)
   factory PriceModel(
@@ -21,6 +22,14 @@ class PriceModel with _$PriceModel {
       required DateTime createdAt}) = _PriceModel;
   factory PriceModel.fromJson(Map<String, dynamic> json) =>
       _$PriceModelFromJson(json);
+
+  @override
+  bool operator ==(Object other) {
+    return other is _$PriceModel &&
+        const DeepCollectionEquality().equals(other.id, id) &&
+        (const DeepCollectionEquality()
+            .equals(other.unitModel.id, unitModel.id));
+  }
 }
 
 List<Map<String, dynamic>> getPriceListJson(List<PriceModel> list) {

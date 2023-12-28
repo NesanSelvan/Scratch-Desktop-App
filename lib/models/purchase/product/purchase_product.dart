@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'purchase_product.freezed.dart';
 part 'purchase_product.g.dart';
 
-@freezed
+@unfreezed
 class PurchaseProductModel with _$PurchaseProductModel {
   @JsonSerializable(explicitToJson: true)
   factory PurchaseProductModel({

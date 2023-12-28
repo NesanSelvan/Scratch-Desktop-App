@@ -3,9 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'employee.freezed.dart';
 part 'employee.g.dart';
 
-@freezed
+@unfreezed
 abstract class EmployeeModel with _$EmployeeModel {
-  const factory EmployeeModel(
+  factory EmployeeModel(
       {required String id,
       required String name,
       required String email,

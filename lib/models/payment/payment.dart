@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'payment.freezed.dart';
 part 'payment.g.dart';
 
-@freezed
+@unfreezed
 class PaymentModel with _$PaymentModel {
   @JsonSerializable(explicitToJson: true)
   factory PaymentModel({

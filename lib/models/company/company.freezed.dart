@@ -21,19 +21,33 @@ CompanyModel _$CompanyModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CompanyModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  set name(String value) => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
+  set address(String value) => throw _privateConstructorUsedError;
   int? get companyNo => throw _privateConstructorUsedError;
+  set companyNo(int? value) => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  set email(String? value) => throw _privateConstructorUsedError;
   String? get website => throw _privateConstructorUsedError;
+  set website(String? value) => throw _privateConstructorUsedError;
   String? get licNO => throw _privateConstructorUsedError;
+  set licNO(String? value) => throw _privateConstructorUsedError;
   String? get placeOfDispatch => throw _privateConstructorUsedError;
+  set placeOfDispatch(String? value) => throw _privateConstructorUsedError;
   String? get pan => throw _privateConstructorUsedError;
+  set pan(String? value) => throw _privateConstructorUsedError;
   String get mobileNoList => throw _privateConstructorUsedError;
+  set mobileNoList(String value) => throw _privateConstructorUsedError;
   String? get gstin => throw _privateConstructorUsedError;
+  set gstin(String? value) => throw _privateConstructorUsedError;
   String? get bankId => throw _privateConstructorUsedError;
+  set bankId(String? value) => throw _privateConstructorUsedError;
   bool? get isNormalPurchaseBill => throw _privateConstructorUsedError;
+  set isNormalPurchaseBill(bool? value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -269,7 +283,7 @@ class __$$CompanyModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$CompanyModelImpl implements _CompanyModel {
-  const _$CompanyModelImpl(
+  _$CompanyModelImpl(
       {required this.id,
       required this.name,
       required this.address,
@@ -289,91 +303,46 @@ class _$CompanyModelImpl implements _CompanyModel {
       _$$CompanyModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String name;
+  String name;
   @override
-  final String address;
+  String address;
   @override
-  final int? companyNo;
-  @override
-  @JsonKey()
-  final String? email;
+  int? companyNo;
   @override
   @JsonKey()
-  final String? website;
+  String? email;
   @override
   @JsonKey()
-  final String? licNO;
+  String? website;
   @override
   @JsonKey()
-  final String? placeOfDispatch;
+  String? licNO;
   @override
   @JsonKey()
-  final String? pan;
-  @override
-  final String mobileNoList;
+  String? placeOfDispatch;
   @override
   @JsonKey()
-  final String? gstin;
+  String? pan;
+  @override
+  String mobileNoList;
   @override
   @JsonKey()
-  final String? bankId;
+  String? gstin;
   @override
   @JsonKey()
-  final bool? isNormalPurchaseBill;
+  String? bankId;
   @override
-  final DateTime createdAt;
+  @JsonKey()
+  bool? isNormalPurchaseBill;
+  @override
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'CompanyModel(id: $id, name: $name, address: $address, companyNo: $companyNo, email: $email, website: $website, licNO: $licNO, placeOfDispatch: $placeOfDispatch, pan: $pan, mobileNoList: $mobileNoList, gstin: $gstin, bankId: $bankId, isNormalPurchaseBill: $isNormalPurchaseBill, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CompanyModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.address, address) || other.address == address) &&
-            (identical(other.companyNo, companyNo) ||
-                other.companyNo == companyNo) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.website, website) || other.website == website) &&
-            (identical(other.licNO, licNO) || other.licNO == licNO) &&
-            (identical(other.placeOfDispatch, placeOfDispatch) ||
-                other.placeOfDispatch == placeOfDispatch) &&
-            (identical(other.pan, pan) || other.pan == pan) &&
-            (identical(other.mobileNoList, mobileNoList) ||
-                other.mobileNoList == mobileNoList) &&
-            (identical(other.gstin, gstin) || other.gstin == gstin) &&
-            (identical(other.bankId, bankId) || other.bankId == bankId) &&
-            (identical(other.isNormalPurchaseBill, isNormalPurchaseBill) ||
-                other.isNormalPurchaseBill == isNormalPurchaseBill) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      address,
-      companyNo,
-      email,
-      website,
-      licNO,
-      placeOfDispatch,
-      pan,
-      mobileNoList,
-      gstin,
-      bankId,
-      isNormalPurchaseBill,
-      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -390,53 +359,67 @@ class _$CompanyModelImpl implements _CompanyModel {
 }
 
 abstract class _CompanyModel implements CompanyModel {
-  const factory _CompanyModel(
-      {required final String id,
-      required final String name,
-      required final String address,
-      final int? companyNo,
-      final String? email,
-      final String? website,
-      final String? licNO,
-      final String? placeOfDispatch,
-      final String? pan,
-      required final String mobileNoList,
-      final String? gstin,
-      final String? bankId,
-      final bool? isNormalPurchaseBill,
-      required final DateTime createdAt}) = _$CompanyModelImpl;
+  factory _CompanyModel(
+      {required String id,
+      required String name,
+      required String address,
+      int? companyNo,
+      String? email,
+      String? website,
+      String? licNO,
+      String? placeOfDispatch,
+      String? pan,
+      required String mobileNoList,
+      String? gstin,
+      String? bankId,
+      bool? isNormalPurchaseBill,
+      required DateTime createdAt}) = _$CompanyModelImpl;
 
   factory _CompanyModel.fromJson(Map<String, dynamic> json) =
       _$CompanyModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get name;
+  set name(String value);
   @override
   String get address;
+  set address(String value);
   @override
   int? get companyNo;
+  set companyNo(int? value);
   @override
   String? get email;
+  set email(String? value);
   @override
   String? get website;
+  set website(String? value);
   @override
   String? get licNO;
+  set licNO(String? value);
   @override
   String? get placeOfDispatch;
+  set placeOfDispatch(String? value);
   @override
   String? get pan;
+  set pan(String? value);
   @override
   String get mobileNoList;
+  set mobileNoList(String value);
   @override
   String? get gstin;
+  set gstin(String? value);
   @override
   String? get bankId;
+  set bankId(String? value);
   @override
   bool? get isNormalPurchaseBill;
+  set isNormalPurchaseBill(bool? value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$CompanyModelImplCopyWith<_$CompanyModelImpl> get copyWith =>

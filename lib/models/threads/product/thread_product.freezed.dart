@@ -21,9 +21,13 @@ ThreadProductModel _$ThreadProductModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ThreadProductModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   ProductModel get product => throw _privateConstructorUsedError;
+  set product(ProductModel value) => throw _privateConstructorUsedError;
   List<ThreadsModel> get threads => throw _privateConstructorUsedError;
+  set threads(List<ThreadsModel> value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -137,7 +141,7 @@ class __$$ThreadProductModelImplCopyWithImpl<$Res>
           : product // ignore: cast_nullable_to_non_nullable
               as ProductModel,
       threads: null == threads
-          ? _value._threads
+          ? _value.threads
           : threads // ignore: cast_nullable_to_non_nullable
               as List<ThreadsModel>,
       createdAt: null == createdAt
@@ -155,50 +159,26 @@ class _$ThreadProductModelImpl implements _ThreadProductModel {
   _$ThreadProductModelImpl(
       {required this.id,
       required this.product,
-      final List<ThreadsModel> threads = const [],
-      required this.createdAt})
-      : _threads = threads;
+      this.threads = const [],
+      required this.createdAt});
 
   factory _$ThreadProductModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ThreadProductModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final ProductModel product;
-  final List<ThreadsModel> _threads;
+  ProductModel product;
   @override
   @JsonKey()
-  List<ThreadsModel> get threads {
-    if (_threads is EqualUnmodifiableListView) return _threads;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_threads);
-  }
-
+  List<ThreadsModel> threads;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'ThreadProductModel(id: $id, product: $product, threads: $threads, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ThreadProductModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.product, product) || other.product == product) &&
-            const DeepCollectionEquality().equals(other._threads, _threads) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, product,
-      const DeepCollectionEquality().hash(_threads), createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -217,22 +197,26 @@ class _$ThreadProductModelImpl implements _ThreadProductModel {
 
 abstract class _ThreadProductModel implements ThreadProductModel {
   factory _ThreadProductModel(
-      {required final String id,
-      required final ProductModel product,
-      final List<ThreadsModel> threads,
-      required final DateTime createdAt}) = _$ThreadProductModelImpl;
+      {required String id,
+      required ProductModel product,
+      List<ThreadsModel> threads,
+      required DateTime createdAt}) = _$ThreadProductModelImpl;
 
   factory _ThreadProductModel.fromJson(Map<String, dynamic> json) =
       _$ThreadProductModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   ProductModel get product;
+  set product(ProductModel value);
   @override
   List<ThreadsModel> get threads;
+  set threads(List<ThreadsModel> value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$ThreadProductModelImplCopyWith<_$ThreadProductModelImpl> get copyWith =>

@@ -22,11 +22,17 @@ SubProductDetailsModel _$SubProductDetailsModelFromJson(
 /// @nodoc
 mixin _$SubProductDetailsModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get productNumber => throw _privateConstructorUsedError;
+  set productNumber(String value) => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  set name(String value) => throw _privateConstructorUsedError;
   int get stock => throw _privateConstructorUsedError;
+  set stock(int value) => throw _privateConstructorUsedError;
   List<String> get imagesList => throw _privateConstructorUsedError;
+  set imagesList(List<String> value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -155,7 +161,7 @@ class __$$SubProductDetailsModelImplCopyWithImpl<$Res>
           : stock // ignore: cast_nullable_to_non_nullable
               as int,
       imagesList: null == imagesList
-          ? _value._imagesList
+          ? _value.imagesList
           : imagesList // ignore: cast_nullable_to_non_nullable
               as List<String>,
       createdAt: null == createdAt
@@ -170,64 +176,36 @@ class __$$SubProductDetailsModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$SubProductDetailsModelImpl implements _SubProductDetailsModel {
-  const _$SubProductDetailsModelImpl(
+  _$SubProductDetailsModelImpl(
       {required this.id,
       required this.productNumber,
       this.name = "",
       required this.stock,
-      final List<String> imagesList = const [],
-      required this.createdAt})
-      : _imagesList = imagesList;
+      this.imagesList = const [],
+      required this.createdAt});
 
   factory _$SubProductDetailsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$SubProductDetailsModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String productNumber;
-  @override
-  @JsonKey()
-  final String name;
-  @override
-  final int stock;
-  final List<String> _imagesList;
+  String productNumber;
   @override
   @JsonKey()
-  List<String> get imagesList {
-    if (_imagesList is EqualUnmodifiableListView) return _imagesList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_imagesList);
-  }
-
+  String name;
   @override
-  final DateTime createdAt;
+  int stock;
+  @override
+  @JsonKey()
+  List<String> imagesList;
+  @override
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'SubProductDetailsModel(id: $id, productNumber: $productNumber, name: $name, stock: $stock, imagesList: $imagesList, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SubProductDetailsModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.productNumber, productNumber) ||
-                other.productNumber == productNumber) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.stock, stock) || other.stock == stock) &&
-            const DeepCollectionEquality()
-                .equals(other._imagesList, _imagesList) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, productNumber, name, stock,
-      const DeepCollectionEquality().hash(_imagesList), createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -245,29 +223,35 @@ class _$SubProductDetailsModelImpl implements _SubProductDetailsModel {
 }
 
 abstract class _SubProductDetailsModel implements SubProductDetailsModel {
-  const factory _SubProductDetailsModel(
-      {required final String id,
-      required final String productNumber,
-      final String name,
-      required final int stock,
-      final List<String> imagesList,
-      required final DateTime createdAt}) = _$SubProductDetailsModelImpl;
+  factory _SubProductDetailsModel(
+      {required String id,
+      required String productNumber,
+      String name,
+      required int stock,
+      List<String> imagesList,
+      required DateTime createdAt}) = _$SubProductDetailsModelImpl;
 
   factory _SubProductDetailsModel.fromJson(Map<String, dynamic> json) =
       _$SubProductDetailsModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get productNumber;
+  set productNumber(String value);
   @override
   String get name;
+  set name(String value);
   @override
   int get stock;
+  set stock(int value);
   @override
   List<String> get imagesList;
+  set imagesList(List<String> value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$SubProductDetailsModelImplCopyWith<_$SubProductDetailsModelImpl>

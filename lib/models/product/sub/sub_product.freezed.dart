@@ -21,10 +21,15 @@ SubProductModel _$SubProductModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SubProductModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   ProductModel get productModel => throw _privateConstructorUsedError;
+  set productModel(ProductModel value) => throw _privateConstructorUsedError;
   List<SubProductDetailsModel> get subProducts =>
       throw _privateConstructorUsedError;
+  set subProducts(List<SubProductDetailsModel> value) =>
+      throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -138,7 +143,7 @@ class __$$SubProductModelImplCopyWithImpl<$Res>
           : productModel // ignore: cast_nullable_to_non_nullable
               as ProductModel,
       subProducts: null == subProducts
-          ? _value._subProducts
+          ? _value.subProducts
           : subProducts // ignore: cast_nullable_to_non_nullable
               as List<SubProductDetailsModel>,
       createdAt: null == createdAt
@@ -153,55 +158,29 @@ class __$$SubProductModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$SubProductModelImpl implements _SubProductModel {
-  const _$SubProductModelImpl(
+  _$SubProductModelImpl(
       {required this.id,
       required this.productModel,
-      final List<SubProductDetailsModel> subProducts = const [],
-      required this.createdAt})
-      : _subProducts = subProducts;
+      this.subProducts = const [],
+      required this.createdAt});
 
   factory _$SubProductModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$SubProductModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final ProductModel productModel;
-  final List<SubProductDetailsModel> _subProducts;
+  ProductModel productModel;
   @override
   @JsonKey()
-  List<SubProductDetailsModel> get subProducts {
-    if (_subProducts is EqualUnmodifiableListView) return _subProducts;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_subProducts);
-  }
-
+  List<SubProductDetailsModel> subProducts;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'SubProductModel(id: $id, productModel: $productModel, subProducts: $subProducts, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SubProductModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.productModel, productModel) ||
-                other.productModel == productModel) &&
-            const DeepCollectionEquality()
-                .equals(other._subProducts, _subProducts) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, productModel,
-      const DeepCollectionEquality().hash(_subProducts), createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -219,23 +198,27 @@ class _$SubProductModelImpl implements _SubProductModel {
 }
 
 abstract class _SubProductModel implements SubProductModel {
-  const factory _SubProductModel(
-      {required final String id,
-      required final ProductModel productModel,
-      final List<SubProductDetailsModel> subProducts,
-      required final DateTime createdAt}) = _$SubProductModelImpl;
+  factory _SubProductModel(
+      {required String id,
+      required ProductModel productModel,
+      List<SubProductDetailsModel> subProducts,
+      required DateTime createdAt}) = _$SubProductModelImpl;
 
   factory _SubProductModel.fromJson(Map<String, dynamic> json) =
       _$SubProductModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   ProductModel get productModel;
+  set productModel(ProductModel value);
   @override
   List<SubProductDetailsModel> get subProducts;
+  set subProducts(List<SubProductDetailsModel> value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$SubProductModelImplCopyWith<_$SubProductModelImpl> get copyWith =>

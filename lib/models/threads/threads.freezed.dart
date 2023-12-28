@@ -21,8 +21,11 @@ ThreadsModel _$ThreadsModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ThreadsModel {
   String get number => throw _privateConstructorUsedError;
+  set number(String value) => throw _privateConstructorUsedError;
   int get stock => throw _privateConstructorUsedError;
+  set stock(int value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -127,31 +130,16 @@ class _$ThreadsModelImpl implements _ThreadsModel {
       _$$ThreadsModelImplFromJson(json);
 
   @override
-  final String number;
+  String number;
   @override
-  final int stock;
+  int stock;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'ThreadsModel(number: $number, stock: $stock, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ThreadsModelImpl &&
-            (identical(other.number, number) || other.number == number) &&
-            (identical(other.stock, stock) || other.stock == stock) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, number, stock, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -169,19 +157,22 @@ class _$ThreadsModelImpl implements _ThreadsModel {
 
 abstract class _ThreadsModel implements ThreadsModel {
   factory _ThreadsModel(
-      {required final String number,
-      required final int stock,
-      required final DateTime createdAt}) = _$ThreadsModelImpl;
+      {required String number,
+      required int stock,
+      required DateTime createdAt}) = _$ThreadsModelImpl;
 
   factory _ThreadsModel.fromJson(Map<String, dynamic> json) =
       _$ThreadsModelImpl.fromJson;
 
   @override
   String get number;
+  set number(String value);
   @override
   int get stock;
+  set stock(int value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$ThreadsModelImplCopyWith<_$ThreadsModelImpl> get copyWith =>

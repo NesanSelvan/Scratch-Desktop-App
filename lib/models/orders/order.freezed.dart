@@ -22,14 +22,25 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) {
 mixin _$OrderModel {
   @JsonKey(name: "id")
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: "id")
+  set id(String value) => throw _privateConstructorUsedError;
   String get orderNo => throw _privateConstructorUsedError;
+  set orderNo(String value) => throw _privateConstructorUsedError;
   bool get isTax => throw _privateConstructorUsedError;
+  set isTax(bool value) => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
+  set price(double value) => throw _privateConstructorUsedError;
   List<SalesProductModel> get productList => throw _privateConstructorUsedError;
+  set productList(List<SalesProductModel> value) =>
+      throw _privateConstructorUsedError;
   CustomerModel get customerModel => throw _privateConstructorUsedError;
+  set customerModel(CustomerModel value) => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
+  set dateTime(DateTime value) => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
+  set note(String? value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -191,7 +202,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           : price // ignore: cast_nullable_to_non_nullable
               as double,
       productList: null == productList
-          ? _value._productList
+          ? _value.productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<SalesProductModel>,
       customerModel: null == customerModel
@@ -218,86 +229,45 @@ class __$$OrderModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$OrderModelImpl implements _OrderModel {
-  const _$OrderModelImpl(
+  _$OrderModelImpl(
       {@JsonKey(name: "id") required this.id,
       required this.orderNo,
       this.isTax = true,
       required this.price,
-      required final List<SalesProductModel> productList,
+      required this.productList,
       required this.customerModel,
       required this.dateTime,
       this.note,
-      required this.createdAt})
-      : _productList = productList;
+      required this.createdAt});
 
   factory _$OrderModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderModelImplFromJson(json);
 
   @override
   @JsonKey(name: "id")
-  final String id;
+  String id;
   @override
-  final String orderNo;
+  String orderNo;
   @override
   @JsonKey()
-  final bool isTax;
+  bool isTax;
   @override
-  final double price;
-  final List<SalesProductModel> _productList;
+  double price;
   @override
-  List<SalesProductModel> get productList {
-    if (_productList is EqualUnmodifiableListView) return _productList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_productList);
-  }
-
+  List<SalesProductModel> productList;
   @override
-  final CustomerModel customerModel;
+  CustomerModel customerModel;
   @override
-  final DateTime dateTime;
+  DateTime dateTime;
   @override
-  final String? note;
+  String? note;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'OrderModel(id: $id, orderNo: $orderNo, isTax: $isTax, price: $price, productList: $productList, customerModel: $customerModel, dateTime: $dateTime, note: $note, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$OrderModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.orderNo, orderNo) || other.orderNo == orderNo) &&
-            (identical(other.isTax, isTax) || other.isTax == isTax) &&
-            (identical(other.price, price) || other.price == price) &&
-            const DeepCollectionEquality()
-                .equals(other._productList, _productList) &&
-            (identical(other.customerModel, customerModel) ||
-                other.customerModel == customerModel) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime) &&
-            (identical(other.note, note) || other.note == note) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      orderNo,
-      isTax,
-      price,
-      const DeepCollectionEquality().hash(_productList),
-      customerModel,
-      dateTime,
-      note,
-      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -314,16 +284,16 @@ class _$OrderModelImpl implements _OrderModel {
 }
 
 abstract class _OrderModel implements OrderModel {
-  const factory _OrderModel(
-      {@JsonKey(name: "id") required final String id,
-      required final String orderNo,
-      final bool isTax,
-      required final double price,
-      required final List<SalesProductModel> productList,
-      required final CustomerModel customerModel,
-      required final DateTime dateTime,
-      final String? note,
-      required final DateTime createdAt}) = _$OrderModelImpl;
+  factory _OrderModel(
+      {@JsonKey(name: "id") required String id,
+      required String orderNo,
+      bool isTax,
+      required double price,
+      required List<SalesProductModel> productList,
+      required CustomerModel customerModel,
+      required DateTime dateTime,
+      String? note,
+      required DateTime createdAt}) = _$OrderModelImpl;
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
       _$OrderModelImpl.fromJson;
@@ -331,22 +301,32 @@ abstract class _OrderModel implements OrderModel {
   @override
   @JsonKey(name: "id")
   String get id;
+  @JsonKey(name: "id")
+  set id(String value);
   @override
   String get orderNo;
+  set orderNo(String value);
   @override
   bool get isTax;
+  set isTax(bool value);
   @override
   double get price;
+  set price(double value);
   @override
   List<SalesProductModel> get productList;
+  set productList(List<SalesProductModel> value);
   @override
   CustomerModel get customerModel;
+  set customerModel(CustomerModel value);
   @override
   DateTime get dateTime;
+  set dateTime(DateTime value);
   @override
   String? get note;
+  set note(String? value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$OrderModelImplCopyWith<_$OrderModelImpl> get copyWith =>

@@ -21,15 +21,25 @@ PriceModel _$PriceModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PriceModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String? get code => throw _privateConstructorUsedError;
+  set code(String? value) => throw _privateConstructorUsedError;
   String? get barcodeCode => throw _privateConstructorUsedError;
+  set barcodeCode(String? value) => throw _privateConstructorUsedError;
   UnitModel get unitModel => throw _privateConstructorUsedError;
+  set unitModel(UnitModel value) => throw _privateConstructorUsedError;
   double? get purchasePrice => throw _privateConstructorUsedError;
+  set purchasePrice(double? value) => throw _privateConstructorUsedError;
   double get mrp => throw _privateConstructorUsedError;
+  set mrp(double value) => throw _privateConstructorUsedError;
   double get unitQty => throw _privateConstructorUsedError;
+  set unitQty(double value) => throw _privateConstructorUsedError;
   double get retail => throw _privateConstructorUsedError;
+  set retail(double value) => throw _privateConstructorUsedError;
   double get wholesale => throw _privateConstructorUsedError;
+  set wholesale(double value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -246,57 +256,30 @@ class _$PriceModelImpl implements _PriceModel {
       _$$PriceModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String? code;
+  String? code;
   @override
-  final String? barcodeCode;
+  String? barcodeCode;
   @override
-  final UnitModel unitModel;
+  UnitModel unitModel;
   @override
-  final double? purchasePrice;
+  double? purchasePrice;
   @override
-  final double mrp;
+  double mrp;
   @override
-  final double unitQty;
+  double unitQty;
   @override
-  final double retail;
+  double retail;
   @override
-  final double wholesale;
+  double wholesale;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'PriceModel(id: $id, code: $code, barcodeCode: $barcodeCode, unitModel: $unitModel, purchasePrice: $purchasePrice, mrp: $mrp, unitQty: $unitQty, retail: $retail, wholesale: $wholesale, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PriceModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.code, code) || other.code == code) &&
-            (identical(other.barcodeCode, barcodeCode) ||
-                other.barcodeCode == barcodeCode) &&
-            (identical(other.unitModel, unitModel) ||
-                other.unitModel == unitModel) &&
-            (identical(other.purchasePrice, purchasePrice) ||
-                other.purchasePrice == purchasePrice) &&
-            (identical(other.mrp, mrp) || other.mrp == mrp) &&
-            (identical(other.unitQty, unitQty) || other.unitQty == unitQty) &&
-            (identical(other.retail, retail) || other.retail == retail) &&
-            (identical(other.wholesale, wholesale) ||
-                other.wholesale == wholesale) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, code, barcodeCode, unitModel,
-      purchasePrice, mrp, unitQty, retail, wholesale, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -314,40 +297,50 @@ class _$PriceModelImpl implements _PriceModel {
 
 abstract class _PriceModel implements PriceModel {
   factory _PriceModel(
-      {required final String id,
-      final String? code,
-      final String? barcodeCode,
-      required final UnitModel unitModel,
-      final double? purchasePrice,
-      required final double mrp,
-      required final double unitQty,
-      required final double retail,
-      required final double wholesale,
-      required final DateTime createdAt}) = _$PriceModelImpl;
+      {required String id,
+      String? code,
+      String? barcodeCode,
+      required UnitModel unitModel,
+      double? purchasePrice,
+      required double mrp,
+      required double unitQty,
+      required double retail,
+      required double wholesale,
+      required DateTime createdAt}) = _$PriceModelImpl;
 
   factory _PriceModel.fromJson(Map<String, dynamic> json) =
       _$PriceModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String? get code;
+  set code(String? value);
   @override
   String? get barcodeCode;
+  set barcodeCode(String? value);
   @override
   UnitModel get unitModel;
+  set unitModel(UnitModel value);
   @override
   double? get purchasePrice;
+  set purchasePrice(double? value);
   @override
   double get mrp;
+  set mrp(double value);
   @override
   double get unitQty;
+  set unitQty(double value);
   @override
   double get retail;
+  set retail(double value);
   @override
   double get wholesale;
+  set wholesale(double value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$PriceModelImplCopyWith<_$PriceModelImpl> get copyWith =>

@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'quotations.freezed.dart';
 part 'quotations.g.dart';
 
-@freezed
+@unfreezed
 class QuotationModel with _$QuotationModel {
   @JsonSerializable(explicitToJson: true)
   factory QuotationModel({

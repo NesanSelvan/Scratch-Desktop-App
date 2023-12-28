@@ -3,9 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'customer.freezed.dart';
 part 'customer.g.dart';
 
-@freezed
+@unfreezed
 abstract class CustomerModel with _$CustomerModel {
-  const factory CustomerModel({
+  factory CustomerModel({
     required String id,
     required String name,
     String? email,

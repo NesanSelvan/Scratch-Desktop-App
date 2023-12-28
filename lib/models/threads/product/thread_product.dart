@@ -6,7 +6,7 @@ import '../threads.dart';
 part 'thread_product.freezed.dart';
 part 'thread_product.g.dart';
 
-@freezed
+@unfreezed
 class ThreadProductModel with _$ThreadProductModel {
   @JsonSerializable(explicitToJson: true)
   factory ThreadProductModel({

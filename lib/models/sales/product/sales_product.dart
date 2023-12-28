@@ -9,9 +9,9 @@ import '../../product/product.dart';
 // part 'sales_product.freezed.dart';
 // part 'sales_product.g.dart';
 
-// @freezed
+// @unfreezed
 // abstract class SalesProductModel with _$SalesProductModel {
-//   const factory SalesProductModel(
+//   factory SalesProductModel(
 //     CategoryModel categoryModel,
 //     ProductModel productModel,
 //     int qty,
@@ -75,5 +75,10 @@ class SalesProductModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => [productModel?.productName, qtyMathEqn, qty];
+  List<Object?> get props => [
+        productModel,
+        qtyMathEqn,
+        qty,
+        rate,
+      ];
 }

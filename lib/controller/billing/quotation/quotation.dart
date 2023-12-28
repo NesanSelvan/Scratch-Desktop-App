@@ -228,7 +228,7 @@ class QuotationController extends GetxController {
           qtyMathEqn: qtyController.text,
         );
         debugPrint('qtyController $salesProductModel');
-        salesProductModelList.add(salesProductModel);
+        salesProductModelList = [...salesProductModelList, salesProductModel];
       } else {
         final index = salesProductModelList.indexOf(matchedData[0]);
         final salesProductModel = SalesProductModel(
@@ -318,6 +318,7 @@ class QuotationController extends GetxController {
     isUpdated = false;
     addSelectedProductModel(null);
     selectedCustomerModel = null;
+    salesProductModelList = [];
     salesProductModelList.clear();
     productController.clear();
     qtyController.clear();

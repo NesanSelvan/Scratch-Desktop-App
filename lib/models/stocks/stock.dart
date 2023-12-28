@@ -3,9 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'stock.freezed.dart';
 part 'stock.g.dart';
 
-@freezed
+@unfreezed
 abstract class StockModel with _$StockModel {
-  const factory StockModel(
+  factory StockModel(
     String id,
     String productId,
     String productCode,

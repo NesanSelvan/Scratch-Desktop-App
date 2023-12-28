@@ -21,26 +21,47 @@ BillModel _$BillModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BillModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get billNo => throw _privateConstructorUsedError;
+  set billNo(String value) => throw _privateConstructorUsedError;
   String? get borrowId => throw _privateConstructorUsedError;
+  set borrowId(String? value) => throw _privateConstructorUsedError;
   CustomerModel get customerModel => throw _privateConstructorUsedError;
+  set customerModel(CustomerModel value) => throw _privateConstructorUsedError;
   double? get givenAmount => throw _privateConstructorUsedError;
+  set givenAmount(double? value) => throw _privateConstructorUsedError;
   bool? get isPaid => throw _privateConstructorUsedError;
+  set isPaid(bool? value) => throw _privateConstructorUsedError;
   bool? get isTax => throw _privateConstructorUsedError;
+  set isTax(bool? value) => throw _privateConstructorUsedError;
   String? get paidId => throw _privateConstructorUsedError;
+  set paidId(String? value) => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
+  set price(double value) => throw _privateConstructorUsedError;
   List<SalesProductModel>? get productList =>
       throw _privateConstructorUsedError;
+  set productList(List<SalesProductModel>? value) =>
+      throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
+  set dateTime(DateTime value) => throw _privateConstructorUsedError;
   double? get discount => throw _privateConstructorUsedError;
+  set discount(double? value) => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
+  set note(String? value) => throw _privateConstructorUsedError;
   String? get supplierRef => throw _privateConstructorUsedError;
+  set supplierRef(String? value) => throw _privateConstructorUsedError;
   String? get buyerOrderNo => throw _privateConstructorUsedError;
+  set buyerOrderNo(String? value) => throw _privateConstructorUsedError;
   DateTime? get buyerOrderDate => throw _privateConstructorUsedError;
+  set buyerOrderDate(DateTime? value) => throw _privateConstructorUsedError;
   String? get dispatchDocumentNo => throw _privateConstructorUsedError;
+  set dispatchDocumentNo(String? value) => throw _privateConstructorUsedError;
   String? get dispatchThrough => throw _privateConstructorUsedError;
+  set dispatchThrough(String? value) => throw _privateConstructorUsedError;
   String? get destination => throw _privateConstructorUsedError;
+  set destination(String? value) => throw _privateConstructorUsedError;
   bool? get isA4Printed => throw _privateConstructorUsedError;
+  set isA4Printed(bool? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -309,7 +330,7 @@ class __$$BillModelImplCopyWithImpl<$Res>
           : price // ignore: cast_nullable_to_non_nullable
               as double,
       productList: freezed == productList
-          ? _value._productList
+          ? _value.productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<SalesProductModel>?,
       dateTime: null == dateTime
@@ -360,7 +381,7 @@ class __$$BillModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$BillModelImpl implements _BillModel {
-  const _$BillModelImpl(
+  _$BillModelImpl(
       {required this.id,
       required this.billNo,
       this.borrowId,
@@ -370,7 +391,7 @@ class _$BillModelImpl implements _BillModel {
       this.isTax = true,
       this.paidId = "",
       required this.price,
-      required final List<SalesProductModel>? productList,
+      required this.productList,
       required this.dateTime,
       this.discount = 0,
       this.note = "",
@@ -380,143 +401,68 @@ class _$BillModelImpl implements _BillModel {
       this.dispatchDocumentNo = "",
       this.dispatchThrough = "",
       this.destination = "",
-      this.isA4Printed = false})
-      : _productList = productList;
+      this.isA4Printed = false});
 
   factory _$BillModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$BillModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String billNo;
+  String billNo;
   @override
-  final String? borrowId;
+  String? borrowId;
   @override
-  final CustomerModel customerModel;
-  @override
-  @JsonKey()
-  final double? givenAmount;
+  CustomerModel customerModel;
   @override
   @JsonKey()
-  final bool? isPaid;
+  double? givenAmount;
   @override
   @JsonKey()
-  final bool? isTax;
+  bool? isPaid;
   @override
   @JsonKey()
-  final String? paidId;
-  @override
-  final double price;
-  final List<SalesProductModel>? _productList;
-  @override
-  List<SalesProductModel>? get productList {
-    final value = _productList;
-    if (value == null) return null;
-    if (_productList is EqualUnmodifiableListView) return _productList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  final DateTime dateTime;
+  bool? isTax;
   @override
   @JsonKey()
-  final double? discount;
+  String? paidId;
+  @override
+  double price;
+  @override
+  List<SalesProductModel>? productList;
+  @override
+  DateTime dateTime;
   @override
   @JsonKey()
-  final String? note;
+  double? discount;
   @override
   @JsonKey()
-  final String? supplierRef;
+  String? note;
   @override
   @JsonKey()
-  final String? buyerOrderNo;
-  @override
-  final DateTime? buyerOrderDate;
+  String? supplierRef;
   @override
   @JsonKey()
-  final String? dispatchDocumentNo;
+  String? buyerOrderNo;
+  @override
+  DateTime? buyerOrderDate;
   @override
   @JsonKey()
-  final String? dispatchThrough;
+  String? dispatchDocumentNo;
   @override
   @JsonKey()
-  final String? destination;
+  String? dispatchThrough;
   @override
   @JsonKey()
-  final bool? isA4Printed;
+  String? destination;
+  @override
+  @JsonKey()
+  bool? isA4Printed;
 
   @override
   String toString() {
     return 'BillModel(id: $id, billNo: $billNo, borrowId: $borrowId, customerModel: $customerModel, givenAmount: $givenAmount, isPaid: $isPaid, isTax: $isTax, paidId: $paidId, price: $price, productList: $productList, dateTime: $dateTime, discount: $discount, note: $note, supplierRef: $supplierRef, buyerOrderNo: $buyerOrderNo, buyerOrderDate: $buyerOrderDate, dispatchDocumentNo: $dispatchDocumentNo, dispatchThrough: $dispatchThrough, destination: $destination, isA4Printed: $isA4Printed)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BillModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.billNo, billNo) || other.billNo == billNo) &&
-            (identical(other.borrowId, borrowId) ||
-                other.borrowId == borrowId) &&
-            (identical(other.customerModel, customerModel) ||
-                other.customerModel == customerModel) &&
-            (identical(other.givenAmount, givenAmount) ||
-                other.givenAmount == givenAmount) &&
-            (identical(other.isPaid, isPaid) || other.isPaid == isPaid) &&
-            (identical(other.isTax, isTax) || other.isTax == isTax) &&
-            (identical(other.paidId, paidId) || other.paidId == paidId) &&
-            (identical(other.price, price) || other.price == price) &&
-            const DeepCollectionEquality()
-                .equals(other._productList, _productList) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime) &&
-            (identical(other.discount, discount) ||
-                other.discount == discount) &&
-            (identical(other.note, note) || other.note == note) &&
-            (identical(other.supplierRef, supplierRef) ||
-                other.supplierRef == supplierRef) &&
-            (identical(other.buyerOrderNo, buyerOrderNo) ||
-                other.buyerOrderNo == buyerOrderNo) &&
-            (identical(other.buyerOrderDate, buyerOrderDate) ||
-                other.buyerOrderDate == buyerOrderDate) &&
-            (identical(other.dispatchDocumentNo, dispatchDocumentNo) ||
-                other.dispatchDocumentNo == dispatchDocumentNo) &&
-            (identical(other.dispatchThrough, dispatchThrough) ||
-                other.dispatchThrough == dispatchThrough) &&
-            (identical(other.destination, destination) ||
-                other.destination == destination) &&
-            (identical(other.isA4Printed, isA4Printed) ||
-                other.isA4Printed == isA4Printed));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        id,
-        billNo,
-        borrowId,
-        customerModel,
-        givenAmount,
-        isPaid,
-        isTax,
-        paidId,
-        price,
-        const DeepCollectionEquality().hash(_productList),
-        dateTime,
-        discount,
-        note,
-        supplierRef,
-        buyerOrderNo,
-        buyerOrderDate,
-        dispatchDocumentNo,
-        dispatchThrough,
-        destination,
-        isA4Printed
-      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -533,71 +479,91 @@ class _$BillModelImpl implements _BillModel {
 }
 
 abstract class _BillModel implements BillModel {
-  const factory _BillModel(
-      {required final String id,
-      required final String billNo,
-      final String? borrowId,
-      required final CustomerModel customerModel,
-      final double? givenAmount,
-      final bool? isPaid,
-      final bool? isTax,
-      final String? paidId,
-      required final double price,
-      required final List<SalesProductModel>? productList,
-      required final DateTime dateTime,
-      final double? discount,
-      final String? note,
-      final String? supplierRef,
-      final String? buyerOrderNo,
-      final DateTime? buyerOrderDate,
-      final String? dispatchDocumentNo,
-      final String? dispatchThrough,
-      final String? destination,
-      final bool? isA4Printed}) = _$BillModelImpl;
+  factory _BillModel(
+      {required String id,
+      required String billNo,
+      String? borrowId,
+      required CustomerModel customerModel,
+      double? givenAmount,
+      bool? isPaid,
+      bool? isTax,
+      String? paidId,
+      required double price,
+      required List<SalesProductModel>? productList,
+      required DateTime dateTime,
+      double? discount,
+      String? note,
+      String? supplierRef,
+      String? buyerOrderNo,
+      DateTime? buyerOrderDate,
+      String? dispatchDocumentNo,
+      String? dispatchThrough,
+      String? destination,
+      bool? isA4Printed}) = _$BillModelImpl;
 
   factory _BillModel.fromJson(Map<String, dynamic> json) =
       _$BillModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get billNo;
+  set billNo(String value);
   @override
   String? get borrowId;
+  set borrowId(String? value);
   @override
   CustomerModel get customerModel;
+  set customerModel(CustomerModel value);
   @override
   double? get givenAmount;
+  set givenAmount(double? value);
   @override
   bool? get isPaid;
+  set isPaid(bool? value);
   @override
   bool? get isTax;
+  set isTax(bool? value);
   @override
   String? get paidId;
+  set paidId(String? value);
   @override
   double get price;
+  set price(double value);
   @override
   List<SalesProductModel>? get productList;
+  set productList(List<SalesProductModel>? value);
   @override
   DateTime get dateTime;
+  set dateTime(DateTime value);
   @override
   double? get discount;
+  set discount(double? value);
   @override
   String? get note;
+  set note(String? value);
   @override
   String? get supplierRef;
+  set supplierRef(String? value);
   @override
   String? get buyerOrderNo;
+  set buyerOrderNo(String? value);
   @override
   DateTime? get buyerOrderDate;
+  set buyerOrderDate(DateTime? value);
   @override
   String? get dispatchDocumentNo;
+  set dispatchDocumentNo(String? value);
   @override
   String? get dispatchThrough;
+  set dispatchThrough(String? value);
   @override
   String? get destination;
+  set destination(String? value);
   @override
   bool? get isA4Printed;
+  set isA4Printed(bool? value);
   @override
   @JsonKey(ignore: true)
   _$$BillModelImplCopyWith<_$BillModelImpl> get copyWith =>

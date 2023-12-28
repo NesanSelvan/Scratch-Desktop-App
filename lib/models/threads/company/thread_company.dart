@@ -6,7 +6,7 @@ import '../product/thread_product.dart';
 part 'thread_company.freezed.dart';
 part 'thread_company.g.dart';
 
-@freezed
+@unfreezed
 class ThreadCompanyModel with _$ThreadCompanyModel {
   @JsonSerializable(explicitToJson: true)
   factory ThreadCompanyModel({

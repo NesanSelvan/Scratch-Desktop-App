@@ -22,16 +22,29 @@ EstimateModel _$EstimateModelFromJson(Map<String, dynamic> json) {
 mixin _$EstimateModel {
   @JsonKey(name: "id")
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: "id")
+  set id(String value) => throw _privateConstructorUsedError;
   String get estimateNo => throw _privateConstructorUsedError;
+  set estimateNo(String value) => throw _privateConstructorUsedError;
   String? get billId => throw _privateConstructorUsedError;
+  set billId(String? value) => throw _privateConstructorUsedError;
   bool get isTax => throw _privateConstructorUsedError;
+  set isTax(bool value) => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
+  set price(double value) => throw _privateConstructorUsedError;
   List<SalesProductModel> get productList => throw _privateConstructorUsedError;
+  set productList(List<SalesProductModel> value) =>
+      throw _privateConstructorUsedError;
   CustomerModel get customerModel => throw _privateConstructorUsedError;
+  set customerModel(CustomerModel value) => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
+  set dateTime(DateTime value) => throw _privateConstructorUsedError;
   double? get givenAmount => throw _privateConstructorUsedError;
+  set givenAmount(double? value) => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
+  set note(String? value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -213,7 +226,7 @@ class __$$EstimateModelImplCopyWithImpl<$Res>
           : price // ignore: cast_nullable_to_non_nullable
               as double,
       productList: null == productList
-          ? _value._productList
+          ? _value.productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<SalesProductModel>,
       customerModel: null == customerModel
@@ -244,100 +257,53 @@ class __$$EstimateModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$EstimateModelImpl implements _EstimateModel {
-  const _$EstimateModelImpl(
+  _$EstimateModelImpl(
       {@JsonKey(name: "id") required this.id,
       required this.estimateNo,
       this.billId = "",
       this.isTax = true,
       required this.price,
-      required final List<SalesProductModel> productList,
+      required this.productList,
       required this.customerModel,
       required this.dateTime,
       this.givenAmount = 0,
       this.note,
-      required this.createdAt})
-      : _productList = productList;
+      required this.createdAt});
 
   factory _$EstimateModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$EstimateModelImplFromJson(json);
 
   @override
   @JsonKey(name: "id")
-  final String id;
+  String id;
   @override
-  final String estimateNo;
-  @override
-  @JsonKey()
-  final String? billId;
+  String estimateNo;
   @override
   @JsonKey()
-  final bool isTax;
-  @override
-  final double price;
-  final List<SalesProductModel> _productList;
-  @override
-  List<SalesProductModel> get productList {
-    if (_productList is EqualUnmodifiableListView) return _productList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_productList);
-  }
-
-  @override
-  final CustomerModel customerModel;
-  @override
-  final DateTime dateTime;
+  String? billId;
   @override
   @JsonKey()
-  final double? givenAmount;
+  bool isTax;
   @override
-  final String? note;
+  double price;
   @override
-  final DateTime createdAt;
+  List<SalesProductModel> productList;
+  @override
+  CustomerModel customerModel;
+  @override
+  DateTime dateTime;
+  @override
+  @JsonKey()
+  double? givenAmount;
+  @override
+  String? note;
+  @override
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'EstimateModel(id: $id, estimateNo: $estimateNo, billId: $billId, isTax: $isTax, price: $price, productList: $productList, customerModel: $customerModel, dateTime: $dateTime, givenAmount: $givenAmount, note: $note, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$EstimateModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.estimateNo, estimateNo) ||
-                other.estimateNo == estimateNo) &&
-            (identical(other.billId, billId) || other.billId == billId) &&
-            (identical(other.isTax, isTax) || other.isTax == isTax) &&
-            (identical(other.price, price) || other.price == price) &&
-            const DeepCollectionEquality()
-                .equals(other._productList, _productList) &&
-            (identical(other.customerModel, customerModel) ||
-                other.customerModel == customerModel) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime) &&
-            (identical(other.givenAmount, givenAmount) ||
-                other.givenAmount == givenAmount) &&
-            (identical(other.note, note) || other.note == note) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      estimateNo,
-      billId,
-      isTax,
-      price,
-      const DeepCollectionEquality().hash(_productList),
-      customerModel,
-      dateTime,
-      givenAmount,
-      note,
-      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -354,18 +320,18 @@ class _$EstimateModelImpl implements _EstimateModel {
 }
 
 abstract class _EstimateModel implements EstimateModel {
-  const factory _EstimateModel(
-      {@JsonKey(name: "id") required final String id,
-      required final String estimateNo,
-      final String? billId,
-      final bool isTax,
-      required final double price,
-      required final List<SalesProductModel> productList,
-      required final CustomerModel customerModel,
-      required final DateTime dateTime,
-      final double? givenAmount,
-      final String? note,
-      required final DateTime createdAt}) = _$EstimateModelImpl;
+  factory _EstimateModel(
+      {@JsonKey(name: "id") required String id,
+      required String estimateNo,
+      String? billId,
+      bool isTax,
+      required double price,
+      required List<SalesProductModel> productList,
+      required CustomerModel customerModel,
+      required DateTime dateTime,
+      double? givenAmount,
+      String? note,
+      required DateTime createdAt}) = _$EstimateModelImpl;
 
   factory _EstimateModel.fromJson(Map<String, dynamic> json) =
       _$EstimateModelImpl.fromJson;
@@ -373,26 +339,38 @@ abstract class _EstimateModel implements EstimateModel {
   @override
   @JsonKey(name: "id")
   String get id;
+  @JsonKey(name: "id")
+  set id(String value);
   @override
   String get estimateNo;
+  set estimateNo(String value);
   @override
   String? get billId;
+  set billId(String? value);
   @override
   bool get isTax;
+  set isTax(bool value);
   @override
   double get price;
+  set price(double value);
   @override
   List<SalesProductModel> get productList;
+  set productList(List<SalesProductModel> value);
   @override
   CustomerModel get customerModel;
+  set customerModel(CustomerModel value);
   @override
   DateTime get dateTime;
+  set dateTime(DateTime value);
   @override
   double? get givenAmount;
+  set givenAmount(double? value);
   @override
   String? get note;
+  set note(String? value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$EstimateModelImplCopyWith<_$EstimateModelImpl> get copyWith =>

@@ -21,24 +21,43 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ProductModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get code => throw _privateConstructorUsedError;
-  String? get productNumber =>
+  set code(String value) => throw _privateConstructorUsedError;
+  String? get productNumber => throw _privateConstructorUsedError;
+  set productNumber(String? value) =>
       throw _privateConstructorUsedError; // String? barcodeCode,
-  String get productName => throw _privateConstructorUsedError;
+  String get productName =>
+      throw _privateConstructorUsedError; // String? barcodeCode,
+  set productName(String value) => throw _privateConstructorUsedError;
   String get categoryId => throw _privateConstructorUsedError;
+  set categoryId(String value) => throw _privateConstructorUsedError;
   String get unitId => throw _privateConstructorUsedError;
+  set unitId(String value) => throw _privateConstructorUsedError;
   int? get unitQty => throw _privateConstructorUsedError;
+  set unitQty(int? value) => throw _privateConstructorUsedError;
   List<PriceModel>? get differentPriceList =>
       throw _privateConstructorUsedError;
+  set differentPriceList(List<PriceModel>? value) =>
+      throw _privateConstructorUsedError;
   double get purchasePrice => throw _privateConstructorUsedError;
+  set purchasePrice(double value) => throw _privateConstructorUsedError;
   double get sellingPrice => throw _privateConstructorUsedError;
+  set sellingPrice(double value) => throw _privateConstructorUsedError;
   bool? get isHidden => throw _privateConstructorUsedError;
+  set isHidden(bool? value) => throw _privateConstructorUsedError;
   double get wholesale => throw _privateConstructorUsedError;
+  set wholesale(double value) => throw _privateConstructorUsedError;
   double get retail => throw _privateConstructorUsedError;
+  set retail(double value) => throw _privateConstructorUsedError;
   bool? get isPending => throw _privateConstructorUsedError;
+  set isPending(bool? value) => throw _privateConstructorUsedError;
   String? get companyId => throw _privateConstructorUsedError;
+  set companyId(String? value) => throw _privateConstructorUsedError;
   List<String>? get imagesList => throw _privateConstructorUsedError;
+  set imagesList(List<String>? value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -263,7 +282,7 @@ class __$$ProductModelImplCopyWithImpl<$Res>
           : unitQty // ignore: cast_nullable_to_non_nullable
               as int?,
       differentPriceList: freezed == differentPriceList
-          ? _value._differentPriceList
+          ? _value.differentPriceList
           : differentPriceList // ignore: cast_nullable_to_non_nullable
               as List<PriceModel>?,
       purchasePrice: null == purchasePrice
@@ -295,7 +314,7 @@ class __$$ProductModelImplCopyWithImpl<$Res>
           : companyId // ignore: cast_nullable_to_non_nullable
               as String?,
       imagesList: freezed == imagesList
-          ? _value._imagesList
+          ? _value.imagesList
           : imagesList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
       createdAt: null == createdAt
@@ -310,7 +329,7 @@ class __$$ProductModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$ProductModelImpl implements _ProductModel {
-  const _$ProductModelImpl(
+  _$ProductModelImpl(
       {required this.id,
       required this.code,
       this.productNumber,
@@ -318,7 +337,7 @@ class _$ProductModelImpl implements _ProductModel {
       required this.categoryId,
       required this.unitId,
       this.unitQty = 0,
-      final List<PriceModel>? differentPriceList = const [],
+      this.differentPriceList = const [],
       required this.purchasePrice,
       required this.sellingPrice,
       this.isHidden = false,
@@ -326,133 +345,56 @@ class _$ProductModelImpl implements _ProductModel {
       required this.retail,
       this.isPending = false,
       this.companyId,
-      final List<String>? imagesList,
-      required this.createdAt})
-      : _differentPriceList = differentPriceList,
-        _imagesList = imagesList;
+      this.imagesList,
+      required this.createdAt});
 
   factory _$ProductModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String code;
+  String code;
   @override
-  final String? productNumber;
+  String? productNumber;
 // String? barcodeCode,
   @override
-  final String productName;
+  String productName;
   @override
-  final String categoryId;
+  String categoryId;
   @override
-  final String unitId;
-  @override
-  @JsonKey()
-  final int? unitQty;
-  final List<PriceModel>? _differentPriceList;
+  String unitId;
   @override
   @JsonKey()
-  List<PriceModel>? get differentPriceList {
-    final value = _differentPriceList;
-    if (value == null) return null;
-    if (_differentPriceList is EqualUnmodifiableListView)
-      return _differentPriceList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  final double purchasePrice;
-  @override
-  final double sellingPrice;
+  int? unitQty;
   @override
   @JsonKey()
-  final bool? isHidden;
+  List<PriceModel>? differentPriceList;
   @override
-  final double wholesale;
+  double purchasePrice;
   @override
-  final double retail;
+  double sellingPrice;
   @override
   @JsonKey()
-  final bool? isPending;
+  bool? isHidden;
   @override
-  final String? companyId;
-  final List<String>? _imagesList;
+  double wholesale;
   @override
-  List<String>? get imagesList {
-    final value = _imagesList;
-    if (value == null) return null;
-    if (_imagesList is EqualUnmodifiableListView) return _imagesList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
+  double retail;
   @override
-  final DateTime createdAt;
+  @JsonKey()
+  bool? isPending;
+  @override
+  String? companyId;
+  @override
+  List<String>? imagesList;
+  @override
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'ProductModel(id: $id, code: $code, productNumber: $productNumber, productName: $productName, categoryId: $categoryId, unitId: $unitId, unitQty: $unitQty, differentPriceList: $differentPriceList, purchasePrice: $purchasePrice, sellingPrice: $sellingPrice, isHidden: $isHidden, wholesale: $wholesale, retail: $retail, isPending: $isPending, companyId: $companyId, imagesList: $imagesList, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ProductModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.code, code) || other.code == code) &&
-            (identical(other.productNumber, productNumber) ||
-                other.productNumber == productNumber) &&
-            (identical(other.productName, productName) ||
-                other.productName == productName) &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId) &&
-            (identical(other.unitId, unitId) || other.unitId == unitId) &&
-            (identical(other.unitQty, unitQty) || other.unitQty == unitQty) &&
-            const DeepCollectionEquality()
-                .equals(other._differentPriceList, _differentPriceList) &&
-            (identical(other.purchasePrice, purchasePrice) ||
-                other.purchasePrice == purchasePrice) &&
-            (identical(other.sellingPrice, sellingPrice) ||
-                other.sellingPrice == sellingPrice) &&
-            (identical(other.isHidden, isHidden) ||
-                other.isHidden == isHidden) &&
-            (identical(other.wholesale, wholesale) ||
-                other.wholesale == wholesale) &&
-            (identical(other.retail, retail) || other.retail == retail) &&
-            (identical(other.isPending, isPending) ||
-                other.isPending == isPending) &&
-            (identical(other.companyId, companyId) ||
-                other.companyId == companyId) &&
-            const DeepCollectionEquality()
-                .equals(other._imagesList, _imagesList) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      code,
-      productNumber,
-      productName,
-      categoryId,
-      unitId,
-      unitQty,
-      const DeepCollectionEquality().hash(_differentPriceList),
-      purchasePrice,
-      sellingPrice,
-      isHidden,
-      wholesale,
-      retail,
-      isPending,
-      companyId,
-      const DeepCollectionEquality().hash(_imagesList),
-      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -469,62 +411,79 @@ class _$ProductModelImpl implements _ProductModel {
 }
 
 abstract class _ProductModel implements ProductModel {
-  const factory _ProductModel(
-      {required final String id,
-      required final String code,
-      final String? productNumber,
-      required final String productName,
-      required final String categoryId,
-      required final String unitId,
-      final int? unitQty,
-      final List<PriceModel>? differentPriceList,
-      required final double purchasePrice,
-      required final double sellingPrice,
-      final bool? isHidden,
-      required final double wholesale,
-      required final double retail,
-      final bool? isPending,
-      final String? companyId,
-      final List<String>? imagesList,
-      required final DateTime createdAt}) = _$ProductModelImpl;
+  factory _ProductModel(
+      {required String id,
+      required String code,
+      String? productNumber,
+      required String productName,
+      required String categoryId,
+      required String unitId,
+      int? unitQty,
+      List<PriceModel>? differentPriceList,
+      required double purchasePrice,
+      required double sellingPrice,
+      bool? isHidden,
+      required double wholesale,
+      required double retail,
+      bool? isPending,
+      String? companyId,
+      List<String>? imagesList,
+      required DateTime createdAt}) = _$ProductModelImpl;
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
       _$ProductModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get code;
+  set code(String value);
   @override
   String? get productNumber;
+  set productNumber(String? value);
   @override // String? barcodeCode,
-  String get productName;
+  String get productName; // String? barcodeCode,
+  set productName(String value);
   @override
   String get categoryId;
+  set categoryId(String value);
   @override
   String get unitId;
+  set unitId(String value);
   @override
   int? get unitQty;
+  set unitQty(int? value);
   @override
   List<PriceModel>? get differentPriceList;
+  set differentPriceList(List<PriceModel>? value);
   @override
   double get purchasePrice;
+  set purchasePrice(double value);
   @override
   double get sellingPrice;
+  set sellingPrice(double value);
   @override
   bool? get isHidden;
+  set isHidden(bool? value);
   @override
   double get wholesale;
+  set wholesale(double value);
   @override
   double get retail;
+  set retail(double value);
   @override
   bool? get isPending;
+  set isPending(bool? value);
   @override
   String? get companyId;
+  set companyId(String? value);
   @override
   List<String>? get imagesList;
+  set imagesList(List<String>? value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$ProductModelImplCopyWith<_$ProductModelImpl> get copyWith =>

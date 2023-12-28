@@ -228,8 +228,21 @@ class SalesBillingOneController extends GetxController {
 
   PriceModel? _selectedPriceModel;
   PriceModel? get selectedPriceModel => _selectedPriceModel;
+  PriceModel? get selectedPriceModelForDropdown {
+    try {
+      return _selectedProductModel?.differentPriceList?.firstWhere(
+        (element) =>
+            element.id == selectedPriceModel?.id &&
+            element.unitModel.id == selectedPriceModel?.unitModel.id,
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
   set setSelectedPriceModel(PriceModel? val) {
     _selectedPriceModel = val;
+
     if (val != null) {
       if (selectedCustomerModel?.type == customerType[0]) {
         rateController.text = "${val.mrp}";
@@ -376,8 +389,8 @@ class SalesBillingOneController extends GetxController {
       qtyMathEqn: qtyController.text,
     );
     debugPrint('qtyController $salesProductModel');
-    salesProductModelList = [...salesProductModelList, salesProductModel];
-    // salesProductModelList.add(salesProductModel);
+    // salesProductModelList = [...salesProductModelList, salesProductModel];
+    salesProductModelList.add(salesProductModel);
   }
 
   void addSelectedSalesProductModel() {
@@ -453,10 +466,25 @@ class SalesBillingOneController extends GetxController {
   }
 
   void updateTextFieldOnSalesProductSelected() {
-    print(selectedSalesProductModel!.qtyMathEqn);
     // return;
     if (selectedSalesProductModel != null) {
       _selectedProductModel = selectedSalesProductModel?.productModel;
+      // for (final element in ((selectedProductModel?.differentPriceList ?? [])
+      //     as List<PriceModel>)) {
+      //   print("========================");
+      //   print(element == selectedSalesProductModel?.priceModel);
+      //   print("\n");
+
+      //   print(element.unitModel.id ==
+      //       selectedSalesProductModel?.priceModel?.unitModel.id);
+      //   print("\n");
+
+      //   print(element.unitModel.id);
+      //   print(selectedSalesProductModel?.priceModel?.unitModel.id);
+      //   print("\n");
+      //   print(element.id);
+      //   print(selectedSalesProductModel?.priceModel?.id);
+      // }
       setSelectedPriceModel = selectedSalesProductModel?.priceModel;
       productController.text = _selectedProductModel!.productName;
       discountController.text = selectedSalesProductModel?.discountPer == null
@@ -539,6 +567,7 @@ class SalesBillingOneController extends GetxController {
     _selectedProductModel = null;
     selectedCustomerModel = null;
     _selectedPriceModel = null;
+    salesProductModelList = [];
 
     salesProductModelList.clear();
     productController.clear();
@@ -629,6 +658,8 @@ class SalesBillingOneController extends GetxController {
           "Success",
           "Bill Updated Successfully",
         );
+        salesProductModelList = [];
+        update();
         clearAll();
         performInit();
       }

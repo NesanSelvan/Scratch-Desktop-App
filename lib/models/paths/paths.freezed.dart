@@ -21,9 +21,13 @@ PathsModel _$PathsModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PathsModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  set name(String value) => throw _privateConstructorUsedError;
   String get path => throw _privateConstructorUsedError;
+  set path(String value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -141,34 +145,18 @@ class _$PathsModelImpl implements _PathsModel {
       _$$PathsModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String name;
+  String name;
   @override
-  final String path;
+  String path;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'PathsModel(id: $id, name: $name, path: $path, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PathsModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.path, path) || other.path == path) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name, path, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -186,22 +174,26 @@ class _$PathsModelImpl implements _PathsModel {
 
 abstract class _PathsModel implements PathsModel {
   factory _PathsModel(
-      {required final String id,
-      required final String name,
-      required final String path,
-      required final DateTime createdAt}) = _$PathsModelImpl;
+      {required String id,
+      required String name,
+      required String path,
+      required DateTime createdAt}) = _$PathsModelImpl;
 
   factory _PathsModel.fromJson(Map<String, dynamic> json) =
       _$PathsModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get name;
+  set name(String value);
   @override
   String get path;
+  set path(String value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$PathsModelImplCopyWith<_$PathsModelImpl> get copyWith =>

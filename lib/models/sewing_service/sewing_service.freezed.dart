@@ -21,9 +21,13 @@ SewingService _$SewingServiceFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SewingService {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get billNo => throw _privateConstructorUsedError;
+  set billNo(String value) => throw _privateConstructorUsedError;
   CustomerModel? get customerModel => throw _privateConstructorUsedError;
+  set customerModel(CustomerModel? value) => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
+  set dateTime(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -156,7 +160,7 @@ class __$$SewingServiceImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$SewingServiceImpl implements _SewingService {
-  const _$SewingServiceImpl(
+  _$SewingServiceImpl(
       {required this.id,
       required this.billNo,
       required this.customerModel,
@@ -166,36 +170,18 @@ class _$SewingServiceImpl implements _SewingService {
       _$$SewingServiceImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String billNo;
+  String billNo;
   @override
-  final CustomerModel? customerModel;
+  CustomerModel? customerModel;
   @override
-  final DateTime dateTime;
+  DateTime dateTime;
 
   @override
   String toString() {
     return 'SewingService(id: $id, billNo: $billNo, customerModel: $customerModel, dateTime: $dateTime)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SewingServiceImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.billNo, billNo) || other.billNo == billNo) &&
-            (identical(other.customerModel, customerModel) ||
-                other.customerModel == customerModel) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, billNo, customerModel, dateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -212,23 +198,27 @@ class _$SewingServiceImpl implements _SewingService {
 }
 
 abstract class _SewingService implements SewingService {
-  const factory _SewingService(
-      {required final String id,
-      required final String billNo,
-      required final CustomerModel? customerModel,
-      required final DateTime dateTime}) = _$SewingServiceImpl;
+  factory _SewingService(
+      {required String id,
+      required String billNo,
+      required CustomerModel? customerModel,
+      required DateTime dateTime}) = _$SewingServiceImpl;
 
   factory _SewingService.fromJson(Map<String, dynamic> json) =
       _$SewingServiceImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get billNo;
+  set billNo(String value);
   @override
   CustomerModel? get customerModel;
+  set customerModel(CustomerModel? value);
   @override
   DateTime get dateTime;
+  set dateTime(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$SewingServiceImplCopyWith<_$SewingServiceImpl> get copyWith =>

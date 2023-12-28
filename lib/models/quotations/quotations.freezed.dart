@@ -21,14 +21,24 @@ QuotationModel _$QuotationModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$QuotationModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get quotationNo => throw _privateConstructorUsedError;
+  set quotationNo(String value) => throw _privateConstructorUsedError;
   bool get isTax => throw _privateConstructorUsedError;
+  set isTax(bool value) => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
+  set price(double value) => throw _privateConstructorUsedError;
   List<SalesProductModel> get productList => throw _privateConstructorUsedError;
+  set productList(List<SalesProductModel> value) =>
+      throw _privateConstructorUsedError;
   CustomerModel get customerModel => throw _privateConstructorUsedError;
+  set customerModel(CustomerModel value) => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
+  set dateTime(DateTime value) => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
+  set note(String? value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -190,7 +200,7 @@ class __$$QuotationModelImplCopyWithImpl<$Res>
           : price // ignore: cast_nullable_to_non_nullable
               as double,
       productList: null == productList
-          ? _value._productList
+          ? _value.productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<SalesProductModel>,
       customerModel: null == customerModel
@@ -222,81 +232,39 @@ class _$QuotationModelImpl implements _QuotationModel {
       required this.quotationNo,
       this.isTax = true,
       required this.price,
-      required final List<SalesProductModel> productList,
+      required this.productList,
       required this.customerModel,
       required this.dateTime,
       this.note,
-      required this.createdAt})
-      : _productList = productList;
+      required this.createdAt});
 
   factory _$QuotationModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$QuotationModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String quotationNo;
+  String quotationNo;
   @override
   @JsonKey()
-  final bool isTax;
+  bool isTax;
   @override
-  final double price;
-  final List<SalesProductModel> _productList;
+  double price;
   @override
-  List<SalesProductModel> get productList {
-    if (_productList is EqualUnmodifiableListView) return _productList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_productList);
-  }
-
+  List<SalesProductModel> productList;
   @override
-  final CustomerModel customerModel;
+  CustomerModel customerModel;
   @override
-  final DateTime dateTime;
+  DateTime dateTime;
   @override
-  final String? note;
+  String? note;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'QuotationModel(id: $id, quotationNo: $quotationNo, isTax: $isTax, price: $price, productList: $productList, customerModel: $customerModel, dateTime: $dateTime, note: $note, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$QuotationModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.quotationNo, quotationNo) ||
-                other.quotationNo == quotationNo) &&
-            (identical(other.isTax, isTax) || other.isTax == isTax) &&
-            (identical(other.price, price) || other.price == price) &&
-            const DeepCollectionEquality()
-                .equals(other._productList, _productList) &&
-            (identical(other.customerModel, customerModel) ||
-                other.customerModel == customerModel) &&
-            (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime) &&
-            (identical(other.note, note) || other.note == note) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      quotationNo,
-      isTax,
-      price,
-      const DeepCollectionEquality().hash(_productList),
-      customerModel,
-      dateTime,
-      note,
-      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -315,37 +283,46 @@ class _$QuotationModelImpl implements _QuotationModel {
 
 abstract class _QuotationModel implements QuotationModel {
   factory _QuotationModel(
-      {required final String id,
-      required final String quotationNo,
-      final bool isTax,
-      required final double price,
-      required final List<SalesProductModel> productList,
-      required final CustomerModel customerModel,
-      required final DateTime dateTime,
-      final String? note,
-      required final DateTime createdAt}) = _$QuotationModelImpl;
+      {required String id,
+      required String quotationNo,
+      bool isTax,
+      required double price,
+      required List<SalesProductModel> productList,
+      required CustomerModel customerModel,
+      required DateTime dateTime,
+      String? note,
+      required DateTime createdAt}) = _$QuotationModelImpl;
 
   factory _QuotationModel.fromJson(Map<String, dynamic> json) =
       _$QuotationModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get quotationNo;
+  set quotationNo(String value);
   @override
   bool get isTax;
+  set isTax(bool value);
   @override
   double get price;
+  set price(double value);
   @override
   List<SalesProductModel> get productList;
+  set productList(List<SalesProductModel> value);
   @override
   CustomerModel get customerModel;
+  set customerModel(CustomerModel value);
   @override
   DateTime get dateTime;
+  set dateTime(DateTime value);
   @override
   String? get note;
+  set note(String? value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$QuotationModelImplCopyWith<_$QuotationModelImpl> get copyWith =>

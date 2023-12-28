@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'threads.freezed.dart';
 part 'threads.g.dart';
 
-@freezed
+@unfreezed
 class ThreadsModel with _$ThreadsModel {
   @JsonSerializable(explicitToJson: true)
   factory ThreadsModel({

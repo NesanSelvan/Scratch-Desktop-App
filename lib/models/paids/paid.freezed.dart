@@ -21,7 +21,9 @@ PaidModel _$PaidModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PaidModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get billId => throw _privateConstructorUsedError;
+  set billId(String value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -107,33 +109,20 @@ class __$$PaidModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PaidModelImpl implements _PaidModel {
-  const _$PaidModelImpl(this.id, this.billId);
+  _$PaidModelImpl(this.id, this.billId);
 
   factory _$PaidModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PaidModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String billId;
+  String billId;
 
   @override
   String toString() {
     return 'PaidModel(id: $id, billId: $billId)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaidModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.billId, billId) || other.billId == billId));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, billId);
 
   @JsonKey(ignore: true)
   @override
@@ -150,16 +139,17 @@ class _$PaidModelImpl implements _PaidModel {
 }
 
 abstract class _PaidModel implements PaidModel {
-  const factory _PaidModel(final String id, final String billId) =
-      _$PaidModelImpl;
+  factory _PaidModel(String id, String billId) = _$PaidModelImpl;
 
   factory _PaidModel.fromJson(Map<String, dynamic> json) =
       _$PaidModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get billId;
+  set billId(String value);
   @override
   @JsonKey(ignore: true)
   _$$PaidModelImplCopyWith<_$PaidModelImpl> get copyWith =>

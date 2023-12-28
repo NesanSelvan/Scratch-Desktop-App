@@ -5,10 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'bill.freezed.dart';
 part 'bill.g.dart';
 
-@freezed
+@unfreezed
 abstract class BillModel with _$BillModel {
   @JsonSerializable(explicitToJson: true)
-  const factory BillModel({
+  factory BillModel({
     required String id,
     required String billNo,
     String? borrowId,

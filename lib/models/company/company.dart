@@ -3,10 +3,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'company.freezed.dart';
 part 'company.g.dart';
 
-@freezed
+@unfreezed
 abstract class CompanyModel with _$CompanyModel {
   @JsonSerializable(explicitToJson: true)
-  const factory CompanyModel({
+  factory CompanyModel({
     required String id,
     required String name,
     required String address,

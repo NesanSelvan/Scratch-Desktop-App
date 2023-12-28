@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'bank.freezed.dart';
 part 'bank.g.dart';
 
-@freezed
+@unfreezed
 class BankModel with _$BankModel {
   @JsonSerializable(explicitToJson: true)
   factory BankModel({

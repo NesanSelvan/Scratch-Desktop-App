@@ -3,9 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'borrow.freezed.dart';
 part 'borrow.g.dart';
 
-@freezed
+@unfreezed
 abstract class BorrowModel with _$BorrowModel {
-  const factory BorrowModel(
+  factory BorrowModel(
     String id,
     String billId,
   ) = _BorrowModel;

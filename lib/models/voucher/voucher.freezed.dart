@@ -21,14 +21,23 @@ VoucherModel _$VoucherModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$VoucherModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get voucherNo => throw _privateConstructorUsedError;
+  set voucherNo(String value) => throw _privateConstructorUsedError;
   double get givenAmount => throw _privateConstructorUsedError;
+  set givenAmount(double value) => throw _privateConstructorUsedError;
   String get paymentMethod => throw _privateConstructorUsedError;
+  set paymentMethod(String value) => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  set description(String value) => throw _privateConstructorUsedError;
   EmployeeModel get givenTo => throw _privateConstructorUsedError;
+  set givenTo(EmployeeModel value) => throw _privateConstructorUsedError;
   String get paymentId => throw _privateConstructorUsedError;
+  set paymentId(String value) => throw _privateConstructorUsedError;
   bool get isAdvance => throw _privateConstructorUsedError;
+  set isAdvance(bool value) => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -217,7 +226,7 @@ class __$$VoucherModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$VoucherModelImpl implements _VoucherModel {
-  const _$VoucherModelImpl(
+  _$VoucherModelImpl(
       {required this.id,
       required this.voucherNo,
       required this.givenAmount,
@@ -232,57 +241,29 @@ class _$VoucherModelImpl implements _VoucherModel {
       _$$VoucherModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String voucherNo;
+  String voucherNo;
   @override
-  final double givenAmount;
+  double givenAmount;
   @override
-  final String paymentMethod;
+  String paymentMethod;
   @override
-  final String description;
+  String description;
   @override
-  final EmployeeModel givenTo;
+  EmployeeModel givenTo;
   @override
-  final String paymentId;
+  String paymentId;
   @override
   @JsonKey()
-  final bool isAdvance;
+  bool isAdvance;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString() {
     return 'VoucherModel(id: $id, voucherNo: $voucherNo, givenAmount: $givenAmount, paymentMethod: $paymentMethod, description: $description, givenTo: $givenTo, paymentId: $paymentId, isAdvance: $isAdvance, createdAt: $createdAt)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$VoucherModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.voucherNo, voucherNo) ||
-                other.voucherNo == voucherNo) &&
-            (identical(other.givenAmount, givenAmount) ||
-                other.givenAmount == givenAmount) &&
-            (identical(other.paymentMethod, paymentMethod) ||
-                other.paymentMethod == paymentMethod) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.givenTo, givenTo) || other.givenTo == givenTo) &&
-            (identical(other.paymentId, paymentId) ||
-                other.paymentId == paymentId) &&
-            (identical(other.isAdvance, isAdvance) ||
-                other.isAdvance == isAdvance) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, voucherNo, givenAmount,
-      paymentMethod, description, givenTo, paymentId, isAdvance, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -299,38 +280,47 @@ class _$VoucherModelImpl implements _VoucherModel {
 }
 
 abstract class _VoucherModel implements VoucherModel {
-  const factory _VoucherModel(
-      {required final String id,
-      required final String voucherNo,
-      required final double givenAmount,
-      required final String paymentMethod,
-      required final String description,
-      required final EmployeeModel givenTo,
-      required final String paymentId,
-      final bool isAdvance,
-      required final DateTime createdAt}) = _$VoucherModelImpl;
+  factory _VoucherModel(
+      {required String id,
+      required String voucherNo,
+      required double givenAmount,
+      required String paymentMethod,
+      required String description,
+      required EmployeeModel givenTo,
+      required String paymentId,
+      bool isAdvance,
+      required DateTime createdAt}) = _$VoucherModelImpl;
 
   factory _VoucherModel.fromJson(Map<String, dynamic> json) =
       _$VoucherModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get voucherNo;
+  set voucherNo(String value);
   @override
   double get givenAmount;
+  set givenAmount(double value);
   @override
   String get paymentMethod;
+  set paymentMethod(String value);
   @override
   String get description;
+  set description(String value);
   @override
   EmployeeModel get givenTo;
+  set givenTo(EmployeeModel value);
   @override
   String get paymentId;
+  set paymentId(String value);
   @override
   bool get isAdvance;
+  set isAdvance(bool value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$VoucherModelImplCopyWith<_$VoucherModelImpl> get copyWith =>

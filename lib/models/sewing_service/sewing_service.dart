@@ -5,10 +5,10 @@ import '../customer/customer.dart';
 part 'sewing_service.freezed.dart';
 part 'sewing_service.g.dart';
 
-@freezed
+@unfreezed
 abstract class SewingService with _$SewingService {
   @JsonSerializable(explicitToJson: true)
-  const factory SewingService(
+  factory SewingService(
       {required String id,
       required String billNo,
       required CustomerModel? customerModel,

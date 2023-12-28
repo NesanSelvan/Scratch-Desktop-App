@@ -5,10 +5,10 @@ import '../persons/employee/employee.dart';
 part 'voucher.freezed.dart';
 part 'voucher.g.dart';
 
-@freezed
+@unfreezed
 abstract class VoucherModel with _$VoucherModel {
   @JsonSerializable(explicitToJson: true)
-  const factory VoucherModel(
+  factory VoucherModel(
       {required String id,
       required String voucherNo,
       required double givenAmount,

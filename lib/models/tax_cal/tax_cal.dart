@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'tax_cal.freezed.dart';
 part 'tax_cal.g.dart';
 
-@freezed
+@unfreezed
 class TaxCalModel with _$TaxCalModel {
   factory TaxCalModel({
     required int hsnCode,

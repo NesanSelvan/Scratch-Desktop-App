@@ -19,7 +19,7 @@ class NullCheckUtilities {
   }
 
   static CustomerModel getDummyCustomer() {
-    return const CustomerModel(
+    return CustomerModel(
         id: "id",
         name: "name",
         address: "address",

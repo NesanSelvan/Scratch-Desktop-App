@@ -6,10 +6,10 @@ import 'details/sub_product_details.dart';
 part 'sub_product.freezed.dart';
 part 'sub_product.g.dart';
 
-@freezed
+@unfreezed
 abstract class SubProductModel with _$SubProductModel {
   @JsonSerializable(explicitToJson: true)
-  const factory SubProductModel(
+  factory SubProductModel(
       {required String id,
       required ProductModel productModel,
       @Default([]) List<SubProductDetailsModel> subProducts,

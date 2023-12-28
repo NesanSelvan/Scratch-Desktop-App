@@ -5,10 +5,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'product.freezed.dart';
 part 'product.g.dart';
 
-@freezed
+@unfreezed
 abstract class ProductModel with _$ProductModel {
+  // ignore: invalid_annotation_target
   @JsonSerializable(explicitToJson: true)
-  const factory ProductModel({
+  factory ProductModel({
     required String id,
     required String code,
     String? productNumber,
@@ -33,7 +34,7 @@ abstract class ProductModel with _$ProductModel {
       _$ProductModelFromJson(json);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return other is _$ProductModel &&
         (const DeepCollectionEquality().equals(other.id, id)) &&
         (const DeepCollectionEquality().equals(other.categoryId, categoryId));

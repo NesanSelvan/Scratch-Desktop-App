@@ -5,9 +5,9 @@ import '../../enum/person/person.dart';
 part 'person.freezed.dart';
 part 'person.g.dart';
 
-@freezed
+@unfreezed
 abstract class PersonModel with _$PersonModel {
-  const factory PersonModel(
+  factory PersonModel(
       {required String id,
       required String name,
       required String email,

@@ -21,7 +21,9 @@ MachineModel _$MachineModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MachineModel {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get machineName => throw _privateConstructorUsedError;
+  set machineName(String value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -108,34 +110,20 @@ class __$$MachineModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$MachineModelImpl implements _MachineModel {
-  const _$MachineModelImpl(this.id, this.machineName);
+  _$MachineModelImpl(this.id, this.machineName);
 
   factory _$MachineModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MachineModelImplFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String machineName;
+  String machineName;
 
   @override
   String toString() {
     return 'MachineModel(id: $id, machineName: $machineName)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$MachineModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.machineName, machineName) ||
-                other.machineName == machineName));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, machineName);
 
   @JsonKey(ignore: true)
   @override
@@ -152,16 +140,17 @@ class _$MachineModelImpl implements _MachineModel {
 }
 
 abstract class _MachineModel implements MachineModel {
-  const factory _MachineModel(final String id, final String machineName) =
-      _$MachineModelImpl;
+  factory _MachineModel(String id, String machineName) = _$MachineModelImpl;
 
   factory _MachineModel.fromJson(Map<String, dynamic> json) =
       _$MachineModelImpl.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get machineName;
+  set machineName(String value);
   @override
   @JsonKey(ignore: true)
   _$$MachineModelImplCopyWith<_$MachineModelImpl> get copyWith =>
