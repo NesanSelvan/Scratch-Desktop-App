@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
@@ -171,8 +172,6 @@ class PrinterUtility {
       // PDFGenerator.openPdf(file.path);
     } else {
       final count = (allData.length / 4).ceil();
-      const barcodePdfFormat =
-          PdfPageFormat(101.6 * PdfPageFormat.mm, 20 * PdfPageFormat.mm);
       // final height = barcodePdfFormat.height * count;
       // final pdfFormat = PdfPageFormat(barcodePdfFormat.width, height);
       for (var i = 0; i < count; i++) {
@@ -185,10 +184,11 @@ class PrinterUtility {
         start = i * 4;
 
         final reqImg = allData.sublist(start, lastImg);
-        print(
-          "start: $start last: $lastImg ${allData.length} ${reqImg.length}",
-        );
 
+        final barcodePdfFormat = PdfPageFormat(
+          2.5 * PdfPageFormat.cm * 4,
+          2 * PdfPageFormat.cm * (allData.length % 4 + 1),
+        );
         final pdfData = await PDFGenerator.generateBarcodePdf(
           barcodePdfFormat,
           reqImg,
@@ -201,14 +201,14 @@ class PrinterUtility {
           },
           format: barcodePdfFormat,
         );
-        // final path = await PDFGenerator.getPDFFilePath(count: i);
-        // final file = File(path);
-        // try {
-        //   file.writeAsBytesSync(pdfData);
-        //   PDFGenerator.openPdf(file.path);
-        // } catch (e) {
-        //   rethrow;
-        // }
+        final path = await PDFGenerator.getPDFFilePath(count: i);
+        final file = File(path);
+        try {
+          file.writeAsBytesSync(pdfData);
+          PDFGenerator.openPdf(file.path);
+        } catch (e) {
+          rethrow;
+        }
       }
 
       // if (val) {

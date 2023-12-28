@@ -160,11 +160,11 @@ class PDFGenerator {
                   padding: const pw.EdgeInsets.all(2),
                   decoration: pw.BoxDecoration(border: pw.Border.all()),
                   child: normalText("Amount"),
-                )
+                ),
               ],
             )
           else
-            pw.Container()
+            pw.Container(),
         ],
       ),
     );
@@ -326,7 +326,7 @@ class PDFGenerator {
             padding: const pw.EdgeInsets.only(right: 2),
             decoration: pw.BoxDecoration(border: getBorder()),
             child: insideText,
-          )
+          ),
         ],
       ),
     );
@@ -397,7 +397,7 @@ class PDFGenerator {
                             fontSize: 7,
                             fontWeight: pw.FontWeight.bold,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -485,10 +485,10 @@ class PDFGenerator {
                         child: pw.Column(
                           children: [
                             normalText("Mobile No.: 9488327699"),
-                            normalText("Email: annai.charlinf@gmail.com")
+                            normalText("Email: annai.charlinf@gmail.com"),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                   pw.Container(
@@ -574,9 +574,9 @@ class PDFGenerator {
                           pw.Container(
                             width: amountWidth,
                             child: tableCellContText("Amount"),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                   pw.Row(
@@ -602,12 +602,9 @@ class PDFGenerator {
                           child: pw.Column(
                             crossAxisAlignment: pw.CrossAxisAlignment.start,
                             children: [
-                              ...billModel.productList
-                                  .map(
-                                    (e) =>
-                                        vSmallText(e.productModel!.productName),
-                                  )
-                                  .toList(),
+                              ...billModel.productList.map(
+                                (e) => vSmallText(e.productModel!.productName),
+                              ),
                               pw.SizedBox(height: 30),
                               if (billModel.customerModel.state == "Tamil Nadu")
                                 pw.Align(
@@ -615,7 +612,7 @@ class PDFGenerator {
                                   child: pw.Column(
                                     children: [
                                       smallBoldText("Output CGST"),
-                                      smallBoldText("Output SGST")
+                                      smallBoldText("Output SGST"),
                                     ],
                                   ),
                                 )
@@ -726,14 +723,12 @@ class PDFGenerator {
                           child: pw.Column(
                             crossAxisAlignment: pw.CrossAxisAlignment.end,
                             children: [
-                              ...billModel.productList
-                                  .map(
-                                    (e) => vSmallText(
-                                      getAmount(e, billModel.customerModel)
-                                          .toStringAsFixed(2),
-                                    ),
-                                  )
-                                  .toList(),
+                              ...billModel.productList.map(
+                                (e) => vSmallText(
+                                  getAmount(e, billModel.customerModel)
+                                      .toStringAsFixed(2),
+                                ),
+                              ),
                               pw.Divider(),
                               //
                               vSmallText(
@@ -791,7 +786,7 @@ class PDFGenerator {
                         normalText("Amount Chargeable (in words)"),
                         boldText(
                           "INR ${NumberToWord().convert('en-in', grandTotal.round())} ",
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -836,681 +831,9 @@ class PDFGenerator {
                                 "Total Tax Amount",
                                 getA4Size.width * 0.163,
                                 false,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      pw.Row(
-                        children: [
-                          taxCalBodyData(
-                            width: getA4Size.width * 0.1968,
-                            child: pw.Column(
-                              children: taxCalModel
-                                  .map((e) => smallText("${e.hsnCode}"))
-                                  .toList(),
-                            ),
-                          ),
-                          taxCalBodyData(
-                            width: getA4Size.width * 0.1968,
-                            child: pw.Column(
-                              children: taxCalModel
-                                  .map(
-                                    (e) => smallText(
-                                      e.taxableVal.toStringAsFixed(2),
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ),
-                          if (billModel.customerModel.state == "Tamil Nadu")
-                            pw.Row(
-                              children: [
-                                taxCalBodyData(
-                                  width: getA4Size.width * 0.1968,
-                                  isHalf: true,
-                                  child: pw.Column(
-                                    children: taxCalModel
-                                        .map(
-                                          (e) => smallText(
-                                            "${(e.rate / 2).toStringAsFixed(2)} %",
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                                taxCalBodyData(
-                                  width: getA4Size.width * 0.1968,
-                                  isHalf: true,
-                                  child: pw.Column(
-                                    children: taxCalModel
-                                        .map(
-                                          (e) => smallText(
-                                            (e.amount / 2).toStringAsFixed(2),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                                taxCalBodyData(
-                                  width: getA4Size.width * 0.1968,
-                                  isHalf: true,
-                                  child: pw.Column(
-                                    children: taxCalModel
-                                        .map(
-                                          (e) => smallText(
-                                            "${(e.rate / 2).toStringAsFixed(2)} %",
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                                taxCalBodyData(
-                                  width: getA4Size.width * 0.1968,
-                                  isHalf: true,
-                                  child: pw.Column(
-                                    children: taxCalModel
-                                        .map(
-                                          (e) => smallText(
-                                            (e.amount / 2).toStringAsFixed(2),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                              ],
-                            )
-                          else
-                            pw.Row(
-                              children: [
-                                taxCalBodyData(
-                                  width: getA4Size.width * 0.1968,
-                                  child: pw.Column(
-                                    children: taxCalModel
-                                        .map(
-                                          (e) => smallText(
-                                            "${(e.rate).toStringAsFixed(2)} %",
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                                taxCalBodyData(
-                                  width: getA4Size.width * 0.1968,
-                                  child: pw.Column(
-                                    children: taxCalModel
-                                        .map(
-                                          (e) => smallText(
-                                            e.amount.toStringAsFixed(2),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          taxCalBodyData(
-                            width: getA4Size.width * 0.163,
-                            child: pw.Column(
-                              children: taxCalModel
-                                  .map(
-                                    (e) => smallText(
-                                      e.totalTaxAmount.toStringAsFixed(2),
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          )
-                        ],
-                      ),
-                      pw.Row(
-                        children: [
-                          taxCalFooterData(
-                            width: getA4Size.width * 0.1968,
-                            child: smallBoldText("Total"),
-                            isRight: true,
-                          ),
-                          taxCalFooterData(
-                            width: getA4Size.width * 0.1968,
-                            child: smallText(
-                              getTotalTaxableAndTotalTaxValue(taxCalModel)[0]
-                                  .toStringAsFixed(2),
-                            ),
-                          ),
-                          if (billModel.customerModel.state == "Tamil Nadu")
-                            pw.Row(
-                              children: [
-                                taxCalFooterData(
-                                  width: getA4Size.width * 0.197,
-                                  isHalf: true,
-                                  child: pw.Container(),
-                                ),
-                                taxCalFooterData(
-                                  width: getA4Size.width * 0.197,
-                                  isHalf: true,
-                                  child: smallText(
-                                    (getTotalTaxableAndTotalTaxValue(
-                                              taxCalModel,
-                                            )[1] /
-                                            2)
-                                        .toStringAsFixed(2),
-                                  ),
-                                ),
-                              ],
-                            )
-                          else
-                            taxCalFooterData(
-                              width: getA4Size.width * 0.19 * 2.13,
-                              isHalf: true,
-                              child: smallText(
-                                "",
                               ),
-                            ),
-                          if (billModel.customerModel.state == "Tamil Nadu")
-                            pw.Row(
-                              children: [
-                                taxCalFooterData(
-                                  width: getA4Size.width * 0.197,
-                                  isHalf: true,
-                                  child: pw.Container(),
-                                ),
-                                taxCalFooterData(
-                                  width: getA4Size.width * 0.197,
-                                  isHalf: true,
-                                  child: smallText(
-                                    (getTotalTaxableAndTotalTaxValue(
-                                              taxCalModel,
-                                            )[1] /
-                                            2)
-                                        .toStringAsFixed(2),
-                                  ),
-                                ),
-                              ],
-                            )
-                          else
-                            taxCalFooterData(
-                              width: getA4Size.width * 0.19 * 2,
-                              isHalf: true,
-                              child: smallText(
-                                (getTotalTaxableAndTotalTaxValue(
-                                  taxCalModel,
-                                )[1])
-                                    .toStringAsFixed(2),
-                              ),
-                            ),
-                          taxCalFooterData(
-                            width: getA4Size.width * 0.163,
-                            child: smallText(
-                              getTotalTaxableAndTotalTaxValue(taxCalModel)[1]
-                                  .toStringAsFixed(2),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  pw.Row(
-                    children: [
-                      bankContainer(
-                        width: getA4Size.width * 0.3,
-                        height: 87,
-                        isBottomBorder: false,
-                        child: pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          mainAxisAlignment: pw.MainAxisAlignment.center,
-                          children: [
-                            boldText(Application.bankDetails.bankName),
-                            normalText(
-                              "Acc No: ${Application.bankDetails.accountNo}",
-                            ),
-                            normalText(
-                              "IFSC Code: ${Application.bankDetails.ifscCode}",
-                            ),
-                            normalText(
-                              "Branch: ${Application.bankDetails.branch}",
-                            ),
-                          ],
-                        ),
-                      ),
-                      pw.Container(
-                        width: (getA4Size.width * 0.2) +
-                            (2 * getA4Size.width * 0.1),
-                        height: 87,
-                      ),
-                      pw.Container(
-                        width: getA4Size.width * 0.25,
-                        height: 87,
-                        alignment: pw.Alignment.center,
-                        decoration: const pw.BoxDecoration(
-                          border: pw.Border(
-                            left: pw.BorderSide(width: 0.8),
-                          ),
-                        ),
-                        padding: const pw.EdgeInsets.symmetric(vertical: 2),
-                        child: pw.Column(
-                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                          children: [
-                            boldText("For ${Application.appName}"),
-                            normalText("Authorized Signature"),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ];
-        },
-      ),
-    );
-    return pdf.save();
-  }
-
-  static Future<String> generateQuotation(QuotationModel billModel) async {
-    final buffer = await generateQuotationBuffer(billModel);
-    final path = await getPDFFilePath();
-    final file = File(path);
-    try {
-      file.writeAsBytesSync(buffer);
-      return file.path;
-    } catch (e) {
-      return 'textfieldError';
-    }
-  }
-
-  static Future<Uint8List> generateOrderBuffer(OrderModel billModel) async {
-    final taxCalModel = OrderCalculations().getOrderTaxCalModel(billModel);
-    final pdf = pw.Document();
-    pdf.addPage(
-      pw.MultiPage(
-        pageFormat: getA4Size,
-        margin: const pw.EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-        mainAxisAlignment: pw.MainAxisAlignment.center,
-        crossAxisAlignment: pw.CrossAxisAlignment.center,
-        build: (pw.Context context) {
-          return <pw.Widget>[
-            pw.Container(
-              margin: const pw.EdgeInsets.only(top: 2, bottom: 4),
-              child: pw.Container(
-                alignment: pw.Alignment.center,
-                child: smallText("Order".toUpperCase()),
-              ),
-            ),
-            pw.Container(
-              width: getA4Size.width * 0.95,
-              height: getA4Size.height * 0.885 - 10,
-              decoration: const pw.BoxDecoration(
-                border: pw.Border(
-                  left: pw.BorderSide(width: 0.8),
-                  right: pw.BorderSide(width: 0.8),
-                  top: pw.BorderSide(width: 0.8),
-                  bottom: pw.BorderSide(width: 0.8),
-                ),
-              ),
-              alignment: pw.Alignment.center,
-              child: pw.Column(
-                children: [
-                  pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                    children: [
-                      pw.Container(
-                        child: normalText("GSTIN : ${Application.gstinNo}"),
-                        padding: const pw.EdgeInsets.all(8),
-                      ),
-                      pw.Container(
-                        padding: const pw.EdgeInsets.all(8),
-                        child: pw.Column(
-                          children: [
-                            normalText("Mobile No.: 9488327699"),
-                            normalText("Email: annai.charlinf@gmail.com")
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  pw.Container(
-                    alignment: pw.Alignment.center,
-                    child: pw.Column(
-                      mainAxisAlignment: pw.MainAxisAlignment.center,
-                      children: [
-                        bigText(Application.appName),
-                        normalText(Application.address.split(r'\').first),
-                        pw.SizedBox(height: 13),
-                      ],
-                    ),
-                  ),
-                  pw.Divider(height: 2),
-                  pw.Row(
-                    children: [
-                      pw.Container(
-                        width: getA4Size.width * 0.6,
-                        alignment: pw.Alignment.centerLeft,
-                        padding: const pw.EdgeInsets.only(left: 10),
-                        child: pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            normalText(
-                              "Buyer : ${billModel.customerModel.name}",
-                            ),
-                            normalText(billModel.customerModel.address),
-                            normalText(
-                              "GSTIN : ${billModel.customerModel.gstin}",
-                            ),
-                            normalText(
-                              "Mobile No : ${billModel.customerModel.mobileNo}",
-                            ),
-                          ],
-                        ),
-                      ),
-                      pw.Container(
-                        width: 1,
-                        height: 60,
-                        color: PdfColor.fromHex("#000000"),
-                      ),
-                      pw.Container(
-                        padding: const pw.EdgeInsets.only(left: 10),
-                        child: normalText(
-                          "Date : ${getFormattedDate(billModel.dateTime)}",
-                        ),
-                      ),
-                    ],
-                  ),
-                  pw.Divider(height: 2),
-                  pw.Column(
-                    children: [
-                      pw.Row(
-                        children: [
-                          pw.Container(
-                            width: getA4Size.width * 0.05,
-                            child: tableCellContText("No."),
-                          ),
-                          pw.Container(
-                            width: getA4Size.width * 0.365,
-                            child: tableCellContText("Description"),
-                          ),
-                          pw.Container(
-                            width: getA4Size.width * 0.089,
-                            child: tableCellContText("HSN"),
-                          ),
-                          pw.Container(
-                            width: getA4Size.width * 0.089,
-                            child: tableCellContText("Qty"),
-                          ),
-                          pw.Container(
-                            width: getA4Size.width * 0.089,
-                            child: tableCellContText("Rate"),
-                          ),
-                          pw.Container(
-                            width: getA4Size.width * 0.089,
-                            child: tableCellContText("Price"),
-                          ),
-                          pw.Container(
-                            width: getA4Size.width * 0.089,
-                            child: tableCellContText("Dis"),
-                          ),
-                          pw.Container(
-                            width: getA4Size.width * 0.089,
-                            child: tableCellContText("Amount"),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                  pw.Row(
-                    children: [
-                      customizedTableData(
-                        width: getA4Size.width * 0.05,
-                        height: 265,
-                        child: pw.Column(
-                          children: billModel.productList
-                              .map(
-                                (e) => smallText(
-                                  "${billModel.productList.indexOf(e) + 1}",
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                      customizedTableData(
-                        width: getA4Size.width * 0.365,
-                        height: 265,
-                        child: pw.Container(
-                          padding: const pw.EdgeInsets.only(right: 1, left: 1),
-                          child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
-                            children: [
-                              ...billModel.productList
-                                  .map(
-                                    (e) =>
-                                        smallText(e.productModel!.productName),
-                                  )
-                                  .toList(),
-                              pw.SizedBox(height: 30),
-                              if (billModel.customerModel.state == "Tamil Nadu")
-                                pw.Align(
-                                  alignment: pw.Alignment.centerRight,
-                                  child: pw.Column(
-                                    children: [
-                                      smallBoldText("Output CGST"),
-                                      smallBoldText("Output SGST")
-                                    ],
-                                  ),
-                                )
-                              else
-                                pw.Align(
-                                  alignment: pw.Alignment.centerRight,
-                                  child: pw.Column(
-                                    children: [smallBoldText("Output IGST")],
-                                  ),
-                                ),
                             ],
                           ),
-                        ),
-                        insideText: boldText("Total"),
-                      ),
-                      customizedTableData(
-                        height: 265,
-                        width: getA4Size.width * 0.089,
-                        child: pw.Container(
-                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
-                          child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
-                            children: billModel.productList
-                                .map(
-                                  (e) =>
-                                      smallText("${e.categoryModel!.hsnCode}"),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                      ),
-                      customizedTableData(
-                        width: getA4Size.width * 0.089,
-                        height: 265,
-                        child: pw.Container(
-                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
-                          child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
-                            children: billModel.productList
-                                .map((e) => smallText("${e.qty}"))
-                                .toList(),
-                          ),
-                        ),
-                      ),
-                      customizedTableData(
-                        width: getA4Size.width * 0.089,
-                        height: 265,
-                        child: pw.Container(
-                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
-                          child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
-                            children: billModel.productList
-                                .map(
-                                  (e) => smallText(
-                                    "${e.rate}",
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                      ),
-                      customizedTableData(
-                        width: getA4Size.width * 0.089,
-                        height: 265,
-                        child: pw.Container(
-                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
-                          child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
-                            children: billModel.productList
-                                .map(
-                                  (e) => smallText(
-                                    "${e.price}",
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                      ),
-                      customizedTableData(
-                        width: getA4Size.width * 0.089,
-                        height: 265,
-                        child: pw.Container(
-                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
-                          child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
-                            children: billModel.productList
-                                .map(
-                                  (e) => smallText(
-                                    "${getDiscountAmount(e, billModel.customerModel)}",
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                      ),
-                      customizedTableData(
-                        width: getA4Size.width * 0.089,
-                        height: 265,
-                        isInnerTextCenter: true,
-                        insideText: smallBoldText(
-                          "${getGrandTotal(billModel.productList, billModel.customerModel)}",
-                        ),
-                        child: pw.Container(
-                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
-                          child: pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
-                            children: [
-                              ...billModel.productList
-                                  .map(
-                                    (e) => smallText(
-                                      "${getAmount(e, billModel.customerModel)}",
-                                    ),
-                                  )
-                                  .toList(),
-                              pw.Divider(),
-                              //
-                              pw.Column(
-                                children: [
-                                  smallText(
-                                    "${calculateAmountWithoutTax(billModel.productList, billModel.customerModel)}",
-                                  ),
-                                  pw.SizedBox(height: 2),
-                                  if (billModel.customerModel.state ==
-                                      "Tamil Nadu")
-                                    pw.Column(
-                                      children: [
-                                        smallText(
-                                          (getTotalTaxableAndTotalTaxValue(
-                                                    taxCalModel,
-                                                  )[1] /
-                                                  2)
-                                              .toStringAsFixed(2),
-                                        ),
-                                        smallText(
-                                          (getTotalTaxableAndTotalTaxValue(
-                                                    taxCalModel,
-                                                  )[1] /
-                                                  2)
-                                              .toStringAsFixed(2),
-                                        ),
-                                      ],
-                                    )
-                                  else
-                                    smallText(
-                                      getTotalTaxableAndTotalTaxValue(
-                                        taxCalModel,
-                                      )[1]
-                                          .toStringAsFixed(2),
-                                    ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  pw.Container(
-                    width: getA4Size.width,
-                    decoration: pw.BoxDecoration(
-                      border: getBorder(),
-                    ),
-                    padding: const pw.EdgeInsets.all(5),
-                    child: pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.start,
-                      children: [
-                        normalText("Amount Chargeable (in words)"),
-                        boldText(
-                          "INR ${NumberToWord().convert('en-in', getGrandTotal(billModel.productList, billModel.customerModel).round())} ",
-                        )
-                      ],
-                    ),
-                  ),
-                  pw.Column(
-                    children: [
-                      pw.Column(
-                        children: [
-                          pw.Row(
-                            children: [
-                              tableCellWithContText(
-                                "HSN Code",
-                                getA4Size.width * 0.1968,
-                                false,
-                              ),
-                              tableCellWithContText(
-                                "Taxable Value",
-                                getA4Size.width * 0.1968,
-                                false,
-                              ),
-                              if (billModel.customerModel.state == "Tamil Nadu")
-                                pw.Row(
-                                  children: [
-                                    tableCellWithContText(
-                                      "Central Tax",
-                                      getA4Size.width * 0.1968,
-                                      true,
-                                    ),
-                                    tableCellWithContText(
-                                      "State Tax",
-                                      getA4Size.width * 0.1968,
-                                      true,
-                                    ),
-                                  ],
-                                )
-                              else
-                                tableCellWithContText(
-                                  "Central Tax",
-                                  getA4Size.width * (0.1968 * 2),
-                                  true,
-                                ),
-                              tableCellWithContText(
-                                "Total Tax Amount",
-                                getA4Size.width * 0.163,
-                                false,
-                              )
-                            ],
-                          )
                         ],
                       ),
                       pw.Row(
@@ -1632,7 +955,674 @@ class PDFGenerator {
                                   )
                                   .toList(),
                             ),
-                          )
+                          ),
+                        ],
+                      ),
+                      pw.Row(
+                        children: [
+                          taxCalFooterData(
+                            width: getA4Size.width * 0.1968,
+                            child: smallBoldText("Total"),
+                            isRight: true,
+                          ),
+                          taxCalFooterData(
+                            width: getA4Size.width * 0.1968,
+                            child: smallText(
+                              getTotalTaxableAndTotalTaxValue(taxCalModel)[0]
+                                  .toStringAsFixed(2),
+                            ),
+                          ),
+                          if (billModel.customerModel.state == "Tamil Nadu")
+                            pw.Row(
+                              children: [
+                                taxCalFooterData(
+                                  width: getA4Size.width * 0.197,
+                                  isHalf: true,
+                                  child: pw.Container(),
+                                ),
+                                taxCalFooterData(
+                                  width: getA4Size.width * 0.197,
+                                  isHalf: true,
+                                  child: smallText(
+                                    (getTotalTaxableAndTotalTaxValue(
+                                              taxCalModel,
+                                            )[1] /
+                                            2)
+                                        .toStringAsFixed(2),
+                                  ),
+                                ),
+                              ],
+                            )
+                          else
+                            taxCalFooterData(
+                              width: getA4Size.width * 0.19 * 2.13,
+                              isHalf: true,
+                              child: smallText(
+                                "",
+                              ),
+                            ),
+                          if (billModel.customerModel.state == "Tamil Nadu")
+                            pw.Row(
+                              children: [
+                                taxCalFooterData(
+                                  width: getA4Size.width * 0.197,
+                                  isHalf: true,
+                                  child: pw.Container(),
+                                ),
+                                taxCalFooterData(
+                                  width: getA4Size.width * 0.197,
+                                  isHalf: true,
+                                  child: smallText(
+                                    (getTotalTaxableAndTotalTaxValue(
+                                              taxCalModel,
+                                            )[1] /
+                                            2)
+                                        .toStringAsFixed(2),
+                                  ),
+                                ),
+                              ],
+                            )
+                          else
+                            taxCalFooterData(
+                              width: getA4Size.width * 0.19 * 2,
+                              isHalf: true,
+                              child: smallText(
+                                getTotalTaxableAndTotalTaxValue(
+                                  taxCalModel,
+                                )[1]
+                                    .toStringAsFixed(2),
+                              ),
+                            ),
+                          taxCalFooterData(
+                            width: getA4Size.width * 0.163,
+                            child: smallText(
+                              getTotalTaxableAndTotalTaxValue(taxCalModel)[1]
+                                  .toStringAsFixed(2),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  pw.Row(
+                    children: [
+                      bankContainer(
+                        width: getA4Size.width * 0.3,
+                        height: 87,
+                        isBottomBorder: false,
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          mainAxisAlignment: pw.MainAxisAlignment.center,
+                          children: [
+                            boldText(Application.bankDetails.bankName),
+                            normalText(
+                              "Acc No: ${Application.bankDetails.accountNo}",
+                            ),
+                            normalText(
+                              "IFSC Code: ${Application.bankDetails.ifscCode}",
+                            ),
+                            normalText(
+                              "Branch: ${Application.bankDetails.branch}",
+                            ),
+                          ],
+                        ),
+                      ),
+                      pw.Container(
+                        width: (getA4Size.width * 0.2) +
+                            (2 * getA4Size.width * 0.1),
+                        height: 87,
+                      ),
+                      pw.Container(
+                        width: getA4Size.width * 0.25,
+                        height: 87,
+                        alignment: pw.Alignment.center,
+                        decoration: const pw.BoxDecoration(
+                          border: pw.Border(
+                            left: pw.BorderSide(width: 0.8),
+                          ),
+                        ),
+                        padding: const pw.EdgeInsets.symmetric(vertical: 2),
+                        child: pw.Column(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            boldText("For ${Application.appName}"),
+                            normalText("Authorized Signature"),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ];
+        },
+      ),
+    );
+    return pdf.save();
+  }
+
+  static Future<String> generateQuotation(QuotationModel billModel) async {
+    final buffer = await generateQuotationBuffer(billModel);
+    final path = await getPDFFilePath();
+    final file = File(path);
+    try {
+      file.writeAsBytesSync(buffer);
+      return file.path;
+    } catch (e) {
+      return 'textfieldError';
+    }
+  }
+
+  static Future<Uint8List> generateOrderBuffer(OrderModel billModel) async {
+    final taxCalModel = OrderCalculations().getOrderTaxCalModel(billModel);
+    final pdf = pw.Document();
+    pdf.addPage(
+      pw.MultiPage(
+        pageFormat: getA4Size,
+        margin: const pw.EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+        mainAxisAlignment: pw.MainAxisAlignment.center,
+        crossAxisAlignment: pw.CrossAxisAlignment.center,
+        build: (pw.Context context) {
+          return <pw.Widget>[
+            pw.Container(
+              margin: const pw.EdgeInsets.only(top: 2, bottom: 4),
+              child: pw.Container(
+                alignment: pw.Alignment.center,
+                child: smallText("Order".toUpperCase()),
+              ),
+            ),
+            pw.Container(
+              width: getA4Size.width * 0.95,
+              height: getA4Size.height * 0.885 - 10,
+              decoration: const pw.BoxDecoration(
+                border: pw.Border(
+                  left: pw.BorderSide(width: 0.8),
+                  right: pw.BorderSide(width: 0.8),
+                  top: pw.BorderSide(width: 0.8),
+                  bottom: pw.BorderSide(width: 0.8),
+                ),
+              ),
+              alignment: pw.Alignment.center,
+              child: pw.Column(
+                children: [
+                  pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                    children: [
+                      pw.Container(
+                        child: normalText("GSTIN : ${Application.gstinNo}"),
+                        padding: const pw.EdgeInsets.all(8),
+                      ),
+                      pw.Container(
+                        padding: const pw.EdgeInsets.all(8),
+                        child: pw.Column(
+                          children: [
+                            normalText("Mobile No.: 9488327699"),
+                            normalText("Email: annai.charlinf@gmail.com"),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  pw.Container(
+                    alignment: pw.Alignment.center,
+                    child: pw.Column(
+                      mainAxisAlignment: pw.MainAxisAlignment.center,
+                      children: [
+                        bigText(Application.appName),
+                        normalText(Application.address.split(r'\').first),
+                        pw.SizedBox(height: 13),
+                      ],
+                    ),
+                  ),
+                  pw.Divider(height: 2),
+                  pw.Row(
+                    children: [
+                      pw.Container(
+                        width: getA4Size.width * 0.6,
+                        alignment: pw.Alignment.centerLeft,
+                        padding: const pw.EdgeInsets.only(left: 10),
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            normalText(
+                              "Buyer : ${billModel.customerModel.name}",
+                            ),
+                            normalText(billModel.customerModel.address),
+                            normalText(
+                              "GSTIN : ${billModel.customerModel.gstin}",
+                            ),
+                            normalText(
+                              "Mobile No : ${billModel.customerModel.mobileNo}",
+                            ),
+                          ],
+                        ),
+                      ),
+                      pw.Container(
+                        width: 1,
+                        height: 60,
+                        color: PdfColor.fromHex("#000000"),
+                      ),
+                      pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
+                        child: normalText(
+                          "Date : ${getFormattedDate(billModel.dateTime)}",
+                        ),
+                      ),
+                    ],
+                  ),
+                  pw.Divider(height: 2),
+                  pw.Column(
+                    children: [
+                      pw.Row(
+                        children: [
+                          pw.Container(
+                            width: getA4Size.width * 0.05,
+                            child: tableCellContText("No."),
+                          ),
+                          pw.Container(
+                            width: getA4Size.width * 0.365,
+                            child: tableCellContText("Description"),
+                          ),
+                          pw.Container(
+                            width: getA4Size.width * 0.089,
+                            child: tableCellContText("HSN"),
+                          ),
+                          pw.Container(
+                            width: getA4Size.width * 0.089,
+                            child: tableCellContText("Qty"),
+                          ),
+                          pw.Container(
+                            width: getA4Size.width * 0.089,
+                            child: tableCellContText("Rate"),
+                          ),
+                          pw.Container(
+                            width: getA4Size.width * 0.089,
+                            child: tableCellContText("Price"),
+                          ),
+                          pw.Container(
+                            width: getA4Size.width * 0.089,
+                            child: tableCellContText("Dis"),
+                          ),
+                          pw.Container(
+                            width: getA4Size.width * 0.089,
+                            child: tableCellContText("Amount"),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  pw.Row(
+                    children: [
+                      customizedTableData(
+                        width: getA4Size.width * 0.05,
+                        height: 265,
+                        child: pw.Column(
+                          children: billModel.productList
+                              .map(
+                                (e) => smallText(
+                                  "${billModel.productList.indexOf(e) + 1}",
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                      customizedTableData(
+                        width: getA4Size.width * 0.365,
+                        height: 265,
+                        child: pw.Container(
+                          padding: const pw.EdgeInsets.only(right: 1, left: 1),
+                          child: pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: [
+                              ...billModel.productList.map(
+                                (e) => smallText(e.productModel!.productName),
+                              ),
+                              pw.SizedBox(height: 30),
+                              if (billModel.customerModel.state == "Tamil Nadu")
+                                pw.Align(
+                                  alignment: pw.Alignment.centerRight,
+                                  child: pw.Column(
+                                    children: [
+                                      smallBoldText("Output CGST"),
+                                      smallBoldText("Output SGST"),
+                                    ],
+                                  ),
+                                )
+                              else
+                                pw.Align(
+                                  alignment: pw.Alignment.centerRight,
+                                  child: pw.Column(
+                                    children: [smallBoldText("Output IGST")],
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                        insideText: boldText("Total"),
+                      ),
+                      customizedTableData(
+                        height: 265,
+                        width: getA4Size.width * 0.089,
+                        child: pw.Container(
+                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
+                          child: pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: billModel.productList
+                                .map(
+                                  (e) =>
+                                      smallText("${e.categoryModel!.hsnCode}"),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                      customizedTableData(
+                        width: getA4Size.width * 0.089,
+                        height: 265,
+                        child: pw.Container(
+                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
+                          child: pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: billModel.productList
+                                .map((e) => smallText("${e.qty}"))
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                      customizedTableData(
+                        width: getA4Size.width * 0.089,
+                        height: 265,
+                        child: pw.Container(
+                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
+                          child: pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: billModel.productList
+                                .map(
+                                  (e) => smallText(
+                                    "${e.rate}",
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                      customizedTableData(
+                        width: getA4Size.width * 0.089,
+                        height: 265,
+                        child: pw.Container(
+                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
+                          child: pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: billModel.productList
+                                .map(
+                                  (e) => smallText(
+                                    "${e.price}",
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                      customizedTableData(
+                        width: getA4Size.width * 0.089,
+                        height: 265,
+                        child: pw.Container(
+                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
+                          child: pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: billModel.productList
+                                .map(
+                                  (e) => smallText(
+                                    "${getDiscountAmount(e, billModel.customerModel)}",
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                      customizedTableData(
+                        width: getA4Size.width * 0.089,
+                        height: 265,
+                        isInnerTextCenter: true,
+                        insideText: smallBoldText(
+                          "${getGrandTotal(billModel.productList, billModel.customerModel)}",
+                        ),
+                        child: pw.Container(
+                          padding: const pw.EdgeInsets.only(right: 2, left: 2),
+                          child: pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: [
+                              ...billModel.productList.map(
+                                (e) => smallText(
+                                  "${getAmount(e, billModel.customerModel)}",
+                                ),
+                              ),
+                              pw.Divider(),
+                              //
+                              pw.Column(
+                                children: [
+                                  smallText(
+                                    "${calculateAmountWithoutTax(billModel.productList, billModel.customerModel)}",
+                                  ),
+                                  pw.SizedBox(height: 2),
+                                  if (billModel.customerModel.state ==
+                                      "Tamil Nadu")
+                                    pw.Column(
+                                      children: [
+                                        smallText(
+                                          (getTotalTaxableAndTotalTaxValue(
+                                                    taxCalModel,
+                                                  )[1] /
+                                                  2)
+                                              .toStringAsFixed(2),
+                                        ),
+                                        smallText(
+                                          (getTotalTaxableAndTotalTaxValue(
+                                                    taxCalModel,
+                                                  )[1] /
+                                                  2)
+                                              .toStringAsFixed(2),
+                                        ),
+                                      ],
+                                    )
+                                  else
+                                    smallText(
+                                      getTotalTaxableAndTotalTaxValue(
+                                        taxCalModel,
+                                      )[1]
+                                          .toStringAsFixed(2),
+                                    ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  pw.Container(
+                    width: getA4Size.width,
+                    decoration: pw.BoxDecoration(
+                      border: getBorder(),
+                    ),
+                    padding: const pw.EdgeInsets.all(5),
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        normalText("Amount Chargeable (in words)"),
+                        boldText(
+                          "INR ${NumberToWord().convert('en-in', getGrandTotal(billModel.productList, billModel.customerModel).round())} ",
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.Column(
+                    children: [
+                      pw.Column(
+                        children: [
+                          pw.Row(
+                            children: [
+                              tableCellWithContText(
+                                "HSN Code",
+                                getA4Size.width * 0.1968,
+                                false,
+                              ),
+                              tableCellWithContText(
+                                "Taxable Value",
+                                getA4Size.width * 0.1968,
+                                false,
+                              ),
+                              if (billModel.customerModel.state == "Tamil Nadu")
+                                pw.Row(
+                                  children: [
+                                    tableCellWithContText(
+                                      "Central Tax",
+                                      getA4Size.width * 0.1968,
+                                      true,
+                                    ),
+                                    tableCellWithContText(
+                                      "State Tax",
+                                      getA4Size.width * 0.1968,
+                                      true,
+                                    ),
+                                  ],
+                                )
+                              else
+                                tableCellWithContText(
+                                  "Central Tax",
+                                  getA4Size.width * (0.1968 * 2),
+                                  true,
+                                ),
+                              tableCellWithContText(
+                                "Total Tax Amount",
+                                getA4Size.width * 0.163,
+                                false,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      pw.Row(
+                        children: [
+                          taxCalBodyData(
+                            width: getA4Size.width * 0.1968,
+                            child: pw.Column(
+                              children: taxCalModel
+                                  .map((e) => smallText("${e.hsnCode}"))
+                                  .toList(),
+                            ),
+                          ),
+                          taxCalBodyData(
+                            width: getA4Size.width * 0.1968,
+                            child: pw.Column(
+                              children: taxCalModel
+                                  .map(
+                                    (e) => smallText(
+                                      e.taxableVal.toStringAsFixed(2),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ),
+                          if (billModel.customerModel.state == "Tamil Nadu")
+                            pw.Row(
+                              children: [
+                                taxCalBodyData(
+                                  width: getA4Size.width * 0.1968,
+                                  isHalf: true,
+                                  child: pw.Column(
+                                    children: taxCalModel
+                                        .map(
+                                          (e) => smallText(
+                                            "${(e.rate / 2).toStringAsFixed(2)} %",
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                                taxCalBodyData(
+                                  width: getA4Size.width * 0.1968,
+                                  isHalf: true,
+                                  child: pw.Column(
+                                    children: taxCalModel
+                                        .map(
+                                          (e) => smallText(
+                                            (e.amount / 2).toStringAsFixed(2),
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                                taxCalBodyData(
+                                  width: getA4Size.width * 0.1968,
+                                  isHalf: true,
+                                  child: pw.Column(
+                                    children: taxCalModel
+                                        .map(
+                                          (e) => smallText(
+                                            "${(e.rate / 2).toStringAsFixed(2)} %",
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                                taxCalBodyData(
+                                  width: getA4Size.width * 0.1968,
+                                  isHalf: true,
+                                  child: pw.Column(
+                                    children: taxCalModel
+                                        .map(
+                                          (e) => smallText(
+                                            (e.amount / 2).toStringAsFixed(2),
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                              ],
+                            )
+                          else
+                            pw.Row(
+                              children: [
+                                taxCalBodyData(
+                                  width: getA4Size.width * 0.1968,
+                                  child: pw.Column(
+                                    children: taxCalModel
+                                        .map(
+                                          (e) => smallText(
+                                            "${e.rate.toStringAsFixed(2)} %",
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                                taxCalBodyData(
+                                  width: getA4Size.width * 0.1968,
+                                  child: pw.Column(
+                                    children: taxCalModel
+                                        .map(
+                                          (e) => smallText(
+                                            e.amount.toStringAsFixed(2),
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          taxCalBodyData(
+                            width: getA4Size.width * 0.163,
+                            child: pw.Column(
+                              children: taxCalModel
+                                  .map(
+                                    (e) => smallText(
+                                      e.totalTaxAmount.toStringAsFixed(2),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ),
                         ],
                       ),
                       pw.Row(
@@ -1704,9 +1694,9 @@ class PDFGenerator {
                               width: getA4Size.width * 0.19 * 2,
                               isHalf: true,
                               child: smallText(
-                                (getTotalTaxableAndTotalTaxValue(
+                                getTotalTaxableAndTotalTaxValue(
                                   taxCalModel,
-                                )[1])
+                                )[1]
                                     .toStringAsFixed(2),
                               ),
                             ),
@@ -1771,7 +1761,7 @@ class PDFGenerator {
                   ),
                 ],
               ),
-            )
+            ),
           ];
         },
       ),
@@ -1836,10 +1826,10 @@ class PDFGenerator {
                         child: pw.Column(
                           children: [
                             normalText("Mobile No.: 9488327699"),
-                            normalText("Email: annai.charlinf@gmail.com")
+                            normalText("Email: annai.charlinf@gmail.com"),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                   pw.Container(
@@ -1925,9 +1915,9 @@ class PDFGenerator {
                           pw.Container(
                             width: getA4Size.width * 0.089,
                             child: tableCellContText("Amount"),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                   pw.Row(
@@ -1953,12 +1943,9 @@ class PDFGenerator {
                           child: pw.Column(
                             crossAxisAlignment: pw.CrossAxisAlignment.start,
                             children: [
-                              ...billModel.productList
-                                  .map(
-                                    (e) =>
-                                        smallText(e.productModel!.productName),
-                                  )
-                                  .toList(),
+                              ...billModel.productList.map(
+                                (e) => smallText(e.productModel!.productName),
+                              ),
                               pw.SizedBox(height: 30),
                               if (billModel.customerModel.state == "Tamil Nadu")
                                 pw.Align(
@@ -1966,7 +1953,7 @@ class PDFGenerator {
                                   child: pw.Column(
                                     children: [
                                       smallBoldText("Output CGST"),
-                                      smallBoldText("Output SGST")
+                                      smallBoldText("Output SGST"),
                                     ],
                                   ),
                                 )
@@ -2096,13 +2083,11 @@ class PDFGenerator {
                             child: pw.Column(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
-                                ...billModel.productList
-                                    .map(
-                                      (e) => smallText(
-                                        "${getAmount(e, billModel.customerModel)}",
-                                      ),
-                                    )
-                                    .toList(),
+                                ...billModel.productList.map(
+                                  (e) => smallText(
+                                    "${getAmount(e, billModel.customerModel)}",
+                                  ),
+                                ),
                                 pw.Divider(),
                                 //
                                 pw.Column(
@@ -2139,7 +2124,7 @@ class PDFGenerator {
                                             .toStringAsFixed(2),
                                       ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -2159,7 +2144,7 @@ class PDFGenerator {
                         normalText("Amount Chargeable (in words)"),
                         boldText(
                           "INR ${NumberToWord().convert('en-in', getGrandTotal(billModel.productList, billModel.customerModel).round())} ",
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -2204,9 +2189,9 @@ class PDFGenerator {
                                 "Total Tax Amount",
                                 getA4Size.width * 0.163,
                                 false,
-                              )
+                              ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                       pw.Row(
@@ -2328,7 +2313,7 @@ class PDFGenerator {
                                   )
                                   .toList(),
                             ),
-                          )
+                          ),
                         ],
                       ),
                       pw.Row(
@@ -2400,9 +2385,9 @@ class PDFGenerator {
                               width: getA4Size.width * 0.19 * 2,
                               isHalf: true,
                               child: smallText(
-                                (getTotalTaxableAndTotalTaxValue(
+                                getTotalTaxableAndTotalTaxValue(
                                   taxCalModel,
-                                )[1])
+                                )[1]
                                     .toStringAsFixed(2),
                               ),
                             ),
@@ -2467,7 +2452,7 @@ class PDFGenerator {
                   ),
                 ],
               ),
-            )
+            ),
           ];
         },
       ),
@@ -2536,9 +2521,9 @@ class PDFGenerator {
                   "Total Tax Amount",
                   getA4Size.width * 0.17,
                   false,
-                )
+                ),
               ],
-            )
+            ),
           ],
         ),
         pw.Row(
@@ -2661,7 +2646,7 @@ class PDFGenerator {
                     .map((e) => smallText(e.totalTaxAmount.toStringAsFixed(2)))
                     .toList(),
               ),
-            )
+            ),
           ],
         ),
         pw.Row(
@@ -2727,7 +2712,7 @@ class PDFGenerator {
                 width: getA4Size.width * 0.19 * 2,
                 isHalf: true,
                 child: smallText(
-                  (getTotalTaxableAndTotalTaxValue(taxCalModel)[1])
+                  getTotalTaxableAndTotalTaxValue(taxCalModel)[1]
                       .toStringAsFixed(2),
                 ),
               ),
@@ -2781,7 +2766,7 @@ class PDFGenerator {
           normalText("Amount Chargeable (in words)"),
           boldText(
             "INR ${NumberToWord().convert('en-in', getGrandTotal(billModel.productList!, billModel.customerModel).round())} ",
-          )
+          ),
         ],
       ),
     );
@@ -2970,9 +2955,9 @@ class PDFGenerator {
                     pw.Container(
                       width: grandTotalWidth,
                       child: tableCellContText("Amount"),
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
             pw.Row(
@@ -3000,19 +2985,18 @@ class PDFGenerator {
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
-                        ...billModel.productList!
-                            .map((e) => pw.Row(
-                                    mainAxisAlignment:
-                                        pw.MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        pw.CrossAxisAlignment.start,
-                                    children: [
-                                      smallText(e.productModel!.productName),
-                                      if (e.qtyMathEqn.containsOperators)
-                                        vSmallText(
-                                            ' ( ${e.qtyMathEqn ?? ''} )'),
-                                    ]))
-                            .toList(),
+                        ...billModel.productList!.map(
+                          (e) => pw.Row(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: [
+                              smallText(e.productModel!.productName),
+                              if (e.qtyMathEqn.containsOperators)
+                                vSmallText(
+                                  ' ( ${e.qtyMathEqn ?? ''} )',
+                                ),
+                            ],
+                          ),
+                        ),
                         pw.SizedBox(height: 30),
                         if (billModel.customerModel.state == "Tamil Nadu")
                           pw.Align(
@@ -3166,14 +3150,12 @@ class PDFGenerator {
                         mainAxisAlignment: pw.MainAxisAlignment.end,
                         crossAxisAlignment: pw.CrossAxisAlignment.end,
                         children: [
-                          ...billModel.productList!
-                              .map(
-                                (e) => smallText(
-                                  getAmount(e, billModel.customerModel)
-                                      .toStringAsFixed(2),
-                                ),
-                              )
-                              .toList(),
+                          ...billModel.productList!.map(
+                            (e) => smallText(
+                              getAmount(e, billModel.customerModel)
+                                  .toStringAsFixed(2),
+                            ),
+                          ),
                           pw.Divider(),
                           //
                           pw.Column(
@@ -3220,7 +3202,7 @@ class PDFGenerator {
                                   "${roundOff.operation == OperationEnum.Add ? '+' : '-'} ${roundOff.roundOffAmount.toStringAsFixed(2)}",
                                 ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -3239,7 +3221,7 @@ class PDFGenerator {
                   ),
                   bankCont,
                 ],
-              )
+              ),
 
             // pw.Container(
             //     alignment: pw.Alignment.center,
@@ -3264,7 +3246,7 @@ class PDFGenerator {
                   ),
                   bankCont,
                 ],
-              )
+              ),
             ];
           },
         ),
@@ -3333,7 +3315,7 @@ class PDFGenerator {
                       normalText(""),
                       normalText(
                         "${SalesCalculation.getTotalAmountForTaxThermal(billModel)}",
-                      )
+                      ),
                     ],
                   ),
                   if (SalesCalculation.getTotalDiscountForTaxThermal(
@@ -3347,7 +3329,7 @@ class PDFGenerator {
                         normalText(""),
                         normalText(
                           "- ${SalesCalculation.getTotalDiscountForTaxThermal(billModel)}",
-                        )
+                        ),
                       ],
                     ),
                 ],
@@ -3363,7 +3345,7 @@ class PDFGenerator {
                 children: [
                   pw.SizedBox(height: 5),
                   getUPIBarcodeImage(upiString)!,
-                  vSmallText("Scan to pay the bill")
+                  vSmallText("Scan to pay the bill"),
                 ],
               ),
             pw.Divider(borderStyle: pw.BorderStyle.dashed),
@@ -3609,7 +3591,7 @@ class PDFGenerator {
                 children: [
                   pw.SizedBox(height: 5),
                   getUPIBarcodeImage(null)!,
-                  vSmallText("Scan to pay the bill")
+                  vSmallText("Scan to pay the bill"),
                 ],
               ),
             boldText("Thank you! Visit Again!"),
@@ -3681,7 +3663,7 @@ class PDFGenerator {
                       normalText(""),
                       normalText(
                         "${QuoatationCalculations.getTotalAmountForTaxThermal(billModel)}",
-                      )
+                      ),
                     ],
                   ),
                   pw.TableRow(
@@ -3691,7 +3673,7 @@ class PDFGenerator {
                       normalText(""),
                       normalText(
                         "- ${QuoatationCalculations.getTotalDiscountForTaxThermal(billModel)}",
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -3708,7 +3690,7 @@ class PDFGenerator {
                 children: [
                   pw.SizedBox(height: 5),
                   getUPIBarcodeImage(null)!,
-                  vSmallText("Scan to pay the bill")
+                  vSmallText("Scan to pay the bill"),
                 ],
               ),
             boldText("Thank you! Visit Again!"),
@@ -3790,7 +3772,7 @@ class PDFGenerator {
                       normalText(""),
                       normalText(
                         "${OrderCalculations.getTotalAmountForTaxThermal(billModel)}",
-                      )
+                      ),
                     ],
                   ),
                   pw.TableRow(
@@ -3800,7 +3782,7 @@ class PDFGenerator {
                       normalText(""),
                       normalText(
                         "- ${OrderCalculations.getTotalDiscountForTaxThermal(billModel)}",
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -3817,7 +3799,7 @@ class PDFGenerator {
                 children: [
                   pw.SizedBox(height: 5),
                   getUPIBarcodeImage(null)!,
-                  vSmallText("Scan to pay the bill")
+                  vSmallText("Scan to pay the bill"),
                 ],
               ),
             boldText("Thank you! Visit Again!"),
@@ -3871,7 +3853,7 @@ class PDFGenerator {
             boldText("Amount"),
           ],
         ),
-        ...generateThermalProductTableRow<T>(bill)
+        ...generateThermalProductTableRow<T>(bill),
       ],
     );
   }
@@ -3884,7 +3866,6 @@ class PDFGenerator {
             (e) => pw.TableRow(
               children: [
                 pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.start,
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     smallText(e.productModel!.productName),
@@ -3958,7 +3939,6 @@ class PDFGenerator {
             (e) => pw.TableRow(
               children: [
                 pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.start,
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     smallText(e.productModel!.productName),
@@ -4026,7 +4006,7 @@ class PDFGenerator {
                       normalText(""),
                       normalText(
                         "${EstimateCalculations.getTotalAmountForTaxThermal(billModel)}",
-                      )
+                      ),
                     ],
                   ),
                   pw.TableRow(
@@ -4036,7 +4016,7 @@ class PDFGenerator {
                       normalText(""),
                       normalText(
                         "- ${EstimateCalculations.getTotalDiscountForTaxThermal(billModel)}",
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -4053,7 +4033,7 @@ class PDFGenerator {
                 children: [
                   pw.SizedBox(height: 5),
                   getUPIBarcodeImage(null)!,
-                  vSmallText("Scan to pay the bill")
+                  vSmallText("Scan to pay the bill"),
                 ],
               ),
             boldText("Thank you! Visit Again!"),
@@ -4132,7 +4112,7 @@ class PDFGenerator {
                             pw.Row(
                               children: [
                                 boldText("Voucher no: "),
-                                normalText(voucherModel.voucherNo)
+                                normalText(voucherModel.voucherNo),
                               ],
                             ),
                             pw.SizedBox(height: 20),
@@ -4158,7 +4138,7 @@ class PDFGenerator {
                                       ),
                                       child:
                                           normalText(voucherModel.givenTo.name),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 pw.Row(
@@ -4173,9 +4153,9 @@ class PDFGenerator {
                                       child: normalText(
                                         "${voucherModel.givenAmount}",
                                       ),
-                                    )
+                                    ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                             pw.SizedBox(height: 20),
@@ -4258,10 +4238,10 @@ class PDFGenerator {
                                   boldText("Authorized Signature"),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -4271,7 +4251,7 @@ class PDFGenerator {
                   child: boldText("RECEIPT"),
                 ),
               ],
-            )
+            ),
           ];
         },
       ),
@@ -4337,7 +4317,7 @@ class PDFGenerator {
                             pw.Row(
                               children: [
                                 boldText("Voucher no: "),
-                                normalText(paymentModel.paymentNo)
+                                normalText(paymentModel.paymentNo),
                               ],
                             ),
                             pw.SizedBox(height: 20),
@@ -4362,7 +4342,7 @@ class PDFGenerator {
                                         ),
                                       ),
                                       child: normalText(companyName),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 pw.Row(
@@ -4377,9 +4357,9 @@ class PDFGenerator {
                                       child: normalText(
                                         "${paymentModel.givenAmount}",
                                       ),
-                                    )
+                                    ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                             pw.SizedBox(height: 20),
@@ -4462,10 +4442,10 @@ class PDFGenerator {
                                   boldText("Authorized Signature"),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -4475,7 +4455,7 @@ class PDFGenerator {
                   child: boldText("RECEIPT"),
                 ),
               ],
-            )
+            ),
           ];
         },
       ),
@@ -4544,7 +4524,7 @@ class PDFGenerator {
                             pw.Row(
                               children: [
                                 boldText("Receipt no: "),
-                                normalText(receiptModel.receiptNo)
+                                normalText(receiptModel.receiptNo),
                               ],
                             ),
                             pw.SizedBox(height: 20),
@@ -4573,7 +4553,7 @@ class PDFGenerator {
                                             ? receiptModel.customerModel.name
                                             : "${receiptModel.customerModel.name} ( ${receiptModel.receivedFrom} )",
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 pw.Row(
@@ -4588,9 +4568,9 @@ class PDFGenerator {
                                       child: normalText(
                                         "${receiptModel.givenAmount}",
                                       ),
-                                    )
+                                    ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                             pw.SizedBox(height: 20),
@@ -4673,10 +4653,10 @@ class PDFGenerator {
                                   boldText("Authorized Signature"),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -4686,7 +4666,7 @@ class PDFGenerator {
                   child: boldText("RECEIPT"),
                 ),
               ],
-            )
+            ),
           ];
         },
       ),
@@ -4775,7 +4755,7 @@ class PDFGenerator {
                                   receiptModel.paymentMethod,
                                 ) !=
                                 PaymentMethodEnum.CASH)
-                              boldSmallText(receiptModel.paymentId)
+                              boldSmallText(receiptModel.paymentId),
                           ],
                         ),
                       ),
@@ -4816,7 +4796,7 @@ class PDFGenerator {
                 boldText("Thank you! Visit Again!"),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -4968,7 +4948,7 @@ class PDFGenerator {
                                   "receiptModel.paymentMethod",
                                 ) !=
                                 PaymentMethodEnum.CASH)
-                              boldSmallText("receiptModel.paymentId")
+                              boldSmallText("receiptModel.paymentId"),
                           ],
                         ),
                       ),
@@ -5009,7 +4989,7 @@ class PDFGenerator {
                 boldText("Thank you! Visit Again!"),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -5216,30 +5196,28 @@ class PDFGenerator {
                       textWithPadding(""),
                     ],
                   ),
-                  ...customersReport
-                      .map(
-                        (e) => pw.TableRow(
-                          children: [
-                            textWithPadding(
-                              DateFormat('dd-MM-yyyy').format(e.createdAt),
-                            ),
-                            textWithPadding(e.particulars),
-                            textWithPadding(e.vchType.type),
-                            textWithPadding(e.vchNo),
-                            textWithPadding(
-                              e.debit == 0 ? '' : e.debit.toStringAsFixed(2),
-                              alignment: pw.Alignment.centerRight,
-                              rightPadding: 4,
-                            ),
-                            textWithPadding(
-                              e.credit == 0 ? '' : e.credit.toStringAsFixed(2),
-                              alignment: pw.Alignment.centerRight,
-                              rightPadding: 4,
-                            ),
-                          ],
+                  ...customersReport.map(
+                    (e) => pw.TableRow(
+                      children: [
+                        textWithPadding(
+                          DateFormat('dd-MM-yyyy').format(e.createdAt),
                         ),
-                      )
-                      .toList(),
+                        textWithPadding(e.particulars),
+                        textWithPadding(e.vchType.type),
+                        textWithPadding(e.vchNo),
+                        textWithPadding(
+                          e.debit == 0 ? '' : e.debit.toStringAsFixed(2),
+                          alignment: pw.Alignment.centerRight,
+                          rightPadding: 4,
+                        ),
+                        textWithPadding(
+                          e.credit == 0 ? '' : e.credit.toStringAsFixed(2),
+                          alignment: pw.Alignment.centerRight,
+                          rightPadding: 4,
+                        ),
+                      ],
+                    ),
+                  ),
                   pw.TableRow(
                     children: [
                       textWithPadding(""),
@@ -5340,14 +5318,16 @@ class PDFGenerator {
     List<BarcodeAndPrice> imagesBuffer,
   ) async {
     final pdf = pw.Document();
-    // final List<pw.MemoryImage> memImages = [];
-    // for (final element in imagesBuffer) {
-    //   memImages.add(
-    //     pw.MemoryImage(
-    //       element.barcodeBuffer,
-    //     ),
-    //   );
-    // }
+    final List<pw.MemoryImage> memImages = [];
+    for (final element in imagesBuffer) {
+      if (element.barcodeBuffer != null) {
+        memImages.add(
+          pw.MemoryImage(
+            element.barcodeBuffer!,
+          ),
+        );
+      }
+    }
     // final height = format.height * (imagesBuffer.length / 4).ceil();
     // final pdfFormat = PdfPageFormat(format.width, height);
     pdf.addPage(
@@ -5362,13 +5342,12 @@ class PDFGenerator {
                   (key, value) => MapEntry(
                     key,
                     pw.Container(
+                      width: format.width,
                       margin: const pw.EdgeInsets.only(left: 8, right: 2),
-                      width: format.width / 4,
-                      height: format.height,
                       child: pw.Column(
                         children: [
                           pw.Container(
-                            // color: PdfColor.fromHex("#000000"),
+                            // color: PdfColor.fromHex("#FF0000"),
                             margin: const pw.EdgeInsets.only(top: 4, bottom: 4),
                             child: pw.Container(
                               alignment: pw.Alignment.center,
@@ -5376,7 +5355,7 @@ class PDFGenerator {
                                 "A One Traders",
                                 style: pw.TextStyle(
                                   fontSize: 6,
-                                  color: PdfColor.fromHex("#000000"),
+                                  color: PdfColor.fromHex("#0000001A"),
                                 ),
                               ),
                             ),
@@ -5384,10 +5363,10 @@ class PDFGenerator {
 
                           // pw.Image(e),
                           pw.Container(
-                            height: 24,
+                            height: 20,
                             width: format.width - 10,
                             child: pw.BarcodeWidget(
-                              color: PdfColor.fromHex("#000000"),
+                              color: PdfColor.fromHex("#0000001A"),
                               barcode: pw.Barcode.code128(),
                               data: imagesBuffer[key].barcodeValue,
                               textStyle: const pw.TextStyle(
@@ -5400,7 +5379,7 @@ class PDFGenerator {
                             imagesBuffer[key].barcodeValue,
                             style: pw.TextStyle(
                               fontSize: 4,
-                              color: PdfColor.fromHex("#000000"),
+                              color: PdfColor.fromHex("#0000001A"),
                             ),
                           ),
                           pw.SizedBox(height: 2),
@@ -5408,10 +5387,10 @@ class PDFGenerator {
                             "Rs. ${imagesBuffer[key].amount}",
                             style: pw.TextStyle(
                               fontSize: 8,
-                              color: PdfColor.fromHex("#000000"),
-                              fontWeight: pw.FontWeight.bold,
+                              color: PdfColor.fromHex("#0000001A"),
+                              // fontWeight: pw.FontWeight.bold,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -5423,7 +5402,7 @@ class PDFGenerator {
         },
       ),
     );
-
+    print(pdf.document.pdfPageList.pages.first.pageFormat);
     return pdf.save();
   }
 }
