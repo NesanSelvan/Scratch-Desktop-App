@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:annai_store/controller/server/server.dart';
 import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/keyboard.dart';
@@ -11,7 +14,6 @@ import 'package:annai_store/models/unit/unit.dart';
 import 'package:annai_store/utils/image/image.dart';
 import 'package:annai_store/utils/keyboard/keyboard.dart';
 import 'package:annai_store/utils/snackbar/snackbar.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -48,7 +50,7 @@ class ProductController extends GetxController {
   final retailPercController = TextEditingController(text: "15");
   final wholesalePercController = TextEditingController(text: "10");
 
-  final List<String> _imagesList = [];
+  List<String> _imagesList = [];
   List<String> get imagesList => _imagesList;
   set setImageInImagesList(String data) {
     _imagesList.add(data);
@@ -106,7 +108,9 @@ class ProductController extends GetxController {
           _priceModelList[index] =
               priceModel.copyWith(id: _priceModelList[index].id);
           CustomUtilies.customSuccessSnackBar(
-              "Successfull", "Unit Updated successfully");
+            "Successfull",
+            "Unit Updated successfully",
+          );
         }
         code1Focus.requestFocus();
         clearPriceModelTextFields();
@@ -337,7 +341,7 @@ class ProductController extends GetxController {
     return [
       double.parse(mrp.toStringAsFixed(2)),
       double.parse(retail.toStringAsFixed(2)),
-      double.parse(wholesale.toStringAsFixed(2))
+      double.parse(wholesale.toStringAsFixed(2)),
     ];
   }
 
@@ -466,7 +470,7 @@ class ProductController extends GetxController {
 
   Future<void> addProduct() async {
     debugPrint("Adding Product...");
-    final List<String> updatedImagesList =
+    final updatedImagesList =
         await ImageUtilities.moveImagesToSafeDir(_imagesList);
     try {
       await productDB.addProductToDb(
@@ -481,10 +485,8 @@ class ProductController extends GetxController {
           differentPriceList: _priceModelList,
           purchasePrice: double.parse(purchasePriceController.text),
           sellingPrice: double.parse(mrpController.text),
-          isHidden: false,
           wholesale: double.parse(wholesaleController.text),
           retail: double.parse(retailController.text),
-          isPending: false,
           companyId: selectedCompany?.id,
           createdAt: DateTime.now(),
         ),
@@ -504,8 +506,8 @@ class ProductController extends GetxController {
   void setSelectedProductModel(ProductModel? productModel) {
     selectedProductModel = productModel;
     if (productModel != null) {
-      nameController.text = productModel.productName.toString();
-      barcodeController.text = productModel.code.toString();
+      nameController.text = productModel.productName;
+      barcodeController.text = productModel.code;
       unitQtyController.text = productModel.unitQty.toString();
       purchasePriceController.text = productModel.purchasePrice.toString();
       mrpController.text = productModel.sellingPrice.toString();
@@ -621,6 +623,17 @@ class ProductController extends GetxController {
       await productDB.updateProduct(product.copyWith(productNumber: newNumber));
       CustomUtilies.customSuccessSnackBar("Success", "Updated Successfully");
     }
+  }
+
+  Future<void> updateProductImage(List<String> imagesBase64Encoded) async {
+    final allImagesDecoded =
+        imagesBase64Encoded.map((e) => base64Decode(e)).toList();
+    log("allImagesDecoded: $allImagesDecoded");
+    final allImagesDir = await ImageUtilities.moveImagesBytesToSafeDir(
+      allImagesDecoded,
+    );
+    _imagesList = allImagesDir;
+    await updateProduct();
   }
 
   Future<bool> deleteSelectedProduct() async {

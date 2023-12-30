@@ -1,8 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:annai_store/utils/folder/folder.dart';
 import 'package:filepicker_windows/filepicker_windows.dart';
-
-import '../folder/folder.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class ImageUtilities {
@@ -22,11 +22,34 @@ class ImageUtilities {
     );
   }
 
+  static Future<File> moveImageByteToSafeDir(Uint8List imagePath) async {
+    if (!(await Directory(saveImagePath).exists())) {
+      await Directory(saveImagePath).create();
+    }
+    final filesList = Directory(saveImagePath).listSync();
+    print(filesList);
+
+    return File("$saveImagePath${filesList.length}.jpg")
+        .writeAsBytes(imagePath);
+  }
+
   static Future<List<String>> moveImagesToSafeDir(
-      List<String> imagePaths) async {
+    List<String> imagePaths,
+  ) async {
     final List<String> updatedImagesList = [];
     for (final item in imagePaths) {
       final file = await ImageUtilities.moveImageToSafeDir(item);
+      updatedImagesList.add(file.path);
+    }
+    return updatedImagesList;
+  }
+
+  static Future<List<String>> moveImagesBytesToSafeDir(
+    List<Uint8List> imagePaths,
+  ) async {
+    final List<String> updatedImagesList = [];
+    for (final item in imagePaths) {
+      final file = await ImageUtilities.moveImageByteToSafeDir(item);
       updatedImagesList.add(file.path);
     }
     return updatedImagesList;
@@ -36,7 +59,7 @@ class ImageUtilities {
     final file = OpenFilePicker()
       ..filterSpecification = {
         'Images (*.jpg;*.jpeg;*.png)': '*.jpg;*.jpeg;*.png',
-        'All Files': '*.*'
+        'All Files': '*.*',
       }
       ..defaultFilterIndex = 0
       ..defaultExtension = 'png'

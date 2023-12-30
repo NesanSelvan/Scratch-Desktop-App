@@ -1548,7 +1548,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
             return const SizedBox();
           },
         ),
-        // if (streamServerController.addProductImageUpdate != null)
+        if (streamServerController.addProductImageUpdate != null)
+          TextButton(
+            onPressed: () {
+              final fileDataEnc = jsonDecode(
+                streamServerController.addProductImageUpdate!.fileData,
+              );
+              if (fileDataEnc is List) {
+                controller.onProductTap(e);
+                controller.updateProductImage(List<String>.from(fileDataEnc));
+              }
+            },
+            child: const Text("Add product Images"),
+          ),
         //   Row(
         //     children:
         //         (streamServerController.addProductImageUpdate?.fileData ?? [])
