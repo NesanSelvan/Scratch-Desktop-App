@@ -1,18 +1,18 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:annai_store/enum/action.dart';
+import 'package:annai_store/enum/message_type.dart';
+import 'package:annai_store/models/failure/failure.dart';
+import 'package:annai_store/models/message.dart';
+import 'package:annai_store/models/server/server.dart';
+import 'package:annai_store/screens/server/server.dart';
 import 'package:annai_store/utils/snackbar/snackbar.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-
-import '../../enum/action.dart';
-import '../../enum/message_type.dart';
-import '../../models/failure/failure.dart';
-import '../../models/message.dart';
-import '../../models/server/server.dart';
 
 final barcodeController = TextEditingController();
 
@@ -20,18 +20,20 @@ class ServerController extends GetxController {
   Server? server;
   List<MessageModel> serverLogs = [];
   TextEditingController serverController = TextEditingController();
+  MessageModel? addProductImageUpdate;
+  Socket? socket;
   // MessageModel? messageModel;
 
-  Future<String> getIp() async {
+  Future<(InternetAddress, String)> getIp() async {
     for (final interface in await NetworkInterface.list()) {
       debugPrint('== Interface: ${interface.name} ==');
       if (interface.name.toLowerCase().contains("wi")) {
         for (final addr in interface.addresses) {
-          return addr.address;
+          return (addr, addr.address);
         }
       }
       for (final addr in interface.addresses) {
-        return addr.address;
+        return (addr, addr.address);
       }
     }
     throw Failure("Error in starting server");
@@ -41,12 +43,27 @@ class ServerController extends GetxController {
   Future<void> startServer() async {
     try {
       final ipAdd = await getIp();
-      debugPrint("Ip Address : $ipAdd");
+      log("Ip Address : $ipAdd");
       if (server!.running) {
         await server!.stop();
         serverLogs.clear();
       } else {
-        await server!.start(ipAdd);
+        await server!.start(ipAdd.$2);
+        final hServer = await HttpServer.bind(ipAdd.$1, 8080);
+        print(
+          "Server running on IP : ${hServer.address} On Port : ${hServer.port}",
+        );
+        await hServer.forEach((HttpRequest request) async {
+          final String content = await utf8.decoder.bind(request).join();
+          print("Yes : $content");
+          try {
+            onData.call(Uint8List.fromList(content.codeUnits));
+          } catch (e) {
+            print(e);
+          }
+          request.response.write('Hello, world!');
+          request.response.close();
+        });
       }
     } catch (e) {
       CustomUtilies.customFailureSnackBar("Error", "$e");
@@ -59,6 +76,11 @@ class ServerController extends GetxController {
     server = Server(
       onData: onData,
       onError: onError,
+      onSockets: (sockets) {
+        print("Socket: ${sockets.address}");
+        socket = sockets;
+        update();
+      },
     );
     startServer();
     super.onInit();
@@ -78,14 +100,28 @@ class ServerController extends GetxController {
   String? message;
   Uint8List? unit8data;
 
-  void onData(Uint8List data) {
+  Future<void> onData(Uint8List data) async {
     final receivedData = String.fromCharCodes(data);
-    debugPrint(receivedData);
-    final receivedDataJson = jsonDecode(receivedData) as Map<String, dynamic>;
-    final messageModel = MessageModel.fromJson(receivedDataJson);
-    addServerLog(messageModel);
-    debugPrint("messageModel : ${messageModel.messageData}");
-    barcodeController.text = messageModel.messageData;
+    log("onData: $receivedData");
+    // return;
+    try {
+      log("Ohh yeah!!");
+      final messageModel =
+          await MessageModelsParser(receivedData).parseInBackground();
+      // final receivedDataJson =
+      //     jsonDecode(receivedData) as Map<String, dynamic>;
+      // log(receivedDataJson.genericType.toString());
+      // final messageModel = MessageModel.fromJson(receivedDataJson);
+      log("messageModel: ${messageModel?.actionEnum}");
+      if (messageModel?.actionEnum == ActionEnum.AddProductImage) {
+        addProductImageUpdate = messageModel;
+        update();
+      }
+    } catch (e) {
+      log("Error: $e");
+    }
+    // debugPrint("messageModel : ${messageModel.messageData}");
+    // barcodeController.text = messageModel.messageData;
     // if (!String.fromCharCodes(data).contains("Server")) {
     //   if (String.fromCharCodes(data) != "") {
     //     final receviedData = String.fromCharCodes(data);
@@ -146,7 +182,7 @@ class ServerController extends GetxController {
     server!.broadCast(serverController.text);
     addServerLog(
       MessageModel(
-        fileData: [],
+        fileData: "",
         message: "Message",
         messageData: "You : ${serverController.text}",
         typeEnum: TypeEnum.Message,
@@ -167,7 +203,7 @@ class ServerController extends GetxController {
     final data = {
       "type": "file",
       "message": file.path.split("/").last,
-      "data": bytes
+      "data": bytes,
     };
 
     final encodedData = json.encode(data);

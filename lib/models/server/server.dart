@@ -1,21 +1,22 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:annai_store/core/constants/constants.dart';
-import 'package:flutter/material.dart';
-
-import '../../enum/action.dart';
-import '../../enum/message_type.dart';
-import '../message.dart';
+import 'package:annai_store/enum/action.dart';
+import 'package:annai_store/enum/message_type.dart';
+import 'package:annai_store/models/message.dart';
+import 'package:annai_store/models/product/product.dart';
 
 class Server {
-  Server({this.onError, this.onData});
+  Server({this.onError, this.onData, this.onSockets});
 
   Uint8ListCallback? onData;
 
   DynamicCallback? onError;
+  Function(Socket)? onSockets;
   ServerSocket? server;
   bool running = false;
   List<Socket> sockets = [];
@@ -27,7 +28,7 @@ class Server {
         running = true;
         server!.listen(onRequest);
         final data = MessageModel(
-          fileData: [],
+          fileData: "",
           message: "Server listening on $ipAdd port $port",
           messageData: 'Server listening on $ipAdd port $port',
           typeEnum: TypeEnum.Message,
@@ -48,21 +49,63 @@ class Server {
     running = false;
   }
 
-  void broadCast(String message) {
-    onData!(Uint8List.fromList('Broadcasting : $message'.codeUnits));
-    for (final Socket socket in sockets) {
-      socket.write(message);
+  void addProductImage(ProductModel productModel) {
+    log("addProductImage");
+    final messageModel = jsonEncode(
+      MessageModel(
+        fileData: "",
+        message: "AddProductImage",
+        messageData: "AddProductImage",
+        typeEnum: TypeEnum.Files,
+        actionEnum: ActionEnum.AddProductImage,
+        productModel: productModel,
+      ).toJson(),
+    );
+    for (final socket in sockets) {
+      print("socket: ${socket.address}");
+      socket.write(messageModel);
     }
   }
 
-  void onRequest(Socket socket) {
-    debugPrint('Socket ${socket.address}');
-    if (!sockets.contains(socket)) {
-      sockets.add(socket);
+  void broadCast(String message) {
+    final messageModel = jsonEncode(
+      MessageModel(
+        fileData: "",
+        message: message,
+        messageData: message,
+        typeEnum: TypeEnum.Message,
+        actionEnum: ActionEnum.AddProductImage,
+      ).toJson(),
+    );
+    // onData!(Uint8List.fromList(jsonEncode(messageModel.toJson()).codeUnits));
+    for (final Socket socket in sockets) {
+      socket.write(messageModel);
     }
-    socket.listen((Uint8List data) {
-      onData!(data);
-    });
+  }
+
+  Uint8List? prevData;
+
+  Future<void> onRequest(Socket socket) async {
+    print("OnRequest: $sockets ${socket.address.rawAddress}");
+    print(socket.address.address);
+    sockets.clear();
+    final dupSock = [...sockets];
+
+    if (dupSock.isEmpty) {
+      sockets.add(socket);
+      // while (true) {
+      //   await for (final element in socket.asBroadcastStream()) {
+      //     onData?.call(element);
+      //   }
+      // }
+      socket.listen((Uint8List data) async {
+        log("onData if");
+        await for (final element in socket.asBroadcastStream()) {
+          onData?.call(element);
+        }
+      });
+    }
+    print(sockets.length);
   }
 }
 

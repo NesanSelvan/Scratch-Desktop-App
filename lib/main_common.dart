@@ -1,16 +1,17 @@
 import 'package:environments/environments.dart';
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
 
-import 'app.dart';
-import 'enum/application.dart';
+import 'package:annai_store/app.dart';
+import 'package:annai_store/enum/application.dart';
 
-void mainCommon() {
+Future<void> mainCommon() async {
   switch (Application.environment) {
     case Environments.production:
       debugPrint = (String? message, {int? wrapWidth}) {};
-      break;
     default:
   }
+  WidgetsFlutterBinding.ensureInitialized();
 
   runApp(MyApp());
 }

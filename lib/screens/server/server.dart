@@ -1,15 +1,18 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:isolate';
+
 import 'package:annai_store/controller/history/sales/sales.dart';
 import 'package:annai_store/controller/server/server.dart';
 import 'package:annai_store/models/message.dart';
 import 'package:annai_store/services/api.dart';
 import 'package:annai_store/utils/file/file.dart';
+import 'package:annai_store/widgets/cusom_text.dart';
 import 'package:annai_store/widgets/custom_button.dart';
 import 'package:annai_store/widgets/text_field.dart';
-import 'package:annai_store/widgets/cusom_text.dart';
-import 'package:annai_store/utils/snackbar/snackbar.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 class ServerPage extends StatefulWidget {
   @override
@@ -41,8 +44,9 @@ class _ServerPageState extends State<ServerPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: CustomScreenUtility(context).width * 0.45,
+              Text(controller.server?.server?.address.address ?? 'No Address'),
+              Expanded(
+                // width: CustomScreenUtility(context).width * 0.45,
                 child: Column(
                   children: <Widget>[
                     Expanded(
@@ -115,8 +119,17 @@ class _ServerPageState extends State<ServerPage> {
                     CustomButton(
                       icon: Icons.delete,
                       text: "Delete All",
-                      onTap: () {
-                        salesHistoryNotifier.clearAllBills();
+                      onTap: () async {
+                        final res = await post(
+                          Uri.parse(
+                            "http://${controller.server?.server?.address.address ?? InternetAddress.loopbackIPv4.address}:8080",
+                          ),
+                          body: {
+                            "message": "Message",
+                          },
+                        );
+                        print(res.body);
+                        // salesHistoryNotifier.clearAllBills();
                       },
                     ),
                     Container(
@@ -168,15 +181,52 @@ class _ServerPageState extends State<ServerPage> {
                               vertical: 15,
                             ),
                             child: const Icon(Icons.send),
-                          )
+                          ),
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
-              Container(
-                width: CustomScreenUtility(context).width * 0.45,
+              const Expanded(
+                child: Text("HEHE"),
+                // child: Column(
+                //   children: (controller.server?.sockets ?? [])
+                //       .map(
+                //         (e) => StreamBuilder(
+                //           stream: e.asBroadcastStream(),
+                //           builder: (context, snapshot) {
+                //             if (snapshot.hasData) {
+                //               if (snapshot.data != null) {
+                //                 print("thissnapshot: ${snapshot.data}");
+                //                 return FutureBuilder<MessageModel>(
+                //                   future:
+                //                       MessageModelsParser().parseInBackground(
+                //                     String.fromCharCodes(snapshot.data!),
+                //                   ),
+                //                   builder: (context, thissnapshot) {
+                //                     print("thissnapshot: $thissnapshot");
+                //                     return Column(
+                //                       children: [
+                //                         Text(
+                //                           (thissnapshot.data?.actionEnum ?? '')
+                //                               .toString(),
+                //                         ),
+                //                       ],
+                //                     );
+                //                   },
+                //                 );
+                //               }
+                //             }
+                //             return const Text("No data");
+                //           },
+                //         ),
+                //       )
+                //       .toList(),
+                // ),
+              ),
+              Expanded(
+                // width: CustomScreenUtility(context).width * 0.45,
                 child: Column(
                   children: [
                     const CustomText("Local Server"),
@@ -199,14 +249,42 @@ class _ServerPageState extends State<ServerPage> {
                               : textController.text,
                         );
                       },
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           );
         },
       ),
     );
+  }
+}
+
+class MessageModelsParser {
+  MessageModelsParser(this.encodedJson);
+  final String encodedJson;
+
+  Future<MessageModel?> parseInBackground() async {
+    // // create a port
+    final p = ReceivePort();
+    // spawn the isolate and wait for it to complete
+    await Isolate.spawn(_decodeAndParseJson, p.sendPort);
+    // get and return the result data
+    final res = await p.first;
+    return res is MessageModel ? res : null;
+    // return compute(_decodeAndParseJson, encodedJson);
+    // return compute(_decodeAndParseJsonCompute, encodedJson);
+  }
+
+  Future<void> _decodeAndParseJson(SendPort p) async {
+    final jsonData = jsonDecode(encodedJson) as Map<String, dynamic>;
+
+    Isolate.exit(p, MessageModel.fromJson(jsonData));
+  }
+
+  MessageModel _decodeAndParseJsonCompute(String encodedJson) {
+    final jsonData = jsonDecode(encodedJson) as Map<String, dynamic>;
+    return MessageModel.fromJson(jsonData);
   }
 }

@@ -1,4 +1,4 @@
-enum ActionEnum { AddProduct, Billing, None }
+enum ActionEnum { AddProduct, Billing, None, AddProductImage }
 
 String actionEnumToStr(ActionEnum actionEnum) {
   switch (actionEnum) {
@@ -6,6 +6,8 @@ String actionEnumToStr(ActionEnum actionEnum) {
       return "Billing";
     case ActionEnum.None:
       return "None";
+    case ActionEnum.AddProductImage:
+      return "AddProductImage";
     default:
       return "Add Product";
   }
@@ -16,6 +18,8 @@ ActionEnum strToActionEnum(String type) {
     return ActionEnum.Billing;
   } else if (type == "None") {
     return ActionEnum.None;
+  } else if (type == "AddProductImage") {
+    return ActionEnum.AddProductImage;
   } else {
     return ActionEnum.AddProduct;
   }

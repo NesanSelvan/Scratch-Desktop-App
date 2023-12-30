@@ -12,12 +12,14 @@ import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/enum/person/person.dart';
 import 'package:annai_store/enum/statement.dart';
 import 'package:annai_store/features/analytics/sales/screens/sales.dart';
+import 'package:annai_store/features/barcode_printer/cubit/barcode/barcode_cubit.dart';
 import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/customer/customer.dart';
 import 'package:annai_store/screens/add/product/sub/sub_product.dart';
 import 'package:annai_store/screens/auth/login.dart';
 import 'package:annai_store/screens/backup/backup.dart';
+import 'package:annai_store/features/barcode_printer/screens/barcode.dart';
 import 'package:annai_store/screens/billing/sales/sales.dart';
 import 'package:annai_store/screens/connect/database/database.dart';
 import 'package:annai_store/screens/paths/paths.dart';
@@ -36,7 +38,7 @@ import 'package:annai_store/utils/navigation_service.dart';
 import 'package:annai_store/utils/null/null.dart';
 import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:annai_store/utils/user_response/user_response.dart';
- 
+
 import 'package:annai_store/widgets/custom_typeahead.dart';
 import 'package:annai_store/widgets/text_field.dart';
 import 'package:annai_store/widgets/cusom_text.dart';
@@ -44,6 +46,7 @@ import 'package:annai_store/utils/snackbar/snackbar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:http/http.dart' as http;
@@ -164,7 +167,7 @@ class Utility {
                                           const CustomText(
                                             "All Customer",
                                             size: 12,
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -193,7 +196,7 @@ class Utility {
                                               ),
                                             )
                                             .toList(),
-                                      )
+                                      ),
                                   ],
                                 ),
                                 if (!controller.isAllCustomer)
@@ -252,7 +255,7 @@ class Utility {
                                           const CustomText(
                                             "All HSN Code",
                                             size: 12,
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -283,7 +286,7 @@ class Utility {
                                               ),
                                             )
                                             .toList(),
-                                      )
+                                      ),
                                   ],
                                 ),
                                 if (!controller.isAllHSNCode)
@@ -311,9 +314,9 @@ class Utility {
                                         },
                                       ),
                                     ],
-                                  )
+                                  ),
                               ],
-                            )
+                            ),
                         ],
                       )
                     else if (StatementEnum.Purchase == statementEnum)
@@ -344,7 +347,7 @@ class Utility {
                                     const CustomText(
                                       "All Company",
                                       size: 12,
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
@@ -370,7 +373,7 @@ class Utility {
                                         ),
                                       )
                                       .toList(),
-                                )
+                                ),
                             ],
                           ),
                         ],
@@ -453,11 +456,11 @@ class Utility {
                       },
                       backgoundColor: kPrimaryColor,
                       textColor: Colors.white,
-                    )
+                    ),
                   ],
                 );
               },
-            )
+            ),
           ],
         );
       },
@@ -640,11 +643,11 @@ class Utility {
                       },
                       backgoundColor: kPrimaryColor,
                       textColor: Colors.white,
-                    )
+                    ),
                   ],
                 );
               },
-            )
+            ),
           ],
         );
       },
@@ -735,7 +738,7 @@ class Utility {
                     Navigator.pop(context);
                     Navigator.pop(context);
                   },
-                )
+                ),
               ],
             );
           },
@@ -783,7 +786,7 @@ class Utility {
                       addMenuClicked(e, homeController);
                     },
                   ),
-                )
+                ),
               ],
             ),
           menubar.NativeSubmenu(
@@ -838,6 +841,25 @@ class Utility {
               ),
             ],
           ),
+          menubar.NativeSubmenu(
+            label: 'Prints',
+            children: [
+              menubar.NativeMenuItem(
+                label: "Barcode",
+                onSelected: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                        create: (BuildContext context) => BarcodeCubit(),
+                        child: const BarcodeScreen(),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
           if (empType == PersonEnum.SuperAdmin ||
               empType == PersonEnum.Admin ||
               empType == PersonEnum.SoftwareOwner)
@@ -880,7 +902,7 @@ class Utility {
                       .setCurrentSelectedWidget(const SalesAnalyticsScreen());
                   homeController.update();
                 },
-              )
+              ),
             ],
           ),
           menubar.NativeSubmenu(
@@ -1011,7 +1033,7 @@ class Utility {
                 onSelected: () {
                   homeController.setCurrentSelectedWidget(const BackupScreen());
                 },
-              )
+              ),
             ],
           ),
           if (empType == PersonEnum.SuperAdmin ||

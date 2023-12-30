@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  flutter_p2p_plus
   flutter_secure_storage_windows
   menubar
   printing

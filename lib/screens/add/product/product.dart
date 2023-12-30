@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -18,15 +19,14 @@ import 'package:annai_store/models/unit/unit.dart';
 import 'package:annai_store/screens/viewer/image_viewer.dart';
 import 'package:annai_store/utils/image/image.dart';
 import 'package:annai_store/utils/null/null.dart';
+import 'package:annai_store/utils/snackbar/snackbar.dart';
+import 'package:annai_store/widgets/cusom_text.dart';
 import 'package:annai_store/widgets/custom_keyboard.dart';
 import 'package:annai_store/widgets/custom_table.dart';
 import 'package:annai_store/widgets/custom_typeahead.dart';
 import 'package:annai_store/widgets/operation_buttons.dart';
 import 'package:annai_store/widgets/search_by.dart';
 import 'package:annai_store/widgets/text_field.dart';
-import 'package:annai_store/widgets/cusom_text.dart';
-import 'package:annai_store/utils/snackbar/snackbar.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -45,6 +45,7 @@ class AddProductScreen extends StatefulWidget {
 class _AddProductScreenState extends State<AddProductScreen> {
   final FocusNode _focusNode = FocusNode();
   ProductController productController = Get.put(ProductController());
+  ServerController serverController = Get.put(ServerController());
 
   @override
   Widget build(BuildContext context) {
@@ -248,7 +249,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                 controller.getAllProduct();
                                                 controller.update();
                                               },
-                                            )
+                                            ),
                                           ],
                                         ),
                                         const SizedBox(height: 20),
@@ -320,7 +321,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                             ),
                                             const CustomText(
                                               "Multiple Company Has this product?",
-                                            )
+                                            ),
                                           ],
                                         ),
                                         const SizedBox(height: 20),
@@ -815,48 +816,46 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           color: Colors.grey[400],
                                         ),
                                         const SizedBox(height: 20),
-                                        ...controller.priceModelList
-                                            .map(
-                                              (e) => ExpansionTile(
-                                                onExpansionChanged: (bool val) {
-                                                  if (val) {
-                                                    controller
-                                                        .setSelectedPriceModel = e;
-                                                  } else {
-                                                    controller
-                                                            .setSelectedPriceModel =
-                                                        null;
-                                                  }
-                                                },
-                                                trailing: IconButton(
-                                                  onPressed: () {
-                                                    controller.priceModelList
-                                                        .remove(e);
-                                                    controller.update();
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.delete,
-                                                    color: Colors.red[400],
-                                                  ),
-                                                ),
-                                                title: CustomText(
-                                                  "${e.unitQty} ${e.unitModel.formalName}",
-                                                ),
-                                                children: [
-                                                  CustomText(
-                                                    "Purchase Price : ${e.purchasePrice}",
-                                                  ),
-                                                  CustomText("MRP : ${e.mrp}"),
-                                                  CustomText(
-                                                    "Retail : ${e.retail}",
-                                                  ),
-                                                  CustomText(
-                                                    "Wholesale : ${e.wholesale}",
-                                                  ),
-                                                ],
+                                        ...controller.priceModelList.map(
+                                          (e) => ExpansionTile(
+                                            onExpansionChanged: (bool val) {
+                                              if (val) {
+                                                controller
+                                                    .setSelectedPriceModel = e;
+                                              } else {
+                                                controller
+                                                        .setSelectedPriceModel =
+                                                    null;
+                                              }
+                                            },
+                                            trailing: IconButton(
+                                              onPressed: () {
+                                                controller.priceModelList
+                                                    .remove(e);
+                                                controller.update();
+                                              },
+                                              icon: Icon(
+                                                Icons.delete,
+                                                color: Colors.red[400],
                                               ),
-                                            )
-                                            .toList(),
+                                            ),
+                                            title: CustomText(
+                                              "${e.unitQty} ${e.unitModel.formalName}",
+                                            ),
+                                            children: [
+                                              CustomText(
+                                                "Purchase Price : ${e.purchasePrice}",
+                                              ),
+                                              CustomText("MRP : ${e.mrp}"),
+                                              CustomText(
+                                                "Retail : ${e.retail}",
+                                              ),
+                                              CustomText(
+                                                "Wholesale : ${e.wholesale}",
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                         if (controller.selectedPriceModel !=
                                             null)
                                           CustomTextButton(
@@ -1127,28 +1126,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                       CustomScreenUtility(context).height * 0.8,
                                   child: Align(
                                     alignment: Alignment.topCenter,
-                                    child: ListView(
-                                      children: [
-                                        GetBuilder<ProductController>(
-                                          builder: (controller) {
-                                            return Column(
-                                              children: controller
-                                                      .productModelList.isEmpty
-                                                  ? [
-                                                      const CustomText(
-                                                        "No Product Record Exists",
-                                                        color: Colors.red,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        size: 14,
-                                                      )
-                                                    ]
-                                                  : controller.searchController
-                                                                  .text !=
-                                                              "" &&
-                                                          controller
-                                                              .searchedProductModel
-                                                              .isEmpty
+                                    child: GetBuilder<ServerController>(
+                                      builder: (streamServerController) {
+                                        return ListView(
+                                          children: [
+                                            GetBuilder<ProductController>(
+                                              builder: (controller) {
+                                                return Column(
+                                                  children: controller
+                                                          .productModelList
+                                                          .isEmpty
                                                       ? [
                                                           const CustomText(
                                                             "No Product Record Exists",
@@ -1156,19 +1143,66 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             size: 14,
-                                                          )
+                                                          ),
                                                         ]
-                                                      : controller
-                                                              .searchedProductModel
-                                                              .isNotEmpty
-                                                          ? controller.searchController
-                                                                      .text ==
-                                                                  ""
-                                                              ? controller.sort ==
+                                                      : controller.searchController
+                                                                      .text !=
+                                                                  "" &&
+                                                              controller
+                                                                  .searchedProductModel
+                                                                  .isEmpty
+                                                          ? [
+                                                              const CustomText(
+                                                                "No Product Record Exists",
+                                                                color:
+                                                                    Colors.red,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                size: 14,
+                                                              ),
+                                                            ]
+                                                          : controller
+                                                                  .searchedProductModel
+                                                                  .isNotEmpty
+                                                              ? controller.searchController
+                                                                          .text ==
+                                                                      ""
+                                                                  ? controller.sort ==
+                                                                          ProductSort
+                                                                              .category
+                                                                      ? buildProductByCategory(
+                                                                          controller,
+                                                                          streamServerController,
+                                                                        )
+                                                                      : controller
+                                                                          .productModelList
+                                                                          .map(
+                                                                            (e) =>
+                                                                                buildInkWell(
+                                                                              e,
+                                                                              controller,
+                                                                              streamServerController,
+                                                                            ),
+                                                                          )
+                                                                          .toList()
+                                                                  : controller
+                                                                      .searchedProductModel
+                                                                      .map(
+                                                                        (e) =>
+                                                                            buildInkWell(
+                                                                          e,
+                                                                          controller,
+                                                                          streamServerController,
+                                                                        ),
+                                                                      )
+                                                                      .toList()
+                                                              : controller.sort ==
                                                                       ProductSort
                                                                           .category
                                                                   ? buildProductByCategory(
                                                                       controller,
+                                                                      streamServerController,
                                                                     )
                                                                   : controller
                                                                       .productModelList
@@ -1177,46 +1211,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                                             buildInkWell(
                                                                           e,
                                                                           controller,
+                                                                          streamServerController,
                                                                         ),
                                                                       )
-                                                                      .toList()
-                                                              : controller
-                                                                  .searchedProductModel
-                                                                  .map(
-                                                                    (e) =>
-                                                                        buildInkWell(
-                                                                      e,
-                                                                      controller,
-                                                                    ),
-                                                                  )
-                                                                  .toList()
-                                                          : controller.sort ==
-                                                                  ProductSort
-                                                                      .category
-                                                              ? buildProductByCategory(
-                                                                  controller,
-                                                                )
-                                                              : controller
-                                                                  .productModelList
-                                                                  .map(
-                                                                    (e) =>
-                                                                        buildInkWell(
-                                                                      e,
-                                                                      controller,
-                                                                    ),
-                                                                  )
-                                                                  .toList(),
-                                            );
-                                          },
-                                        )
-                                      ],
+                                                                      .toList(),
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -1237,7 +1248,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         ],
                       ),
                     ),
-                  )
+                  ),
               ],
             );
           },
@@ -1246,15 +1257,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 
-  List<Widget> buildProductByCategory(ProductController controller) {
+  List<Widget> buildProductByCategory(
+    ProductController controller,
+    ServerController streamServerController,
+  ) {
     return categoryDB.getAllCategory().map((e) {
       final productsList = productDB.getAllProductByCategoryId(e.id);
       return Container(
         child: ExpansionTile(
           initiallyExpanded: true,
           title: CustomText("${e.category} (${e.hsnCode})"),
-          children:
-              productsList.map((f) => buildInkWell(f, controller)).toList(),
+          children: productsList
+              .map((f) => buildInkWell(f, controller, streamServerController))
+              .toList(),
         ),
       );
     }).toList();
@@ -1292,13 +1307,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 
-  Widget buildInkWell(ProductModel e, ProductController controller) {
+  Widget buildInkWell(
+    ProductModel e,
+    ProductController controller,
+    ServerController streamServerController,
+  ) {
     final productNumberController =
         TextEditingController(text: e.productNumber ?? "");
     return ExpansionTile(
-      onExpansionChanged: (value) {
-        controller.onProductTap(e);
-      },
       title: Container(
         color: controller.selectedProductModel == e
             ? Colors.grey[100]
@@ -1366,14 +1382,43 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ProductEnum.values.length,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: InkWell(
-                  child: const Icon(Icons.update, color: kPrimaryColor),
-                  onTap: () async {
-                    await controller.updateProductNumber(
-                      productNumberController.text,
-                      e,
-                    );
-                  },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Tooltip(
+                      message: "Update Product Number",
+                      child: InkWell(
+                        child: const Icon(Icons.update, color: kPrimaryColor),
+                        onTap: () async {
+                          await controller.updateProductNumber(
+                            productNumberController.text,
+                            e,
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Tooltip(
+                      message: "Edit Product",
+                      child: InkWell(
+                        child: Icon(Icons.edit, color: Colors.yellow.shade800),
+                        onTap: () async {
+                          controller.onProductTap(e);
+                        },
+                      ),
+                    ),
+                    Tooltip(
+                      message: "Add Product Image",
+                      child: InkWell(
+                        child: Icon(Icons.camera, color: Colors.red.shade800),
+                        onTap: () async {
+                          serverController.server?.addProductImage(e);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -1419,51 +1464,43 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(
                   width: 10,
                 ),
-                ...(e.differentPriceList ?? [])
-                    .map(
-                      (f) => _buildUnitBarcode(
-                        e,
-                        "${f.unitQty} ${f.unitModel.symbol} (${f.unitModel.formalName})",
-                        formalName: f.unitModel.formalName,
-                        unitQty: (f.unitQty).toInt(),
-                        purchasePrice: f.purchasePrice ?? 0,
-                        wholeSalePrice: double.tryParse(
-                              BasicCalculation.calculateTax(
-                                categoryDB
-                                    .getCategoryModelById(e.categoryId)
-                                    .tax,
-                                f.wholesale,
-                              ).toStringAsFixed(2),
-                            ) ??
-                            0,
-                        retailPrice: double.tryParse(
-                              BasicCalculation.calculateTax(
-                                categoryDB
-                                    .getCategoryModelById(e.categoryId)
-                                    .tax,
-                                f.retail,
-                              ).toStringAsFixed(2),
-                            ) ??
-                            0,
-                        mrp: double.tryParse(
-                              BasicCalculation.calculateTax(
-                                categoryDB
-                                    .getCategoryModelById(e.categoryId)
-                                    .tax,
-                                f.mrp,
-                              ).toStringAsFixed(2),
-                            ) ??
-                            0,
-                      ),
-                    )
-                    .toList(),
+                ...(e.differentPriceList ?? []).map(
+                  (f) => _buildUnitBarcode(
+                    e,
+                    "${f.unitQty} ${f.unitModel.symbol} (${f.unitModel.formalName})",
+                    formalName: f.unitModel.formalName,
+                    unitQty: f.unitQty.toInt(),
+                    purchasePrice: f.purchasePrice ?? 0,
+                    wholeSalePrice: double.tryParse(
+                          BasicCalculation.calculateTax(
+                            categoryDB.getCategoryModelById(e.categoryId).tax,
+                            f.wholesale,
+                          ).toStringAsFixed(2),
+                        ) ??
+                        0,
+                    retailPrice: double.tryParse(
+                          BasicCalculation.calculateTax(
+                            categoryDB.getCategoryModelById(e.categoryId).tax,
+                            f.retail,
+                          ).toStringAsFixed(2),
+                        ) ??
+                        0,
+                    mrp: double.tryParse(
+                          BasicCalculation.calculateTax(
+                            categoryDB.getCategoryModelById(e.categoryId).tax,
+                            f.mrp,
+                          ).toStringAsFixed(2),
+                        ) ??
+                        0,
+                  ),
+                ),
               ],
             ),
           ),
         ),
         const CustomText("Images"),
-        if (e.imagesList == null)
-          const CustomText("No Images to display")
+        if ((e.imagesList ?? []).isEmpty)
+          const CustomText("No Saved Images to display")
         else
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -1488,6 +1525,36 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   .toList(),
             ),
           ),
+
+        Builder(
+          builder: (context) {
+            final String? datas =
+                streamServerController.addProductImageUpdate?.fileData;
+            if (datas != null) {
+              final fileDataStr = jsonDecode(datas);
+              if (fileDataStr is List) {
+                return Row(
+                  children: fileDataStr
+                      .map(
+                        (e) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Image.memory(base64Decode(e.toString())),
+                        ),
+                      )
+                      .toList(),
+                );
+              }
+            }
+            return const SizedBox();
+          },
+        ),
+        // if (streamServerController.addProductImageUpdate != null)
+        //   Row(
+        //     children:
+        //         (streamServerController.addProductImageUpdate?.fileData ?? [])
+        //             .map((e) => Image.memory(e))
+        //             .toList(),
+        //   ),
       ],
     );
   }
@@ -1502,7 +1569,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     required double mrp,
     required double wholeSalePrice,
   }) {
-    ScreenshotController screenshotController = ScreenshotController();
+    final ScreenshotController screenshotController = ScreenshotController();
     final barcodeValue = "${e.productNumber}/$unitQty-${formalName ?? ''}";
     return Column(
       children: [
@@ -1602,7 +1669,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
 class ImageContainer extends StatelessWidget {
   final String imagePath;
   final VoidCallback onRemoveImageTap;
-  final double? width, height;
+  final double? width;
+  final double? height;
   const ImageContainer({
     super.key,
     required this.onRemoveImageTap,
@@ -1662,7 +1730,7 @@ class CountContainer extends StatelessWidget {
           fontWeight: FontWeight.bold,
           color: Colors.green[400],
           size: 20,
-        )
+        ),
       ],
     );
   }

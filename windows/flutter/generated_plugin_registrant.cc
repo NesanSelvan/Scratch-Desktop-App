@@ -6,6 +6,7 @@
 
 #include "generated_plugin_registrant.h"
 
+#include <flutter_p2p_plus/flutter_p2p_plus_plugin_c_api.h>
 #include <flutter_secure_storage_windows/flutter_secure_storage_windows_plugin.h>
 #include <menubar/menubar_plugin.h>
 #include <printing/printing_plugin.h>
@@ -16,6 +17,8 @@
 #include <window_size/window_size_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
+  FlutterP2pPlusPluginCApiRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FlutterP2pPlusPluginCApi"));
   FlutterSecureStorageWindowsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FlutterSecureStorageWindowsPlugin"));
   MenubarPluginRegisterWithRegistrar(
