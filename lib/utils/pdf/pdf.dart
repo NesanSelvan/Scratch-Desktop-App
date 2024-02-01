@@ -476,10 +476,11 @@ class PDFGenerator {
                   pw.Row(
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
-                      pw.Container(
-                        child: normalText("GSTIN : ${Application.gstinNo}"),
-                        padding: const pw.EdgeInsets.all(8),
-                      ),
+                      if (Application.gstinNo != '')
+                        pw.Container(
+                          child: normalText("GSTIN : ${Application.gstinNo}"),
+                          padding: const pw.EdgeInsets.all(8),
+                        ),
                       pw.Container(
                         padding: const pw.EdgeInsets.all(8),
                         child: pw.Column(
@@ -1149,10 +1150,11 @@ class PDFGenerator {
                   pw.Row(
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
-                      pw.Container(
-                        child: normalText("GSTIN : ${Application.gstinNo}"),
-                        padding: const pw.EdgeInsets.all(8),
-                      ),
+                      if (Application.gstinNo != '')
+                        pw.Container(
+                          child: normalText("GSTIN : ${Application.gstinNo}"),
+                          padding: const pw.EdgeInsets.all(8),
+                        ),
                       pw.Container(
                         padding: const pw.EdgeInsets.all(8),
                         child: pw.Column(
@@ -1817,10 +1819,11 @@ class PDFGenerator {
                   pw.Row(
                     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
-                      pw.Container(
-                        child: normalText("GSTIN : ${Application.gstinNo}"),
-                        padding: const pw.EdgeInsets.all(8),
-                      ),
+                      if (Application.gstinNo != '')
+                        pw.Container(
+                          child: normalText("GSTIN : ${Application.gstinNo}"),
+                          padding: const pw.EdgeInsets.all(8),
+                        ),
                       pw.Container(
                         padding: const pw.EdgeInsets.all(8),
                         child: pw.Column(
@@ -2814,7 +2817,8 @@ class PDFGenerator {
                         children: [
                           boldText(Application.appName),
                           normalText(Application.address),
-                          normalText("GSTIN No.: ${Application.gstinNo}"),
+                          if (Application.gstinNo != '')
+                            normalText("GSTIN No.: ${Application.gstinNo}"),
                           normalText("Mobile No.: 9488327699"),
                           normalText("Email: annai.charlinf@gmail.com"),
                         ],
@@ -3283,7 +3287,8 @@ class PDFGenerator {
             normalText(Application.address),
             // normalText("Vallioor - 627117"),
             normalText("Cell: 9488327699"),
-            normalText("GSTIN: ${Application.gstinNo}"),
+            if (Application.gstinNo != '')
+              normalText("GSTIN: ${Application.gstinNo}"),
             pw.SizedBox(height: 5),
             boldText("CASH BILL"),
             pw.SizedBox(height: 5),
@@ -3428,7 +3433,8 @@ class PDFGenerator {
             normalText(Application.address),
             // normalText("Vallioor - 627117"),
             normalText("Cell: 9488327699"),
-            normalText("GSTIN:${Application.gstinNo}"),
+            if (Application.gstinNo != '')
+              normalText("GSTIN:${Application.gstinNo}"),
             pw.SizedBox(height: 5),
             boldText("Sewing Service BILL"),
             pw.SizedBox(height: 5),
@@ -3560,7 +3566,8 @@ class PDFGenerator {
             bigText(Application.appName),
             normalText(Application.address),
             normalText("Cell: 9488327699"),
-            normalText("GSTIN:${Application.gstinNo}"),
+            if (Application.gstinNo != '')
+              normalText("GSTIN:${Application.gstinNo}"),
             pw.SizedBox(height: 5),
             boldText("Sewing Service BILL"),
             pw.SizedBox(height: 5),
@@ -3631,7 +3638,8 @@ class PDFGenerator {
             normalText(Application.address),
             // normalText("Vallioor - 627117"),
             normalText("Cell: 9488327699"),
-            normalText("GSTIN:${Application.gstinNo}"),
+            if (Application.gstinNo != '')
+              normalText("GSTIN:${Application.gstinNo}"),
             pw.SizedBox(height: 5),
             boldText("Quotation"),
             pw.SizedBox(height: 5),
@@ -3740,7 +3748,8 @@ class PDFGenerator {
             normalText(Application.address),
             // normalText("Vallioor - 627117"),
             normalText("Cell: 9488327699"),
-            normalText("GSTIN:${Application.gstinNo}"),
+            if (Application.gstinNo != '')
+              normalText("GSTIN:${Application.gstinNo}"),
             pw.SizedBox(height: 5),
             boldText("Orders"),
             pw.SizedBox(height: 5),
@@ -3974,7 +3983,8 @@ class PDFGenerator {
             normalText(Application.address),
             // normalText("Vallioor - 627117"),
             normalText("Cell: 9488327699"),
-            normalText("GSTIN:${Application.gstinNo}"),
+            if (Application.gstinNo != '')
+              normalText("GSTIN:${Application.gstinNo}"),
             pw.SizedBox(height: 5),
             boldText("CASH Bill"),
             pw.SizedBox(height: 5),
@@ -4706,7 +4716,8 @@ class PDFGenerator {
                 bigText(Application.appName),
                 normalText(Application.address),
                 normalText("Cell: 9488327699"),
-                normalText("GSTIN:${Application.gstinNo}"),
+                if (Application.gstinNo != '')
+                  normalText("GSTIN:${Application.gstinNo}"),
                 pw.SizedBox(height: 5),
                 boldText("Receipt"),
                 pw.SizedBox(height: 5),
@@ -4894,7 +4905,8 @@ class PDFGenerator {
                 bigText(Application.appName),
                 normalText(Application.address),
                 normalText("Cell: ${Application.mobileNo}"),
-                normalText("GSTIN:${Application.gstinNo}"),
+                if (Application.gstinNo != '')
+                  normalText("GSTIN:${Application.gstinNo}"),
                 pw.Container(
                   width: 400,
                   child: pw.Divider(color: PdfColor.fromHex("#E0E0E0")),
@@ -5148,7 +5160,8 @@ class PDFGenerator {
                   bigText(Application.appName),
                   normalText(Application.address),
                   normalText("Cell: ${Application.mobileNo}"),
-                  normalText("GSTIN:${Application.gstinNo}"),
+                  if (Application.gstinNo != '')
+                    normalText("GSTIN:${Application.gstinNo}"),
                   pw.Container(
                     width: 400,
                     child: pw.Divider(color: PdfColor.fromHex("#E0E0E0")),

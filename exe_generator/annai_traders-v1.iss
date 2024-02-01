@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Annai Traders"
-#define MyAppVersion "8"
+#define MyAppVersion "1.0"
 #define MyAppPublisher "Agnel Selvan"
 #define MyAppURL "http://agnelselvan.me"
 #define MyAppExeName "annai_store.exe"
@@ -27,9 +27,9 @@ DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=D:\Annai Store\Project\Desktop App\api_services\annai_traders
+OutputDir=E:\Annai Store\Project\Desktop App\annai_store\outputs
 OutputBaseFilename=annai-traders
-SetupIconFile=D:\Annai Store\Project\Desktop App\annai_store\windows\runner\resources\app_icon.ico
+SetupIconFile=E:\Annai Store\Project\Desktop App\annai_store\assets\images\annai_traders.ico
 Password=annai
 Compression=lzma
 SolidCompression=yes
@@ -42,9 +42,9 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\Annai Store\Project\Desktop App\annai_store\build\windows\runner\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Annai Store\Project\Desktop App\annai_store\build\windows\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "D:\AnnaiStore\ngrok.exe"; DestDir: "{app}";
+Source: "E:\Annai Store\Project\Desktop App\annai_store\build\windows\x64\runner\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\Annai Store\Project\Desktop App\annai_store\build\windows\x64\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+; Source: "E:\AnnaiStore\ngrok.exe"; DestDir: "{app}";
 ; Source: "D:\AnnaiStore\annai_store.json"; DestDir: "{app}";
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

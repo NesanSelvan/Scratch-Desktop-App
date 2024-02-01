@@ -42,8 +42,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "E:\Annai Store\Project\Desktop App\annai_store\build\windows\runner\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "E:\Annai Store\Project\Desktop App\annai_store\build\windows\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\Annai Store\Project\Desktop App\annai_store\build\windows\x64\runner\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\Annai Store\Project\Desktop App\annai_store\build\windows\x64\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; Source: "D:\AnnaiStore\ngrok.exe"; DestDir: "{app}";
 ; Source: "D:\AnnaiStore\annai_store.json"; DestDir: "{app}";
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
