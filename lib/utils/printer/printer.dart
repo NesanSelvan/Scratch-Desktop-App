@@ -187,7 +187,7 @@ class PrinterUtility {
 
         final barcodePdfFormat = PdfPageFormat(
           2.5 * PdfPageFormat.cm * 4,
-          2 * PdfPageFormat.cm * (allData.length % 4 + 1),
+          2 * PdfPageFormat.cm,
         );
         final pdfData = await PDFGenerator.generateBarcodePdf(
           barcodePdfFormat,
