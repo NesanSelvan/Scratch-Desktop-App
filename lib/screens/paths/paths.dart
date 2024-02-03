@@ -1,21 +1,18 @@
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/controller/paths/paths.dart';
 import 'package:annai_store/core/constants/constants.dart';
-import 'package:annai_store/widgets/cusom_text.dart';
+import 'package:annai_store/enum/paths/paths.dart';
+import 'package:annai_store/utils/image/image.dart';
 import 'package:annai_store/utils/snackbar/snackbar.dart';
-
+import 'package:annai_store/widgets/cusom_text.dart';
+import 'package:annai_store/widgets/custom_table.dart';
+import 'package:annai_store/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:printing/printing.dart';
 
-import '../../controller/billing/sales/sales.dart';
-import '../../controller/paths/paths.dart';
-import '../../enum/paths/paths.dart';
-import '../../utils/image/image.dart';
-import '../../widgets/custom_table.dart';
-import '../../widgets/text_field.dart';
-
 class PathsScreen extends StatefulWidget {
-  const PathsScreen({Key? key}) : super(key: key);
+  const PathsScreen({super.key});
 
   @override
   _PathsScreenState createState() => _PathsScreenState();
@@ -67,11 +64,11 @@ class _PathsScreenState extends State<PathsScreen> {
                           Navigator.pop(context);
                         },
                       ),
-                    )
+                    ),
                   ],
                 );
               },
-            )
+            ),
           ],
         );
       },
@@ -122,11 +119,11 @@ class _PathsScreenState extends State<PathsScreen> {
                           Navigator.pop(context);
                         },
                       ),
-                    )
+                    ),
                   ],
                 );
               },
-            )
+            ),
           ],
         );
       },
@@ -160,7 +157,7 @@ class _PathsScreenState extends State<PathsScreen> {
                         showAddDialog(context);
                       },
                       icon: const Icon(Icons.add),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -202,52 +199,50 @@ class _PathsScreenState extends State<PathsScreen> {
                         ),
                       ],
                     ),
-                    ...controller.allPaths
-                        .map(
-                          (e) => TableRow(
-                            children: [
-                              CustomTableElement(
-                                text: "${pathsDB.getAllPath().indexOf(e) + 1}",
-                                width: CustomScreenUtility(context).width / 4,
-                              ),
-                              CustomTableElement(
-                                text: e.name,
-                                width: CustomScreenUtility(context).width / 4,
-                              ),
-                              CustomTableElement(
-                                text: e.path,
-                                width: CustomScreenUtility(context).width / 4,
-                              ),
-                              Container(
-                                width: CustomScreenUtility(context).width / 4,
-                                alignment: Alignment.centerLeft,
-                                child: Row(
-                                  children: [
-                                    InkWell(
-                                      onTap: () async {
-                                        controller.setSelectedPathsModel = e;
-                                        await showUpdateDialog(context);
-                                      },
-                                      child: const CustomIcon(Icons.edit),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    InkWell(
-                                      onTap: () async {
-                                        await pathsDB.deletePath(e);
-                                        controller.performInit();
-                                      },
-                                      child: const CustomIcon(
-                                        Icons.delete,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
+                    ...controller.allPaths.map(
+                      (e) => TableRow(
+                        children: [
+                          CustomTableElement(
+                            text: "${pathsDB.getAllPath().indexOf(e) + 1}",
+                            width: CustomScreenUtility(context).width / 4,
                           ),
-                        )
-                        .toList(),
+                          CustomTableElement(
+                            text: e.name,
+                            width: CustomScreenUtility(context).width / 4,
+                          ),
+                          CustomTableElement(
+                            text: e.path,
+                            width: CustomScreenUtility(context).width / 4,
+                          ),
+                          Container(
+                            width: CustomScreenUtility(context).width / 4,
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  onTap: () async {
+                                    controller.setSelectedPathsModel = e;
+                                    await showUpdateDialog(context);
+                                  },
+                                  child: const CustomIcon(Icons.edit),
+                                ),
+                                const SizedBox(width: 10),
+                                InkWell(
+                                  onTap: () async {
+                                    await pathsDB.deletePath(e);
+                                    controller.performInit();
+                                  },
+                                  child: const CustomIcon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -289,11 +284,11 @@ class _PathsScreenState extends State<PathsScreen> {
                             onPressed: () async {
                               controller.setImageInImagesList = null;
                             },
-                          )
+                          ),
                         ],
                       ),
                   ],
-                )
+                ),
               ],
             ),
           );

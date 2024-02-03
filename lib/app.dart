@@ -1,7 +1,7 @@
+import 'dart:async';
+
 import 'package:annai_store/controller/auth/login.dart';
-import 'package:annai_store/controller/paths/paths.dart';
 import 'package:annai_store/core/constants/constants.dart';
-import 'package:annai_store/core/db/db.dart';
 import 'package:annai_store/enum/application.dart';
 import 'package:annai_store/features/analytics/sales/cubit/sales_analytics_cubit.dart';
 import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
@@ -9,7 +9,9 @@ import 'package:annai_store/features/loader/cubit/cubit/loader_cubit.dart';
 import 'package:annai_store/features/loader/cubit/loader_cubit.dart';
 import 'package:annai_store/features/loader/widgets/loader.dart';
 import 'package:annai_store/features/new_version/cubit/version_cubit.dart';
+import 'package:annai_store/features/upload_file/presentation/manager/upload_file_cubit.dart';
 import 'package:annai_store/screens/auth/login.dart';
+import 'package:annai_store/sl.dart';
 import 'package:annai_store/utils/navigation_service.dart';
 import 'package:annai_store/utils/utility.dart';
 import 'package:flutter/material.dart';
@@ -24,18 +26,19 @@ class MyApp extends StatefulWidget {
 
 class _AppState extends State<MyApp> with WindowListener {
   LoginController loginController = Get.put(LoginController());
-  PathController pathController = Get.put(PathController());
   final FocusNode _focusNode = FocusNode();
   bool isLoading = true;
   final _bloc = LoaderBloc();
 
   @override
-  void onWindowClose() {
-    // final allData = File(FileUtility.getFullDBFilePath());
-    // print(allData.path);
-    // final data = allData.readAsStringSync();
-    // final val = EncryptData.encryptAES(data);
-    // allData.writeAsStringSync(val);
+  Future<void> onWindowClose() async {
+    sl<UploadFileCubit>().uploadDBFile();
+    final bool isPreventClose = await windowManager.isPreventClose();
+    if (isPreventClose) {
+      Timer(const Duration(milliseconds: 1500), () async {
+        await windowManager.destroy();
+      });
+    }
   }
 
   @override
@@ -48,6 +51,8 @@ class _AppState extends State<MyApp> with WindowListener {
 
   Future<void> performInit() async {
     isLoading = false;
+    await windowManager.setPreventClose(true);
+
     setState(() {});
   }
 
@@ -67,8 +72,6 @@ class _AppState extends State<MyApp> with WindowListener {
   @override
   Widget build(BuildContext context) {
     Utility().performActivityWhenAppOpens();
-    Database.instance.initialize();
-    pathController.addIfNotExists();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -82,6 +85,9 @@ class _AppState extends State<MyApp> with WindowListener {
         ),
         BlocProvider(
           create: (context) => LoaderCubit(),
+        ),
+        BlocProvider(
+          create: (context) => sl<UploadFileCubit>(),
         ),
       ],
       child: GetMaterialApp(

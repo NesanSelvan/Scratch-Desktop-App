@@ -1,9 +1,8 @@
+import 'package:annai_store/controller/billing/sales/sales.dart';
+import 'package:annai_store/models/paths/paths.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../models/paths/paths.dart';
-import '../billing/sales/sales.dart';
 
 class PathController extends GetxController {
   List<PathsModel> _allPaths = [];
@@ -15,7 +14,8 @@ class PathController extends GetxController {
   late PathsModel _selectedPathModel;
   PathsModel get selectedPathModel => _selectedPathModel;
 
-  void performInit() {
+  Future<void> performInit() async {
+    await addIfNotExists();
     setAllPaths(pathsDB.getAllPath());
   }
 

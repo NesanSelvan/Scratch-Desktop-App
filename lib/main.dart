@@ -6,6 +6,7 @@ import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/core/db/hive_db.dart';
 import 'package:annai_store/main_common.dart';
 import 'package:annai_store/models/unit/new_unit.dart';
+import 'package:annai_store/sl.dart';
 import 'package:annai_store/utils/file/file.dart';
 // import 'package:annai_store/utils/snackbar/snackbar.dart';
 
@@ -20,6 +21,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UnitAdapter());
   AppHiveDB.instance.initialize();
+  init();
 
   mainCommon();
 }

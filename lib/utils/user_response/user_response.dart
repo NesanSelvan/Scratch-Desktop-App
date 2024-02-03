@@ -1,14 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UserResponseUtility {
   static void show(BuildContext context, String text, Color color) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(
-        text,
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          text,
+        ),
+        backgroundColor: color,
       ),
-      backgroundColor: color,
-    ));
+    );
   }
 
   static void showError(BuildContext context, String text) {
