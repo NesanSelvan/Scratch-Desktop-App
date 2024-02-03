@@ -1,11 +1,11 @@
 import 'package:annai_store/models/bank/bank.dart';
 import 'package:environments/environments.dart';
 
-enum ApplicationEnum { AnnaiStore, AnnaiTraders, Scratch }
+enum ApplicationEnum { AnnaiStore, AnnaiTraders, Pairav, Scratch }
 
 // ignore: avoid_classes_with_only_static_members
 class Application {
-  static ApplicationEnum currentApplication = ApplicationEnum.AnnaiTraders;
+  static ApplicationEnum currentApplication = ApplicationEnum.Pairav;
   static Environments environment = Environments.production;
 
   static double version() {
@@ -29,24 +29,32 @@ class Application {
       ? "Annai Store"
       : currentApplication == ApplicationEnum.AnnaiTraders
           ? "Annai Traders"
-          : "Scratch";
+          : currentApplication == ApplicationEnum.Pairav
+              ? "Pairav"
+              : "Scratch";
 
   static String get gstinNo => currentApplication == ApplicationEnum.AnnaiStore
       ? "33AHIPC1946Q1Z4"
       : currentApplication == ApplicationEnum.AnnaiTraders
           ? "33CGHPN0776K1Z4"
-          : "";
+          : currentApplication == ApplicationEnum.Pairav
+              ? ""
+              : "";
   static String get address => currentApplication == ApplicationEnum.AnnaiStore
       ? "No.97, Yadhavar South Street,\nValliyur, TamilNadu - 627117"
       : currentApplication == ApplicationEnum.AnnaiTraders
           ? "151/10, Anantha Bhavana Veethi,\n Therkukallikulam,\nTirunelveli, Tamil Nadu, 627113"
-          : "";
+          : currentApplication == ApplicationEnum.Pairav
+              ? "Shop No.101, Yadhavar South Street,\nValliyur, TamilNadu - 627117"
+              : "";
 
   static String get mobileNo => currentApplication == ApplicationEnum.AnnaiStore
       ? "9488327699"
       : currentApplication == ApplicationEnum.AnnaiTraders
           ? "9488327699"
-          : "9167877725";
+          : currentApplication == ApplicationEnum.Pairav
+              ? "9488327699"
+              : "9167877725";
 
   static BankModel get bankDetails =>
       currentApplication == ApplicationEnum.AnnaiStore

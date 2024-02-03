@@ -8,6 +8,8 @@ class FileUtility {
       return "annai_store";
     } else if (Application.currentApplication == ApplicationEnum.AnnaiTraders) {
       return "annai_traders";
+    } else if (Application.currentApplication == ApplicationEnum.Pairav) {
+      return "pairav";
     }
     return "scratch";
   }
@@ -17,6 +19,8 @@ class FileUtility {
       return "annai-store";
     } else if (Application.currentApplication == ApplicationEnum.AnnaiTraders) {
       return "annai-traders";
+    } else if (Application.currentApplication == ApplicationEnum.Pairav) {
+      return "pairav";
     }
     return "scratch";
   }

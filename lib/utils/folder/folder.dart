@@ -10,6 +10,8 @@ class FolderUtility {
       return "AnnaiStore";
     } else if (Application.currentApplication == ApplicationEnum.AnnaiTraders) {
       return "AnnaiTraders";
+    } else if (Application.currentApplication == ApplicationEnum.Pairav) {
+      return "Pairav";
     }
     return "Scratch";
   }

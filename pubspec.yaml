@@ -65,6 +65,7 @@ dependencies:
   syncfusion_flutter_charts: null
   syncfusion_flutter_datepicker: null
   syncfusion_flutter_pdfviewer: null
+  tcp_socket_connection: ^0.3.1
   uuid: ^3.0.4
   validators:
     git:
@@ -75,10 +76,10 @@ dependencies:
     git:
       url: https://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
-  tcp_socket_connection: ^0.3.1
 
 dev_dependencies:
   build_runner: ^2.4.6
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
   freezed: ^2.4.5
@@ -138,3 +139,10 @@ flutter:
 #   output_path: C:\Users\Agnel.Selvan\OneDrive - Aurum\Desktop\
 #   output_name: testing
 #   build_windows: true
+
+flutter_launcher_icons:
+  windows:
+    generate: true
+    image_path: "assets/images/annai_traders.png"
+    icon_size: 48 
+# flutter pub run flutter_launcher_icons -f flutter_launcher_icons.yaml
