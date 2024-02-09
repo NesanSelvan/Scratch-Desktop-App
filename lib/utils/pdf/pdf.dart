@@ -377,7 +377,7 @@ class PDFGenerator {
                           child: pw.Container(
                             alignment: pw.Alignment.center,
                             child: pw.Text(
-                              "A One Traders",
+                              "Pairav Products",
                               style: pw.TextStyle(
                                 fontSize: 6,
                                 color: PdfColor.fromHex("#FFFFFF"),
@@ -5361,11 +5361,11 @@ class PDFGenerator {
                         children: [
                           pw.Container(
                             // color: PdfColor.fromHex("#FF0000"),
-                            margin: const pw.EdgeInsets.only(top: 4, bottom: 4),
+                            margin: const pw.EdgeInsets.only(top: 2, bottom: 2),
                             child: pw.Container(
                               alignment: pw.Alignment.center,
                               child: pw.Text(
-                                "A One Traders",
+                                "Pairav Products",
                                 style: pw.TextStyle(
                                   fontSize: 6,
                                   color: PdfColor.fromHex("#0000001A"),
@@ -5376,7 +5376,7 @@ class PDFGenerator {
 
                           // pw.Image(e),
                           pw.Container(
-                            height: 20,
+                            height: 16,
                             width: format.width - 10,
                             child: pw.BarcodeWidget(
                               color: PdfColor.fromHex("#0000001A"),
@@ -5392,6 +5392,13 @@ class PDFGenerator {
                             imagesBuffer[key].barcodeValue,
                             style: pw.TextStyle(
                               fontSize: 4,
+                              color: PdfColor.fromHex("#0000001A"),
+                            ),
+                          ),
+                          pw.Text(
+                            "${imagesBuffer[key].retail}-${imagesBuffer[key].wholesale}",
+                            style: pw.TextStyle(
+                              fontSize: 6,
                               color: PdfColor.fromHex("#0000001A"),
                             ),
                           ),

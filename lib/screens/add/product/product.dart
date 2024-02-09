@@ -12,6 +12,7 @@ import 'package:annai_store/enum/keyboard.dart';
 import 'package:annai_store/enum/product.dart';
 import 'package:annai_store/enum/sort/product.dart';
 import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
+import 'package:annai_store/features/barcode_printer/screens/widgets/barcode.dart';
 import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/company/company.dart';
 import 'package:annai_store/models/product/product.dart';
@@ -1249,6 +1250,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ),
                     ),
                   ),
+                const Align(
+                  alignment: Alignment.topRight,
+                  child: BarcodePrinterWidget(),
+                ),
               ],
             );
           },
@@ -1582,7 +1587,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     required double wholeSalePrice,
   }) {
     final ScreenshotController screenshotController = ScreenshotController();
-    final barcodeValue = "${e.productNumber}/$unitQty-${formalName ?? ''}";
+    final barcodeValue = "${e.productNumber}";
     return Column(
       children: [
         CustomText(
@@ -1644,6 +1649,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       null,
                       mrp,
                       barcodeValue,
+                      retailPrice,
+                      wholeSalePrice,
                     ),
                     1,
                   );

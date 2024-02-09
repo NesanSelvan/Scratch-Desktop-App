@@ -1,11 +1,9 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:annai_store/controller/billing/sales/sales.dart';
 import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
 import 'package:annai_store/utils/pdf/pdf.dart';
 import 'package:annai_store/utils/snackbar/snackbar.dart';
-
 import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
@@ -185,7 +183,7 @@ class PrinterUtility {
 
         final reqImg = allData.sublist(start, lastImg);
 
-        final barcodePdfFormat = PdfPageFormat(
+        const barcodePdfFormat = PdfPageFormat(
           2.5 * PdfPageFormat.cm * 4,
           2 * PdfPageFormat.cm,
         );

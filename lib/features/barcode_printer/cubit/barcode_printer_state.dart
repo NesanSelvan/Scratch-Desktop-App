@@ -6,11 +6,15 @@ class BarcodeAndPrice {
   final Uint8List? barcodeBuffer;
   final String barcodeValue;
   final double amount;
+  final double retail;
+  final double wholesale;
 
   BarcodeAndPrice(
     this.barcodeBuffer,
     this.amount,
     this.barcodeValue,
+    this.retail,
+    this.wholesale,
   );
 }
 

@@ -11,17 +11,17 @@ class BarcodePrinterWidget extends StatelessWidget {
   final double _barcodeWidth = 155;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: _barcodeWidth * 4 + 6,
-      // height: MediaQuery.of(context).size.width * 0.3,
-      margin: const EdgeInsets.all(10),
-      color: Colors.white,
-      child: Stack(
-        children: [
-          BlocConsumer<BarcodePrinterCubit, BarcodePrinterState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              return SingleChildScrollView(
+    return BlocBuilder<BarcodePrinterCubit, BarcodePrinterState>(
+      builder: (context, state) {
+        if (state.barcodeImages.isEmpty) return const SizedBox();
+        return Container(
+          width: _barcodeWidth * 4 + 6,
+          height: MediaQuery.of(context).size.width * 0.3,
+          margin: const EdgeInsets.all(10),
+          color: Colors.white,
+          child: Stack(
+            children: [
+              SingleChildScrollView(
                 child: Wrap(
                   children: [
                     ...state.barcodeImages
@@ -69,8 +69,9 @@ class BarcodePrinterWidget extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    Text(
+                                      "${e.retail}-${e.wholesale}",
+                                      style: const TextStyle(),
                                     ),
                                     Text(
                                       "${Constants.ruppeeSymbol} ${e.amount ?? 0}",
@@ -87,25 +88,25 @@ class BarcodePrinterWidget extends StatelessWidget {
                         .values,
                   ],
                 ),
-              );
-            },
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: CustomTextButton(
+                  "Print",
+                  backgoundColor: Colors.green[400],
+                  textColor: Colors.white,
+                  onPressed: () {
+                    PrinterUtility.barcodePrint(
+                      context.read<BarcodePrinterCubit>().state.barcodeImages,
+                      context,
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: CustomTextButton(
-              "Print",
-              backgoundColor: Colors.green[400],
-              textColor: Colors.white,
-              onPressed: () {
-                PrinterUtility.barcodePrint(
-                  context.read<BarcodePrinterCubit>().state.barcodeImages,
-                  context,
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
