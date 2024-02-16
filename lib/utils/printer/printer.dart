@@ -147,6 +147,66 @@ class PrinterUtility {
     }
   }
 
+  static Future viewBarcodePrint(
+    List<BarcodeAndPrice> allData,
+    BuildContext context,
+  ) async {
+    final printersList = await Printing.listPrinters();
+
+    final count = (allData.length / 4).ceil();
+    // final height = barcodePdfFormat.height * count;
+    // final pdfFormat = PdfPageFormat(barcodePdfFormat.width, height);
+    for (var i = 0; i < count; i++) {
+      int lastImg = (i + 1) * 4;
+      if (allData.length < lastImg) {
+        lastImg = allData.length;
+      }
+      int start = i;
+
+      start = i * 4;
+
+      final reqImg = allData.sublist(start, lastImg);
+
+      const barcodePdfFormat = PdfPageFormat(
+        2.5 * PdfPageFormat.cm * 4,
+        2 * PdfPageFormat.cm,
+      );
+      final pdfData = await PDFGenerator.generateBarcodePdf(
+        barcodePdfFormat,
+        reqImg,
+      );
+      final path = await PDFGenerator.getPDFFilePath(count: i);
+      final file = File(path);
+      try {
+        file.writeAsBytesSync(pdfData);
+        PDFGenerator.openPdf(file.path);
+      } catch (e) {
+        rethrow;
+      }
+    }
+
+    // if (val) {
+    //   CustomUtilies.customSuccessSnackBar("Success", "Printed Successfully");
+    // } else {
+    //   CustomUtilies.customFailureSnackBar(
+    //     "Error",
+    //     "Something went wrong in printing",
+    //   );
+    // }
+    // }
+    // final val = await PDFGenerator.generateBarcodePdf(
+    //     PdfPageFormat(101.6 * PdfPageFormat.mm, 20 * PdfPageFormat.mm),
+    //     allData);
+    // final path = await PDFGenerator.getPDFFilePath();
+    // final file = File(path);
+    // try {
+    //   file.writeAsBytesSync(pdfData!);
+    //   PDFGenerator.openPdf(file.path);
+    // } catch (e) {
+    //   rethrow;
+    // }
+  }
+
   static Future barcodePrint(
     List<BarcodeAndPrice> allData,
     BuildContext context,

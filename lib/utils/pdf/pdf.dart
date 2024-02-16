@@ -5356,11 +5356,10 @@ class PDFGenerator {
                     key,
                     pw.Container(
                       width: format.width,
-                      margin: const pw.EdgeInsets.only(left: 8, right: 2),
+                      margin: const pw.EdgeInsets.only(left: 10, right: 2),
                       child: pw.Column(
                         children: [
                           pw.Container(
-                            // color: PdfColor.fromHex("#FF0000"),
                             margin: const pw.EdgeInsets.only(top: 2, bottom: 2),
                             child: pw.Container(
                               alignment: pw.Alignment.center,
@@ -5373,8 +5372,6 @@ class PDFGenerator {
                               ),
                             ),
                           ),
-
-                          // pw.Image(e),
                           pw.Container(
                             height: 16,
                             width: format.width - 10,
@@ -5395,22 +5392,49 @@ class PDFGenerator {
                               color: PdfColor.fromHex("#0000001A"),
                             ),
                           ),
-                          pw.Text(
-                            "${imagesBuffer[key].retail}-${imagesBuffer[key].wholesale}",
-                            style: pw.TextStyle(
-                              fontSize: 6,
-                              color: PdfColor.fromHex("#0000001A"),
-                            ),
-                          ),
                           pw.SizedBox(height: 2),
-                          pw.Text(
-                            "Rs. ${imagesBuffer[key].amount}",
-                            style: pw.TextStyle(
-                              fontSize: 8,
-                              color: PdfColor.fromHex("#0000001A"),
-                              // fontWeight: pw.FontWeight.bold,
+                          if (imagesBuffer[key].barcodeType ==
+                              BarcodeType.singleProduct)
+                            pw.Text(
+                              "Rs. ${imagesBuffer[key].amount}",
+                              style: pw.TextStyle(
+                                fontSize: 8,
+                                color: PdfColor.fromHex("#0000001A"),
+                                // fontWeight: pw.FontWeight.bold,
+                              ),
+                            )
+                          else
+                            pw.Row(
+                              mainAxisAlignment:
+                                  pw.MainAxisAlignment.spaceBetween,
+                              children: imagesBuffer[key]
+                                  .prices
+                                  .map(
+                                    (e) => pw.Column(
+                                      crossAxisAlignment:
+                                          pw.CrossAxisAlignment.start,
+                                      children: [
+                                        pw.Text(
+                                          "${e.unitModel.formalName}",
+                                          style: pw.TextStyle(
+                                            fontSize: 6,
+                                            color:
+                                                PdfColor.fromHex("#0000001A"),
+                                          ),
+                                        ),
+                                        pw.Text(
+                                          "Rs. ${e.mrp}",
+                                          style: pw.TextStyle(
+                                            fontSize: 6,
+                                            color:
+                                                PdfColor.fromHex("#0000001A"),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                  .toList(),
                             ),
-                          ),
                         ],
                       ),
                     ),

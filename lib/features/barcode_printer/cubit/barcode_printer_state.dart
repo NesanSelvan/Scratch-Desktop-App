@@ -2,12 +2,19 @@
 
 part of 'barcode_printer_cubit.dart';
 
+enum BarcodeType {
+  singleProduct,
+  barcodeByUnitMode,
+}
+
 class BarcodeAndPrice {
   final Uint8List? barcodeBuffer;
   final String barcodeValue;
   final double amount;
   final double retail;
   final double wholesale;
+  final BarcodeType barcodeType;
+  final List<PriceModel> prices;
 
   BarcodeAndPrice(
     this.barcodeBuffer,
@@ -15,7 +22,9 @@ class BarcodeAndPrice {
     this.barcodeValue,
     this.retail,
     this.wholesale,
-  );
+    this.barcodeType, {
+    this.prices = const [],
+  });
 }
 
 class BarcodePrinterState {

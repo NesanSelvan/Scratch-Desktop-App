@@ -1,4 +1,3 @@
-import 'package:annai_store/core/constants/constants.dart';
 import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit.dart';
 import 'package:annai_store/utils/printer/printer.dart';
 import 'package:annai_store/widgets/cusom_text.dart';
@@ -69,16 +68,16 @@ class BarcodePrinterWidget extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    Text(
-                                      "${e.retail}-${e.wholesale}",
-                                      style: const TextStyle(),
-                                    ),
-                                    Text(
-                                      "${Constants.ruppeeSymbol} ${e.amount ?? 0}",
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+                                    // Text(
+                                    //   "${e.retail}-${e.wholesale}",
+                                    //   style: const TextStyle(),
+                                    // ),
+                                    // Text(
+                                    //   "${Constants.ruppeeSymbol} ${e.amount ?? 0}",
+                                    //   style: const TextStyle(
+                                    //     fontWeight: FontWeight.bold,
+                                    //   ),
+                                    // ),
                                   ],
                                 );
                               },
@@ -91,16 +90,41 @@ class BarcodePrinterWidget extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: CustomTextButton(
-                  "Print",
-                  backgoundColor: Colors.green[400],
-                  textColor: Colors.white,
-                  onPressed: () {
-                    PrinterUtility.barcodePrint(
-                      context.read<BarcodePrinterCubit>().state.barcodeImages,
-                      context,
-                    );
-                  },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomTextButton(
+                      "Print",
+                      backgoundColor: Colors.green[400],
+                      textColor: Colors.white,
+                      onPressed: () {
+                        PrinterUtility.barcodePrint(
+                          context
+                              .read<BarcodePrinterCubit>()
+                              .state
+                              .barcodeImages,
+                          context,
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    CustomTextButton(
+                      "View",
+                      backgoundColor: Colors.blue[400],
+                      textColor: Colors.white,
+                      onPressed: () {
+                        PrinterUtility.viewBarcodePrint(
+                          context
+                              .read<BarcodePrinterCubit>()
+                              .state
+                              .barcodeImages,
+                          context,
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],

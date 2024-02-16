@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -15,6 +16,7 @@ import 'package:annai_store/features/barcode_printer/cubit/barcode_printer_cubit
 import 'package:annai_store/features/barcode_printer/screens/widgets/barcode.dart';
 import 'package:annai_store/models/category/category.dart';
 import 'package:annai_store/models/company/company.dart';
+import 'package:annai_store/models/price/price.dart';
 import 'package:annai_store/models/product/product.dart';
 import 'package:annai_store/models/unit/unit.dart';
 import 'package:annai_store/screens/viewer/image_viewer.dart';
@@ -1503,6 +1505,99 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ),
           ),
         ),
+        Builder(
+          builder: (context) {
+            final ScreenshotController screenshotController =
+                ScreenshotController();
+            final barcodeValue = "${e.productNumber}";
+            return Column(
+              children: [
+                const CustomText("Pairav Products"),
+                Screenshot(
+                  controller: screenshotController,
+                  child: Container(
+                    width: 240,
+                    height: 60,
+                    child: SfBarcodeGenerator(
+                      value: barcodeValue,
+                      showValue: true,
+                      textStyle: const TextStyle(
+                        fontSize: 10,
+                      ),
+                      barColor: const Color(0xFF000000).withOpacity(0.8),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          "${Database.instance.getUnitModelById(e.unitId)?.symbol} (${Database.instance.getUnitModelById(e.unitId)?.formalName}",
+                        ),
+                        Text("${double.parse(
+                          BasicCalculation.calculateTax(
+                            categoryDB.getCategoryModelById(e.categoryId).tax,
+                            e.sellingPrice,
+                          ).toStringAsFixed(2),
+                        )}"),
+                      ],
+                    ),
+                    ...(e.differentPriceList ?? []).map(
+                      (f) => Column(
+                        children: [
+                          Text(
+                            "${f.unitModel.symbol} (${f.unitModel.formalName ?? '-'})",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Center(
+                  child: CustomTextButton(
+                    "Add",
+                    onPressed: () async {
+                      if (Database.instance.getUnitModelById(e.unitId) !=
+                          null) {
+                        final data = BarcodeAndPrice(
+                          null,
+                          0,
+                          barcodeValue,
+                          0,
+                          0,
+                          BarcodeType.barcodeByUnitMode,
+                          prices: [
+                            ...e.differentPriceList ?? [],
+                            PriceModel(
+                              id: "id",
+                              unitModel:
+                                  Database.instance.getUnitModelById(e.unitId)!,
+                              mrp: e.sellingPrice,
+                              unitQty: 1,
+                              retail: e.retail,
+                              wholesale: e.wholesale,
+                              createdAt: e.createdAt,
+                            ),
+                          ],
+                        );
+                        log("data: ${data.prices.length}");
+                        context.read<BarcodePrinterCubit>().addImages(
+                              data,
+                              1,
+                            );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
         const CustomText("Images"),
         if ((e.imagesList ?? []).isEmpty)
           const CustomText("No Saved Images to display")
@@ -1651,6 +1746,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       barcodeValue,
                       retailPrice,
                       wholeSalePrice,
+                      BarcodeType.singleProduct,
                     ),
                     1,
                   );
